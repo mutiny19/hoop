@@ -282,11 +282,11 @@
     { id: "gmrs", name: "GMRS", tagline: "Thirty-five dollars, no exam, and a repeater on a hill: the quickest legal way to talk across a county.", meta: "$35 license, no exam · Voice", status: "Quick reference · reviewed 2026-10-15",
       note: "The calling channel and tone are community conventions, not FCC rules.",
       rows: [["Calling / travel", "Ch 20 · 141.3 Hz"], ["Repeater channels", "15 to 22"], ["Station ID", "Every 15 min and at the end"]],
-      links: [["FCC: GMRS and licensing", "fcc.gov", "https://www.fcc.gov/general-mobile-radio-service-gmrs"], ["The rules", "47 CFR Part 95, Subpart E", "https://www.ecfr.gov/current/title-47/chapter-I/subchapter-D/part-95/subpart-E"], ["Repeater directory", "myGMRS", "https://mygmrs.com"], ["Indianapolis metro net card", "PDF, nets and channels for a handheld", "resources/indy-metro-net-card.pdf"]] },
+      links: [["Indy metro channel & net card", "Printable PDF: nets, channels, settings for a handheld", "resources/indy-metro-net-card.pdf"], ["FCC: GMRS and licensing", "fcc.gov", "https://www.fcc.gov/general-mobile-radio-service-gmrs"], ["The rules", "47 CFR Part 95, Subpart E", "https://www.ecfr.gov/current/title-47/chapter-I/subchapter-D/part-95/subpart-E"], ["Repeater directory", "myGMRS", "https://mygmrs.com"]] },
     { id: "ham", name: "Ham radio", tagline: "One exam opens VHF, UHF, satellites, and every net on the card; two more open the planet.", meta: "FCC exam · Voice, data", status: "Links only",
       note: "National calling frequencies. Local practice comes from Indiana clubs.",
       rows: [["2 m simplex calling", "146.520 MHz"], ["70 cm simplex calling", "446.000 MHz"], ["Repeater coordination", "Indiana Repeater Council"], ["Emergency service", "ARES, ARRL Indiana Section"]],
-      links: [["ARRL: getting licensed", "arrl.org", "https://www.arrl.org/getting-licensed"], ["Find an Indiana club", "ARRL club search", "https://www.arrl.org/find-a-club"], ["ARRL Indiana Section", "arrl.org", "https://www.arrl.org/sections/view/indiana"], ["Repeater directory", "RepeaterBook", "https://www.repeaterbook.com"], ["Indianapolis metro net card", "PDF, nets and channels for a handheld", "resources/indy-metro-net-card.pdf"]] },
+      links: [["Indy metro channel & net card", "Printable PDF: nets, channels, settings for a handheld", "resources/indy-metro-net-card.pdf"], ["ARRL: getting licensed", "arrl.org", "https://www.arrl.org/getting-licensed"], ["Find an Indiana club", "ARRL club search", "https://www.arrl.org/find-a-club"], ["ARRL Indiana Section", "arrl.org", "https://www.arrl.org/sections/view/indiana"], ["Repeater directory", "RepeaterBook", "https://www.repeaterbook.com"]] },
     { id: "meshcore", name: "MeshCore", tagline: "Texts that hop repeater to repeater with no carrier, no account, no bill. The repeaters are the network.", meta: "No license · Text · 915 MHz", status: "Radio: official MeshCore {PN} preset · reviewed 2026-10-19",
       views: {
         companion: {
@@ -295,7 +295,7 @@
           rows: [
             ["Firmware", "Companion (Bluetooth), from the web flasher"],
             ["Radio preset", "{PN}: {R}"],
-            ["Region / scope", "Nothing to set for a companion"],
+            ["Region / scope", "Rarely used; ask your local group before setting one"],
             ["Channels", "Public is built in. Add:", null, ["#porchlight", "#emergency", "#meshcore", "#skywarn", "#weather", "#wx", "#test"]],
             ["Regional channels", "One per metro, named by airport code (#nwi for the Region):", null, ["#ind", "#fwa", "#sbn", "#evv", "#laf", "#bmg", "#huf", "#mie", "#nwi", "#sdf", "#cvg"]],
             ["First thing to send", "A flood advert, so people and repeaters learn about you"]
