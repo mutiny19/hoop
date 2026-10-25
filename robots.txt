@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /advanced/
+
+Sitemap: https://mutiny19.github.io/hoop/sitemap.xml
