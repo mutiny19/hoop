@@ -6,7 +6,7 @@ site is built and the rules that are not negotiable.
 ## What it is
 
 A static GitHub Pages site (no build step, no framework) for off-grid communications in Indiana.
-It is a pivot point, not an authority, and it represents no network, collective, or organization: it
+It is a pivot point, not a document repository and not an authority (where an official source exists, that source is the authority), and it represents no network, collective, or organization: it
 exists to soften the onboarding of newcomers and the landing of advanced users, links to each protocol's
 official docs and to each group's own pages, and only publishes Indiana-specific suggestions as proposals.
 

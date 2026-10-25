@@ -1,6 +1,6 @@
 # HOOP: Hoosier Off-Grid Open Playbook
 
-*Represents no network, collective, or organization. It exists to soften the onboarding of newcomers and the landing of advanced users, then point them on; Indiana people talk on the [Indiana Mesh](https://discord.gg/2uwyceSF37) Discord. Work in progress; plays to consider, not rules.*
+*Represents no network, collective, or organization. It exists to soften the onboarding of newcomers and the landing of advanced users, then point them on; Indiana people talk on the [Indiana Mesh](https://discord.gg/2uwyceSF37) Discord. Not a document repository: where an official source exists, that source is the authority and this site links to it. Work in progress; plays to consider, not rules.*
 
 Quick-glance settings for off-grid communications in Indiana (MeshCore, Meshtastic, GMRS, ham radio, Reticulum) and links to each
 protocol's official home.
