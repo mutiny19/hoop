@@ -195,8 +195,8 @@
       var key = n.name + "|" + o.start.toISOString(), pick = !!n.site || n.scope === "statewide";
       return '<div class="net' + (pick ? " pick" : "") + (key === netSel ? " sel" : "") + '"' +
         (pick ? ' role="button" tabindex="0" aria-pressed="' + (key === netSel) + '" data-key="' + esc(key) + '" title="' + (n.scope === "statewide" ? esc(n.note || "Open to all across Indiana") : "Show the repeater and its rough reach on the map") + '"' : ' title="No single repeater (network, app, HF or simplex)"') +
-        "><span><b>" + esc(n.name) + (n.unverified ? " *" : "") + "</b><small>" + esc(n.type + " · " + n.freq + " · " + n.access + (n.minutes ? " · " + n.minutes + " min" : "")) + (n.checkin ? "<br>Check in: " + esc(n.checkin) : "") + (n.brief ? "<br>" + esc(n.brief) : "") +
-        '</small></span><span class="st" style="color:' + color + '">' + st + "</span></div>";
+        "><div class=\"hd\"><b>" + esc(n.name) + (n.unverified ? " *" : "") + "</b><span class=\"st\" style=\"color:" + color + "\">" + st + "</span></div><small>" + esc((n.freq.indexOf(n.type) >= 0 ? "" : n.type + " · ") + n.freq + " · " + n.access + (n.minutes ? " · " + n.minutes + " min" : "")) + (n.checkin ? "<br>Check in: " + esc(n.checkin) : "") + (n.brief ? "<br>" + esc(n.brief) : "") +
+        '</small></div>';
     }).join("") || '<div class="empty">No nets on the schedule this week.</div>';
     if (focusKey) { var f = $("netlist").querySelector('[data-key="' + focusKey.replace(/"/g, '\\"') + '"]'); if (f) f.focus(); }
     netShown = {}; shown.forEach(function (o) { netShown[o.net.name + "|" + o.start.toISOString()] = o; });

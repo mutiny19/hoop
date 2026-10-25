@@ -104,9 +104,10 @@ p { margin: 0; }
 .prop .r span:last-child { font-family: var(--mono); color: #66D9E8; text-align: right; }
 .prop .n { font-size: 12px; color: var(--map-dim); }
 .netlist { display: grid; gap: 8px; }
-.net { display: flex; justify-content: space-between; align-items: center; gap: 10px; background: #111C33; border: 1px solid var(--map-line); border-radius: 8px; padding: 10px 12px; }
+.net { display: block; background: #111C33; border: 1px solid var(--map-line); border-radius: 8px; padding: 10px 12px; }
+.net .hd { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
 .net b { display: block; font-size: 14px; font-weight: 600; }
-.net small { font: 400 12px/1.4 var(--mono); color: var(--map-muted); }
+.net small { display: block; margin-top: 2px; font: 400 12px/1.4 var(--mono); color: var(--map-muted); }
 .net .st { font: 500 13px/1 var(--mono); white-space: nowrap; }
 .net.pick { cursor: pointer; }
 .net.pick:hover, .net.pick:focus-visible { border-color: #B197FC; outline: none; }
@@ -521,7 +522,7 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
 </div></footer>
 
 <script src="assets/nets.js"></script>
-<script src="assets/home.js?v=20261025k"></script>
+<script src="assets/home.js?v=20261025l"></script>
 <script src="assets/chirps.js?v=20261025c"></script>
 <script src="assets/site.js"></script>
 </body>
