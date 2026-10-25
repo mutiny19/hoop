@@ -287,7 +287,7 @@
       note: "National calling frequencies. Local practice comes from Indiana clubs.",
       rows: [["2 m simplex calling", "146.520 MHz"], ["70 cm simplex calling", "446.000 MHz"], ["Repeater coordination", "Indiana Repeater Council"], ["Emergency service", "ARES, ARRL Indiana Section"]],
       links: [["Indy metro channel & net card", "Printable PDF: nets, channels, settings for a handheld", "resources/indy-metro-net-card.pdf"], ["ARRL: getting licensed", "arrl.org", "https://www.arrl.org/getting-licensed"], ["Find an Indiana club", "ARRL club search", "https://www.arrl.org/find-a-club"], ["ARRL Indiana Section", "arrl.org", "https://www.arrl.org/sections/view/indiana"], ["Repeater directory", "RepeaterBook", "https://www.repeaterbook.com"]] },
-    { id: "meshcore", name: "MeshCore", tagline: "Texts that hop repeater to repeater with no carrier, no account, no bill. The repeaters are the network.", meta: "No license · Text · 915 MHz", status: "Radio: official MeshCore {PN} preset · reviewed 2026-10-19",
+    { id: "meshcore", name: "MeshCore", tagline: "Texts that hop repeater to repeater with no carrier, no account, no bill. The repeaters are the network.", meta: "No license · Text · 915 MHz", status: "Radio: official MeshCore {PN} preset · reviewed 2026-10-25",
       views: {
         companion: {
           label: "Companion",
@@ -298,15 +298,15 @@
             ["Path hash size", "2 bytes, on the Optimise screen (Experimental settings on older app versions). Indiana's repeaters already run 2-byte or newer; needs radio firmware 1.14+"],
             ["Region / scope", "Rarely used; ask your local group before setting one"],
             ["Channels", "Public is built in. Add:", null, ["#porchlight", "#emergency", "#meshcore", "#skywarn", "#weather", "#wx", "#test"]],
-            ["Regional channels", "One per metro, named by airport code (#nwi for the Region):", null, ["#ind", "#fwa", "#sbn", "#evv", "#laf", "#bmg", "#huf", "#mie", "#nwi", "#sdf", "#cvg"]],
+            ["Regional channels", "One per metro, named by its airport code; #nwi covers Northwest Indiana, which has no major airport of its own:", null, ["#ind", "#fwa", "#sbn", "#evv", "#laf", "#bmg", "#huf", "#mie", "#nwi", "#sdf", "#cvg"]],
             ["First thing to send", "A flood advert, so people and repeaters learn about you"]
           ]
         },
         repeater: {
           label: "Repeater",
           note: "Radio: MeshCore's official {PN} preset, read live. The other values are a common starting point; the MeshCore CLI reference explains each one, and your local group may differ. Regions: rarely used; ask others in your area whether they use them on repeaters or companions before setting one.",
-          copyAll: "set radio {RC}\nset path.hash.mode 1\nset advert.interval 0\nset flood.advert.interval 47\nregion def us us-in|us us-oh|us us-ky|us us-mi|us us-il\nregion allowf *\nregion save",
-          copyAllNote: "Copy all is for firmware 1.16 and newer. Copy multi.acks and your name separately; edit the name first.",
+          copyAll: "set radio {RC}\nset path.hash.mode 1\nset advert.interval 0\nset flood.advert.interval 47",
+          copyAllNote: "Copy all is for firmware 1.16 and newer; it sets no region, matching the advice above. Copy multi.acks and your name separately; edit the name first. Regions are opt-in \u2014 use an alternative below only once you\u2019ve checked with your area.",
           alts: [
             ["Radio on openHop", "Spaces instead of commas, then restart openHop.", "set radio {RS}"],
             ["Path hash mode", "Firmware 1.14 or newer. Older firmware doesn't have this setting; leave it."],
