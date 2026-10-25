@@ -141,6 +141,13 @@ body > :not(.bg-stage) { position: relative; z-index: 1; }
 .sec-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 12px; margin-bottom: 18px; }
 .sec-head h2 { font-size: 32px; font-weight: 800; }
 .sec-head p { color: var(--muted); margin-top: 6px; }
+.net-card-box { display: flex; gap: 18px; align-items: center; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px; margin-bottom: 20px; }
+.net-card-box img { width: 108px; height: auto; border-radius: 6px; border: 1px solid var(--line); flex: none; }
+.net-card-box .nc-body { min-width: 0; }
+.net-card-box h3 { font-size: 16px; font-weight: 700; margin-bottom: 3px; }
+.net-card-box p { color: var(--muted); font-size: 14px; margin-bottom: 8px; }
+.net-card-box a.btn { font-size: 13px; padding: 8px 14px; min-height: 36px; }
+@media (max-width: 560px) { .net-card-box { flex-direction: column; align-items: flex-start; } .net-card-box img { width: 100%; max-width: 220px; } }
 .ghost { background: transparent; color: var(--fg); border: 2px solid var(--line); }
 .acc { display: grid; gap: 10px; }
 .proto { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
@@ -416,6 +423,14 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
 <section id="protocols" class="wrap settings" aria-labelledby="set-h">
   <div class="sec-head">
     <div><h2 id="set-h">Settings people use in Indiana</h2><p>A starting point, not a standard; your local group may differ. For how it works, follow the official links. <strong>First radio?</strong> Follow the <a href="meshcore/">five steps</a> first, then come back here.</p></div>
+    <div class="net-card-box">
+      <a href="resources/indy-metro-net-card.pdf" target="_blank" rel="noopener"><img src="assets/net-card-thumb.png" alt="Indianapolis metro channel and net reference card, page 1 of 4" width="480" height="371" loading="lazy"></a>
+      <div class="nc-body">
+        <h3>Indianapolis metro channel &amp; net card</h3>
+        <p>One printable PDF: the weekly net schedule, GMRS and ham channels, antenna lengths, and known-good radio settings for a handheld. Four pages, built for the glovebox.</p>
+        <a class="btn ghost" href="resources/indy-metro-net-card.pdf" target="_blank" rel="noopener">Open the PDF &#8599;</a>
+      </div>
+    </div>
     <button type="button" class="btn ghost" id="toggleAll">Expand all</button>
   </div>
   <div class="acc" id="acc"></div>
