@@ -295,6 +295,7 @@
           rows: [
             ["Firmware", "Companion (Bluetooth), from the web flasher"],
             ["Radio preset", "{PN}: {R}"],
+            ["Path hash size", "2 bytes, on the Optimise screen (Experimental settings on older app versions). Needs radio firmware 1.14+; if messages vanish, try 1 byte"],
             ["Region / scope", "Rarely used; ask your local group before setting one"],
             ["Channels", "Public is built in. Add:", null, ["#porchlight", "#emergency", "#meshcore", "#skywarn", "#weather", "#wx", "#test"]],
             ["Regional channels", "One per metro, named by airport code (#nwi for the Region):", null, ["#ind", "#fwa", "#sbn", "#evv", "#laf", "#bmg", "#huf", "#mie", "#nwi", "#sdf", "#cvg"]],
