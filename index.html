@@ -30,7 +30,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/site.css?v=20261025e">
+<link rel="stylesheet" href="assets/site.css?v=20261025i">
 <style>
 /* Home: dark map band (map + alerts, dashboard view), then settings accordion, report, support. Built from the
    front-page design (design/front-page.dc.html); simulated parts replaced by live feeds or empty states. */
@@ -240,7 +240,7 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
 .way.alt { background: var(--panel); color: var(--fg); border: 1px dashed var(--line); }
 .way.alt p { color: var(--muted); }
 
-@media (max-width: 860px) {
+@media (max-width: 860px) { .bg-chirps { opacity: .28; } .bg-mesh { opacity: .6; }
   /* Phones: the legend sits under the map instead of over it, and the source badge stays out of the way. */
   .legend { position: static; max-width: none; margin: 0; border-radius: 0; font-size: 12px; line-height: 1.6; }
   .side-toggle { display: block; }
@@ -260,7 +260,7 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
 </head>
 <body>
 <header class="site-head" id="top"><div class="bar">
-  <a class="brand" href="./"><img class="brand-mark" src="assets/mark.svg?v=20261025e" alt="" width="34" height="53"><span class="brand-text">HOOP<small>Hoosier Off-Grid Open Playbook</small></span></a>
+  <a class="brand" href="./"><img class="brand-mark" src="assets/mark.svg?v=20261025e" alt="" width="34" height="53"><img class="brand-mark-sm" src="assets/favicon.svg?v=20261025e" alt="" width="30" height="38"><span class="brand-text">HOOP<small>Hoosier Off-Grid Open Playbook</small></span></a>
   <nav class="site-nav" aria-label="Site">
     <a href="#map">Map</a>
     <button type="button" class="nav-menu" id="navMenu" aria-expanded="false" aria-controls="navMore">Menu</button>
@@ -271,6 +271,7 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
       <a href="#report">Report</a>
       <a href="#support">Support</a>
       <a href="https://github.com/mutiny19/hoop" target="_blank" rel="noopener">GitHub</a>
+      <a class="in-menu" href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Join Indiana Mesh</a>
     </span>
     <a class="cta" href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Join Indiana Mesh</a>
     <a class="go" href="meshcore/">Get on the mesh</a>
