@@ -26,7 +26,7 @@
 <meta name="twitter:description" content="New radio to first MeshCore message in Indiana in five steps: which radio, the USA preset, channels people use, and the groups near you. No license, about $30.">
 <meta name="twitter:image" content="https://mutiny19.github.io/hoop/assets/social.png">
 <meta name="twitter:image:alt" content="HOOP: Hoosier Off-Grid Open Playbook">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "HowTo", "name": "Get on the Indiana mesh with MeshCore", "description": "From a new radio to your first MeshCore message in five steps.", "totalTime": "PT1H", "estimatedCost": {"@type": "MonetaryAmount", "currency": "USD", "value": "30"}, "step": [{"@type": "HowToStep", "name": "Pick a radio", "text": "A SenseCAP T1000-E or a Heltec V3/V4."}, {"@type": "HowToStep", "name": "Flash the companion firmware", "text": "Use the official MeshCore web flasher."}, {"@type": "HowToStep", "name": "Set the USA preset", "text": "The radio preset must match everyone else's."}, {"@type": "HowToStep", "name": "Join the channels people use", "text": "Public is built in; add the hashtag channels for your area."}, {"@type": "HowToStep", "name": "Send a flood advert", "text": "So people and repeaters learn you are there."}], "isPartOf": {"@id": "https://mutiny19.github.io/hoop/#website"}, "dateModified": "2026-10-25"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "HowTo", "name": "Get on the Indiana mesh with MeshCore", "description": "From a new radio to your first MeshCore message in five steps.", "totalTime": "PT1H", "estimatedCost": {"@type": "MonetaryAmount", "currency": "USD", "value": "30"}, "step": [{"@type": "HowToStep", "name": "Pick a radio", "text": "A SenseCAP T1000-E or a Heltec V3/V4."}, {"@type": "HowToStep", "name": "Flash the companion firmware", "text": "Use the official MeshCore web flasher."}, {"@type": "HowToStep", "name": "Set the USA preset and path hash size", "text": "The radio preset must match everyone else's; set path hash size to 2 bytes."}, {"@type": "HowToStep", "name": "Join the channels people use", "text": "Public is built in; add the hashtag channels for your area."}, {"@type": "HowToStep", "name": "Send a flood advert", "text": "So people and repeaters learn you are there."}], "isPartOf": {"@id": "https://mutiny19.github.io/hoop/#website"}, "dateModified": "2026-10-25"}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -181,9 +181,9 @@ details.depth[open] { padding-bottom: 18px; }
     <div class="wip"><strong>Work in progress.</strong> A draft for discussion, not a published standard; names and steps may change.</div>
     <span class="eyebrow">MeshCore · Indiana · Start here</span>
     <h1>Get on the Indiana mesh</h1>
-    <p class="lead">From a new radio to your first message in five steps. You'll hear everything the repeaters around you pass along, with nothing to set up for regions.</p>
-    <div class="chips"><span class="chip">Default: open</span><span class="chip">Hear everything</span><span class="chip">No region setup needed</span></div>
-    <div class="why"><strong>A common starting point: nothing to scope.</strong> Leave every message and channel unscoped and you reach the most contacts, including across state lines. If a channel gets too busy, mute or leave it rather than scoping it. Repeater owners: see the official <a href="https://docs.meshcore.io/" target="_blank" rel="noopener">MeshCore docs</a>.</div>
+    <p class="lead">From a new radio to your first message in five steps. You'll hear everything the repeaters around you pass along. Regions are rarely used; ask people in your area before setting one.</p>
+    <div class="chips"><span class="chip">Default: open</span><span class="chip">Hear everything</span><span class="chip">Regions: ask locally</span></div>
+    <div class="why"><strong>On regions: ask before you set one.</strong> Region usage is rare. Most traffic in Indiana goes out unscoped, which reaches the most contacts, including across state lines. Check with others in your area whether they use regions on their repeaters or companions, and match what they do. If a channel gets too busy, muting or leaving it is simpler than scoping it. Repeater owners: see the official <a href="https://docs.meshcore.io/" target="_blank" rel="noopener">MeshCore docs</a>.</div>
   </header>
 
   <section aria-labelledby="start-h">
@@ -213,7 +213,8 @@ details.depth[open] { padding-bottom: 18px; }
           <div><span>Coding rate</span><b id="pc">CR5</b></div>
         </div>
         <p class="warn">New radios often ship on the European 869 MHz setting. Always check this step.</p>
-        <p class="note">Why these numbers: <a href="https://docs.meshcore.io/faq/#23-q-what-frequencies-are-supported-by-meshcore" target="_blank" rel="noopener">supported frequencies</a> in the MeshCore FAQ.</p>
+        <p>Then set <strong>Path hash size</strong> to <strong id="ph">2 bytes</strong>. In the app it lives under the Optimise screen on recent versions, or Experimental settings on older ones. It needs firmware 1.14 or newer on the radio; repeaters on older firmware drop 2-byte packets, so if your messages go nowhere, try 1 byte and ask locally what the repeaters near you run.</p>
+        <p class="note">Why these numbers: <a href="https://docs.meshcore.io/faq/#23-q-what-frequencies-are-supported-by-meshcore" target="_blank" rel="noopener">supported frequencies</a> in the MeshCore FAQ; path hash size is explained in the <a href="https://blog.meshcore.io/2026/03/06/path-diagnostics-improvements" target="_blank" rel="noopener">MeshCore 1.14 release notes</a>.</p>
       </div></div>
       <div class="step"><div>
         <h3>Say hello</h3>
@@ -237,15 +238,16 @@ details.depth[open] { padding-bottom: 18px; }
 <li><strong>Flood advert</strong><span>A hello sent to everyone in range, so people and repeaters add you to their lists.</span></li>
 <li><strong>Channel</strong><span>A group chat. Public is built in; hashtag channels like <code>#test</code> are open to anyone who adds the name.</span></li>
 <li><strong>Preset</strong><span>The radio settings (frequency, bandwidth, SF, CR) everyone in a region shares. Radios on different presets can't hear each other.</span></li>
-<li><strong>Region / scope</strong><span>Optional tags repeater owners set so some traffic stays local. Companions in Indiana leave this alone.</span></li>
+<li><strong>Region / scope</strong><span>Optional tags repeater owners set so some traffic stays local. Rarely used; ask your local group whether they use them before setting one.</span></li>
+<li><strong>Path hash size</strong><span>How many bytes identify each hop in a message's path. 2 bytes names hops more accurately; it needs firmware 1.14 or newer on every repeater along the way.</span></li>
 <li><strong>Heard repeats</strong><span>The app's sign that a repeater picked up your message.</span></li>
 </ul>
 </details>
 <section aria-labelledby="hear-h">
     <h2 id="hear-h">Hear everything around you</h2>
     <div class="hear">
-      <div class="panel"><h3>Leave scope off</h3>
-        <p>Don't set a region or default scope in the app. Unscoped messages go out to everyone, and you still receive everything that reaches you.</p></div>
+      <div class="panel"><h3>Regions: rare, so ask</h3>
+        <p>Most people leave region and default scope unset; unscoped messages go out to everyone, and you still receive everything that reaches you. If the people near you do use regions on their repeaters or companions, match them.</p></div>
       <div class="panel"><h3>Join the channels people use</h3>
         <p>Public is there from the start. Add hashtag channels like <code>#test</code>, <code>#hamradio</code> or <code>#wardriving</code>. In <code>#porchlight</code>, people share the names of channels worth joining.</p></div>
       <div class="panel"><h3>Get some height</h3>
@@ -257,7 +259,7 @@ details.depth[open] { padding-bottom: 18px; }
         <p>Nothing extra to set. Ohio, Kentucky, Michigan and Illinois use the same radio settings as Indiana, so you hear repeaters on both sides.</p>
       </div>
       <ul>
-        <li>Keep scope off, so people across the line hear you and their replies reach you.</li>
+        <li>Unscoped messages are what people across the line hear, and what their replies ride back on.</li>
         <li>Join the group on the other side too: their channels and people are part of your local mesh.</li>
         <li>A scoped message stops at the first repeater without its tag. Unscoped is what crosses borders.</li>
       </ul>

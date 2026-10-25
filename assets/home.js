@@ -303,7 +303,7 @@
         },
         repeater: {
           label: "Repeater",
-          note: "Radio: MeshCore's official {PN} preset, read live. The other values are a common starting point; the MeshCore CLI reference explains each one, and your local group may differ. Regions: nothing required for a companion.",
+          note: "Radio: MeshCore's official {PN} preset, read live. The other values are a common starting point; the MeshCore CLI reference explains each one, and your local group may differ. Regions: rarely used; ask others in your area whether they use them on repeaters or companions before setting one.",
           copyAll: "set radio {RC}\nset path.hash.mode 1\nset advert.interval 0\nset flood.advert.interval 47\nregion def us us-in|us us-oh|us us-ky|us us-mi|us us-il\nregion allowf *\nregion save",
           copyAllNote: "Copy all is for firmware 1.16 and newer. Copy multi.acks and your name separately; edit the name first.",
           alts: [
