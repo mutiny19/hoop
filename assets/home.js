@@ -344,7 +344,7 @@
       rows: [["RNode frequency", "915.000 MHz"], ["Bandwidth", "125 kHz"], ["Spreading factor", "SF9"], ["Coding rate", "CR5"], ["TX power", "Set for your hardware"]],
       links: [["Official site and manual", "reticulum.network", "https://reticulum.network"], ["Source", "markqvist/Reticulum", "https://github.com/markqvist/Reticulum"], ["Sideband app", "markqvist/Sideband", "https://github.com/markqvist/Sideband"], ["Propose a change", "GitHub", "https://github.com/mutiny19/hoop/issues/new?template=settings-change.yml"]] }
   ];
-  var open = { meshcore: true }, view = { meshcore: "companion" }, clips = [];
+  var open = {}, view = { meshcore: "companion" }, clips = [];
   function clip(text) { clips.push(text); return clips.length - 1; }
   var PRESET = { title: "USA", frequency: "910.525", bandwidth: "62.5", spreading_factor: "7", coding_rate: "5" };
   function fillP(s) {
