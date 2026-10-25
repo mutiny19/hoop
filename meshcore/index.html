@@ -213,7 +213,7 @@ details.depth[open] { padding-bottom: 18px; }
           <div><span>Coding rate</span><b id="pc">CR5</b></div>
         </div>
         <p class="warn">New radios often ship on the European 869 MHz setting. Always check this step.</p>
-        <p>Then set <strong>Path hash size</strong> to <strong id="ph">2 bytes</strong>. In the app it lives under the Optimise screen on recent versions, or Experimental settings on older ones. It needs firmware 1.14 or newer on the radio; repeaters on older firmware drop 2-byte packets, so if your messages go nowhere, try 1 byte and ask locally what the repeaters near you run.</p>
+        <p>Then set <strong>Path hash size</strong> to <strong id="ph">2 bytes</strong>. In the app it lives under the Optimise screen on recent versions, or Experimental settings on older ones. It needs firmware 1.14 or newer on your radio; Indiana's repeaters already run 2-byte or newer, so this is just about getting your own device caught up.</p>
         <p class="note">Why these numbers: <a href="https://docs.meshcore.io/faq/#23-q-what-frequencies-are-supported-by-meshcore" target="_blank" rel="noopener">supported frequencies</a> in the MeshCore FAQ; path hash size is explained in the <a href="https://blog.meshcore.io/2026/03/06/path-diagnostics-improvements" target="_blank" rel="noopener">MeshCore 1.14 release notes</a>.</p>
       </div></div>
       <div class="step"><div>
@@ -239,7 +239,7 @@ details.depth[open] { padding-bottom: 18px; }
 <li><strong>Channel</strong><span>A group chat. Public is built in; hashtag channels like <code>#test</code> are open to anyone who adds the name.</span></li>
 <li><strong>Preset</strong><span>The radio settings (frequency, bandwidth, SF, CR) everyone in a region shares. Radios on different presets can't hear each other.</span></li>
 <li><strong>Region / scope</strong><span>Optional tags repeater owners set so some traffic stays local. Rarely used; ask your local group whether they use them before setting one.</span></li>
-<li><strong>Path hash size</strong><span>How many bytes identify each hop in a message's path. 2 bytes names hops more accurately; it needs firmware 1.14 or newer on every repeater along the way.</span></li>
+<li><strong>Path hash size</strong><span>How many bytes identify each hop in a message's path. 2 bytes names hops more accurately; Indiana's repeaters already run 2-byte or newer, it just needs firmware 1.14 or newer on your own radio.</span></li>
 <li><strong>Heard repeats</strong><span>The app's sign that a repeater picked up your message.</span></li>
 </ul>
 </details>
