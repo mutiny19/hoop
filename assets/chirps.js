@@ -1,4 +1,4 @@
-/* Background behind the map band's headline: an SDR waterfall with a sparse mesh constellation over it.
+/* Fixed background behind the whole home page: an SDR waterfall with a sparse mesh constellation over it.
    Modelled on real receiver displays: grainy blue noise floor, carriers as hot vertical columns, wide smears,
    and short bursts that stand in for LoRa packets. Decoration only, nothing here is real traffic.
    Pauses in hidden tabs; draws one still frame under prefers-reduced-motion. */

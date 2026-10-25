@@ -51,10 +51,17 @@ p { margin: 0; }
 .welcome .btn.primary { background: var(--beacon); color: #0F1729; font-weight: 700; white-space: nowrap; }
 
 /* map band */
-.band { background: var(--map-bg); color: var(--map-fg); position: relative; overflow: hidden; }
-.bg-chirps, .bg-mesh { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-.bg-chirps { opacity: .5; -webkit-mask-image: linear-gradient(to bottom, #000 0, #000 45%, transparent 100%); mask-image: linear-gradient(to bottom, #000 0, #000 45%, transparent 100%); }
-.bg-mesh { opacity: .9; -webkit-mask-image: linear-gradient(to bottom, #000 0, #000 40%, transparent 85%); mask-image: linear-gradient(to bottom, #000 0, #000 40%, transparent 85%); }
+/* The waterfall and constellation sit on a fixed stage behind the whole page, so they run on under every section.
+   In the dark theme the band and the report strip go translucent to let it through; in the light theme the band
+   keeps its navy so its light text stays readable. */
+.bg-stage { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+body > :not(.bg-stage) { position: relative; z-index: 1; }
+.bg-chirps, .bg-mesh { position: absolute; inset: 0; width: 100%; height: 100%; }
+.bg-chirps { opacity: .5; }
+.bg-mesh { opacity: .9; }
+.band { background: rgba(15, 23, 41, .92); color: var(--map-fg); position: relative; overflow: hidden; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .band { background: transparent; } }
+:root[data-theme="dark"] .band { background: transparent; }
 .band > .wrap { position: relative; z-index: 1; }
 .band .wrap { padding-block: 28px 40px; }
 .band.dash .wrap { max-width: none; padding-block: 20px 32px; }
@@ -189,9 +196,9 @@ p { margin: 0; }
 .sec-foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 20px; margin-top: 16px; font-size: 14px; color: var(--muted); }
 
 /* report */
-.report { background: #E4E9E6; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .report { background: #0D1526; } }
-:root[data-theme="dark"] .report { background: #0D1526; }
+.report { background: rgba(228, 233, 230, .85); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .report { background: rgba(13, 21, 38, .72); } }
+:root[data-theme="dark"] .report { background: rgba(13, 21, 38, .72); }
 .report .wrap { padding-block: 56px 64px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 32px; align-items: start; }
 .report h2 { font-size: 32px; font-weight: 800; }
 .report .intro { display: grid; gap: 12px; }
@@ -216,7 +223,12 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
 .thanks b { font: 800 22px/1.1 var(--display); }
 
 /* about */
-.about { padding-block: 8px 56px; }
+.about { padding-block: 32px 64px; }
+.about { background: rgba(255, 255, 255, .85); }
+.about { border-radius: 0; }
+.about h2, .about p { max-width: 1200px; margin-inline: auto; padding-inline: 24px; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .about { background: rgba(8, 14, 28, .72); } }
+:root[data-theme="dark"] .about { background: rgba(8, 14, 28, .72); }
 .about h2 { font-size: 24px; font-weight: 800; margin-bottom: 10px; }
 .about p { color: var(--muted); max-width: 80ch; }
 
@@ -260,6 +272,7 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
 </style>
 </head>
 <body>
+<div class="bg-stage" aria-hidden="true"><canvas id="bgChirps" class="bg-chirps"></canvas><canvas id="bgMesh" class="bg-mesh"></canvas></div>
 <header class="site-head" id="top"><div class="bar">
   <a class="brand" href="./"><img class="brand-mark" src="assets/mark.svg?v=20261025e" alt="" width="34" height="53"><img class="brand-mark-sm" src="assets/favicon.svg?v=20261025e" alt="" width="30" height="38"><span class="brand-text">HOOP<small>Hoosier Off-Grid Open Playbook</small></span></a>
   <nav class="site-nav" aria-label="Site">
@@ -282,8 +295,6 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
 <div class="site-notice" role="note"><div class="bar"><b>For consideration only.</b> This site is a signpost, not a document repository and not the authority on anything here; nothing on it is concluded or complete. Where an official source exists, that source is the authority: the projects and groups linked from each page maintain their own work, and where they differ from this site, they win. An open-source mesh belongs to everyone who builds it; respecting that means collaboration, not ownership.</div></div>
 
 <section id="map" class="band" aria-label="Statewide map">
-  <canvas id="bgChirps" class="bg-chirps" aria-hidden="true"></canvas>
-  <canvas id="bgMesh" class="bg-mesh" aria-hidden="true"></canvas>
   <div class="wrap">
     <div class="band-top">
       <div id="hero">
@@ -513,7 +524,7 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
 </section>
 <section id="about" class="wrap about" aria-labelledby="about-h">
   <h2 id="about-h">About this site</h2>
-  <p>HOOP is the Hoosier Off-Grid Open Playbook: plays to consider, not rules, kept open for anyone to improve. It does not represent any network, collective, or organization. It exists to soften the onboarding of newcomers and the landing of advanced users, and then to point them on: the <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Indiana Mesh</a> Discord is where Indiana people talk, and groups like the Central Indiana Mesh Network and NEIMesh are regional communities with their own sites. None of them run or endorse this site. The site is a signpost, not a document repository: it keeps quick-glance settings and links, and points to the projects and groups that maintain each piece. Where an official source exists (a protocol's docs, a group's own site, an agency's page), that source is the authority and this site defers to it. It is informational only and not affiliated with the FCC, the ARRL, any protocol's developers, any agency, or any repeater owner. The soft waterfall and drifting nodes behind the map headline are drawn in the browser; they are decoration, not live traffic, and a nod to the background on <a href="https://rflab.io" target="_blank" rel="noopener">rflab.io</a>. Code and settings are open on <a href="https://github.com/mutiny19/hoop" target="_blank" rel="noopener">GitHub</a>; corrections are welcome by <a href="https://github.com/mutiny19/hoop/issues/new/choose" target="_blank" rel="noopener">issue</a> or on Discord.</p>
+  <p>HOOP is the Hoosier Off-Grid Open Playbook: plays to consider, not rules, kept open for anyone to improve. It does not represent any network, collective, or organization. It exists to soften the onboarding of newcomers and the landing of advanced users, and then to point them on: the <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Indiana Mesh</a> Discord is where Indiana people talk, and groups like the Central Indiana Mesh Network and NEIMesh are regional communities with their own sites. None of them run or endorse this site. The site is a signpost, not a document repository: it keeps quick-glance settings and links, and points to the projects and groups that maintain each piece. Where an official source exists (a protocol's docs, a group's own site, an agency's page), that source is the authority and this site defers to it. It is informational only and not affiliated with the FCC, the ARRL, any protocol's developers, any agency, or any repeater owner. The soft waterfall and drifting nodes behind the page are drawn in the browser; they are decoration, not live traffic, and a nod to the background on <a href="https://rflab.io" target="_blank" rel="noopener">rflab.io</a>. Code and settings are open on <a href="https://github.com/mutiny19/hoop" target="_blank" rel="noopener">GitHub</a>; corrections are welcome by <a href="https://github.com/mutiny19/hoop/issues/new/choose" target="_blank" rel="noopener">issue</a> or on Discord.</p>
 </section>
 </main>
 
@@ -522,8 +533,8 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
 </div></footer>
 
 <script src="assets/nets.js"></script>
-<script src="assets/home.js?v=20261025l"></script>
-<script src="assets/chirps.js?v=20261025c"></script>
+<script src="assets/home.js?v=20261025m"></script>
+<script src="assets/chirps.js?v=20261025d"></script>
 <script src="assets/site.js"></script>
 </body>
 </html>
