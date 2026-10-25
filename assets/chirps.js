@@ -14,7 +14,9 @@
      vertical columns that burn yellow and red at the centre and halo out to cyan, a few wide smears that
      come and go, and short bursts standing in for LoRa packets. 2-pixel bins, painted as image data. */
   if (wfCanvas) (function () {
-    var ctx = wfCanvas.getContext("2d"), W = 0, H = 0, BIN = 2, ROW = 2, N = 0, acc = 0, last = 0;
+    var ctx = wfCanvas.getContext("2d"), W = 0, H = 0, DW = 0, DH = 0, BIN = 2, ROW = 2, DROW = 2, N = 0, acc = 0, last = 0;
+    /* W, H are CSS px; DW, DH, DROW are device px. The canvas is drawn entirely in device px (no transform),
+       because putImageData ignores the transform and would otherwise paint only the left 1/DPR of each row. */
     var SPEED = 22;                                       /* rows per second */
     var DARK = [[3, 6, 22], [8, 28, 110], [18, 78, 200], [40, 160, 230], [110, 230, 210], [250, 232, 90], [255, 125, 40], [255, 50, 40], [255, 250, 240]];
     var LIGHT = [[243, 241, 234], [222, 228, 240], [190, 210, 236], [150, 200, 228], [110, 196, 190], [230, 190, 60], [232, 110, 30], [200, 50, 30], [90, 20, 10]];
@@ -22,12 +24,14 @@
     function pal() { return light() ? LIGHT : DARK; }
     function fit() {
       var r = wfCanvas.getBoundingClientRect(); W = Math.round(r.width); H = Math.round(r.height);
-      wfCanvas.width = Math.floor(W * DPR); wfCanvas.height = Math.floor(H * DPR); ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-      N = Math.ceil(W / BIN); floor = new Float32Array(N); vals = new Float32Array(N); buf = ctx.createImageData(W, 1);
+      DW = wfCanvas.width = Math.floor(W * DPR); DH = wfCanvas.height = Math.floor(H * DPR); DROW = Math.max(1, Math.round(ROW * DPR)); ctx.setTransform(1, 0, 0, 1, 0, 0);
+      N = Math.ceil(W / BIN); floor = new Float32Array(N); vals = new Float32Array(N); buf = ctx.createImageData(DW, 1);
       for (var i = 0; i < N; i++) floor[i] = Math.random();
     }
     function seed() {
-      carriers = []; for (var i = 0; i < 9; i++) carriers.push({ f: Math.random(), w: (0.6 + Math.random() * 1.6) / N, a: 0.45 + Math.random() * 0.55, drift: (Math.random() - 0.5) * 0.00012, flick: Math.random() });
+      /* carrier count follows the width so a phone's narrow band is not wall-to-wall signal */
+      var nc = Math.max(3, Math.min(9, Math.round(W / 140)));
+      carriers = []; for (var i = 0; i < nc; i++) carriers.push({ f: Math.random(), w: (0.6 + Math.random() * 1.6) / N, a: 0.45 + Math.random() * 0.55, drift: (Math.random() - 0.5) * 0.00012, flick: Math.random() });
       smears = []; bursts = [];
     }
     function row() {
@@ -43,7 +47,7 @@
         }
       }
       /* wide smears, like a voice or data signal keying up for a while */
-      if (Math.random() < 0.012 && smears.length < 3) smears.push({ f: Math.random(), w: 0.015 + Math.random() * 0.035, a: 0.25 + Math.random() * 0.35, rows: 40 + Math.floor(Math.random() * 160) });
+      if (Math.random() < 0.012 && smears.length < (W < 700 ? 1 : 3)) smears.push({ f: Math.random(), w: 0.015 + Math.random() * 0.035, a: 0.25 + Math.random() * 0.35, rows: 40 + Math.floor(Math.random() * 160) });
       for (k = smears.length - 1; k >= 0; k--) {
         p = smears[k]; var a2 = p.a * (0.7 + Math.random() * 0.6);
         for (i = 0; i < N; i++) { x = i / N - p.f; if (Math.abs(x) < p.w * 3) vals[i] += a2 * Math.exp(-(x * x) / (2 * p.w * p.w)) * (0.6 + Math.random() * 0.8); }
@@ -54,15 +58,16 @@
       for (k = bursts.length - 1; k >= 0; k--) { p = bursts[k]; for (i = p.b0; i < p.b0 + p.n; i++) vals[i] += p.a * (0.7 + Math.random() * 0.4); if (--p.rows <= 0) bursts.splice(k, 1); }
       /* colour the row */
       var P = pal(), d8 = buf.data, M = P.length - 1;
-      for (x = 0; x < W; x++) {
-        var v = vals[Math.min(N - 1, (x / BIN) | 0)]; v = v < 0 ? 0 : v > 1 ? 1 : v;
+      var BD = BIN * DPR;
+      for (x = 0; x < DW; x++) {
+        var v = vals[Math.min(N - 1, (x / BD) | 0)]; v = v < 0 ? 0 : v > 1 ? 1 : v;
         var t = v * M, j = t | 0, f = t - j, A = P[j], B = P[Math.min(j + 1, M)], o = x * 4;
         d8[o] = A[0] + (B[0] - A[0]) * f; d8[o + 1] = A[1] + (B[1] - A[1]) * f; d8[o + 2] = A[2] + (B[2] - A[2]) * f; d8[o + 3] = 255;
       }
-      ctx.putImageData(buf, 0, 0); if (ROW > 1) ctx.drawImage(wfCanvas, 0, 0, wfCanvas.width, DPR, 0, 1, W, ROW - 1);
+      ctx.putImageData(buf, 0, 0); if (DROW > 1) ctx.drawImage(wfCanvas, 0, 0, DW, 1, 0, 1, DW, DROW - 1);
     }
-    function shift() { ctx.drawImage(wfCanvas, 0, 0, wfCanvas.width, wfCanvas.height, 0, ROW, W, H); }
-    function prefill() { for (var y = 0; y < H; y += ROW) { shift(); row(); } }
+    function shift() { ctx.drawImage(wfCanvas, 0, 0, DW, DH, 0, DROW, DW, DH); }
+    function prefill() { for (var y = 0; y < DH; y += DROW) { shift(); row(); } }
     function frame(now) {
       if (!hidden) {
         var dt = last ? Math.min(0.1, (now - last) / 1000) : 0; last = now; acc += dt * SPEED;

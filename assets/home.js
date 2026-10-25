@@ -147,9 +147,9 @@
       var live0 = o.start <= new Date(), col0 = "#E8590C";
       var st = el("path", { d: "M110 15 L173 35 L245 0 L630 0 L628 665 L613 745 L517 757 L507 815 L440 870 L402 940 L326 890 L249 952 L191 990 L96 960 L29 995 L10 965 L38 865 L96 770 L115 690 L109 602 Z", fill: col0, "fill-opacity": "0.14", stroke: col0, "stroke-width": "4", "stroke-dasharray": live0 ? "none" : "14 10" }, g);
       if (live0) st.setAttribute("class", "pulse");
-      var lines = [n.name + "  ·  " + n.freq, "Open to all, anywhere in Indiana", "Check in with: " + (n.checkin || "")];
-      var w0 = Math.max.apply(null, lines.map(function (t, i) { return t.length * (i ? 9.6 : 10.5); })) + 24, lx0 = 890 - w0, ly0 = -120;
-      el("rect", { x: lx0, y: ly0, width: w0, height: 76, rx: 8, fill: "#080E1C", stroke: col0, "stroke-width": "1.5" }, g);
+      var lines = [n.name + "  ·  " + n.freq + (n.minutes ? "  ·  " + n.minutes + " min" : ""), "Open to all, anywhere in Indiana · stress test of the mesh", "Check in with: " + (n.checkin || ""), "Postponed if weather or another emergency is on the mesh"];
+      var w0 = Math.max.apply(null, lines.map(function (t, i) { return t.length * (i ? 9.6 : 10.5); })) + 24, lx0 = 890 - w0, ly0 = -45;
+      el("rect", { x: lx0, y: ly0, width: w0, height: 98, rx: 8, fill: "#080E1C", stroke: col0, "stroke-width": "1.5" }, g);
       lines.forEach(function (t, i) {
         var tx = el("text", { x: lx0 + 12, y: ly0 + 21 + i * 22, fill: i ? "#B8C2D8" : "#F2F3F7", "font-family": i ? "IBM Plex Mono, monospace" : "Archivo, sans-serif", "font-size": i ? "15" : "18", "font-weight": i ? "400" : "700" }, g); tx.textContent = t;
       });
@@ -183,7 +183,7 @@
     var now = new Date(), len = (netData.default_minutes || 30) * 60000;
     var occ = Nets.occurrences(netData, now, new Date(now.getTime() + 8 * 86400000));
     var pad = function (n) { return String(n).padStart(2, "0"); };
-    var live = occ.filter(function (o) { return o.start <= now && now - o.start < len; });
+    var live = occ.filter(function (o) { return o.start <= now && now - o.start < (o.net.minutes ? o.net.minutes * 60000 : len); });
     var next = occ.filter(function (o) { return o.start > now; });
     var shown = live.concat(next).slice(0, 4);
     var focusKey = document.activeElement && document.activeElement.closest && document.activeElement.closest("#netlist") ? document.activeElement.dataset.key : null;
@@ -195,7 +195,7 @@
       var key = n.name + "|" + o.start.toISOString(), pick = !!n.site || n.scope === "statewide";
       return '<div class="net' + (pick ? " pick" : "") + (key === netSel ? " sel" : "") + '"' +
         (pick ? ' role="button" tabindex="0" aria-pressed="' + (key === netSel) + '" data-key="' + esc(key) + '" title="' + (n.scope === "statewide" ? esc(n.note || "Open to all across Indiana") : "Show the repeater and its rough reach on the map") + '"' : ' title="No single repeater (network, app, HF or simplex)"') +
-        "><span><b>" + esc(n.name) + (n.unverified ? " *" : "") + "</b><small>" + esc(n.type + " · " + n.freq + " · " + n.access) + (n.checkin ? "<br>Check in: " + esc(n.checkin) : "") +
+        "><span><b>" + esc(n.name) + (n.unverified ? " *" : "") + "</b><small>" + esc(n.type + " · " + n.freq + " · " + n.access + (n.minutes ? " · " + n.minutes + " min" : "")) + (n.checkin ? "<br>Check in: " + esc(n.checkin) : "") + (n.brief ? "<br>" + esc(n.brief) : "") +
         '</small></span><span class="st" style="color:' + color + '">' + st + "</span></div>";
     }).join("") || '<div class="empty">No nets on the schedule this week.</div>';
     if (focusKey) { var f = $("netlist").querySelector('[data-key="' + focusKey.replace(/"/g, '\\"') + '"]'); if (f) f.focus(); }
