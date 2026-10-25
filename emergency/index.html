@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script src="../assets/theme.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="How emergency managers, CERT, ARES/RACES, and disaster-assistance groups are using off-grid LoRa mesh radio, with documented examples from New Zealand, Florida, Vermont, Pennsylvania, and North Dakota, what the networks can and cannot do, and why amateur repeater sites make them stronger.">
+<title>Off-Grid Comms for Emergency Management · HOOP</title>
+<link rel="icon" href="../assets/favicon.svg?v=20261025e" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HOOP · Hoosier Off-Grid Open Playbook">
+<meta property="og:title" content="Off-grid mesh for emergency management">
+<meta property="og:description" content="How emergency managers, CERT, ARES/RACES and disaster groups use off-grid LoRa mesh, with cited case studies.">
+<meta property="og:url" content="https://mutiny19.github.io/hoop/emergency/">
+<meta property="og:image" content="https://mutiny19.github.io/hoop/assets/social.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/site.css?v=20261025e">
+<style>
+.site-nav .go { background: var(--beacon); color: #0F1729; font-weight: 700; padding: 11px 16px; border-radius: 6px; }
+.wrap { max-width: 960px; margin: 0 auto; padding: 40px 24px 72px; }
+h1, h2, h3 { font-family: var(--display); margin: 0; line-height: 1.1; text-wrap: balance; }
+.eyebrow { font: 500 12px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--signal); }
+h1 { font-size: clamp(32px, 5vw, 46px); font-weight: 800; margin: 10px 0 14px; }
+.lead { font-size: 19px; color: var(--muted); max-width: 64ch; }
+.meta { font-size: 14px; color: var(--muted); margin-top: 14px; }
+h2 { font-size: 27px; font-weight: 800; margin: 44px 0 12px; }
+h3 { font-size: 19px; font-weight: 700; margin: 24px 0 8px; }
+p { margin: 0 0 14px; max-width: 72ch; }
+ul, ol { margin: 0 0 14px; padding-left: 1.3em; max-width: 72ch; }
+li { margin-bottom: 6px; }
+.key { background: var(--panel); border: 1px solid var(--line); border-left: 4px solid var(--beacon); border-radius: 0 10px 10px 0; padding: 14px 18px; margin: 18px 0 22px; }
+.key b { display: block; font-weight: 700; margin-bottom: 4px; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin: 16px 0 22px; }
+.stat { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+.stat .v { font: 500 26px/1.1 var(--mono); }
+.stat .k { font-size: 13px; color: var(--muted); margin-top: 4px; }
+.case { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; margin: 14px 0; }
+.case h3 { margin-top: 0; }
+.case .where { font: 500 12px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--signal); margin-bottom: 8px; display: block; }
+.case p:last-child { margin-bottom: 0; }
+table { border-collapse: collapse; width: 100%; margin: 12px 0 20px; font-size: 15px; }
+th, td { text-align: left; padding: 9px 10px; border-top: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 700; border-top: 0; }
+.cta { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 8px; }
+.btn { font: 700 15px/1 var(--body); border-radius: 6px; padding: 13px 18px; min-height: 44px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+.btn.primary { background: var(--beacon); color: #0F1729; }
+.btn.ghost { border: 2px solid var(--line); color: var(--fg); }
+.refs { font-size: 14.5px; }
+.refs p { padding-left: 2em; text-indent: -2em; max-width: none; margin-bottom: 10px; overflow-wrap: anywhere; }
+.refs a { color: var(--link); }
+.note { font-size: 14px; color: var(--muted); }
+@media (max-width: 640px) { .wrap { padding-top: 28px; } h2 { margin-top: 36px; } }
+</style>
+</head>
+<body>
+<header class="site-head" id="top"><div class="bar">
+  <a class="brand" href="../"><img class="brand-mark" src="../assets/mark.svg?v=20261025e" alt="" width="34" height="53"><span class="brand-text">HOOP<small>Hoosier Off-Grid Open Playbook</small></span></a>
+  <nav class="site-nav" aria-label="Site">
+    <a href="../#map">Map</a>
+    <button type="button" class="nav-menu" id="navMenu" aria-expanded="false" aria-controls="navMore">Menu</button>
+    <span class="nav-more" id="navMore">
+      <a href="../#protocols">Settings</a>
+      <a href="../live/">Live</a>
+      <a href="./" aria-current="page">Agencies</a>
+      <a href="../#report">Report</a>
+      <a href="../#support">Support</a>
+      <a href="https://github.com/mutiny19/hoop" target="_blank" rel="noopener">GitHub</a>
+    </span>
+    <a class="cta" href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Join Indiana Mesh</a>
+    <a class="go" href="../meshcore/">Get on the mesh</a>
+    <button type="button" class="theme-toggle" id="themeBtn" aria-label="Switch to light mode" title="Switch to light mode"><svg class="i-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="i-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+  </nav>
+</div></header>
+<div class="site-notice" role="note"><div class="bar"><b>For consideration only.</b> This site is not the authority on anything here, and nothing on it is concluded or complete. An open-source mesh belongs to everyone who builds it; respecting that means collaboration, not ownership. The projects and groups linked from each page maintain their own work, and where they differ from this site, they win.</div></div>
+
+<main class="wrap">
+<span class="eyebrow">For emergency managers, CERT, ARES/RACES, and disaster-assistance groups</span>
+<h1>Off-grid mesh radio as a layer in the emergency communications plan</h1>
+<p class="lead">What LoRa mesh networks are, how agencies and volunteer groups outside Indiana are already using them, what they can and cannot do, and why the amateur repeater sites already on the map are the fastest way to make the layer stronger.</p>
+<p class="meta">HOOP, the Hoosier Off-Grid Open Playbook · October 2026 · Citations in APA style; every claim links to its source in the References.</p>
+
+<div class="key"><b>In one paragraph</b>MeshCore and Meshtastic are open-source, license-free text radio networks that keep working when cell, internet, and power do not. MeshCore launched in early 2025 and its public map grew from its first 1,000 nodes to about 30,000 in a year (Vysoky, 2026). A regional emergency management office in New Zealand has made MeshCore one of its backup communication modes after a cyclone took out every network it had (Gisborne District Council, 2025), and county CERT programs, towns, and faith-based groups in the United States are building local meshes for the next storm. The networks carry short text, not voice; they depend on well-placed repeaters; and a regulatory question about channel bandwidth is still open. Used as one layer among several, alongside amateur voice nets, satellite, and the public safety radio system, they fill a specific gap: cheap, encrypted, volunteer-run text that a neighborhood can keep running for days on solar power.</div>
+
+<h2>Why the gap matters</h2>
+<p>Hurricane Helene is the recent reference case. On October 1, 2024, the FCC's disaster reporting system showed 21.7% of cell sites out of service across the affected area, and 48.7% in North Carolina, where 707 of 1,452 sites were down (Federal Communications Commission, 2024). Interviews with North Carolina's State Emergency Response Team, published by ASPR TRACIE, describe the field reality: "We lost all infrastructure communication-wise," and "Even the satellites were unreliable." Paper became the only practical record-keeping method at medical shelters (ASPR TRACIE, n.d.).</p>
+<p>Emergency managers plan for this with redundant radios, satellite phones, amateur radio, backup circuits, and an ICS 205 communications plan. The point made by one emergency-management writer is that the backup that fails is often the second or third one planners assumed would work, and that LoRa mesh networks are already being built in local jurisdictions, often without the emergency manager being told (DeVoe, 2026). That is the case in Indiana too: the map on this site's front page is built nightly from repeaters that volunteers have registered on the official MeshCore Map.</p>
+
+<h2>What these networks are</h2>
+<p>MeshCore and Meshtastic are both open-source projects that run on inexpensive LoRa radios in the license-free 915 MHz band (in the United States). They carry short text messages and small data such as position reports, hop by hop, without cellular service or internet (DeVoe, 2026). MeshCore's firmware is published under the MIT license on GitHub, although its official phone apps are not open source (Papp, 2025). Both projects are in use in Indiana; this site's settings page covers each.</p>
+<p>MeshCore's design is built around infrastructure: only nodes configured as repeaters retransmit, and the project includes store-and-forward "room servers" that hold messages for radios that are out of range (Puget Mesh, n.d.). The practical consequence for an agency is that coverage is something you plan and build, like a VHF repeater system, rather than something that appears wherever handhelds happen to be. A radio in a pocket reaches a mile or two in flat terrain; a repeater on a tall structure reaches tens of miles (NodakMesh, 2026). A hobbyist test without repeaters found about five city blocks of range in an urban area and concluded the concept was not practical for emergency use until enough repeaters were in place (Papp, 2025). That is the honest baseline, and it is why the repeater question at the end of this page matters more than any other.</p>
+
+<h2>How fast MeshCore has grown</h2>
+<div class="stats">
+  <div class="stat"><div class="v">~1,000</div><div class="k">nodes on the public map within a month of its April 2025 launch (Vysoky, 2026)</div></div>
+  <div class="stat"><div class="v">10,625</div><div class="k">map nodes on December 11, 2025; about 4,500 active nodes and 80,000 unique packets per day (Powell, 2025)</div></div>
+  <div class="stat"><div class="v">~30,000</div><div class="k">nodes worldwide by April 2026 (Vysoky, 2026)</div></div>
+  <div class="stat"><div class="v">67,021</div><div class="k">nodes in the official map feed on October 17, 2026 (MeshCore, 2026)</div></div>
+  <div class="stat"><div class="v">178</div><div class="k">repeaters registered in Indiana, 130 heard in the last 30 days (MeshCore, 2026)</div></div>
+</div>
+<p>MeshCore's creator wrote the first version of the library over the 2024–2025 holidays, sent the first messages between two boards in early January 2025, and by December 2025 counted 69 repository contributors and more than 60 supported boards (Powell, 2025). The Wireless Institute of Australia now describes it as "one of amateur radio's fastest-growing technologies," with volunteer solar repeaters on hilltops and towers across Australian states and a "when all else fails" role in the minds of the amateurs and community groups building it (Wireless Institute of Australia, 2026). In southwestern Pennsylvania, a volunteer network that formed partly in response to Helene counted more than 900 nodes, about 475 of them active on a given day, by August 2026 (Van Nortwick, 2026).</p>
+<p class="note">The last two figures above come from the official MeshCore Map's public data feed, which this site reads nightly. Counts are of registered nodes, not users; personal radios rarely register.</p>
+
+<h2>Documented uses by emergency and disaster groups</h2>
+
+<div class="case"><span class="where">Tairāwhiti, New Zealand · regional emergency management office</span>
+<h3>A council made MeshCore one of its backup modes after Cyclone Gabrielle</h3>
+<p>Cyclone Gabrielle left the Tairāwhiti region with no cell, data, Wi-Fi, or phone coverage. The Tairāwhiti Emergency Management Office (TEMO) first built a proof of concept on Meshtastic, found technical limits, and worked with engineer Liam Cottle on what became MeshCore and its app and web interface. TEMO has built solar-powered repeaters as a regional backbone, connected the mesh to its Emergency Coordination Centre, and counts it among "at least six back up modes of communication." Its group manager described it as "a low bandwidth slow system that is ideal for emergency communications" that delivers capability that "would otherwise cost thousands of dollars" (Gisborne District Council, 2025).</p>
+<p class="note">This is the clearest example of an emergency management agency adopting MeshCore, and the project's own apps grew out of it. The source is the council's media release, so it is the agency's own account rather than an independent evaluation.</p></div>
+
+<div class="case"><span class="where">Jefferson County, Florida · county CERT program</span>
+<h3>A CERT manager proposed a solar mesh to a city council for post-storm coordination</h3>
+<p>In March 2025 the program manager of the Jefferson County Community Emergency Response Team presented a Meshtastic-based network to the Monticello city council. Solar-powered devices cost about $100 each, with grants from Volunteer Florida and others expected to cover part of the cost. The stated purpose was to restore communication for first responders when disasters knock out towers and internet: "small devices that we can deploy easily to reestablish a network within hours after a storm" (Chaney, 2025).</p></div>
+
+<div class="case"><span class="where">Windham, Vermont · town government</span>
+<h3>A town switched its local mesh to MeshCore to join a regional network</h3>
+<p>A September 2026 town meeting report describes Windham moving its local mesh from Meshtastic to MeshCore so it could connect to the regional 802Mesh network, whose repeaters in Chester and Springfield were reported "set up and works well." The town replaced one repeater with a more powerful unit on Turkey Mountain, planned another on Glebe Mountain, and arranged for about 20 more handheld devices to be built (Citizen Portal, 2026).</p>
+<p class="note">Source is a public-meeting summary; the decision's emergency rationale is not stated in the visible record.</p></div>
+
+<div class="case"><span class="where">Marion County, Florida · faith-based community network</span>
+<h3>Churches as repeater sites for hurricane season</h3>
+<p>The Marion Baptist Association in Ocala hosts a recurring "Marion Mesh Meetup" to build a Meshtastic network, placing small solar-powered devices at churches and other community sites so neighbors can stay in touch when internet and cell service fail during hurricanes and severe storms. Its executive director's goal: "I would like to see all of Marion County covered in off grid mesh" (Alvarez, 2026). Faith-based organizations are a standing part of the disaster-assistance picture, and this is the same pattern applied to communications.</p></div>
+
+<div class="case"><span class="where">Vashon Island, Washington · amateur ACS, CERT, and preparedness groups</span>
+<h3>MeshCore as the text layer beside amateur voice operations</h3>
+<p>Vashon Island's only surface route to the mainland is the ferry. The island's mesh plan positions MeshCore on 915 MHz as a text layer that complements the W7VMI Auxiliary Communications Service voice operations rather than replacing them, with Vashon &amp; Maury CERT, VashonBePrepared, and the community radio station listed as partners. The ACS team already has repeater infrastructure at the fire station and relationships with emergency management (VashonMesh, n.d.). The page documents a plan and partnerships rather than a completed buildout, which is a fair description of where many groups are.</p></div>
+
+<div class="case"><span class="where">North Dakota · rural volunteer network</span>
+<h3>A field guide written from deployment experience</h3>
+<p>NodakMesh's emergency-preparedness guide lays out the planning sequence an agency would recognize: map critical sites (fire halls, shelters, isolated residents, water and fuel infrastructure, flood-prone crossings) before placing repeaters; build overlap so every critical node has two paths; weatherproof to NEMA 4X or IP67; and size batteries for 48 hours with no sun, or about 72 hours for a North Dakota December. It budgets under $30 per node and $80–100 for a three-node kit, against $200–500 for a VHF mobile radio before programming and licensing. It frames amateur radio as "the long-haul backbone," with licensed operators relaying between the mesh and HF/VHF nets, and it names shelter communication, damage-assessment reporting, and road and weather broadcasts as county uses (NodakMesh, 2026).</p></div>
+
+<h2>What the networks can and cannot do</h2>
+<table>
+<thead><tr><th>Can</th><th>Cannot, or not yet</th></tr></thead>
+<tbody>
+<tr><td>Short text messages with delivery confirmation, position reports, and status, between volunteers and a coordination point, with no cellular or internet service (Gisborne District Council, 2025; NodakMesh, 2026)</td><td>Voice. Amateur VHF/UHF nets and the public safety radio system remain the voice layer; mesh carries structured data beside them (Waev, 2026a)</td></tr>
+<tr><td>Run for days on a small solar panel and battery at each repeater (NodakMesh, 2026; Wireless Institute of Australia, 2026)</td><td>Reach far without repeaters. Handheld-to-handheld range in a city was about five blocks in one test (Papp, 2025)</td></tr>
+<tr><td>Store messages at room servers for radios that come back into range later (Puget Mesh, n.d.)</td><td>Carry images, files, or high-volume traffic. It is "a low bandwidth slow system" by design (Gisborne District Council, 2025)</td></tr>
+<tr><td>Cost tens of dollars per node, so a county CERT can field dozens on a small grant (Chaney, 2025; NodakMesh, 2026)</td><td>Guarantee a settled regulatory footing. See the bandwidth question below</td></tr>
+<tr><td>Be monitored: observer radios feed shared services so a coordinator can see which repeaters are up and which links degraded before an activation (Waev, 2026b)</td><td>Replace training. Both guides above stress monthly tests, quarterly deployments, and after-action reviews (NodakMesh, 2026; Waev, 2026b)</td></tr>
+</tbody>
+</table>
+
+<h3>The open regulatory question</h3>
+<p>In 2026 the LoRa mesh communities began debating whether FCC rule 15.247 for the 900 MHz band requires a minimum channel bandwidth of 500 kHz. MeshCore's default US setting uses 62.5 kHz and Meshtastic's default uses 250 kHz. Meshtastic has started new installations in a compliant mode; MeshCore communities are testing wider settings; and the FCC has made no public statement about any of these networks, so the interpretation remains disputed and networks that move at different times may temporarily lose the ability to talk to each other (Nardi, 2026). The OKI Mesh Alliance, which includes southeast Indiana, ran a week-long 500 kHz test in September 2026 and instructed participants to return to the US default afterward (OKI Mesh Alliance, n.d.). An agency adopting mesh should track this through the project's own channels and its regional group rather than assume today's settings are final.</p>
+
+<h2>What matters to an agency, and where to read more</h2>
+<ul>
+<li><strong>Interoperability.</strong> Mesh is a data layer, not a replacement for the ICS 205. Both guides written for CERT and county use treat licensed amateur operators as the bridge between the mesh and voice nets or state emergency management (NodakMesh, 2026; Waev, 2026a).</li>
+<li><strong>Privacy and encryption.</strong> MeshCore channels are encrypted, and the official map plots only nodes their owners register (Gisborne District Council, 2025; MeshCore, 2026). Observer services differ in what they retain; Waev, which Indiana Mesh uses, documents dropping opted-out nodes and discarding personal radios' identities at ingest (Waev, 2026c).</li>
+<li><strong>Readiness and baselines.</strong> The practice recommended for CERT teams is to watch the network for 30 days before a hazard season, identify single points of failure in the repeater topology, and fix them before an activation rather than during one (Waev, 2026b).</li>
+<li><strong>Power and siting.</strong> Height matters more than anything else; a repeater at 100 feet covers far more than one at 30. Plan 48 to 72 hours of battery autonomy and 6 to 10 watts of solar per always-on repeater (NodakMesh, 2026).</li>
+<li><strong>Cost and governance.</strong> Open-source firmware with no license fees and nodes under $30 (NodakMesh, 2026). The official apps are not open source, which an agency should note in its own evaluation (Papp, 2025).</li>
+<li><strong>Training.</strong> Monthly device tests, quarterly full deployments, annual exercises, and a debrief after every real activation (NodakMesh, 2026; Waev, 2026b).</li>
+</ul>
+
+<h2>Why amateur repeater sites make the mesh stronger</h2>
+<p>Everything above comes back to one variable: how many well-placed repeaters are on the air before the event. A mesh with one repeater per county is a demonstration. A mesh with overlapping repeaters on the sites that already serve amateur radio is infrastructure.</p>
+<p>Amateur radio clubs and ARES/RACES groups already hold what a mesh needs most: tower and rooftop access, mast space, backup power, insurance and site agreements, and people who test their equipment on a schedule. Vashon Island's plan is built on exactly that, an ACS team with "repeater infrastructure at the fire station and relationships with emergency management" (VashonMesh, n.d.). North Dakota's guide assumes the same division of labor, with hams as the long-haul backbone and the mesh extending reach to unlicensed households and volunteers (NodakMesh, 2026). Australia's national amateur body is actively encouraging members to build and experiment with MeshCore for emergency communications (Wireless Institute of Australia, 2026).</p>
+<p>Each added repeater does three things at once. It extends coverage to a new area. It gives neighboring repeaters a second path, which removes the single points of failure that take whole clusters offline (Waev, 2026b). And, because the hardware costs tens of dollars and draws a few watts, it can sit beside an existing amateur repeater without competing with it for power or space. In Indiana, 130 of the 178 registered repeaters were heard in the last 30 days (MeshCore, 2026); the front-page dashboard shows which interstate corridors and counties have none, and those gaps line up with places where a club or a volunteer fire department already has a mast.</p>
+<p>For an agency, the lowest-cost move is not to buy a system. It is to let the volunteers who are already building one onto the sites you control, write the mesh into the ICS 205 as a data channel, and exercise it with the ARES/RACES operators who will relay traffic between it and the voice nets. For a club, it is to put one MeshCore repeater on the tower you already maintain and register it on the map.</p>
+<div class="cta">
+  <a class="btn primary" href="../#support">Offer a site or put up a repeater</a>
+  <a class="btn ghost" href="https://docs.meshcore.io/" target="_blank" rel="noopener">MeshCore documentation</a>
+  <a class="btn ghost" href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Talk to Indiana Mesh ↗</a>
+</div>
+<p class="note">Indiana Mesh is a volunteer community, not an agency, and this page is informational. Settings and procedures for your jurisdiction belong in your own communications plan.</p>
+
+<h2>References</h2>
+<div class="refs">
+<p>Alvarez, A. (2026, July 11). Marion County residents build off-grid "mesh" network for emergency messaging. <em>WCJB TV20</em>. <a href="https://www.wcjb.com/2026/07/11/marion-county-residents-build-off-grid-mesh-network-emergency-messaging/" target="_blank" rel="noopener">https://www.wcjb.com/2026/07/11/marion-county-residents-build-off-grid-mesh-network-emergency-messaging/</a></p>
+<p>ASPR TRACIE. (n.d.). <em>State of response: Collaboration and communication in the aftermath of Hurricane Helene</em>. U.S. Department of Health and Human Services, Administration for Strategic Preparedness and Response. <a href="https://files.asprtracie.hhs.gov/documents/state-of-response--collaboration-and-communication-in-the-aftermath-of-hurricane-helene.pdf" target="_blank" rel="noopener">https://files.asprtracie.hhs.gov/documents/state-of-response--collaboration-and-communication-in-the-aftermath-of-hurricane-helene.pdf</a></p>
+<p>Chaney, L. (2025, March 11). Monticello council considers new emergency communication system proposal. <em>WTXL ABC 27</em>. <a href="https://www.wtxl.com/news/local-news/in-your-neighborhood/monticello/monticello-council-considers-new-emergency-communication-system-proposal" target="_blank" rel="noopener">https://www.wtxl.com/news/local-news/in-your-neighborhood/monticello/monticello-council-considers-new-emergency-communication-system-proposal</a></p>
+<p>Citizen Portal. (2026, September 21). <em>Town upgrades from Meshtastic to MeshCore to join regional 802Mesh network</em> [Public meeting summary, Windham, Vermont]. <a href="https://citizenportal.ai/articles/10490316/vermont/windham-county/windham/town-upgrades-from-meshtastic-to-meshcore-to-join-regional-802mesh-network" target="_blank" rel="noopener">https://citizenportal.ai/articles/10490316/vermont/windham-county/windham/town-upgrades-from-meshtastic-to-meshcore-to-join-regional-802mesh-network</a></p>
+<p>DeVoe, T. T. (2026, August 21). The mesh is already here. <em>The Emergency Management Network</em>. <a href="https://emnetwork.substack.com/p/the-mesh-is-already-here" target="_blank" rel="noopener">https://emnetwork.substack.com/p/the-mesh-is-already-here</a></p>
+<p>Federal Communications Commission. (2024, October 1). <em>Communications status report for areas impacted by Hurricane Helene, October 1, 2024</em> (DOC-406055A1). <a href="https://docs.fcc.gov/public/attachments/DOC-406055A1.pdf" target="_blank" rel="noopener">https://docs.fcc.gov/public/attachments/DOC-406055A1.pdf</a></p>
+<p>Gisborne District Council. (2025, September 19). <em>Back-up comms crucial in emergencies</em> [Media release]. <a href="https://www.gdc.govt.nz/council/news/media-releases/back-up-comms-crucial-in-emergencies" target="_blank" rel="noopener">https://www.gdc.govt.nz/council/news/media-releases/back-up-comms-crucial-in-emergencies</a></p>
+<p>MeshCore. (2026). <em>MeshCore Map</em> [Data set, public node feed]. Retrieved October 17, 2026, from <a href="https://map.meshcore.io" target="_blank" rel="noopener">https://map.meshcore.io</a></p>
+<p>Nardi, T. (2026, September 17). FCC ISM rules may shatter LoRa mesh communities. <em>Hackaday</em>. <a href="https://hackaday.com/2026/09/17/fcc-ism-rules-may-shatter-lora-mesh-communities/" target="_blank" rel="noopener">https://hackaday.com/2026/09/17/fcc-ism-rules-may-shatter-lora-mesh-communities/</a></p>
+<p>NodakMesh. (2026, April 5). <em>MeshCore for emergency preparedness: A field guide</em>. <a href="https://nodakmesh.org/blog/meshcore-emergency-preparedness" target="_blank" rel="noopener">https://nodakmesh.org/blog/meshcore-emergency-preparedness</a></p>
+<p>OKI Mesh Alliance. (n.d.). <em>500 kHz testing</em>. OKI Mesh Alliance Docs. <a href="https://docs.okimesh.org/books/oki-mesh-alliance/page/500khz-testing" target="_blank" rel="noopener">https://docs.okimesh.org/books/oki-mesh-alliance/page/500khz-testing</a></p>
+<p>Papp, D. (2025, December 6). Lessons learned after trying MeshCore for off-grid text messaging. <em>Hackaday</em>. <a href="https://hackaday.com/2025/12/06/lessons-learned-after-trying-meshcore-for-off-grid-text-messaging/" target="_blank" rel="noopener">https://hackaday.com/2025/12/06/lessons-learned-after-trying-meshcore-for-off-grid-text-messaging/</a></p>
+<p>Powell, S. (2025, December 12). <em>The year in review</em>. Ripple Radios. <a href="https://buymeacoffee.com/ripplebiz/the-year-review" target="_blank" rel="noopener">https://buymeacoffee.com/ripplebiz/the-year-review</a></p>
+<p>Puget Mesh. (n.d.). <em>MeshCore</em>. <a href="https://pugetmesh.org/meshcore/" target="_blank" rel="noopener">https://pugetmesh.org/meshcore/</a></p>
+<p>Van Nortwick, M. (2026, August 7). Beyond prepping: Why hundreds of Western PA residents are joining a low-cost mesh radio network. <em>Technical.ly</em>. <a href="https://technical.ly/workforce/wpamesh-western-pa-off-grid-radio-network/" target="_blank" rel="noopener">https://technical.ly/workforce/wpamesh-western-pa-off-grid-radio-network/</a></p>
+<p>VashonMesh. (n.d.). <em>Emergency communications</em>. <a href="https://vashonmesh.org/mesh-tech/emcomm/" target="_blank" rel="noopener">https://vashonmesh.org/mesh-tech/emcomm/</a></p>
+<p>Vysoky, R. (2026, April 4). The MeshCore Map. <em>MeshCore Blog</em>. <a href="https://blog.meshcore.io/2026/04/04/meshcore-map" target="_blank" rel="noopener">https://blog.meshcore.io/2026/04/04/meshcore-map</a></p>
+<p>Waev. (2026a, June 9). <em>Mesh radio in your CERT EMCOMM kit</em>. Waev Blog. <a href="https://blog.waev.app/blog/ham-radio-cert-emcomm-mesh/" target="_blank" rel="noopener">https://blog.waev.app/blog/ham-radio-cert-emcomm-mesh/</a></p>
+<p>Waev. (2026b, June 9). <em>Before the call comes in</em>. Waev Blog. <a href="https://blog.waev.app/blog/cert-mesh-network-activation/" target="_blank" rel="noopener">https://blog.waev.app/blog/cert-mesh-network-activation/</a></p>
+<p>Waev. (2026c, July 2). <em>What we choose not to know</em>. Waev Blog. <a href="https://blog.waev.app/blog/what-we-choose-not-to-know/" target="_blank" rel="noopener">https://blog.waev.app/blog/what-we-choose-not-to-know/</a></p>
+<p>Wireless Institute of Australia. (2026, July 2). <em>MeshCore networks continue to expand across Australia and around the world</em>. <a href="https://www.wia.org.au/newsevents/news/2026/20260702-1/index.php" target="_blank" rel="noopener">https://www.wia.org.au/newsevents/news/2026/20260702-1/index.php</a></p>
+</div>
+</main>
+
+<footer class="site-foot"><div class="bar">
+  <span>HOOP, the Hoosier Off-Grid Open Playbook. Represents no network, collective, or organization; here to ease onboarding for newcomers and landing for advanced users. Informational only. <a href="../#about">About this site</a> · <a href="https://github.com/mutiny19/hoop" target="_blank" rel="noopener">Source</a> · <a href="https://github.com/mutiny19/hoop/issues/new/choose" target="_blank" rel="noopener">Open an issue</a></span>
+</div></footer>
+
+<script src="../assets/site.js"></script>
+</body>
+</html>

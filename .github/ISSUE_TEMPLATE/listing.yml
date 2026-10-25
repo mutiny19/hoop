@@ -1,0 +1,36 @@
+name: Add a listing
+description: List a repeater you own or a local group.
+title: "[listing] <name>"
+labels: ["listing"]
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What are you listing
+      options: [Repeater I own or host, Local group or club]
+    validations: { required: true }
+  - type: input
+    id: name
+    attributes: { label: Name }
+    validations: { required: true }
+  - type: dropdown
+    id: protocol
+    attributes:
+      label: Protocol
+      multiple: true
+      options: [MeshCore, Meshtastic, GMRS, Ham radio, Reticulum]
+    validations: { required: true }
+  - type: input
+    id: area
+    attributes: { label: Area, description: County or city. Repeaters only; never a personal node location. }
+    validations: { required: true }
+  - type: input
+    id: link
+    attributes: { label: Website or chat link }
+  - type: checkboxes
+    id: permission
+    attributes:
+      label: Permission
+      options:
+        - label: I own this repeater or have the host's permission to list it (or this is a public group)
+          required: true

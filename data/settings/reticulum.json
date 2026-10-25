@@ -1,0 +1,17 @@
+{
+  "protocol": "reticulum",
+  "status": "suggested starting point, no statewide network yet",
+  "updated": "2026-10-15",
+  "rnode": {
+    "frequency_hz": 915000000,
+    "bandwidth_hz": 125000,
+    "spreading_factor": 9,
+    "coding_rate": 5,
+    "txpower": "set for your hardware"
+  },
+  "note": "Matches what Indiana's early Reticulum users run; not a regional standard yet. RNodes must match frequency, bandwidth, SF and CR.",
+  "sources": {
+    "reticulum": "https://reticulum.network",
+    "manual_hardware": "https://markqvist.github.io/Reticulum/manual/hardware.html"
+  }
+}

@@ -1,0 +1,80 @@
+/* HOOP: shared tokens, header and footer. Navy base, HOOP orange accent, cyan for links in the dark theme. */
+:root {
+  --bg: #F2F3F7;
+  --panel: #FFFFFF;
+  --fg: #0F1729;
+  --muted: #4E5A75;
+  --line: #CFD4E0;
+  --ink: #0F1729;
+  --ink-fg: #F2F3F7;
+  --beacon: #E8590C;
+  --signal: #B5480A;
+  --signal-soft: #FCEBDF;
+  --link: #1F3F86;
+  --live: #2F9E44;
+  --code-bg: #080E1C;
+  --code-fg: #F2F3F7;
+  --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --body: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #080E1C; --panel: #0F1729; --fg: #F2F3F7; --muted: #9AA5BE; --line: #273352;
+    --ink: #080E1C; --ink-fg: #F2F3F7; --signal: #FF8A3D; --signal-soft: #2A1A0E;
+    --link: #5FD3F0; --live: #40C057; --code-bg: #050A14; --code-fg: #F2F3F7; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #080E1C; --panel: #0F1729; --fg: #F2F3F7; --muted: #9AA5BE; --line: #273352;
+  --ink: #080E1C; --ink-fg: #F2F3F7; --signal: #FF8A3D; --signal-soft: #2A1A0E;
+  --link: #5FD3F0; --live: #40C057; --code-bg: #050A14; --code-fg: #F2F3F7; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body { margin: 0; }
+body { background: var(--bg); color: var(--fg); font: 400 16px/1.55 var(--body); }
+a { color: var(--link); text-underline-offset: 2px; }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid var(--beacon); outline-offset: 2px; }
+code { font-family: var(--mono); font-size: .9em; }
+
+.site-head { background: var(--ink); color: var(--ink-fg); }
+.site-head .bar { max-width: 1200px; margin: 0 auto; padding: 14px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; }
+.site-head a { color: var(--ink-fg); text-decoration: none; }
+.brand { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 19px; }
+.brand-mark { height: 50px; width: auto; display: block; }
+.brand-text { display: flex; flex-direction: column; line-height: 1.05; letter-spacing: .04em; }
+.brand-text small { font-weight: 500; font-size: 11px; letter-spacing: .02em; opacity: .8; }
+@media (max-width: 520px) { .brand-text small { display: none; } }
+.site-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; font-size: 15px; }
+.site-nav a[aria-current="page"] { text-decoration: underline; text-decoration-color: var(--beacon); text-decoration-thickness: 2px; text-underline-offset: 6px; }
+.site-nav .cta { border: 2px solid #4E5A75; font-weight: 600; padding: 9px 14px; border-radius: 6px; }
+
+.site-foot { border-top: 1px solid var(--line); margin-top: 24px; }
+.site-foot .bar { max-width: 1200px; margin: 0 auto; padding: 20px 24px 32px; display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: .88rem; color: var(--muted); }
+
+/* Theme switch: dark is the default (set in each page's head); the sun shows in dark mode, the moon in light. */
+.theme-toggle { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 6px; border: 2px solid #4E5A75; background: transparent; color: var(--ink-fg); cursor: pointer; }
+.theme-toggle:hover { border-color: var(--beacon); }
+.theme-toggle .i-moon { display: none; }
+:root[data-theme="light"] .theme-toggle .i-sun { display: none; }
+:root[data-theme="light"] .theme-toggle .i-moon { display: inline; }
+:root[data-theme="dark"] .site-head { border-bottom: 1px solid var(--line); }
+
+/* Site-wide notice: everything here is for consideration only. */
+.site-notice { background: var(--signal-soft); color: var(--fg); border-bottom: 1px solid var(--line); }
+.site-notice .bar { max-width: 1200px; margin: 0 auto; padding: 9px 24px; font-size: 13.5px; line-height: 1.45; }
+.site-notice b { color: var(--signal); font-weight: 700; }
+
+/* Every link that leaves the site carries the same marker; buttons and cards draw their own. */
+a[href^="http"]:where(:not(.btn, .card, .brand, .cta, .go, .layer, .links a, .site-nav a, .way a, .view a))::after { content: " \2197"; font-size: .85em; }
+
+/* Phones: secondary nav links behind a Menu button; Map, Join and Get on the mesh stay visible. */
+.nav-menu { display: none; font: 600 15px/1 var(--body); border: 2px solid #4E5A75; background: transparent; color: var(--ink-fg); border-radius: 6px; padding: 9px 14px; min-height: 40px; cursor: pointer; }
+.nav-menu[aria-expanded="true"] { border-color: var(--beacon); }
+.nav-more { display: contents; }
+@media (max-width: 860px) {
+  .nav-menu { display: inline-flex; }
+  .nav-more { display: none; width: 100%; flex-wrap: wrap; gap: 14px 18px; padding: 6px 0 2px; }
+  .nav-more.open { display: flex; }
+}

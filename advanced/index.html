@@ -1,0 +1,831 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script src="../assets/theme.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Advanced and theoretical: Indiana-specific material for MeshCore repeater owners, for consideration only. Three proposed region-tag structures, the open base commands, neighbours' tags, and observer brokers.">
+<title>Advanced and theoretical · HOOP</title>
+<link rel="icon" href="../assets/favicon.svg?v=20261025e" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HOOP · Hoosier Off-Grid Open Playbook">
+<meta property="og:title" content="Advanced and theoretical">
+<meta property="og:description" content="Indiana-specific material for MeshCore repeater owners, for consideration only: proposed region structures, open base commands, observer brokers.">
+<meta property="og:url" content="https://mutiny19.github.io/hoop/advanced/">
+<meta property="og:image" content="https://mutiny19.github.io/hoop/assets/social.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/site.css?v=20261025e">
+<style>
+/* Advanced: the region scope builder. Tool tokens mapped onto the site's; map tints per theme. */
+.sb { --ink: var(--fg); --accent: var(--signal); --accent-soft: var(--signal-soft); --code-ink: var(--code-fg);
+  --f-display: var(--display); --f-body: var(--body); --f-mono: var(--mono);
+  --county:#dfe6e1; --county-out:#e9ece9; --county-line:#ffffff; --sel:#d99a12; --sel-ink:#3a2700; --home:#9a5d00;
+  --ok:#2f7d4a; --warn:#a96a00; --crit:#b3261e;
+  --d1:#dbe7e2;--d2:#e3e3d6;--d3:#dde0ea;--d4:#e7ded9;--d5:#d7e6ea;--d6:#e6e0e8;--d7:#dfe8d6;--d8:#ebe3d3;--d9:#d9e1e8;--d10:#e8e0dc;--d11:#e4e6dd;
+  max-width: 1280px; margin: 0 auto; padding-inline: 24px; padding-block: 36px 48px; display: grid; gap: 20px; font-size: 15px; line-height: 1.5; }
+:root[data-theme="dark"] .sb { --county:#222C44; --county-out:#1A2238; --county-line:#080E1C; --sel:#e7ac2c; --sel-ink:#241800; --home:#ffcf6b;
+  --ok:#6cc58a; --warn:#e3a640; --crit:#ff8a80;
+  --d1:#22312c;--d2:#2b2d22;--d3:#252a36;--d4:#302824;--d5:#1f3135;--d6:#2e2732;--d7:#263222;--d8:#332c1f;--d9:#232c34;--d10:#312a26;--d11:#2a3027; }
+.sb-head { display: grid; gap: 10px; }
+.proposal { margin: 14px 0 0; padding: 14px 16px; border: 2px solid var(--beacon); border-radius: 12px; background: var(--panel); font-size: 15px; line-height: 1.5; max-width: 80ch; }
+.part-h { font-size: 26px; font-weight: 800; margin: 34px 0 6px; }
+.owners, .observers { margin-top: 36px; }
+.observers .owner-intro { color: var(--muted); max-width: 74ch; }
+.observers .tablewrap { overflow-x: auto; } .observers table { border-collapse: collapse; width: 100%; font-size: 14px; } .observers th, .observers td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; } .observers code { font-family: var(--mono); }
+.owners /* route-marker style region tags */
+.tag{ display: inline-flex; align-items: center; font: 700 1.05rem/1 var(--display); letter-spacing: .04em;
+  background: var(--shield); color: var(--shield-fg); padding: 6px 10px 5px; border-radius: 6px 6px 12px 12px; white-space: nowrap; }
+.owners .tag.big{ font-size: 2.2rem; padding: 10px 16px 8px; border-radius: 8px 8px 18px 18px; }
+.owners .tag.alt{ background: transparent; color: var(--fg); box-shadow: inset 0 0 0 2px var(--line); }
+.owners .tag.oki{ background: var(--signal); color: var(--panel); }
+.owners /* the map */
+.frame{ border: 2px dashed var(--line); border-radius: 18px; padding: 18px; display: grid; gap: 14px; }
+.owners .frame-head{ display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.owners .frame-head p{ color: var(--muted); font-size: .95rem; min-width: 0; flex: 1 1 280px; }
+.owners .map{ display: grid; gap: 12px; grid-template-columns: 1fr 1.25fr 1fr;
+  grid-template-areas: ". mi ." "il in oh" "tn ky oki"; }
+.owners .cell{ background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.owners .cell .top{ display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.owners .state{ font: 600 .8rem/1 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.owners .cell p{ font-size: .92rem; color: var(--muted); }
+.owners .cell ul{ margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; font-size: .92rem; }
+.owners .cell li{ display: grid; gap: 2px; }
+.owners .cell li strong{ font-weight: 600; color: var(--fg); }
+.owners .uses{ font-family: var(--mono); font-size: .82rem; color: var(--fg); overflow-wrap: anywhere; }
+.owners .in{ grid-area: in; background: var(--signal-soft); border: 2px solid var(--signal); padding: 20px; gap: 14px; }
+.owners .in .tags{ display: flex; flex-wrap: wrap; gap: 8px; }
+.owners .in .count{ font-size: .9rem; color: var(--fg); font-variant-numeric: tabular-nums; }
+.owners .mi{ grid-area: mi; }
+.owners .il{ grid-area: il; }
+.owners .oh{ grid-area: oh; }
+.owners .ky{ grid-area: ky; }
+.owners .tn{ grid-area: tn; }
+.owners .oki{ grid-area: oki; }
+.owners .cell.oki{ border: 2px solid var(--signal); }
+.owners .cell.tn{ border-style: dashed; }
+.owners .setup{ display: grid; grid-template-columns: 1.3fr 1fr; gap: 16px; }
+.owners .panel{ background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: grid; gap: 12px; min-width: 0; align-content: start; }
+.owners .panel .head{ display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.owners .note{ font-size: .9rem; color: var(--muted); }
+.owners button.copy{ font: 600 .82rem/1 var(--body); background: transparent; color: var(--link); border: 1px solid var(--link); border-radius: 999px; padding: 7px 12px; cursor: pointer; }
+.owners button.copy:hover{ background: var(--link); color: var(--panel); }
+.owners .steps{ margin: 0; padding-left: 1.2em; display: grid; gap: 6px; font-size: .95rem; }
+.owners .steps code, .owners .rules code, .owners td code, .owners .why code{ font-family: var(--mono); font-size: .88em; }
+.owners /* rules */
+.rules{ display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.owners .rules ul{ margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.owners .rules li{ padding-left: 26px; position: relative; font-size: .95rem; }
+.owners .rules li::before{ position: absolute; left: 0; top: 0; font-weight: 700; font-family: var(--body); }
+.owners .do li::before{ content: "✓"; color: var(--link); }
+.owners .dont li::before{ content: "✕"; color: var(--signal); }
+.owners .why{ background: var(--panel); border-left: 4px solid var(--signal); padding: 14px 18px; border-radius: 0 10px 10px 0; font-size: 1rem; }
+.owners /* neighbours table */
+.tablewrap{ overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); }
+.owners .hear .panel p{ font-size: .93rem; color: var(--muted); }
+.owners .owner-intro{ color: var(--muted); max-width: 64ch; }
+.owners details.depth{ background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 4px 18px; }
+.owners details.depth summary{ cursor: pointer; font: 600 1.35rem/1 var(--display); padding: 14px 0; }
+.owners details.depth[open]{ padding-bottom: 18px; }
+.owners .depth-list{ margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+.owners .depth-list li{ display: grid; gap: 3px; border-top: 1px solid var(--line); padding-top: 12px; font-size: .94rem; }
+.owners .depth-list li strong{ font-weight: 600; }
+.owners .depth-list .eg{ font-family: var(--mono); font-size: .82rem; color: var(--muted); overflow-wrap: anywhere; }
+.owners .ok{ color: var(--link); font-weight: 600; }
+.owners .no{ color: var(--signal); font-weight: 600; }
+.owners .border-box .panel p, .owners .border-box .panel li{ font-size: .94rem; }
+.owners .addons{ width: 100%; min-width: 0; }
+.owners .addons td, .owners .addons th{ padding: 9px 10px; }
+.owners .flow .panel h3{ font-size: 1.2rem; }
+.owners .flow .panel p{ font-size: .93rem; color: var(--muted); }
+@media (max-width: 760px) {.owners .map{ grid-template-columns: 1fr; grid-template-areas: "in" "mi" "il" "oh" "ky" "oki" "tn"; }.owners .setup, .owners .rules{ grid-template-columns: 1fr; }}
+@media (prefers-reduced-motion: no-preference) {.owners button.copy{ transition: background .15s, color .15s; }}
+.mode { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin: 22px 0 18px; }
+.mode-btn { font: 700 15px/1 var(--body); border: 2px solid var(--line); background: var(--panel); color: var(--fg); border-radius: 8px; padding: 12px 18px; min-height: 44px; cursor: pointer; }
+.mode-btn[aria-pressed="true"] { background: var(--beacon); border-color: var(--beacon); color: #0F1729; }
+.mode-help { flex: 1 1 320px; font-size: 14px; color: var(--muted); max-width: 70ch; }
+.abbr { display: grid; gap: 16px; margin-bottom: 36px; }
+.abbr h2 { font-size: 26px; font-weight: 800; }
+.abbr .sub { color: var(--muted); max-width: 74ch; }
+.abbr-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
+.abbr-mapbox svg { width: 100%; height: auto; display: block; }
+.abbr-mapbox .cty { fill: var(--panel); stroke: var(--line); stroke-width: 1; }
+.abbr-mapbox .cty.d1 { fill: var(--d1); } .abbr-mapbox .cty.d2 { fill: var(--d2); } .abbr-mapbox .cty.d3 { fill: var(--d3); } .abbr-mapbox .cty.d4 { fill: var(--d4); } .abbr-mapbox .cty.d5 { fill: var(--d5); }
+.abbr-mapbox .cty.d6 { fill: var(--d6); } .abbr-mapbox .cty.d7 { fill: var(--d7); } .abbr-mapbox .cty.d8 { fill: var(--d8); } .abbr-mapbox .cty.d9 { fill: var(--d9); } .abbr-mapbox .cty.d10 { fill: var(--d10); } .abbr-mapbox .cty.d11 { fill: var(--d11); }
+.abbr-mapbox .cty.dist:not(.metro) { fill: var(--beacon); fill-opacity: .45; }
+.abbr-mapbox .cty.metro { fill: var(--signal-soft); }
+.abbr-mapbox .cty.pick { cursor: pointer; }
+.abbr-mapbox .cty.pick:hover { stroke: var(--beacon); stroke-width: 1.5; }
+.abbr-mapbox .cty.metro.on { fill: var(--beacon); }
+.abbr-mapbox .cty.metro.near.on { fill: var(--beacon); fill-opacity: .7; }
+.abbr-mapbox .cty.dist { stroke: var(--fg); stroke-width: 1.8; }
+.abbr-mapbox .dnum { font: 500 11px/1 var(--mono); fill: var(--muted); pointer-events: none; text-anchor: middle; }
+.abbr-mapbox .dlbl { font: 700 13px/1 var(--mono); fill: var(--fg); pointer-events: none; text-anchor: middle; paint-order: stroke; stroke: var(--panel); stroke-width: 3px; }
+.abbr-mapbox .lbl { cursor: pointer; }
+.abbr-mapbox .lbl rect { fill: var(--bg); stroke: var(--fg); stroke-width: 1.6; }
+.abbr-mapbox .lbl text { font: 700 14px/1 var(--mono); fill: var(--fg); text-anchor: middle; pointer-events: none; }
+.abbr-mapbox .lbl:hover rect, .abbr-mapbox .lbl:focus-visible rect { stroke: var(--beacon); stroke-width: 2.4; }
+.abbr-mapbox .lbl:focus-visible { outline: none; }
+.abbr-mapbox .lbl.on rect { fill: var(--beacon); stroke: var(--beacon); }
+.abbr-mapbox .lbl.on text { fill: #0F1729; }
+.abbr-mapbox .city { font: 500 10px/1 var(--body); fill: var(--muted); pointer-events: none; text-anchor: middle; }
+.abbr .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; display: grid; gap: 10px; align-content: start; }
+.abbr .panel h3 { font-size: 18px; font-weight: 700; margin: 0; display: flex; align-items: center; gap: 10px; }
+.abbr .panel h4 { font-size: 15px; font-weight: 700; margin: 6px 0 0; }
+.abbr .stepnum { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--fg); color: var(--bg); font: 700 14px/1 var(--body); flex: none; }
+.abbr .step1-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 20px; align-items: start; }
+.abbr .step1-side { display: grid; gap: 10px; align-content: start; }
+.abbr .nearby { margin: 0; padding-left: 18px; display: grid; gap: 6px; } .abbr .nearby span { color: var(--muted); }
+@media (max-width: 760px) { .abbr .step1-grid { grid-template-columns: 1fr; } }
+.abbr .panel .head { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.abbr .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.abbr .chip { font: 500 14px/1 var(--mono); border: 2px solid var(--line); background: var(--bg); color: var(--fg); border-radius: 999px; padding: 10px 14px; min-height: 40px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+.abbr .chip small { font: 400 12px/1 var(--body); color: var(--muted); }
+.abbr .chip[aria-pressed="true"] { background: var(--beacon); border-color: var(--beacon); color: #0F1729; }
+.abbr .chip[aria-pressed="true"] small { color: #0F1729; }
+.abbr .chip.conv { border-style: dashed; }
+.abbr .abbr-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.abbr .chip.all { font-family: var(--body); font-weight: 700; }
+.abbr .note { font-size: 13px; color: var(--muted); }
+.abbr .alert { padding: 12px 14px; border-radius: 10px; border: 2px solid #c9a227; background: rgba(201, 162, 39, .12); font-size: 14px; line-height: 1.45; }
+.abbr .alert.over { border-color: #c0392b; background: rgba(192, 57, 43, .12); font-weight: 600; }
+.abbr pre.over { outline: 2px solid #c0392b; }
+.abbr .copy:disabled { opacity: .5; cursor: not-allowed; }
+.abbr .pub, .abbr .conv { font: 600 11px/1 var(--mono); border: 1px solid var(--line); border-radius: 4px; padding: 3px 6px; }
+.abbr .conv { border-style: dashed; }
+.abbr pre { margin: 0; background: var(--code-bg); color: var(--code-fg); border-radius: 8px; padding: 12px 14px; font: 500 14px/1.6 var(--mono); overflow-x: auto; white-space: pre; }
+.abbr .copy { font: 600 13px/1 var(--body); border: 1px solid var(--line); background: var(--bg); color: var(--link); border-radius: 999px; padding: 8px 12px; cursor: pointer; }
+.abbr select { font: 400 15px/1.3 var(--body); padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--fg); }
+.abbr .k { font-weight: 600; font-size: 14px; }
+.method { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; margin-top: 16px; }
+.method h3 { font-size: 18px; font-weight: 700; margin: 0 0 8px; }
+.method ol { margin: 0; padding-left: 1.3em; display: grid; gap: 8px; max-width: 80ch; font-size: 14.5px; color: var(--muted); }
+.method li strong { color: var(--fg); }
+.method a { color: var(--link); }
+.abbr-like { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; display: grid; gap: 10px; margin-top: 16px; }
+.abbr-like h3 { font-size: 18px; font-weight: 700; margin: 0; }
+.abbr-like .sub { color: var(--muted); max-width: 74ch; }
+.abbr-like .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.abbr-like .chip, .abbr .chip.chan { font: 500 14px/1 var(--mono); border: 2px solid var(--line); background: var(--bg); color: var(--fg); border-radius: 999px; padding: 10px 14px; min-height: 40px; cursor: pointer; }
+.abbr-like .chip:hover, .abbr .chip.chan:hover { border-color: var(--beacon); }
+.abbr .depth { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 12px 18px; }
+.abbr .depth summary { cursor: pointer; font-weight: 700; }
+.abbr .depth-list { margin: 10px 0 0; padding-left: 1.2em; display: grid; gap: 8px; }
+.abbr .depth-list strong { display: block; }
+.abbr .depth-list span { color: var(--muted); font-size: 14px; }
+@media (max-width: 1000px) { .abbr-grid { grid-template-columns: 1fr 1fr; } .abbr-map-panel { grid-column: 1 / -1; } }
+@media (max-width: 760px) { .abbr-grid { grid-template-columns: 1fr; } }
+.sb-head h1 { font-size: clamp(2.2rem, 5.5vw, 3.4rem); font-weight: 800; }
+.sb-head .lead { font-size: 1.05rem; max-width: 74ch; }
+.sb-head .eyebrow { font: 600 .78rem/1 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--signal); }
+.sb-head a, .sb-foot a, .sb .sub a, .sb .tc-def a { color: var(--link); }
+.sb button.primary, .sb .seg button[aria-pressed=true], .sb button.add[aria-pressed=true] { color: #0F1729; }
+.site-nav .go { background: var(--beacon); color: #0F1729; font-weight: 700; padding: 11px 16px; border-radius: 6px; }
+@media (max-width: 600px) { .sb { padding-inline: 16px; } }
+.sb .clisteps code { background: transparent; padding: 0; color: inherit; }
+.sb .panel { grid-template-columns: minmax(0, 1fr); }
+.sb-head h1{font-family:var(--f-display);font-weight:700;font-size:clamp(28px,4vw,40px);letter-spacing:.01em;margin:0;line-height:1.05;text-wrap:balance}
+.sb-head p{margin:6px 0 0;color:var(--muted);max-width:70ch}
+.sb .eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+.sb .grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:20px;align-items:start}
+@media (max-width:900px){.sb .grid{grid-template-columns:minmax(0,1fr)}}
+.sb .panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;display:grid;gap:14px;min-width:0}
+.sb h2{font-family:var(--f-display);font-weight:600;font-size:22px;margin:0;letter-spacing:.01em}
+.sb h3{font-family:var(--f-display);font-weight:600;font-size:17px;margin:0;letter-spacing:.02em}
+.sb .sub{color:var(--muted);font-size:13.5px;margin:0}
+.sb .mapbox{position:relative}
+.sb svg.map{width:100%;height:auto;display:block;max-height:78vh}
+.sb svg.map path{fill:var(--dfill,var(--county));stroke:var(--county-line);stroke-width:.8;cursor:pointer;transition:fill .12s}
+.sb svg.map path.out{fill:var(--county-out)}
+.sb svg.map path:hover{filter:brightness(.93)}
+.sb svg.map path.sel{fill:var(--sel);stroke:var(--home);stroke-width:1}
+.sb svg.map path.home{fill:var(--home)}
+.sb svg.map path:focus-visible{outline:none;stroke:var(--accent);stroke-width:2.4}
+.sb svg.map text{font-family:var(--f-mono);font-size:7.5px;fill:var(--muted);pointer-events:none;text-anchor:middle;dominant-baseline:middle;text-transform:uppercase}
+.sb svg.map text.sel{fill:var(--sel-ink);font-weight:500}
+.sb svg.map text.home{fill:var(--bg);font-weight:500}
+.sb .tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--bg);font-size:12.5px;padding:5px 8px;border-radius:6px;white-space:nowrap;font-family:var(--f-mono)}
+.sb .legend{display:flex;flex-wrap:wrap;gap:14px;font-size:13px;color:var(--muted)}
+.sb .legend span{display:inline-flex;align-items:center;gap:6px}
+.sb .sw{width:14px;height:14px;border-radius:3px;display:inline-block;border:1px solid var(--line)}
+.sb .row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.sb button,.sb select,.sb input[type=text],.sb input[type=number]{font:inherit;font-size:14px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:7px;padding:6px 10px}
+.sb button{cursor:pointer;font-weight:500}
+.sb button:hover{border-color:var(--accent)}
+.sb button:focus-visible,.sb select:focus-visible,.sb input:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.sb button.primary{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+.sb .seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.sb .seg button{border:0;border-radius:0;background:transparent;padding:6px 11px}
+.sb .seg button[aria-pressed=true]{background:var(--accent);color:var(--bg)}
+.sb .opts{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px 14px;align-items:center}
+.sb .opts label.k{font-size:13px;color:var(--muted);font-weight:500}
+@media (max-width:480px){.sb .opts{grid-template-columns:minmax(0,1fr)}}
+.sb .chk{display:inline-flex;gap:7px;align-items:center;font-size:14px}
+.sb .chips{display:flex;flex-wrap:wrap;gap:6px}
+.sb .chip{font-family:var(--f-mono);font-size:12.5px;padding:3px 8px;border-radius:999px;background:var(--accent-soft);color:var(--ink);border:1px solid transparent;display:inline-flex;gap:6px;align-items:center}
+.sb .chip.home{background:var(--sel);color:var(--sel-ink)}
+.sb .chip button{border:0;padding:0 2px;background:transparent;font-size:13px;line-height:1;color:inherit}
+.sb .code{background:var(--code-bg);color:var(--code-ink);font-family:var(--f-mono);font-size:13px;border-radius:8px;padding:12px 14px;overflow-x:auto;white-space:pre;line-height:1.6;margin:0}
+.sb .codehead{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.sb .status{display:flex;flex-wrap:wrap;gap:8px}
+.sb .pill{font-size:12.5px;font-weight:600;padding:3px 9px;border-radius:999px;border:1px solid currentColor;display:inline-flex;gap:6px;align-items:center;font-variant-numeric:tabular-nums}
+.sb .pill.ok{color:var(--ok)}
+.sb .pill.warn{color:var(--warn)}
+.sb .pill.crit{color:var(--crit)}
+.sb .pill.info{color:var(--muted)}
+.sb .meter{height:6px;border-radius:3px;background:var(--line);overflow:hidden}
+.sb .meter i{display:block;height:100%;background:var(--accent)}
+.sb .warnlist{margin:0;padding-left:18px;font-size:13.5px}
+.sb .warnlist li.crit{color:var(--crit)}
+.sb .warnlist li.warn{color:var(--warn)}
+.sb table{border-collapse:collapse;width:100%;font-size:14px}
+.sb th,.sb td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:middle}
+.sb th{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+.sb td code{font-family:var(--f-mono);font-size:12.5px}
+.sb .tablewrap{overflow-x:auto}
+.sb .steps{margin:0;padding-left:20px;display:grid;gap:6px;font-size:14px}
+.sb .steps code,.sb .sub code,.sb p code,.sb li code{font-family:var(--f-mono);font-size:12.5px;background:var(--accent-soft);padding:1px 5px;border-radius:4px}
+.sb .note{font-size:13px;color:var(--muted);border-left:3px solid var(--warn);padding:2px 0 2px 10px;margin:0}
+.sb .tagcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:10px}
+.sb .tagcard{border:1px solid var(--line);border-radius:9px;padding:10px 12px;display:grid;gap:8px;background:var(--bg);align-content:start}
+.sb .tagcard.on{border-color:var(--accent);box-shadow:inset 3px 0 0 var(--accent)}
+.sb .tc-head{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.sb .tc-name{font-family:var(--f-mono);font-size:14px;font-weight:500}
+.sb .tc-sum{font-size:13px;color:var(--muted);margin:0}
+.sb .tc-def{font-size:13.5px;margin:0;line-height:1.55}
+.sb .tc-act{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.sb button.linkish{border:0;background:transparent;padding:2px 4px;color:var(--accent);font-size:13px;text-decoration:underline;text-underline-offset:2px}
+.sb button.add[aria-pressed=true]{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+.sb .addbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.sb .cap{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:12px}
+.sb .capitem{display:grid;gap:4px;font-size:13px}
+.sb .capitem .lbl{display:flex;justify-content:space-between;gap:8px;color:var(--muted);font-variant-numeric:tabular-nums}
+.sb .capitem .lbl b{color:var(--ink);font-weight:600}
+.sb .capitem.warn .meter i{background:var(--warn)}
+.sb .capitem.crit .meter i{background:var(--crit)}
+.sb .capitem.warn .lbl b{color:var(--warn)}
+.sb .capitem.crit .lbl b{color:var(--crit)}
+.sb .capbanner{border:1px solid var(--crit);color:var(--crit);border-radius:8px;padding:8px 12px;font-size:13.5px;font-weight:500}
+.sb svg.map{touch-action:pan-y pinch-zoom;user-select:none;-webkit-user-select:none}
+.sb .clisteps{list-style:none;margin:0;padding:0;display:grid;gap:8px;counter-reset:st}
+.sb .clisteps li{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;background:var(--code-bg);color:var(--code-ink);border-radius:8px;padding:8px 10px;counter-increment:st}
+.sb .clisteps li::before{content:counter(st);font-family:var(--f-display);font-weight:700;font-size:20px;min-width:22px;text-align:center;color:var(--sel)}
+.sb .clisteps li.done{opacity:.5}
+.sb .clisteps li.done::before{content:"✓";color:var(--ok)}
+.sb .clisteps code{font-family:var(--f-mono);font-size:13px;white-space:pre-wrap;word-break:break-all;line-height:1.5}
+.sb .clisteps .meta{display:block;font-family:var(--f-mono);font-size:11px;color:var(--muted);margin-top:2px}
+.sb .clisteps .acts{display:flex;gap:6px;align-items:center}
+.sb .clisteps button{background:transparent;color:var(--code-ink);border-color:#ffffff33;padding:4px 10px;font-size:13px}
+.sb .clisteps label{display:inline-flex;gap:5px;align-items:center;font-size:12.5px;color:var(--code-ink)}
+@media (max-width:480px){.sb .clisteps li{grid-template-columns:auto minmax(0,1fr)}
+.sb .clisteps .acts{grid-column:2}}
+.sb .dchips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.sb .dchips button{font-size:13px;padding:4px 10px;border-radius:999px;display:inline-flex;gap:6px;align-items:center}
+.sb .dchips button .n{font-family:var(--f-mono);font-size:11.5px;color:var(--muted)}
+.sb .dchips button[aria-pressed=true]{background:var(--sel);color:var(--sel-ink);border-color:var(--sel)}
+.sb .dchips button[aria-pressed=true] .n{color:var(--sel-ink)}
+.sb .dchips button.part{border-color:var(--sel);border-style:dashed}
+.sb details summary{cursor:pointer;font-weight:600;font-size:14px}
+.sb-foot{color:var(--muted);font-size:12.5px;max-width:90ch}
+@media (prefers-reduced-motion:reduce){.sb *{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="site-head"><div class="bar">
+  <a class="brand" href="../"><img class="brand-mark" src="../assets/mark.svg?v=20261025e" alt="" width="34" height="53"><span class="brand-text">HOOP<small>Hoosier Off-Grid Open Playbook</small></span></a>
+  <nav class="site-nav" aria-label="Site">
+    <a href="../#map">Map</a>
+    <button type="button" class="nav-menu" id="navMenu" aria-expanded="false" aria-controls="navMore">Menu</button>
+    <span class="nav-more" id="navMore">
+      <a href="../#protocols">Settings</a>
+      <a href="../advanced/" aria-current="page">Theoretical</a>
+      <a href="../live/">Live</a>
+      <a href="../emergency/">Agencies</a>
+      <a href="../#report">Report</a>
+      <a href="../#support">Support</a>
+      <a href="https://github.com/mutiny19/hoop" target="_blank" rel="noopener">GitHub</a>
+    </span>
+    <a class="cta" href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Join Indiana Mesh</a>
+    <a class="go" href="../meshcore/">Get on the mesh</a>
+    <button type="button" class="theme-toggle" id="themeBtn" aria-label="Switch to light mode" title="Switch to light mode"><svg class="i-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="i-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+  </nav>
+</div></header>
+<div class="site-notice" role="note"><div class="bar"><b>For consideration only.</b> This site is not the authority on anything here, and nothing on it is concluded or complete. An open-source mesh belongs to everyone who builds it; respecting that means collaboration, not ownership. The projects and groups linked from each page maintain their own work, and where they differ from this site, they win.</div></div>
+
+<main class="sb">
+  <header class="sb-head">
+    <span class="eyebrow">Indiana · MeshCore · advanced and theoretical</span>
+    <h1>Advanced and theoretical</h1>
+    <p class="lead">Nothing on this page is needed to use the mesh. It holds the Indiana-specific and still-undecided material for repeater owners, kept apart from the main pages so those stay simple and close to the official sources: <a href="#scoping">three proposed region-tag structures</a>, <a href="#owners-h">the open base commands and neighbours' tags</a>, and <a href="#observers-h">observer broker details</a>. Live views of traffic are on the <a href="../live/">Live</a> page.</p>
+    <p class="lead">The three structures, side by side so people can compare them. Each one starts from the same open base (<code>us</code> and <code>us-in</code>, unscoped traffic allowed, no default region) and differs only in how it names the places inside Indiana. Adding tags only lets more scoped traffic through, and companion users need none of this. Neighbouring groups publish their own plans: <a href="https://docs.okimesh.org/books/oki-mesh-alliance/page/oki-mesh-region-scopes" target="_blank" rel="noopener">OKI Mesh</a>, <a href="https://neimesh.net" target="_blank" rel="noopener">NEIMesh</a>, <a href="https://michmesh.com" target="_blank" rel="noopener">MichMesh</a>.</p>
+    <div class="proposal" role="note"><strong>Proposals only.</strong> None of the three structures below has been decided, and none should be put on a repeater yet. They are here so Indiana Mesh can look at them together and pick, change, or drop them. The commands each one produces are for evaluation; until the community settles on one, a repeater should carry only the open base and whatever a neighbouring group publishes. Discuss on the <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Indiana Mesh Discord</a> or <a href="https://github.com/mutiny19/hoop/issues/new/choose" target="_blank" rel="noopener">open an issue</a>.</div>
+  </header>
+  <h2 id="scoping" class="part-h">Region scoping: three proposals</h2>
+  <div class="mode" role="group" aria-label="Choose a scoping style">
+    <button type="button" class="mode-btn" id="modeSimple" aria-pressed="true">Simplest</button>
+    <button type="button" class="mode-btn" id="modeAbbr" aria-pressed="false">Abbreviated</button>
+    <button type="button" class="mode-btn" id="modeFull" aria-pressed="false">County &amp; district</button>
+    <span class="mode-help">Three proposed structures, none adopted. <strong>Simplest</strong>: an airport and a third of the state. <strong>Abbreviated</strong>: metro and region tags chosen on a map, with neighbours. <strong>County &amp; district</strong>: the full builder, with county and IDHS district tags.</span>
+  </div>
+
+  <section id="simple" class="abbr" aria-labelledby="simple-h">
+    <h2 id="simple-h">Simplest scoping</h2>
+    <p class="sub">Two picks. Every repeater carries <code>us</code> and <code>us-in</code>; you add the airport code of the metro it serves, and which third of the state it sits in: <code>us-in-north</code>, <code>us-in-central</code>, or <code>us-in-south</code>. Four tags at most.</p>
+    <section class="panel step" aria-labelledby="s1-h">
+      <h3 id="s1-h"><span class="stepnum">1</span> Airport</h3>
+      <p class="sub">The lowercase code of the nearest metro's main airport. Skip it for a rural repeater away from every metro.</p>
+      <div class="chips" id="simpleMetros"></div>
+    </section>
+    <section class="panel step" aria-labelledby="s2-h">
+      <h3 id="s2-h"><span class="stepnum">2</span> Where in the state</h3>
+      <p class="sub">Pick one. One tag, by convention; no group publishes these yet.</p>
+      <div class="chips" id="simpleBands"></div>
+      <p class="note" id="simpleBandNote"></p>
+    </section>
+    <section class="panel step" aria-labelledby="s3-h">
+      <div class="head"><h3 id="s3-h"><span class="stepnum">3</span> Get the code</h3><button class="copy" type="button" id="simpleCopy">Copy</button></div>
+      <label class="k" for="simpleFw">Firmware</label>
+      <select id="simpleFw">
+        <option value="1.16">1.16 or newer (region def)</option>
+        <option value="1.15">1.15 or openHop (region put)</option>
+        <option value="1.14">1.14 and older (region put + allowf)</option>
+      </select>
+      <pre id="simpleOut"></pre>
+      <p class="note" id="simpleBudget"></p>
+      <p class="note">For evaluation; this structure is a proposal, not something to put on a repeater yet. If adopted, they would run on the repeater over USB serial or the app's remote admin, <strong>one line at a time</strong>, and then <code>region list allowed</code> should show <code>*</code> plus every tag. Near a state line, or for a repeater between two metros, switch to <strong>Abbreviated</strong> for neighbours and a second metro.</p>
+    </section>
+    <section class="method" aria-labelledby="simple-method-h">
+      <h3 id="simple-method-h">Method</h3>
+      <ol>
+        <li><strong>Base tags.</strong> <code>us</code> and <code>us-in</code>, with <code>region allowf *</code> and no default region, so unscoped traffic keeps flowing.</li>
+        <li><strong>Airport.</strong> The same metro codes as the Abbreviated mode: <em>published</em> ones from <a href="https://docs.okimesh.org/books/oki-mesh-alliance/page/oki-mesh-region-scopes" target="_blank" rel="noopener">OKI Mesh's region list</a> and the observer services, the rest by the same convention.</li>
+        <li><strong>Thirds.</strong> One tag each, <code>us-in-north</code>, <code>us-in-central</code>, <code>us-in-south</code>, following the <code>us-in-</code> form of the other Indiana tags. Their boundaries are the closest combination of <a href="https://visitindiana.in.gov/regions/" target="_blank" rel="noopener">Visit Indiana</a> regions: North is Northwest, North Central, Northeast, and Wabash Valley; Central is West-Central, Central, and East Central; South is South Central, Southwest, Southeast, and South. Tags match by exact string, so a message scoped to <code>us-in-north</code> passes only repeaters carrying that tag; the Abbreviated mode's region tags (<code>us-in-nw</code> and so on) are different strings. No group publishes the thirds yet; carrying one is a proposal.</li>
+        <li><strong>Commands and limits.</strong> As in the Abbreviated mode: the flat <code>region def</code> form on 1.16 and newer, <code>region put</code> per tag on 1.15 and openHop, plus <code>region allowf</code> on 1.14; 32 slots and 172 Discover Regions bytes, from the firmware source.</li>
+      </ol>
+    </section>
+  </section>
+  <section id="abbr" class="abbr" aria-labelledby="abbr-h" hidden>
+    <h2 id="abbr-h">Abbreviated scoping</h2>
+    <p class="sub">The convention, in one sentence: <strong>every repeater carries <code>us</code> and its state as <code>us-in</code>, plus the lowercase three-letter airport code of each metro it serves.</strong> That's it. No default region, unscoped traffic allowed. The same three tags OKI Mesh, Waev, MeshMapper, and the observer firmwares already use for Indiana, so a guess lands on what your neighbours carry.</p>
+    <section class="panel step" aria-labelledby="step1-h">
+      <h3 id="step1-h"><span class="stepnum">1</span> Where is it?</h3>
+      <div class="step1-grid">
+        <div>
+          <p class="sub">Two kinds of button on the map: <strong>click any county</strong> to add its region (tinted and numbered as on the Visit Indiana map), and <strong>click an airport-code pill</strong> to add that metro (shaded counties). Click again to remove. Pick one, or both.</p>
+          <div class="abbr-mapbox"><svg id="abbrMap" viewBox="30 85 470 712" role="group" aria-label="Indiana metro areas by airport code"></svg></div>
+        </div>
+        <div class="step1-side">
+          <h4>Metro areas</h4>
+          <p class="sub">Usually one. Two if you sit between them. None is fine for a rural repeater: it still carries <code>us</code> and <code>us-in</code>.</p>
+          <div class="chips" id="abbrMetros"></div>
+          <div class="abbr-actions"><button type="button" class="chip" id="abbrClear">Clear all</button></div>
+          <p class="note"><code>cvg</code> and <code>sdf</code> are the OKI-published codes for the Indiana counties in the Cincinnati and Louisville metros.</p>
+          <h4>Regions</h4>
+          <p class="sub">If no metro fits, the region. The eleven regions of the state's own <a href="https://visitindiana.in.gov/regions/" target="_blank" rel="noopener">Visit Indiana map</a>, the names most Hoosiers already use: <code>us-in-</code> plus the region's short code. No group publishes these yet; pick a region, a metro, or both.</p>
+          <div class="chips" id="abbrDistricts"></div>
+          <p class="note"><span class="pub">Published</span> codes appear in OKI Mesh's region list or an observer service's region list. <span class="conv">By convention</span> codes follow the same rule but no group has published them; using one is a proposal, and it only matters once a second repeater carries it.</p>
+        </div>
+      </div>
+    </section>
+    <section class="panel step" aria-labelledby="step2-h">
+      <h3 id="step2-h"><span class="stepnum">2</span> Does it reach across the state line?</h3>
+      <p class="sub">Most Indiana repeaters skip this step. Near a border, add the neighbouring group's own tags, spelled exactly as they publish them; each one only lets more scoped traffic through. <code>oki</code>, <code>us-midwest</code>, <code>us-oh</code>, and <code>us-ky</code> are published by OKI Mesh; <code>mi</code> and <code>midwest</code> by MichMesh; <code>nei</code> by NEIMesh. <code>us-il</code> and <code>us-mi</code> follow the state convention but no group publishes them yet.</p>
+      <div class="chips" id="abbrNeighbors"></div>
+    </section>
+    <section class="panel step" aria-labelledby="step3-h">
+      <div class="head"><h3 id="step3-h"><span class="stepnum">3</span> Get the code</h3><button class="copy" type="button" id="abbrCopy">Copy</button></div>
+      <label class="k" for="abbrFw">Firmware</label>
+      <select id="abbrFw">
+        <option value="1.16">1.16 or newer (region def)</option>
+        <option value="1.15">1.15 or openHop (region put)</option>
+        <option value="1.14">1.14 and older (region put + allowf)</option>
+      </select>
+      <div class="alert" id="abbrAlert" role="alert" hidden></div>
+      <pre id="abbrOut"></pre>
+      <p class="note" id="abbrBudget"></p>
+      <p class="note">For evaluation; this structure is a proposal, not something to put on a repeater yet. If adopted, they would run on the repeater over USB serial or the app's remote admin, <strong>one line at a time</strong> (each line is its own command; the app sends one per message), and then <code>region list allowed</code> should show <code>*</code> plus every tag. Companions need nothing. Reference: MeshCore's <a href="https://docs.meshcore.io/cli_commands/#region-management-v110" target="_blank" rel="noopener">Region Management</a>.</p>
+      <div id="abbrChanPanel">
+        <h4>Channel suggestions for what you picked</h4>
+        <p class="sub">Scoping is for the rare message you want kept local. For everyday local chat, a channel does the job with nothing to configure on any repeater. Hashtag channels take their key from the name, so anyone who types the same name lands in the same room. Convention: <code>#</code> plus the place name, lowercase, letters only.</p>
+        <div class="chips" id="abbrChans"></div>
+        <p class="note">Tap to copy, then add it in the MeshCore app. People share channel names worth joining in <code>#porchlight</code>; these are only suggestions that follow the naming rule.</p>
+      </div>
+    </section>
+    <section class="panel step" aria-labelledby="step4-h">
+      <h3 id="step4-h"><span class="stepnum">4</span> Also on the mesh nearby</h3>
+      <p class="sub">Each group describes its own area and publishes its own tags. Near a state line, theirs is worth joining too; the <a href="../meshcore/#nb-h">start page</a> keeps the full list.</p>
+      <ul class="nearby">
+        <li><a href="https://okimesh.org" target="_blank" rel="noopener">OKI Mesh</a> <span>southwest Ohio, southeast Indiana, northern Kentucky · <a href="https://docs.okimesh.org/books/oki-mesh-alliance/page/oki-mesh-region-scopes" target="_blank" rel="noopener">region scopes</a></span></li>
+        <li><a href="https://neimesh.net" target="_blank" rel="noopener">NEIMesh</a> <span>northeast Indiana, Fort Wayne first</span></li>
+        <li><a href="https://www.cimesh.net" target="_blank" rel="noopener">Central Indiana Mesh Network</a> <span>central Indiana, part of the OKI mesh</span></li>
+        <li><a href="https://btownmesh.org" target="_blank" rel="noopener">Btown Mesh</a> <span>Bloomington area; Meshtastic first, MeshCore welcome</span></li>
+        <li><a href="https://chicagolandmesh.org" target="_blank" rel="noopener">Chicagoland Mesh</a> <span>Chicago area and northwest Indiana</span></li>
+        <li><a href="https://michmesh.com" target="_blank" rel="noopener">MichMesh</a> <span>Michigan</span></li>
+        <li><a href="https://nwomesh.com" target="_blank" rel="noopener">NWO Mesh</a> <span>northwest Ohio, next to Steuben, DeKalb, and Allen counties</span></li>
+        <li><a href="https://neome.sh" target="_blank" rel="noopener">NEO Mesh</a> <span>northeast and north central Ohio</span></li>
+        <li><a href="https://nashme.sh" target="_blank" rel="noopener">NashMesh</a> <span>greater Nashville, for the far south</span></li>
+      </ul>
+    </section>
+    <details class="depth">
+      <summary>Why these tags and not a hierarchy</summary>
+      <ul class="depth-list">
+        <li><strong>Tags match by exact string.</strong><span><code>us-in</code> does not imply <code>us</code>, and a nested tree is display only, so a hierarchy buys nothing on the air. What matters is that neighbours carry the identical string.</span></li>
+        <li><strong>Invented strings split the mesh.</strong><span>A scoped message is dropped by the first repeater on its path that lacks the exact tag. Codes already published by neighbours and observer services are the ones most likely to be on that path.</span></li>
+        <li><strong>Budget.</strong><span>A repeater holds 32 tags and answers Discover Regions in 172 bytes. Three short tags leave room for whatever comes next.</span></li>
+        <li><strong>Scope limits what you send, never what you hear.</strong><span>Most people never scope. For local chat a channel like <code>#hamilton</code> or <code>#eastcentral</code> crosses every repeater with nothing to configure.</span></li>
+        <li><strong>Why not "central" or "east central" tags.</strong><span>Those names have no agreed county boundaries and no neighbour carries them, so two people following the convention would still pick differently. The ten IDHS districts in the County &amp; district mode are the defined version; the metro codes already cover the same ground.</span></li>
+      </ul>
+    </details>
+    <section class="method" aria-labelledby="abbr-method-h">
+      <h3 id="abbr-method-h">Method</h3>
+      <ol>
+        <li><strong>Base tags.</strong> Every repeater carries <code>us</code> and <code>us-in</code>, with <code>region allowf *</code> and no default region, so unscoped traffic keeps flowing and nothing is held back.</li>
+        <li><strong>Metro codes.</strong> The lowercase IATA code of the metro's main airport. Codes marked <em>published</em> are the ones in <a href="https://docs.okimesh.org/books/oki-mesh-alliance/page/oki-mesh-region-scopes" target="_blank" rel="noopener">OKI Mesh's region list</a> and the region lists of the observer services (Waev, MeshMapper, the Offband firmware). Codes marked <em>by convention</em> follow the same rule but no group has published them; listing one here is a proposal.</li>
+        <li><strong>Which counties are in a metro.</strong> The counties of the metro statistical area, as the County &amp; district builder already maps them for OKI's metros; <code>cvg</code> and <code>sdf</code> cover the Indiana counties OKI lists in the Cincinnati and Louisville metros. Counties outside every metro have no metro code; they are reached through their district.</li>
+        <li><strong>Regions.</strong> The eleven regions of the <a href="https://visitindiana.in.gov/regions/" target="_blank" rel="noopener">Visit Indiana map</a>, with each region's county list taken from its page there (October 2026). Tag form: <code>us-in-</code> plus the region's short code. Note that the County &amp; district builder uses the ten IDHS districts instead, so a few region tags share a code with a district tag that covers a different set of counties (<code>nw</code> and <code>cen</code> are identical; <code>nc</code>, <code>ne</code>, <code>wc</code>, <code>sc</code>, <code>se</code>, <code>sw</code> differ at the edges). A repeater should follow one scheme or the other.</li>
+        <li><strong>Neighbours' tags.</strong> Spelled exactly as each group publishes them (<a href="https://docs.okimesh.org/books/oki-mesh-alliance/page/oki-mesh-region-scopes" target="_blank" rel="noopener">OKI Mesh</a>, <a href="https://michmesh.com" target="_blank" rel="noopener">MichMesh</a>, <a href="https://neimesh.net" target="_blank" rel="noopener">NEIMesh</a>), never translated, because tags match by exact string.</li>
+        <li><strong>Commands.</strong> The flat <code>region def a|* b|* c</code> form OKI's own examples use on firmware 1.16 and newer; one <code>region put</code> per tag on 1.15 and openHop; plus <code>region allowf</code> per tag on 1.14. Syntax from MeshCore's <a href="https://docs.meshcore.io/cli_commands/#region-management-v110" target="_blank" rel="noopener">Region Management</a> reference.</li>
+        <li><strong>Limits shown.</strong> 32 region slots per repeater and a 172-byte Discover Regions reply, from the firmware source; the counter under the commands is tags and bytes against those caps.</li>
+        <li><strong>Changing any of this.</strong> Codes, county lists, and districts live in one table in this page's source; propose a change by <a href="https://github.com/mutiny19/hoop/issues/new/choose" target="_blank" rel="noopener">opening an issue</a>, with the published source for the new value.</li>
+      </ol>
+    </section>
+  </section>
+
+  <div id="fullBuilder" hidden>
+
+  <div class="grid">
+    <section class="panel" aria-labelledby="map-h">
+      <div class="codehead">
+        <h2 id="map-h">Coverage</h2>
+        <div class="row">
+          <button id="btnNeighbors" type="button">Add neighbors of home</button>
+          <button id="btnClear" type="button">Clear</button>
+        </div>
+      </div>
+      <p class="sub">First click sets the <b>home county</b>. Click or drag across the map to add several counties at once; start a drag on a selected county to remove. Shift-click a selected county to make it home.</p>
+      <div class="addbar">
+        <form class="row" id="addForm" style="flex:1;min-width:0">
+          <input type="text" id="addIn" list="countyList" placeholder="Marion, Boone, Hamilton OH" aria-label="Add counties by name, separated by commas" style="flex:1;min-width:0">
+          <button type="submit">Add</button>
+        </form>
+        <datalist id="countyList"></datalist>
+      </div>
+      <div>
+        <h3>Districts</h3>
+        <p class="sub" style="margin-top:2px">Click to add every county in a district. Click again to remove them.</p>
+        <div class="dchips" id="dchips"></div>
+      </div>
+      <div class="capbanner" id="capMsg" role="status" hidden></div>
+      <div class="mapbox" id="mapbox"><svg class="map" id="map" viewBox="0 0 560 860" role="group" aria-label="Indiana and border counties"></svg><div class="tip" id="tip" hidden></div></div>
+      <div class="legend">
+        <span><i class="sw" style="background:var(--home)"></i>Home</span>
+        <span><i class="sw" style="background:var(--sel)"></i>Covered</span>
+        <span><i class="sw" style="background:var(--d5)"></i>Indiana (tinted by district)</span>
+        <span><i class="sw" style="background:var(--county-out)"></i>Neighboring state</span>
+      </div>
+      <div class="cap" id="cap"></div>
+      <div>
+        <h3>Selected</h3>
+        <div class="chips" id="chips"></div>
+      </div>
+    </section>
+
+    <div style="display:grid;gap:20px;min-width:0">
+      <section class="panel" aria-labelledby="opt-h">
+        <h2 id="opt-h">Options</h2>
+        <div class="opts">
+          <label class="k" for="naming">Tag format</label>
+          <select id="naming">
+            <option value="iso">us-in-cen-mrn (matches us-in)</option>
+            <option value="prop">in-us-cen-mrn (alternative)</option>
+          </select>
+          <label class="k" for="fw">Firmware</label>
+          <select id="fw">
+            <option value="1.16">1.16 or newer (region def)</option>
+            <option value="1.15">1.15 (region put)</option>
+            <option value="1.14">1.14 (region put + allowf)</option>
+          </select>
+          <label class="k" for="deflevel">Repeater default</label>
+          <select id="deflevel">
+            <option value="none" selected>None, stay open (Indiana default)</option>
+            <option value="district">District (own adverts stay in district)</option>
+            <option value="state">State</option>
+            <option value="county">County</option>
+            <option value="oki">OKI tri-state</option>
+          </select>
+          <label class="k" for="maxlen">Step size</label>
+          <div class="row">
+            <select id="chunkPreset" aria-label="Step size preset">
+              <option value="140">Remote CLI in the app · 140</option>
+              <option value="155">Serial console · 155</option>
+              <option value="100">Cautious · 100</option>
+              <option value="60">Very short steps · 60</option>
+              <option value="custom">Custom</option>
+            </select>
+            <input id="maxlen" type="number" min="40" max="160" step="5" value="140" style="width:80px" aria-label="Maximum characters per step">
+            <span class="sub">characters per step. The firmware buffer is 160.</span>
+          </div>
+          <span class="k">Include</span>
+          <div class="row" style="gap:16px">
+            <label class="chk"><input type="checkbox" id="districtTags"> District tags</label>
+            <label class="chk"><input type="checkbox" id="countyTags"> County tags</label>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="tags-h">
+        <div class="codehead">
+          <h2 id="tags-h">Shared tags</h2>
+          <div class="row">
+            <button type="button" id="presetOki">Add all OKI tags</button>
+            <button type="button" id="presetIn">Phase 1 only</button>
+          </div>
+        </div>
+        <p class="sub">Tags that reach beyond your county and district. Phase 1 is the proposed starting set; add others only if your repeater should pass that group's scoped traffic. Tap Define for what each one means.</p>
+        <div class="tagcards" id="tagCards"></div>
+        <div class="tagcard">
+          <div class="tc-head"><code class="tc-name">custom tag</code><button type="button" class="linkish" data-def="custom" aria-expanded="false">Define</button></div>
+          <p class="tc-def" id="def-custom" hidden>A tag your group invents for a specific purpose, such as an emergency net, an event, or a club. It sits at the top level, beside the others. Every repeater that should pass that traffic has to carry the same exact spelling. Lowercase letters, digits, and hyphens, up to 30 characters.</p>
+          <form class="row" id="customForm"><input type="text" id="customIn" placeholder="e.g. in-ares" aria-label="New custom tag" style="flex:1;min-width:0;max-width:220px"><button type="submit">Add tag</button></form>
+          <div class="chips" id="customChips"></div>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="rep-h">
+        <div class="codehead">
+          <h2 id="rep-h">Repeater CLI</h2>
+          <button id="copyCli" type="button">Copy all (serial scripts)</button>
+        </div>
+        <div class="status" id="status"></div>
+        <div class="meter" aria-hidden="true"><i id="meter"></i></div>
+        <p class="sub" id="cliHint">For evaluation; this structure is a proposal, not something to put on a repeater yet. If adopted: send each step on its own, wait for the reply, then tick it off. Every step fits in one CLI message.</p>
+        <ol class="clisteps" id="cliSteps"></ol>
+        <ul class="warnlist" id="warnings"></ul>
+        <details>
+          <summary>Resulting region tree</summary>
+          <pre class="code" id="tree" style="margin-top:8px"></pre>
+        </details>
+        <p class="note">Steps must go in order: later steps refer to tags created earlier. If a step replies <code>Err</code>, fix it before moving on. <code>region def</code> does not clear old tags, so remove any you no longer want with <code>region remove</code> (children first), then run <code>region</code> to confirm each tag shows <code>F</code>.</p>
+      </section>
+
+      <section class="panel" aria-labelledby="comp-h">
+        <h2 id="comp-h">Companion app</h2>
+        <p class="sub">Indiana Mesh doesn't scope conversation: leave the default scope unset and channels unscoped, so messages reach everyone and keep working wherever you travel. Mute a busy channel instead of scoping it. If you run a bot or test pings you want kept local, this shows how. Every scope must be a tag the repeaters along the path carry, or the message stops at the first repeater that lacks it.</p>
+        <div class="opts">
+          <label class="k" for="compDefault">Default region scope</label>
+          <select id="compDefault"></select>
+        </div>
+        <div>
+          <div class="codehead"><h3>Channel scopes</h3><button id="addCh" type="button">Add channel</button></div>
+          <div class="tablewrap" style="margin-top:6px">
+            <table>
+              <thead><tr><th>Channel</th><th>Reach</th><th>Tag to enter</th><th></th></tr></thead>
+              <tbody id="chBody"></tbody>
+            </table>
+          </div>
+        </div>
+        <div>
+          <div class="codehead"><h3>Steps in the MeshCore app</h3><button id="copyComp" type="button">Copy steps</button></div>
+          <ol class="steps" id="compSteps"></ol>
+        </div>
+        <p class="note">Hold off on companion scoping until the repeaters around you carry these tags. Check first with Tools → Discover Regions.</p>
+      </section>
+    </div>
+  </div>
+
+  <footer class="sb-foot">
+    Districts follow the <a href="https://www.in.gov/dhs/files/IDHS-Districts-Map.pdf" target="_blank" rel="noopener">IDHS District Map</a>. The district and county codes are Indiana's reference set, maintained on this page; to propose a change, <a href="https://github.com/mutiny19/hoop/issues/new" target="_blank" rel="noopener">open an issue</a>. OKI metro membership is approximated from metro statistical areas; OKI Mesh's own maps govern. Commands are checked against a copy of MeshCore's <code>region def</code> and <code>region put</code> parsing before display, and the limits (32 regions, a 172-byte Discover Regions reply) come from the firmware source. Out-of-state counties add only their state tag and, with OKI metros added, their metro tag. Command reference: <a href="https://docs.meshcore.io/cli_commands/#region-management-v110" target="_blank" rel="noopener">Region Management</a>.
+  </footer>
+  <section class="method" aria-labelledby="full-method-h">
+    <h3 id="full-method-h">Method</h3>
+    <ol>
+      <li><strong>Start from Phase 1.</strong> <code>us</code>, <code>us-in</code>, <code>us-oh</code>, <code>us-ky</code>, <code>us-mi</code>, <code>us-il</code> with unscoped traffic allowed and no default region. With nothing selected, the output is exactly that.</li>
+      <li><strong>Districts.</strong> Indiana's ten homeland-security districts from the <a href="https://www.in.gov/dhs/files/IDHS-Districts-Map.pdf" target="_blank" rel="noopener">IDHS District Map</a>, numbered 1 to 10, with short codes (<code>nw</code>, <code>nc</code>, <code>ne</code>, <code>wc</code>, <code>cen</code>, <code>ec</code>, <code>w</code>, <code>sc</code>, <code>se</code>, <code>sw</code>). Each county belongs to exactly one.</li>
+      <li><strong>County codes.</strong> Three letters per county, chosen to be unique across Indiana; the lookup table is in this page's source. Indiana has no agreed statewide list yet, so these are this page's reference set.</li>
+      <li><strong>Tag chains.</strong> <code>us-in-&lt;district&gt;-&lt;county&gt;</code> by default (the <code>us-in-cen-mrn</code> format, which keeps <code>us-in</code> as a real tag on the chain), or the <code>in-us-cen-mrn</code> alternative. Only the tags you tick are emitted; the tree shown is display only, since the firmware matches by exact string.</li>
+      <li><strong>Shared tags.</strong> OKI Mesh's <code>oki</code>, <code>us-midwest</code>, <code>us-southeast</code>, and metro codes are offered as published; metro membership for out-of-state counties is approximated from metro statistical areas, and OKI's own maps govern.</li>
+      <li><strong>Checks before display.</strong> Commands are run through a copy of MeshCore's <code>region def</code> and <code>region put</code> parsing; the 32-slot and 172-byte limits come from the firmware source; steps are sized to the CLI message length you choose.</li>
+      <li><strong>Companion side.</strong> The companion panel only shows how a scope would be set; Indiana's starting point leaves companions unscoped. Any scope must be a tag the repeaters along the path carry.</li>
+      <li><strong>Changing any of this.</strong> Districts, county codes, and shared tags live in tables in this page's source; propose a change by <a href="https://github.com/mutiny19/hoop/issues/new/choose" target="_blank" rel="noopener">opening an issue</a>, with the published source for the new value.</li>
+    </ol>
+  </section>
+  <div class="panel abbr-like" id="fullChanPanel">
+    <h3>Channel suggestions for the counties you picked</h3>
+    <p class="sub">For everyday local chat, a channel beats a scope: nothing to configure on any repeater. Convention: <code>#</code> plus the county or city name, lowercase, letters only. Tap to copy.</p>
+    <div class="chips" id="fullChans"><span class="sub">Pick counties on the map above.</span></div>
+  </div>
+  </div>
+
+  <section class="owners" id="owners">
+  <section aria-labelledby="owner-h">
+    <h2 id="owner-h" class="part-h">The open base: what a repeater carries today</h2>
+    <p class="owner-intro">Running a repeater? Phase 1 adds six region names and keeps everything open. Companion users can skip this part. The proposals at the top of this page build on it.</p>
+  <div class="frame" aria-label="Region map">
+    <div class="frame-head">
+      <span class="tag">us</span>
+      <p>The umbrella tag. Repeaters carry it so other groups' cross-state scoped traffic passes through Indiana.</p>
+    </div>
+    <div class="map">
+      <div class="cell in">
+        <div class="top"><span class="state">Indiana</span><a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Indiana Mesh on Discord</a></div>
+        <span class="tag big">us-in</span>
+        <div class="tags">
+          <span class="tag">us</span><span class="tag">us-in</span><span class="tag">us-oh</span><span class="tag">us-ky</span><span class="tag">us-mi</span><span class="tag">us-il</span>
+        </div>
+        <ul>
+          <li><strong><a href="https://neimesh.net" target="_blank" rel="noopener">NEIMesh</a></strong>
+            <span>Northeast Indiana, starting in Allen County (Fort Wayne). Say hi on their #public channel.</span></li>
+          <li><strong><a href="https://www.cimesh.net" target="_blank" rel="noopener">Central Indiana Mesh Network</a></strong>
+            <span>Central Indiana on MeshCore, part of the OKI mesh. Free repeater hardware for sites that extend coverage.</span></li>
+          <li><strong><a href="https://btownmesh.org" target="_blank" rel="noopener">Btown Mesh</a></strong>
+            <span>Bloomington area. Meshtastic first, MeshCore users welcome; still organizing.</span></li>
+        </ul>
+        <p class="count">The six proposed starting regions, so every border would already be covered. Current repeaters: the <a href="https://map.meshcore.io/?lat=39.85&amp;lon=-86.3&amp;zoom=7&amp;nodes=2" target="_blank" rel="noopener">MeshCore Map</a>.</p>
+      </div>
+
+      <div class="cell mi">
+        <div class="top"><span class="state">Michigan</span><span class="tag">us-mi</span></div>
+        <ul>
+          <li><strong><a href="https://michmesh.com" target="_blank" rel="noopener">MichMesh</a></strong>
+            <span>Publishes its own region names:</span><span class="uses">midwest · mi · mi-west · grr</span></li>
+        </ul>
+      </div>
+
+      <div class="cell il">
+        <div class="top"><span class="state">Illinois</span><span class="tag">us-il</span></div>
+        <ul>
+          <li><strong><a href="https://chicagolandmesh.org" target="_blank" rel="noopener">Chicagoland Mesh</a></strong>
+            <span>Region names not published yet.</span></li>
+        </ul>
+      </div>
+
+      <div class="cell oh">
+        <div class="top"><span class="state">Ohio</span><span class="tag">us-oh</span></div>
+        <ul>
+          <li><strong><a href="https://nwomesh.com" target="_blank" rel="noopener">NWO Mesh</a></strong>
+            <span>Northwest Ohio, on Indiana's northeast border. Early deployment; region names not published yet.</span></li>
+          <li><strong><a href="https://neome.sh" target="_blank" rel="noopener">NEO Mesh</a></strong>
+            <span>Northeast and North Central Ohio. Region names not published yet.</span></li>
+          <li><strong><a href="https://okimesh.org" target="_blank" rel="noopener">OKI Mesh</a></strong>
+            <span>Southwest Ohio, see the corner tile.</span></li>
+        </ul>
+      </div>
+
+      <div class="cell ky">
+        <div class="top"><span class="state">Kentucky</span><span class="tag">us-ky</span></div>
+        <p>Northern Kentucky is covered by OKI Mesh.</p>
+      </div>
+
+      <div class="cell oki">
+        <div class="top"><span class="state">Cincinnati tri-state</span><span class="tag oki">oki</span></div>
+        <ul>
+          <li><strong><a href="https://okimesh.org" target="_blank" rel="noopener">OKI Mesh</a></strong>
+            <span>The OKI Regional Council area: Hamilton Co. and its adjacent counties. Butler, Clermont, Warren (OH), Boone, Campbell, Kenton (KY), Dearborn (IN).</span></li>
+          <li><span><a href="https://docs.okimesh.org/books/oki-mesh-alliance/page/oki-mesh-region-scopes" target="_blank" rel="noopener">Their region plan</a> uses:</span>
+            <span class="uses">oki · us-midwest · us-oh · us-ky · us-in · cvg · day · ind …</span></li>
+        </ul>
+      </div>
+
+      <div class="cell tn">
+        <div class="top"><span class="state">Tennessee (south of KY)</span><span class="tag alt">us-tn</span></div>
+        <ul>
+          <li><strong><a href="https://nashme.sh" target="_blank" rel="noopener">NashMesh</a></strong>
+            <span>Greater Nashville. Proposed:</span><span class="uses">us · us-southeast · us-tn · us-tn-bna</span></li>
+          <li><strong><a href="https://tennmesh.carrd.co" target="_blank" rel="noopener">TennMesh</a></strong>
+            <span>East Tennessee.</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  </section>
+
+
+
+  <section aria-labelledby="setup-h">
+    <h2 id="setup-h">Set it up</h2>
+    <div class="setup">
+      <div class="panel">
+        <div class="head"><h3>Firmware 1.16 and newer</h3><button class="copy" type="button" data-copy="cmd116">Copy</button></div>
+<pre id="cmd116">region def us us-in|us us-oh|us us-ky|us us-mi|us us-il
+region allowf *
+region save
+region list allowed</pre>
+        <p class="note"><code>|us</code> means “go back to us”, so every state lands under <code>us</code>. Check the version first with <code>ver</code>. Full command reference: <a href="https://docs.meshcore.io/cli_commands/#region-management-v110" target="_blank" rel="noopener">Region Management</a>.</p>
+      </div>
+      <div class="panel">
+        <div class="head"><h3>Firmware 1.15 and openHop</h3><button class="copy" type="button" data-copy="cmd115">Copy</button></div>
+<pre id="cmd115">region put us
+region put us-in us
+region put us-oh us
+region put us-ky us
+region put us-mi us
+region put us-il us
+region allowf *
+region save</pre>
+        <p class="note">One region per line. Paste the lines one at a time.</p>
+      </div>
+    </div>
+    <ol class="steps">
+      <li>Run the commands on the repeater: USB serial, or the app's remote admin.</li>
+      <li><code>region list allowed</code> should show <code>*</code> plus all six names.</li>
+      <li>Companions need nothing.</li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="border-h">
+    <h2 id="border-h">Repeaters near a border</h2>
+    <p class="owner-intro">The six tags already cover every neighbouring state. Near a group that uses its own names, add those too. They only let more traffic through.</p>
+    <div class="tablewrap">
+      <table class="addons">
+        <thead><tr><th>Your repeater is near</th><th>Also add</th><th>Command</th></tr></thead>
+        <tbody>
+          <tr><td>Michigan line</td><td>MichMesh's <code>mi</code>, <code>midwest</code></td><td><code>region put mi us</code><br><code>region put midwest us</code></td></tr>
+          <tr><td>Cincinnati area (the 8 OKI counties)</td><td>OKI Mesh's <code>oki</code>, <code>us-midwest</code></td><td><code>region put oki us</code><br><code>region put us-midwest us</code></td></tr>
+          <tr><td>Chicago, Louisville, Evansville, Ohio or Kentucky lines</td><td>Nothing extra</td><td>The six tags cover it</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Want district or county tags, or a neighbouring group's tags, built for you? Use the three proposals at the top of this page. They start from these same open settings.</p>
+    <p class="note">Then <code>region save</code>. Neighbours' own region plans: <a href="https://michmesh.com" target="_blank" rel="noopener">MichMesh</a>, <a href="https://docs.okimesh.org/books/oki-mesh-alliance/page/oki-mesh-region-scopes" target="_blank" rel="noopener">OKI Mesh</a>.</p>
+  </section>
+
+  <section aria-labelledby="rules-h">
+    <h2 id="rules-h">Keep the mesh open</h2>
+    <p class="why">Default open. Repeaters carry region names so other groups' scoped traffic passes through Indiana. Adding a region never blocks anything; each name only lets more scoped traffic through. Only <code>region default</code>, <code>region denyf *</code> and <code>flood.max.unscoped</code> restrict traffic, and Phase 1 leaves all three off.</p>
+    <div class="rules">
+      <div class="panel do">
+        <h3>Do</h3>
+        <ul>
+          <li>Keep unscoped traffic on with <code>region allowf *</code>.</li>
+          <li>Type names exactly: lowercase, no <code>#</code>. <code>us-in</code> is not <code>in</code> or <code>US-IN</code>.</li>
+          <li>Leave every message and channel unscoped. Mute a busy channel instead of scoping it.</li>
+        </ul>
+      </div>
+      <div class="panel dont">
+        <h3>Don't</h3>
+        <ul>
+          <li>Set <code>region default</code> on repeaters or companions.</li>
+          <li>Run <code>region denyf *</code> or <code>set flood.max.unscoped</code>.</li>
+          <li>Scope messages or channels as a new user. It limits who hears you.</li>
+          <li>Put comments in commands. Every extra word becomes a region.</li>
+        </ul>
+      </div>
+    </div>
+
+  </section>
+
+  <details class="depth">
+    <summary>In depth: how scoping works</summary>
+    <ul class="depth-list">
+      <li><strong>Unscoped is the default and stays on.</strong><span>A message with no scope is relayed by every repeater that allows <code>*</code>, which is all of them in Phase 1.</span></li>
+      <li><strong>A scoped message needs its exact tag on every repeater along the way.</strong><span>A repeater without that tag silently drops it. One repeater with no regions at all drops every scoped message.</span>
+        <span class="eg">sends ind → Indiana repeater (us, us-in, us-oh, us-ky, us-mi, us-il) → <span class="no">dropped</span>, no ind tag</span>
+        <span class="eg">sends us-in → same repeater → <span class="ok">forwarded</span></span></li>
+      <li><strong>Matching is per tag, never by hierarchy.</strong><span><code>us</code> does not cover <code>us-in</code>. A border repeater carries several states; a message scoped <code>us-in</code> stops at the first repeater that lacks it.</span>
+        <span class="eg">sends us → every repeater carries us → <span class="ok">crosses all states</span></span></li>
+      <li><strong>Scope controls what you send, not what you hear.</strong><span>Any radio that hears a packet can read it, channel keys aside. A companion just over a state line still hears a message its nearby repeater relayed.</span></li>
+      <li><strong>Watch for the one-way reply trap.</strong><span>If someone replies scoped to a tag your side's repeaters lack, you never see it. Leaving messages unscoped avoids this entirely.</span></li>
+      <li><strong>Defaults change your own traffic too.</strong><span>A repeater or companion with a default region sends its own adverts and messages scoped. Phase 1 sets no default, so everything you send reaches everyone.</span></li>
+    </ul>
+    <p class="note">From the source: the MeshCore developer's post on <a href="https://blog.meshcore.io/2026/04/17/default-scope" target="_blank" rel="noopener">default scope</a> and the <a href="https://docs.meshcore.io/cli_commands/#region-management-v110" target="_blank" rel="noopener">Region Management</a> commands.</p>
+  </details>
+
+
+  </section>
+
+  <section class="observers" aria-labelledby="observers-h">
+    <h2 id="observers-h" class="part-h">Observers: where an observer reports</h2>
+    <p class="owner-intro">An observer is a repeater or spare radio with an internet connection that uploads what it hears, so Indiana shows up on the live maps; it changes nothing about routing. How to set one up: <a href="https://docs.meshcore.io/faq/#38-q-how-do-i-make-my-repeater-an-observer-on-the-mesh" target="_blank" rel="noopener">MeshCore FAQ</a>. One observer can feed several services at once.</p>
+    <div class="tablewrap">
+      <table class="addons">
+        <thead><tr><th>Service</th><th>Broker</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td><a href="https://waev.app/#/connect" target="_blank" rel="noopener">Waev</a> (preferred for Indiana)</td><td><code>mqtt.waev.app:443</code></td><td>WebSockets + TLS; signs in with the node's own MeshCore auth token. Documented privacy model: opted-out nodes dropped at ingest, personal radios never identified, no derived locations. Any node whose name contains ⛔ 🛑 or 🚫 is dropped before anything is written.</td></tr>
+          <tr><td><a href="https://docs.okimesh.org/books/meshcore-I9o/page/mqtt-broker-settings" target="_blank" rel="noopener">OKI CoreScope</a></td><td><code>mqtt1.okimesh.org:1883</code></td><td>The regional alliance's analyzer; plain TCP, anonymous, topic prefix <code>meshcore</code>.</td></tr>
+          <tr><td>LetsMesh US</td><td><code>wss://mqtt-us-v1.letsmesh.net:443/mqtt</code></td><td>Shared packet analyzer; WebSockets + TLS, auth token.</td></tr>
+          <tr><td>MeshMapper</td><td><code>wss://mqtt.meshmapper.net:443/mqtt</code></td><td>Coverage and live maps for Indianapolis and Fort Wayne; WebSockets + TLS, auth token.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Ways to run one: an openHop repeater with the Waev Outpost plugin, the Offband observer firmware on an ESP32 radio, meshcoretomqtt on a Pi, or the MeshCore Home Assistant integration. To verify, send a flood advert; within a few minutes it should show on the service's live map. Naming convention some Indiana owners use: <code>IN.&lt;CTY&gt;.&lt;name&gt;</code> (<code>set name IN.CTY.name</code>), a convention, not a rule.</p>
+  </section>
+</main>
+
+<footer class="site-foot"><div class="bar">
+  <span>HOOP, the Hoosier Off-Grid Open Playbook. Represents no network, collective, or organization; here to ease onboarding for newcomers and landing for advanced users. Informational only. <a href="../#about">About this site</a> · <a href="https://github.com/mutiny19/hoop" target="_blank" rel="noopener">Source</a> · <a href="https://github.com/mutiny19/hoop/issues/new/choose" target="_blank" rel="noopener">Open an issue</a></span>
+</div></footer>
+
+<script src="regions.js"></script>
+<script src="counties.js"></script>
+<script src="builder.js"></script>
+<script src="modes.js"></script>
+<script src="../assets/site.js"></script>
+</body>
+</html>

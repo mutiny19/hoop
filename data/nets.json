@@ -1,0 +1,465 @@
+{
+ "source": "Community net card, Indianapolis metro (resources/indy-metro-net-card.pdf), October 2026. Suggest a change on GitHub.",
+ "timezone": "America/Indiana/Indianapolis",
+ "default_minutes": 30,
+ "note": "Times are Eastern. unverified = listed but not yet confirmed on air.",
+ "weekly": [
+  {
+   "day": "Sun",
+   "time": "17:00",
+   "name": "IN Section ARES HF Net",
+   "freq": "3.900 / 7.280",
+   "access": "SSB",
+   "type": "HF"
+  },
+  {
+   "day": "Sun",
+   "time": "19:00",
+   "name": "Johnson ARES / Mid-State ARC",
+   "freq": "146.835",
+   "access": "PL 151.4",
+   "type": "Ham",
+   "site": "franklin"
+  },
+  {
+   "day": "Sun",
+   "time": "19:00",
+   "name": "Michigantown 625",
+   "freq": "462.625",
+   "access": "PL 131.8",
+   "type": "GMRS",
+   "site": "michigantown"
+  },
+  {
+   "day": "Sun",
+   "time": "19:00",
+   "name": "#MeshNet",
+   "freq": "MeshCore + Meshtastic",
+   "access": "#MeshNet channel",
+   "type": "Mesh",
+   "scope": "statewide",
+   "checkin": "closest airport · device name · months on mesh",
+   "note": "Open to all, on MeshCore and Meshtastic across Indiana. Check in on the #MeshNet channel with three things: closest airport code, device name, and months on the mesh."
+  },
+  {
+   "day": "Sun",
+   "time": "19:30",
+   "name": "Marion Co ARES",
+   "freq": "146.700",
+   "access": "PL 88.5",
+   "type": "Ham",
+   "site": "indianapolis"
+  },
+  {
+   "day": "Sun",
+   "time": "20:00",
+   "name": "Hamilton Co ARES / CIARA",
+   "freq": "145.170",
+   "access": "PL 77.0",
+   "type": "Ham",
+   "site": "noblesville"
+  },
+  {
+   "day": "Sun",
+   "time": "21:00",
+   "name": "Anderson WA9EOC net",
+   "freq": "444.675",
+   "access": "CSQ",
+   "type": "Ham",
+   "unverified": true,
+   "site": "anderson"
+  },
+  {
+   "day": "Mon",
+   "time": "19:00",
+   "name": "Central Indiana GMRS Net",
+   "freq": "462.575",
+   "access": "Courtesy required",
+   "type": "GMRS"
+  },
+  {
+   "day": "Mon",
+   "time": "19:15",
+   "name": "Marion Co CERT Net",
+   "freq": "443.250",
+   "access": "PL 100.0",
+   "type": "Ham",
+   "site": "indianapolis"
+  },
+  {
+   "day": "Mon",
+   "time": "19:30",
+   "name": "Blue River Valley ARC / ARES",
+   "freq": "145.480",
+   "access": "PL 88.5",
+   "type": "Ham",
+   "site": "shelbyville"
+  },
+  {
+   "day": "Mon",
+   "time": "19:30",
+   "name": "Emergency Simplex Test, ch 19",
+   "freq": "462.650",
+   "access": "Simplex",
+   "type": "GMRS"
+  },
+  {
+   "day": "Mon",
+   "time": "19:30",
+   "name": "Fusion Tech MinWis",
+   "freq": "WIRES-X",
+   "access": "C4FM",
+   "type": "Digital"
+  },
+  {
+   "day": "Mon",
+   "time": "20:00",
+   "name": "Tipton County Net (K9TRC)",
+   "freq": "443.125",
+   "access": "PL 131.8",
+   "type": "Ham",
+   "site": "tipton"
+  },
+  {
+   "day": "Mon",
+   "time": "20:00",
+   "name": "Crossroads DMR",
+   "freq": "TG 31189",
+   "access": "DMR",
+   "type": "Digital"
+  },
+  {
+   "day": "Mon",
+   "time": "21:00",
+   "name": "Mesh Monday (DRP)",
+   "freq": "Zello app",
+   "access": "Mesh net",
+   "type": "Zello"
+  },
+  {
+   "day": "Mon",
+   "time": "23:00",
+   "name": "The Papa Chat",
+   "freq": "TG 31077",
+   "access": "DMR",
+   "type": "Digital"
+  },
+  {
+   "day": "Tue",
+   "time": "19:30",
+   "name": "Hancock County (W9ATG)",
+   "freq": "444.450",
+   "access": "DCS 465",
+   "type": "Ham",
+   "site": "greenfield"
+  },
+  {
+   "day": "Tue",
+   "time": "19:30",
+   "name": "Hendricks County ARES",
+   "freq": "145.130",
+   "access": "PL 88.5",
+   "type": "Ham",
+   "site": "danville"
+  },
+  {
+   "day": "Tue",
+   "time": "20:00",
+   "name": "Absolute Tech Net (national)",
+   "freq": "146.745",
+   "access": "DCS 346",
+   "type": "Ham",
+   "unverified": true,
+   "site": "indianapolis"
+  },
+  {
+   "day": "Tue",
+   "time": "20:00",
+   "name": "Mid-State WIRES-X",
+   "freq": "443.525",
+   "access": "C4FM",
+   "type": "Digital",
+   "site": "greenwood"
+  },
+  {
+   "day": "Tue",
+   "time": "20:00",
+   "name": "Hoosier DMR Net",
+   "freq": "441.200",
+   "access": "TG 3118",
+   "type": "Digital",
+   "site": "indianapolis"
+  },
+  {
+   "day": "Tue",
+   "time": "21:00",
+   "name": "INDY 600 net",
+   "freq": "462.600",
+   "access": "$25/yr donation if regular",
+   "type": "GMRS",
+   "site": "indianapolis"
+  },
+  {
+   "day": "Wed",
+   "time": "19:00",
+   "name": "Newsline bulletin (W9IRA)",
+   "freq": "146.700",
+   "access": "PL 88.5",
+   "type": "Ham",
+   "site": "indianapolis"
+  },
+  {
+   "day": "Wed",
+   "time": "19:30",
+   "name": "Marion County ARES",
+   "freq": "146.700",
+   "access": "PL 88.5",
+   "type": "Ham",
+   "site": "indianapolis"
+  },
+  {
+   "day": "Wed",
+   "time": "20:00",
+   "name": "Welcome Net (W9ICE)",
+   "freq": "146.970",
+   "access": "PL 107.2",
+   "type": "Ham",
+   "site": "indianapolis"
+  },
+  {
+   "day": "Wed",
+   "time": "20:00",
+   "name": "Madison Co ARC (W9VCF)",
+   "freq": "145.390",
+   "access": "PL 151.4",
+   "type": "Ham",
+   "site": "anderson"
+  },
+  {
+   "day": "Thu",
+   "time": "18:30",
+   "name": "EchoLink Youth Net",
+   "freq": "146.745",
+   "access": "DCS 346",
+   "type": "Ham",
+   "site": "indianapolis"
+  },
+  {
+   "day": "Thu",
+   "time": "19:00",
+   "name": "SATERN (Salvation Army)",
+   "freq": "146.880",
+   "access": "PL 88.5",
+   "type": "Ham",
+   "site": "indianapolis"
+  },
+  {
+   "day": "Thu",
+   "time": "19:00",
+   "name": "#MeshNet",
+   "freq": "MeshCore + Meshtastic",
+   "access": "#MeshNet channel",
+   "type": "Mesh",
+   "scope": "statewide",
+   "checkin": "closest airport · device name · months on mesh",
+   "note": "Open to all, on MeshCore and Meshtastic across Indiana. Check in on the #MeshNet channel with three things: closest airport code, device name, and months on the mesh."
+  },
+  {
+   "day": "Thu",
+   "time": "20:00",
+   "name": "Indiana Statewide / AUXCOMM",
+   "freq": "147.210",
+   "access": "PL 88.5",
+   "type": "Ham",
+   "site": "indianapolis"
+  },
+  {
+   "day": "Thu",
+   "time": "20:00",
+   "name": "IN Statewide D-STAR",
+   "freq": "REF024 B",
+   "access": "D-STAR",
+   "type": "Digital"
+  },
+  {
+   "day": "Thu",
+   "time": "20:00",
+   "name": "Who Knows What Net (K9EOC)",
+   "freq": "443.950",
+   "access": "PL 77.0",
+   "type": "Ham",
+   "site": "hortonville"
+  },
+  {
+   "day": "Sat",
+   "time": "20:00",
+   "name": "Doomsday Preppers Net",
+   "freq": "Zello app",
+   "access": "Internet PTT",
+   "type": "Zello"
+  },
+  {
+   "day": "Sat",
+   "time": "21:00",
+   "name": "WVARA HF Ragchew",
+   "freq": "3.679",
+   "access": "LSB",
+   "type": "HF"
+  }
+ ],
+ "monthly": [
+  {
+   "weeks": [
+    1
+   ],
+   "day": "Fri",
+   "time": "10:50",
+   "name": "Marion Co Siren Check",
+   "freq": "146.700",
+   "access": "PL 88.5",
+   "type": "Ham",
+   "site": "indianapolis"
+  },
+  {
+   "weeks": [
+    1,
+    3
+   ],
+   "day": "Sun",
+   "time": "20:00",
+   "name": "WC9IN Sunday Night Net (linked)",
+   "freq": "146.745",
+   "access": "DCS 346",
+   "type": "Ham",
+   "unverified": true,
+   "site": "indianapolis"
+  },
+  {
+   "weeks": [
+    1,
+    3
+   ],
+   "day": "Thu",
+   "time": "19:30",
+   "name": "AUXCOMM HF pre-net",
+   "freq": "7.250 / 3.844",
+   "access": "SSB",
+   "type": "HF"
+  }
+ ],
+ "daily": [
+  {
+   "name": "Indiana Traffic Net",
+   "freq": "3.910",
+   "access": "SSB",
+   "type": "HF"
+  },
+  {
+   "name": "Indiana Section CW Net (QIN)",
+   "freq": "3.535",
+   "access": "CW",
+   "type": "HF"
+  }
+ ],
+ "skywarn": [
+  {
+   "id": "NBL145",
+   "freq": "145.170",
+   "access": "PL 77.0",
+   "area": "Hamilton Co"
+  },
+  {
+   "id": "NBL355",
+   "freq": "443.550",
+   "access": "PL 77.0",
+   "area": "Hamilton Co, UHF"
+  },
+  {
+   "id": "IND970",
+   "freq": "146.970",
+   "access": "PL 107.2",
+   "area": "Central Indiana, primary"
+  },
+  {
+   "id": "IND265",
+   "freq": "442.650",
+   "access": "PL 77.0",
+   "area": "Central Indiana, UHF"
+  },
+  {
+   "id": "IND760",
+   "freq": "146.760",
+   "access": "PL 151.4",
+   "area": "Marion Co, primary"
+  },
+  {
+   "id": "IND325",
+   "freq": "443.250",
+   "access": "PL 100.0",
+   "area": "Marion Co, backup"
+  }
+ ],
+ "sites": {
+  "indianapolis": {
+   "name": "Indianapolis",
+   "lat": 39.768,
+   "lon": -86.158
+  },
+  "noblesville": {
+   "name": "Noblesville",
+   "lat": 40.046,
+   "lon": -86.009
+  },
+  "hortonville": {
+   "name": "Hortonville (Hamilton Co)",
+   "lat": 40.1,
+   "lon": -86.1
+  },
+  "franklin": {
+   "name": "Franklin",
+   "lat": 39.481,
+   "lon": -86.055
+  },
+  "michigantown": {
+   "name": "Michigantown",
+   "lat": 40.326,
+   "lon": -86.393
+  },
+  "anderson": {
+   "name": "Anderson",
+   "lat": 40.105,
+   "lon": -85.68
+  },
+  "shelbyville": {
+   "name": "Shelbyville",
+   "lat": 39.521,
+   "lon": -85.777
+  },
+  "tipton": {
+   "name": "Tipton",
+   "lat": 40.282,
+   "lon": -86.041
+  },
+  "greenfield": {
+   "name": "Greenfield",
+   "lat": 39.785,
+   "lon": -85.769
+  },
+  "danville": {
+   "name": "Danville",
+   "lat": 39.761,
+   "lon": -86.526
+  },
+  "greenwood": {
+   "name": "Greenwood",
+   "lat": 39.614,
+   "lon": -86.107
+  }
+ },
+ "reach_miles": {
+  "2m": 30,
+  "70cm": 25,
+  "GMRS": 20
+ },
+ "reach_note": "Repeater sites are town-level (the net card gives towns, not towers). Reach is a typical figure for the band; terrain and antenna height change it a lot."
+}

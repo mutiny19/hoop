@@ -1,0 +1,35 @@
+name: Weekly link check
+
+on:
+  schedule:
+    - cron: "41 13 * * 1"   # Mondays
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check outside links
+        id: check
+        run: |
+          set +e
+          python3 tools/check_links.py > broken.txt
+          echo "status=$?" >> "$GITHUB_OUTPUT"
+          cat broken.txt
+      - name: Open, update or close the broken-links issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create broken-links --color FA5252 --description "Outside links that stopped working" --force >/dev/null
+          num=$(gh issue list --label broken-links --state open --json number --jq '.[0].number')
+          if [ "${{ steps.check.outputs.status }}" != "0" ]; then
+            body=$(printf "These outside links stopped working. If a group closed or moved, update or remove the link.\n\n%s\n" "$(cat broken.txt)")
+            if [ -n "$num" ]; then gh issue edit "$num" --body "$body"; else gh issue create --title "Broken outside links" --label broken-links --body "$body"; fi
+          elif [ -n "$num" ]; then
+            gh issue close "$num" --comment "All outside links work again."
+          fi

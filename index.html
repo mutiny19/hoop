@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script src="assets/theme.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Off-grid communications in Indiana on one map: MeshCore repeaters, live weather alerts, and the settings to use for MeshCore, Meshtastic, GMRS, ham radio and Reticulum.">
+<title>HOOP · Hoosier Off-Grid Open Playbook</title>
+<link rel="icon" href="assets/favicon.svg?v=20261025e" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HOOP · Hoosier Off-Grid Open Playbook">
+<meta property="og:title" content="HOOP · Hoosier Off-Grid Open Playbook">
+<meta property="og:description" content="Off-grid communications in Indiana on one map: MeshCore repeaters, live weather alerts, nets, and the settings to use for MeshCore, Meshtastic, GMRS, ham radio and Reticulum.">
+<meta property="og:url" content="https://mutiny19.github.io/hoop/">
+<meta property="og:image" content="https://mutiny19.github.io/hoop/assets/social.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/site.css?v=20261025e">
+<style>
+/* Home: dark map band (map + alerts, dashboard view), then settings accordion, report, support. Built from the
+   front-page design (design/front-page.dc.html); simulated parts replaced by live feeds or empty states. */
+:root { --map-bg: #0F1729; --map-panel: #080E1C; --map-line: #273352; --map-fg: #F2F3F7; --map-muted: #B8C2D8; --map-dim: #8290AB; }
+.wrap { max-width: 1200px; margin: 0 auto; padding-inline: 24px; }
+h1, h2, h3 { font-family: var(--display); margin: 0; line-height: 1.05; text-wrap: balance; }
+p { margin: 0; }
+.mono { font-family: var(--mono); }
+.btn { font: 600 15px/1 var(--body); border: 0; border-radius: 6px; padding: 13px 18px; min-height: 44px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+
+/* header CTA */
+.site-nav .go { background: var(--beacon); color: #0F1729; font-weight: 700; padding: 11px 16px; border-radius: 6px; }
+
+/* welcome strip for first-time visitors */
+.welcome { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; background: var(--map-panel); border: 1px solid var(--map-line); border-left: 4px solid var(--beacon); border-radius: 0 12px 12px 0; padding: 16px 20px; margin-top: 22px; }
+.welcome b { display: block; font: 800 18px/1.2 var(--display); margin-bottom: 4px; }
+.welcome p { color: var(--map-muted); max-width: 70ch; font-size: 15px; }
+.welcome .btn.primary { background: var(--beacon); color: #0F1729; font-weight: 700; white-space: nowrap; }
+
+/* map band */
+.band { background: var(--map-bg); color: var(--map-fg); position: relative; overflow: hidden; }
+.bg-chirps, .bg-mesh { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.bg-chirps { opacity: .5; -webkit-mask-image: linear-gradient(to bottom, #000 0, #000 45%, transparent 100%); mask-image: linear-gradient(to bottom, #000 0, #000 45%, transparent 100%); }
+.bg-mesh { opacity: .9; -webkit-mask-image: linear-gradient(to bottom, #000 0, #000 40%, transparent 85%); mask-image: linear-gradient(to bottom, #000 0, #000 40%, transparent 85%); }
+.band > .wrap { position: relative; z-index: 1; }
+.band .wrap { padding-block: 28px 40px; }
+.band.dash .wrap { max-width: none; padding-block: 20px 32px; }
+.band-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 12px; margin-bottom: 16px; }
+.band h1 { font-size: clamp(30px, 4.4vw, 40px); font-weight: 800; }
+.band .sub { margin-top: 8px; color: var(--map-muted); font-size: 17px; }
+.onair { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 14px; font: 400 14.5px/1.3 var(--body); }
+.onair .pill { font-family: var(--mono); }
+.onair .pill { background: var(--map-fg); color: #0F1729; padding: 6px 10px; border-radius: 4px; font-weight: 500; }
+.onair span { color: var(--map-muted); }
+.onair a { color: #FFC078; }
+.dash-btn { background: var(--map-fg); color: #0F1729; }
+.layers { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.layer { font: 600 14px/1 var(--body); border-radius: 999px; padding: 10px 16px; min-height: 44px; cursor: pointer; background: transparent; color: var(--map-fg); border: 2px solid #4E5A75; }
+.layer[aria-pressed="true"] { background: var(--beacon); color: #0F1729; border-color: var(--beacon); }
+.layer[disabled] { cursor: not-allowed; color: #6E7F78; border-style: dashed; }
+.layer small { font: 500 11px/1 var(--mono); margin-left: 6px; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-bottom: 16px; }
+.tile { background: var(--map-panel); border: 1px solid var(--map-line); border-radius: 10px; padding: 14px 16px; }
+.tile .k { font-size: 13px; color: var(--map-muted); }
+.tile .v { font: 500 28px/1.2 var(--mono); margin-top: 4px; font-variant-numeric: tabular-nums; }
+.tile .s { font-size: 12px; color: var(--map-dim); margin-top: 2px; }
+/* Map sets the row height (its own proportions); the alerts column matches it and scrolls when long. */
+.mapgrid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 330px); gap: 16px; align-items: stretch; }
+.mapbox { min-width: 0; position: relative; background: var(--map-panel); border: 1px solid var(--map-line); border-radius: 12px; overflow: hidden; }
+.mapbox svg { display: block; width: 100%; height: auto; aspect-ratio: 1150 / 1240; }
+.srcbadge { position: absolute; top: 12px; left: 12px; right: 12px; z-index: 2; justify-self: start; display: inline-block; max-width: max-content; background: #FFD43B; color: #0F1729; font: 500 12px/1.4 var(--mono); letter-spacing: .5px; padding: 6px 10px; border-radius: 4px; }
+.legend { position: absolute; left: 12px; bottom: 12px; right: 12px; max-width: max-content; background: rgba(241,243,241,0.95); color: #0F1729; border-radius: 8px; padding: 10px 12px; font-size: 12px; line-height: 1.7; }
+.legend b { font-weight: 800; }
+.side-toggle { display: none; width: 100%; font: 600 15px/1 var(--body); border: 2px solid #4E5A75; background: transparent; color: var(--map-fg); border-radius: 8px; padding: 12px 16px; min-height: 44px; cursor: pointer; }
+.side-toggle[aria-expanded="true"] { border-color: var(--beacon); }
+.side { height: 0; min-height: 100%; overflow-y: auto; background: var(--map-panel); border: 1px solid var(--map-line); border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.side .h { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 8px; }
+.side .h:first-child { margin-top: 0; }
+.side .h b { font-weight: 800; font-size: 18px; }
+.tag { font: 500 11px/1 var(--mono); padding: 3px 6px; border-radius: 3px; }
+.tag.live { background: #2B8A3E; color: #F2F3F7; }
+.tag.soon { border: 1px dashed #4E5A75; color: var(--map-muted); }
+.alert { border-radius: 8px; padding: 12px 14px; border: 1px solid; }
+.alert .t { font-weight: 800; }
+.alert .a { font-size: 14px; margin-top: 4px; }
+.alert .w { font: 400 12px/1.4 var(--mono); color: var(--map-muted); margin-top: 4px; }
+.empty { background: #111C33; border: 1px solid var(--map-line); border-radius: 8px; padding: 12px 14px; font-size: 14px; color: var(--map-muted); }
+.empty a, .side a, .dpanel a { color: #FFC078; }
+.prop { background: #0F2328; border: 1px solid #3BC9DB; border-radius: 8px; padding: 10px 12px; display: grid; gap: 6px; font-size: 14px; }
+.prop .r { display: flex; justify-content: space-between; gap: 8px; }
+.prop .r span:last-child { font-family: var(--mono); color: #66D9E8; text-align: right; }
+.prop .n { font-size: 12px; color: var(--map-dim); }
+.netlist { display: grid; gap: 8px; }
+.net { display: flex; justify-content: space-between; align-items: center; gap: 10px; background: #111C33; border: 1px solid var(--map-line); border-radius: 8px; padding: 10px 12px; }
+.net b { display: block; font-size: 14px; font-weight: 600; }
+.net small { font: 400 12px/1.4 var(--mono); color: var(--map-muted); }
+.net .st { font: 500 13px/1 var(--mono); white-space: nowrap; }
+.net.pick { cursor: pointer; }
+.net.pick:hover, .net.pick:focus-visible { border-color: #B197FC; outline: none; }
+.net.sel { border-color: #B197FC; background: #1E1B2C; }
+.side .foot { margin-top: auto; font-size: 13px; color: var(--map-muted); line-height: 1.5; border-top: 1px solid var(--map-line); padding-top: 10px; }
+.dashrow { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 16px; }
+.dpanel { background: var(--map-panel); border: 1px solid var(--map-line); border-radius: 12px; padding: 16px 18px; min-width: 0; display: grid; gap: 10px; align-content: start; }
+.dpanel .h { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; }
+.dpanel .h b { font-weight: 800; font-size: 18px; }
+.dpanel .note { font-size: 12px; color: var(--map-dim); }
+.cov { display: grid; gap: 8px; }
+.cov .road { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 10px; align-items: start; }
+.cov .road > span { font: 500 13px/1.8 var(--mono); color: var(--map-muted); }
+.cov .cty { display: flex; flex-wrap: wrap; gap: 4px; }
+.cov .cty span { font-size: 12px; padding: 3px 7px; border-radius: 4px; color: #0F1729; }
+.c-ok { background: #8CE99A; } .c-quiet { background: #FFD43B; } .c-need { background: #FFA8A8; }
+.health { display: grid; gap: 6px; }
+.health div { display: flex; justify-content: space-between; gap: 10px; font-size: 14px; border-top: 1px solid #1A2440; padding-top: 6px; }
+.health span:last-child { font-family: var(--mono); color: var(--map-muted); white-space: nowrap; }
+.dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 8px; vertical-align: middle; }
+
+/* settings */
+.settings { padding-block: 48px 72px; }
+.sec-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 12px; margin-bottom: 18px; }
+.sec-head h2 { font-size: 32px; font-weight: 800; }
+.sec-head p { color: var(--muted); margin-top: 6px; }
+.ghost { background: transparent; color: var(--fg); border: 2px solid var(--line); }
+.acc { display: grid; gap: 10px; }
+.proto { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.proto > button { width: 100%; display: grid; grid-template-columns: minmax(130px, 200px) minmax(0, 1fr) auto; gap: 6px 16px; align-items: center; text-align: left; background: transparent; color: var(--fg); border: 0; padding: 18px 20px; cursor: pointer; font: inherit; min-height: 64px; }
+.proto .nm { font: 800 20px/1.1 var(--display); }
+/* MeshCore: a faint beacon tint. */
+.proto-meshcore { background: #FFF8F2; border-color: #F2C7A4; }
+.proto-meshcore .nm { color: #B5480A; }
+.proto-meshcore .card-set { background: #FBF1E8; }
+.proto-meshtastic .nm, .proto-meshtastic .tl { color: var(--muted); }
+.proto-meshtastic .nm { font-weight: 700; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .proto-meshcore { background: #1E1913; border-color: #6B3A17; }
+  :root:not([data-theme="light"]) .proto-meshcore .nm { color: #FF8A3D; } :root:not([data-theme="light"]) .proto-meshcore .card-set { background: #17130E; } }
+:root[data-theme="dark"] .proto-meshcore { background: #1E1913; border-color: #6B3A17; }
+:root[data-theme="dark"] .proto-meshcore .nm { color: #FF8A3D; } :root[data-theme="dark"] .proto-meshcore .card-set { background: #17130E; }
+.proto .tl { color: var(--muted); }
+.proto .tl small { display: block; font: 400 13px/1.4 var(--mono); margin-top: 2px; }
+.proto .chev { font: 500 24px/1 var(--mono); color: var(--muted); }
+.proto .body { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 16px; padding: 0 20px 20px; }
+.card-set { background: var(--bg); border-radius: 10px; padding: 16px; display: grid; gap: 10px; align-content: start; }
+.card-set .top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
+.card-set .top b { font-weight: 700; }
+.card-set .top span { font: 400 12px/1.4 var(--mono); color: var(--muted); }
+.rows { display: grid; }
+.rows > div { display: grid; grid-template-columns: minmax(120px, 190px) minmax(0, 1fr); gap: 12px; padding: 7px 0; border-top: 1px solid var(--line); font-size: 15px; }
+.rows > div > span:first-child { color: var(--muted); }
+.rows > div > span:last-child { font-family: var(--mono); font-size: 14px; overflow-wrap: anywhere; }
+.card-set .note { font-size: 13px; color: var(--muted); }
+.links { display: grid; gap: 8px; align-content: start; }
+.links a { display: flex; justify-content: space-between; align-items: center; gap: 10px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; text-decoration: none; color: var(--fg); }
+.links a b { display: block; font-weight: 600; }
+.links a small { color: var(--muted); font-size: 13px; }
+.links a:hover { border-color: var(--link); }
+.copy { background: var(--fg); color: var(--bg); justify-self: start; }
+.seg { display: inline-flex; justify-self: start; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 3px; gap: 3px; }
+.seg button { font: 600 14px/1 var(--body); border: 0; border-radius: 6px; padding: 10px 16px; min-height: 40px; cursor: pointer; background: transparent; color: var(--muted); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--ink-fg); }
+.rows .cmd { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin-top: 4px; }
+.rows .cmd code { font-size: 12.5px; background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 3px 6px; overflow-wrap: anywhere; }
+.mini, .chipcopy { font: 600 12px/1 var(--body); border: 1px solid var(--line); background: var(--panel); color: var(--link); border-radius: 999px; padding: 6px 10px; min-height: 30px; cursor: pointer; }
+.mini:hover, .chipcopy:hover { border-color: var(--link); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.chipcopy { font-family: var(--mono); color: var(--fg); }
+.diff { color: var(--beacon); font-size: 12px; margin-left: 4px; }
+.alts { border: 1px dashed var(--line); border-radius: 8px; padding: 12px 14px; display: grid; gap: 8px; background: var(--panel); }
+.alts > b { font-weight: 700; font-size: 14px; }
+.alts > div { display: grid; grid-template-columns: minmax(120px, 190px) minmax(0, 1fr); gap: 12px; font-size: 14px; border-top: 1px solid var(--line); padding-top: 8px; }
+.alts > div > span:first-child { color: var(--muted); }
+.alts > div > span:last-child { display: block; min-width: 0; }
+.alts .cmd { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 6px 8px; margin-top: 6px; }
+.alts code { display: block; font-size: 12.5px; line-height: 1.6; background: var(--bg); border: 1px solid var(--line); border-radius: 4px; padding: 6px 8px; overflow-wrap: anywhere; }
+.rows > div > span:last-child { display: block; min-width: 0; }
+.sec-foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 20px; margin-top: 16px; font-size: 14px; color: var(--muted); }
+
+/* report */
+.report { background: #E4E9E6; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .report { background: #0D1526; } }
+:root[data-theme="dark"] .report { background: #0D1526; }
+.report .wrap { padding-block: 56px 64px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 32px; align-items: start; }
+.report h2 { font-size: 32px; font-weight: 800; }
+.report .intro { display: grid; gap: 12px; }
+.report .intro p { color: var(--muted); }
+.report ul { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; color: var(--fg); }
+.formbox { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.tabs { display: flex; flex-wrap: wrap; }
+.tabs button { flex: 1 1 120px; min-height: 52px; padding: 12px 16px; border: 0; cursor: pointer; font: 600 15px/1 var(--body); background: var(--bg); color: var(--muted); }
+.tabs button[aria-selected="true"] { background: var(--panel); color: var(--fg); box-shadow: inset 0 -3px 0 var(--beacon); }
+form { padding: 20px; display: grid; gap: 14px; }
+fieldset { border: 0; margin: 0; padding: 0; display: grid; gap: 10px; }
+legend { font-weight: 600; margin-bottom: 8px; }
+.checks { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+.checks label { display: flex; gap: 8px; align-items: center; border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; min-height: 44px; cursor: pointer; }
+.fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.fields label, form > label { display: grid; gap: 6px; font-size: 14px; font-weight: 600; }
+input[type="text"], input[type="number"], input[type="url"], input[type="datetime-local"], select, textarea { font: 400 15px/1.3 var(--body); padding: 10px 12px; min-height: 44px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); color: var(--fg); width: 100%; }
+.submit { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
+.submit small { color: var(--muted); font-size: 13px; max-width: 40ch; }
+.primary { background: var(--beacon); color: #0F1729; font-weight: 700; }
+.thanks { padding: 24px 20px; display: grid; gap: 10px; }
+.thanks b { font: 800 22px/1.1 var(--display); }
+
+/* about */
+.about { padding-block: 8px 56px; }
+.about h2 { font-size: 24px; font-weight: 800; margin-bottom: 10px; }
+.about p { color: var(--muted); max-width: 80ch; }
+
+/* support */
+.support { padding-block: 64px 72px; display: grid; gap: 20px; }
+.support h2 { font-size: 32px; font-weight: 800; }
+.support .lead { color: var(--muted); max-width: 70ch; }
+.sup-grid { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 16px; }
+.needs { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: grid; gap: 10px; }
+.needs .h { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
+.needs .h b { font-weight: 800; font-size: 18px; }
+.needs .h span { font: 400 12px/1.4 var(--mono); color: var(--muted); }
+.county { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; border-top: 1px solid var(--line); padding-top: 10px; }
+.county b { font-weight: 700; }
+.county .w { color: var(--muted); font-size: 14px; }
+.county .p { grid-column: 2; grid-row: 1 / span 2; text-align: right; font: 400 13px/1.5 var(--mono); }
+.county .p em { font-style: normal; color: var(--signal); display: block; }
+.ways { display: grid; gap: 12px; align-content: start; }
+.way { background: var(--ink); color: var(--ink-fg); border-radius: 12px; padding: 18px; display: grid; gap: 8px; }
+.way p { color: #B8C2D8; font-size: 15px; }
+.way a.btn { justify-self: start; }
+.way.alt { background: var(--panel); color: var(--fg); border: 1px dashed var(--line); }
+.way.alt p { color: var(--muted); }
+
+@media (max-width: 860px) {
+  /* Phones: the legend sits under the map instead of over it, and the source badge stays out of the way. */
+  .legend { position: static; max-width: none; margin: 0; border-radius: 0; font-size: 12px; line-height: 1.6; }
+  .side-toggle { display: block; }
+  .side[hidden] { display: none; }
+  .welcome .btn.primary { width: 100%; justify-content: center; }
+  .srcbadge { top: 8px; left: 8px; right: auto; font-size: 10px; padding: 4px 7px; letter-spacing: 0; }
+  .report .wrap, .sup-grid, .proto .body, .alts > div { grid-template-columns: 1fr; }
+  .proto > button { grid-template-columns: minmax(0, 1fr) auto; }
+  .proto .tl { grid-column: 1 / -1; grid-row: 2; }
+  .fields { grid-template-columns: 1fr; }
+  .mapgrid { grid-template-columns: 1fr; }
+  .side { height: auto; min-height: 0; overflow: visible; }
+}
+@media (prefers-reduced-motion: no-preference) { .pulse { animation: pulse 2s ease-in-out infinite; } }
+@keyframes pulse { 0%, 100% { stroke-opacity: 1; } 50% { stroke-opacity: .3; } }
+</style>
+</head>
+<body>
+<header class="site-head" id="top"><div class="bar">
+  <a class="brand" href="./"><img class="brand-mark" src="assets/mark.svg?v=20261025e" alt="" width="34" height="53"><span class="brand-text">HOOP<small>Hoosier Off-Grid Open Playbook</small></span></a>
+  <nav class="site-nav" aria-label="Site">
+    <a href="#map">Map</a>
+    <button type="button" class="nav-menu" id="navMenu" aria-expanded="false" aria-controls="navMore">Menu</button>
+    <span class="nav-more" id="navMore">
+      <a href="#protocols">Settings</a>
+      <a href="live/">Live</a>
+      <a href="emergency/">Agencies</a>
+      <a href="#report">Report</a>
+      <a href="#support">Support</a>
+      <a href="https://github.com/mutiny19/hoop" target="_blank" rel="noopener">GitHub</a>
+    </span>
+    <a class="cta" href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Join Indiana Mesh</a>
+    <a class="go" href="meshcore/">Get on the mesh</a>
+    <button type="button" class="theme-toggle" id="themeBtn" aria-label="Switch to light mode" title="Switch to light mode"><svg class="i-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="i-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+  </nav>
+</div></header>
+<div class="site-notice" role="note"><div class="bar"><b>For consideration only.</b> This site is not the authority on anything here, and nothing on it is concluded or complete. An open-source mesh belongs to everyone who builds it; respecting that means collaboration, not ownership. The projects and groups linked from each page maintain their own work, and where they differ from this site, they win.</div></div>
+
+<section id="map" class="band" aria-label="Statewide map">
+  <canvas id="bgChirps" class="bg-chirps" aria-hidden="true"></canvas>
+  <canvas id="bgMesh" class="bg-mesh" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div class="band-top">
+      <div id="hero">
+        <h1>Off-grid Indiana, on one map</h1>
+        <p class="sub">MeshCore repeaters and live weather alerts. Then the settings to join in, below.</p>
+        <div class="onair"><b class="pill" id="pillCount">Indiana MeshCore repeaters</b><span id="pillSub">heard in the last 30 days</span><a href="https://docs.meshcore.io/faq/#512-q-how-do-i-add-a-node-to-the-meshcore-map" target="_blank" rel="noopener">Add your repeater to the map</a><a href="https://waev.app/#/live-map/@39.85,-86.30,7.00z" target="_blank" rel="noopener">Live traffic on Waev</a></div>
+      </div>
+      <div id="dashHead" hidden>
+        <h1 style="font-size:30px">Statewide dashboard</h1>
+        <p class="sub mono" style="font-size:13px" id="clock">Updated live</p>
+      </div>
+      <button type="button" class="btn dash-btn" id="dashBtn" aria-pressed="false">⤢ Dashboard view</button>
+    </div>
+
+    <div class="layers" role="group" aria-label="Map layers">
+      <button type="button" class="layer" data-layer="meshcore" aria-pressed="true">✓ MeshCore repeaters</button>
+      <button type="button" class="layer" data-layer="weather" aria-pressed="true">✓ Weather alerts</button>
+      <button type="button" class="layer" data-layer="nets" aria-pressed="true">✓ Nets</button>
+    </div>
+
+    <div class="tiles" id="tiles" hidden></div>
+
+    <div class="mapgrid">
+      <div class="mapbox">
+        <div class="srcbadge" id="srcbadge">REPEATERS: MAP.MESHCORE.IO · ALERTS: NWS, LIVE</div>
+        <svg id="mapsvg" viewBox="-245 -130 1150 1240" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="mapTitle">
+          <title id="mapTitle">Map of Indiana and neighbouring states showing MeshCore repeaters and active National Weather Service alerts</title>
+          <g fill="#0C1324" stroke="#3A4766" stroke-width="1.5" aria-hidden="true">
+          <path d="M57 -170 L86 -85 L96 -35 L110 15 L109 602 L115 690 L96 770 L38 865 L10 965 L0 1065 L-60 1140 L-290 1140 L-290 -170 Z"/>
+          <path d="M345 -170 L306 -85 L245 0 L630 0 L900 8 L940 8 L940 -170 Z"/>
+          <path d="M630 0 L940 8 L940 790 L900 790 L843 777 L728 740 L690 665 L628 665 Z"/>
+          <path d="M940 790 L900 790 L843 777 L728 740 L690 665 L628 665 L613 745 L517 757 L507 815 L440 870 L402 940 L326 890 L249 952 L191 990 L96 960 L29 995 L10 965 L0 1065 L-60 1140 L940 1140 Z"/>
+          </g>
+          <path d="M57 -170 L345 -170 L306 -85 L245 0 L173 35 L110 15 L96 -35 L86 -85 Z" fill="#0A2238" stroke="#3A4766" stroke-width="1.5" aria-hidden="true"/>
+          <g stroke="#1A2440" stroke-width="1" aria-hidden="true">
+          <path d="M-290 125H940M-290 375H940M-290 625H940M-290 875H940M-90 -170V1140M100 -170V1140M290 -170V1140M480 -170V1140M700 -170V1140"/>
+          </g>
+          <path d="M110 15 L173 35 L245 0 L630 0 L628 665 L613 745 L517 757 L507 815 L440 870 L402 940 L326 890 L249 952 L191 990 L96 960 L29 995 L10 965 L38 865 L96 770 L115 690 L109 602 Z" fill="#111C33" stroke="#8290AB" stroke-width="2.5"/>
+          <g fill="#4E5A75" font-family="IBM Plex Mono, monospace" font-size="18" letter-spacing="4" aria-hidden="true">
+          <text x="-230" y="460">ILLINOIS</text>
+          <text x="560" y="-90">MICHIGAN</text>
+          <text x="760" y="330">OHIO</text>
+          <text x="560" y="1060">KENTUCKY</text>
+          </g>
+          <text x="140" y="-120" fill="#3B6A85" font-family="IBM Plex Mono, monospace" font-size="14" font-style="italic">Lake Michigan</text>
+          <g id="lyr-weather"></g>
+          <g id="lyr-meshcore"></g>
+          <g fill="#DDE3E0" font-family="Archivo, sans-serif" font-size="15" font-weight="600">
+          <text x="383" y="518">Indianapolis</text>
+          <text x="580" y="200">Fort Wayne</text>
+          <text x="366" y="50">South Bend</text>
+          <text x="160" y="358">Lafayette</text>
+          <text x="313" y="672">Bloomington</text>
+          <text x="40" y="598">Terre Haute</text>
+          <text x="531" y="380">Muncie</text>
+          <text x="118" y="972">Evansville</text>
+          </g>
+          <g fill="#8290AB" font-family="Archivo, sans-serif" font-size="14" aria-hidden="true">
+          <circle cx="90" cy="-30" r="4"/><text x="-10" y="-38">Chicago</text>
+          <circle cx="448" cy="877" r="4"/><text x="460" y="902">Louisville</text>
+          <circle cx="687" cy="665" r="4"/><text x="700" y="660">Cincinnati</text>
+          <circle cx="749" cy="500" r="4"/><text x="762" y="505">Dayton</text>
+          <circle cx="-27" cy="410" r="4"/><text x="-120" y="400">Champaign</text>
+          </g>
+          <g id="lyr-nets"></g>
+        </svg>
+        <div class="legend">
+          <div><b>Legend</b></div>
+          <div><span style="color:#E8590C">●</span> MeshCore repeater, heard in 30 days · <span style="color:#E8590C">○</span> quiet 30+ days · owner-registered on the <a href="https://map.meshcore.io" target="_blank" rel="noopener" style="color:#1F3F86">MeshCore Map</a></div>
+          <div><span style="color:#E03131">▭</span> Tornado · <span style="color:#E8590C">▭</span> Severe T-storm · <span style="color:#2F9E44">▭</span> Flood · <span style="color:#1C7ED6">▭</span> Winter · <span style="color:#C99A06">▭</span> Other</div>
+          <div>Outlined: storm-based warning · soft fill: counties or zones under a watch or advisory</div>
+        </div>
+      </div>
+
+      <button type="button" class="side-toggle" id="sideToggle" aria-expanded="false" aria-controls="sidePanel" hidden>Show alerts, nets and propagation</button>
+      <aside class="side" id="sidePanel" aria-label="Alerts, nets and propagation">
+        <div class="h"><b>Active alerts</b><span class="tag live">NWS · LIVE</span></div>
+        <div id="alerts"><div class="empty">Loading National Weather Service alerts…</div></div>
+        <div class="h"><b>Nets</b><span class="tag live">SCHEDULE</span></div>
+        <div id="netlist" class="netlist"><div class="empty">Loading the net schedule…</div></div>
+        <div style="font-size:13px;color:var(--map-muted)">Tap a net to see its repeater and rough reach on the map · <a href="resources/indy-metro-net-card.pdf" target="_blank" rel="noopener">Printable net card (PDF)</a> · <a href="#report" data-tab="event">Add or fix a net</a></div>
+        <div class="h"><b>Propagation</b><span class="tag live">LIVE</span></div>
+        <div class="prop">
+          <div class="r"><span>Aurora (planetary Kp)</span><span id="kp">loading…</span></div>
+          <div class="r"><span>Tropo ducting</span><span><a href="https://www.dxinfocentre.com/tropo.html" target="_blank" rel="noopener">Hepburn forecast</a></span></div>
+          <div class="n">Kp: NOAA Space Weather Prediction Center. Tropo: Hepburn index maps.</div>
+        </div>
+        <div class="foot"><span id="alertsTime">Checking the National Weather Service…</span><br>The list is Indiana's active NWS alerts; the map also shows neighbouring states. Always follow official warnings.</div>
+      </aside>
+    </div>
+
+    <div class="dashrow" id="dashRow" hidden>
+      <section class="dpanel" style="flex: 999 1 520px" aria-label="Live MeshCore traffic">
+        <div class="h"><b>Live traffic</b><span class="tag live">WAEV</span></div>
+        <p style="color:var(--map-muted)">Live packets and links between nodes come from observers feeding Waev, one of the observer services, shown here for its documented privacy model. It opens centred on Indiana. Waev shows how the network is doing without revealing what people say, and personal radios are never identified (<a href="https://blog.waev.app/blog/what-we-choose-not-to-know/" target="_blank" rel="noopener">their privacy model</a>).</p>
+        <p><a href="https://waev.app/#/live-map/@39.85,-86.30,7.00z" target="_blank" rel="noopener">Open the Waev live map</a> · <a href="https://waev.app/#/connect" target="_blank" rel="noopener">Run an observer</a></p>
+      </section>
+      <section class="dpanel" style="flex: 1 1 320px" aria-label="Quietest Indiana repeaters">
+        <div class="h"><b>Repeaters gone quiet</b><span class="tag live" id="healthDate">MAP FEED</span></div>
+        <div class="health" id="health"></div>
+        <div class="note">Indiana repeaters with the oldest last advert, from the official map feed. Owners: a fresh advert clears it.</div>
+      </section>
+      <section class="dpanel" style="flex: 1 1 100%" aria-label="Interstate coverage">
+        <div class="h"><b>Interstate coverage in Indiana</b><span class="note"><span class="dot" style="background:#FFA8A8"></span>Needs a repeater · <span class="dot" style="background:#FFD43B"></span>Repeater quiet 30+ days · <span class="dot" style="background:#8CE99A"></span>Covered · <span id="covDate">MeshCore Map, nightly</span></span></div>
+        <div class="cov" id="cov"></div>
+      </section>
+    </div>
+    <div class="welcome" id="welcome">
+      <div>
+        <b>New here?</b>
+        <p>The mesh is small radios that pass short text messages to each other with no cell service or internet. Volunteers run relay boxes on rooftops so messages travel across the state. You can be texting on it this weekend for about $30, with no license.</p>
+      </div>
+      <a class="btn primary" href="meshcore/">Start here: five steps</a>
+    </div>
+  </div>
+</section>
+
+<main>
+<section id="protocols" class="wrap settings" aria-labelledby="set-h">
+  <div class="sec-head">
+    <div><h2 id="set-h">Settings people use in Indiana</h2><p>A starting point, not a standard; your local group may differ. For how it works, follow the official links. <strong>First radio?</strong> Follow the <a href="meshcore/">five steps</a> first, then come back here.</p></div>
+    <button type="button" class="btn ghost" id="toggleAll">Expand all</button>
+  </div>
+  <div class="acc" id="acc"></div>
+  <div class="sec-foot">
+    <span>Running something else in Indiana? <a href="#report" data-tab="proto">Suggest a protocol</a></span>
+    <span>Repeater owners: the official <a href="https://docs.meshcore.io/cli_commands/" target="_blank" rel="noopener">MeshCore CLI reference</a></span>
+    <span>Settings change by proposal on GitHub · <a href="https://github.com/mutiny19/hoop/commits/main/data/settings" target="_blank" rel="noopener">Changelog</a></span>
+  </div>
+</section>
+
+<section id="report" class="report" aria-labelledby="rep-h">
+  <div class="wrap">
+    <div class="intro">
+      <h2 id="rep-h">Report</h2>
+      <p>Tell us what you run, what's happening, and what's broken. Reports feed the counts, the map and the event calendar.</p>
+      <ul>
+        <li>Counts are shown by county, never by address</li>
+        <li>Events and outages are reviewed before they appear</li>
+        <li>No addresses or personal details, please</li>
+        <li>New protocols with enough users get their own entry</li>
+      </ul>
+      <p style="font-size:14px">Reports open as a prefilled GitHub issue, so they're reviewed in the open. You'll need a free GitHub account, or just <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">post it in the Discord</a> and someone will file it.</p>
+    </div>
+    <div class="formbox">
+      <div class="tabs" role="tablist" aria-label="Report type">
+        <button type="button" role="tab" id="tab-use" aria-selected="true" aria-controls="f-use">I use…</button>
+        <button type="button" role="tab" id="tab-event" aria-selected="false" aria-controls="f-event">Event</button>
+        <button type="button" role="tab" id="tab-outage" aria-selected="false" aria-controls="f-outage">Outage</button>
+        <button type="button" role="tab" id="tab-proto" aria-selected="false" aria-controls="f-proto">New protocol</button>
+      </div>
+      <form id="f-use" data-kind="use" role="tabpanel" aria-labelledby="tab-use">
+        <fieldset>
+          <legend>What do you use? Pick all that apply.</legend>
+          <div class="checks">
+            <label><input type="checkbox" name="proto" value="GMRS"> GMRS</label>
+            <label><input type="checkbox" name="proto" value="Ham radio"> Ham radio</label>
+            <label><input type="checkbox" name="proto" value="MeshCore"> MeshCore</label>
+            <label><input type="checkbox" name="proto" value="Meshtastic"> Meshtastic</label>
+            <label><input type="checkbox" name="proto" value="Reticulum"> Reticulum</label>
+            <label><input type="checkbox" name="proto" value="Something else"> Something else</label>
+          </div>
+        </fieldset>
+        <div class="fields">
+          <label>County<select name="county" id="county" required><option value="">Choose a county</option></select></label>
+          <label>Your role<select name="role"><option>I use it</option><option>I run a repeater or fixed node</option><option>I organize a club or group</option></select></label>
+          <label>How many radios or nodes<input type="number" name="count" min="1" value="1"></label>
+        </div>
+        <div class="submit"><small>Your GitHub account keeps you from being counted twice. Don't post addresses.</small><button class="btn primary" type="submit">Count me in</button></div>
+      </form>
+      <form id="f-event" data-kind="event" role="tabpanel" aria-labelledby="tab-event" hidden>
+        <label>Event name<input type="text" name="name" required></label>
+        <div class="fields">
+          <label>Type<select name="type"><option>Net (recurring)</option><option>SKYWARN net (activated during severe weather)</option><option>Meetup</option><option>Build night</option><option>Hamfest</option><option>Field day or exercise</option></select></label>
+          <label>Date and time<input type="datetime-local" name="when"></label>
+          <label>Repeats<select name="repeats"><option>One time</option><option>Weekly</option><option>Monthly</option></select></label>
+          <label>Protocol<select name="protocol"><option>GMRS</option><option>Ham radio</option><option>MeshCore</option><option>Meshtastic</option><option>Reticulum</option><option>Mixed</option></select></label>
+        </div>
+        <label>Where (venue, or repeater for a net)<input type="text" name="where"></label>
+        <label>Link (optional)<input type="url" name="link"></label>
+        <div class="submit"><small>Reviewed before it shows on the map and calendar.</small><button class="btn primary" type="submit">Submit event</button></div>
+      </form>
+      <form id="f-outage" data-kind="outage" role="tabpanel" aria-labelledby="tab-outage" hidden>
+        <div class="fields">
+          <label>Repeater or node name<input type="text" name="name" placeholder="IN.CTY.name" required></label>
+          <label>Protocol<select name="protocol"><option>MeshCore</option><option>Meshtastic</option><option>GMRS repeater</option><option>Ham repeater</option><option>Reticulum node</option></select></label>
+          <label>Down since<input type="datetime-local" name="since"></label>
+          <label>Are you the owner?<select name="owner"><option>No, just noticed it</option><option>Yes, I run it</option></select></label>
+        </div>
+        <label>What are you seeing?<textarea rows="3" name="what"></textarea></label>
+        <div class="submit"><small>Shown as reported until the owner confirms.</small><button class="btn primary" type="submit">Report outage</button></div>
+      </form>
+      <form id="f-proto" data-kind="proto" role="tabpanel" aria-labelledby="tab-proto" hidden>
+        <div class="fields">
+          <label>Protocol or project name<input type="text" name="name" required></label>
+          <label>Official site or GitHub<input type="url" name="site"></label>
+          <label>People using it in Indiana<select name="users"><option>Just me</option><option>2 to 10</option><option>More than 10</option></select></label>
+          <label>Would you maintain its settings?<select name="maintain"><option>Yes</option><option>Maybe</option><option>No</option></select></label>
+        </div>
+        <div class="submit"><small>Once a few people report using it, it gets a settings entry.</small><button class="btn primary" type="submit">Suggest protocol</button></div>
+      </form>
+      <div class="thanks" id="thanks" hidden>
+        <b>Almost done</b>
+        <p id="thanksText">Your report opened in a new tab as a GitHub issue. Press <strong>Submit new issue</strong> there to send it.</p>
+        <p style="font-size:14px">Didn't open? <a id="thanksLink" href="#" target="_blank" rel="noopener">Open it here</a>.</p>
+        <button type="button" class="btn ghost" id="again" style="justify-self:start">Submit another</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="support" class="wrap support" aria-labelledby="sup-h">
+  <h2 id="sup-h">Keep Indiana on the air</h2>
+  <p class="lead">Indiana Mesh lives on <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Discord</a>. The most useful help is a high site, a repeater, or your time.</p>
+  <div class="sup-grid">
+    <div class="needs">
+      <div class="h"><b>Where Indiana needs repeaters next</b><span id="needsDate">people per active repeater</span></div>
+      <div id="needs" class="needs-list"><div class="county"><b>Loading…</b></div></div>
+      <p style="font-size:13px;color:var(--muted)">Ranked by people per active repeater (heard in the last 30 days). Repeaters from the official MeshCore Map; population from the Census Bureau. Updated nightly.</p>
+    </div>
+    <div class="ways">
+      <div class="way"><h3>Host a site</h3><p>A roof, tower or grain leg. One good site can cover several counties.</p><a class="btn primary" href="https://github.com/mutiny19/hoop/issues/new?template=listing.yml" target="_blank" rel="noopener">Offer a site</a></div>
+      <div class="way"><h3>Put up a repeater</h3><p>Start with the settings above, then list it on the MeshCore Map so it shows here.</p><a class="btn primary" href="https://docs.meshcore.io/" target="_blank" rel="noopener">MeshCore docs</a></div>
+      <div class="way alt"><h3>Run an observer</h3><p>A radio that uploads what it hears puts your area on the live maps. Waev is one option; your group may use another.</p><a class="btn primary" href="https://waev.app/#/connect" target="_blank" rel="noopener">Connect an observer ↗</a></div>
+    </div>
+  </div>
+</section>
+<section id="about" class="wrap about" aria-labelledby="about-h">
+  <h2 id="about-h">About this site</h2>
+  <p>HOOP is the Hoosier Off-Grid Open Playbook: plays to consider, not rules, kept open for anyone to improve. It does not represent any network, collective, or organization. It exists to soften the onboarding of newcomers and the landing of advanced users, and then to point them on: the <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Indiana Mesh</a> Discord is where Indiana people talk, and groups like the Central Indiana Mesh Network and NEIMesh are regional communities with their own sites. None of them run or endorse this site. The site is a signpost: it keeps quick-glance settings and links, and points to the projects and groups that maintain each piece. It is informational only and not affiliated with the FCC, the ARRL, any protocol's developers, any agency, or any repeater owner. The soft waterfall and drifting nodes behind the map headline are drawn in the browser; they are decoration, not live traffic, and a nod to the background on <a href="https://rflab.io" target="_blank" rel="noopener">rflab.io</a>. Code and settings are open on <a href="https://github.com/mutiny19/hoop" target="_blank" rel="noopener">GitHub</a>; corrections are welcome by <a href="https://github.com/mutiny19/hoop/issues/new/choose" target="_blank" rel="noopener">issue</a> or on Discord.</p>
+</section>
+</main>
+
+<footer class="site-foot"><div class="bar">
+  <span>HOOP, the Hoosier Off-Grid Open Playbook. Represents no network, collective, or organization; here to ease onboarding for newcomers and landing for advanced users. Informational only. <a href="#about">About this site</a> · <a href="https://github.com/mutiny19/hoop" target="_blank" rel="noopener">Source</a> · <a href="https://github.com/mutiny19/hoop/issues/new/choose" target="_blank" rel="noopener">Open an issue</a></span>
+</div></footer>
+
+<script src="assets/nets.js"></script>
+<script src="assets/home.js?v=20261025g"></script>
+<script src="assets/chirps.js?v=20261025b"></script>
+<script src="assets/site.js"></script>
+</body>
+</html>

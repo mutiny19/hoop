@@ -1,0 +1,95 @@
+{
+  "protocol": "meshcore",
+  "status": "work-in-progress",
+  "updated": "2026-10-15",
+  "approved_by": null,
+  "radio": {
+    "preset": "USA",
+    "frequency_mhz": 910.525,
+    "bandwidth_khz": 62.5,
+    "spreading_factor": 7,
+    "coding_rate": 5,
+    "cli": "set radio 910.525,62.5,7,5",
+    "source": "https://api.meshcore.nz/api/v1/config (official MeshCore radio presets, read live by the site)"
+  },
+  "companions": {
+    "firmware": "Companion (Bluetooth)",
+    "scope": "none (nothing to set)",
+    "policy": "Leave every message and channel unscoped to reach the most contacts. Mute a busy channel instead of scoping it.",
+    "channels": [
+      "Public",
+      "#porchlight",
+      "#emergency",
+      "#meshcore",
+      "#skywarn",
+      "#weather",
+      "#wx",
+      "#test"
+    ],
+    "regional_channels": {
+      "note": "One per metro, named by its airport code; #nwi for Northwest Indiana (the Region).",
+      "list": [
+        "#ind",
+        "#fwa",
+        "#sbn",
+        "#evv",
+        "#laf",
+        "#bmg",
+        "#huf",
+        "#mie",
+        "#nwi",
+        "#sdf",
+        "#cvg"
+      ]
+    }
+  },
+  "repeaters": {
+    "regions": [
+      "us",
+      "us-in",
+      "us-oh",
+      "us-ky",
+      "us-mi",
+      "us-il"
+    ],
+    "region_def": "region def us us-in|us us-oh|us us-ky|us us-mi|us us-il",
+    "unscoped": "allow",
+    "default_region": null,
+    "border_addons": {
+      "michigan_line": [
+        "mi",
+        "midwest"
+      ],
+      "oki_counties": [
+        "oki",
+        "us-midwest"
+      ]
+    },
+    "never": [
+      "region default",
+      "region denyf *",
+      "set flood.max.unscoped"
+    ],
+    "min_firmware_for_region_def": "1.16",
+    "reference": "https://docs.meshcore.io/cli_commands/ (MeshCore region management reference)"
+  },
+  "oki_counties": [
+    "Hamilton (OH)",
+    "Butler (OH)",
+    "Clermont (OH)",
+    "Warren (OH)",
+    "Boone (KY)",
+    "Campbell (KY)",
+    "Kenton (KY)",
+    "Dearborn (IN)"
+  ],
+  "sources": {
+    "faq": "https://docs.meshcore.io/faq/",
+    "region_cli": "https://docs.meshcore.io/cli_commands/#region-management-v110",
+    "default_scope": "https://blog.meshcore.io/2026/04/17/default-scope",
+    "flasher": "https://flasher.meshcore.io/",
+    "oki_regions": "https://docs.okimesh.org/books/oki-mesh-alliance/page/oki-mesh-region-scopes",
+    "radio_presets": "https://docs.meshcore.io/radio_presets/",
+    "repeater_map": "https://map.meshcore.io"
+  }
+}

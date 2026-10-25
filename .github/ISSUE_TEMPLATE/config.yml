@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: MeshCore official docs
+    url: https://docs.meshcore.io/
+    about: Questions about MeshCore itself are answered best by the official docs.
+  - name: Indiana Mesh on Discord
+    url: https://discord.gg/2uwyceSF37
+    about: Questions about getting on the air in Indiana.

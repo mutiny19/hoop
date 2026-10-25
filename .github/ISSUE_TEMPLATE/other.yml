@@ -1,0 +1,9 @@
+name: Something else
+description: Guides, tools, corrections, anything else.
+title: "[other] <short description>"
+labels: ["submission"]
+body:
+  - type: textarea
+    id: what
+    attributes: { label: What is it, description: Links are better than copies when an official source exists }
+    validations: { required: true }

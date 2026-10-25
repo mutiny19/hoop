@@ -1,0 +1,29 @@
+name: Settings change
+description: Propose a change to the settings listed on the site.
+title: "[settings] <protocol>: <what changes>"
+labels: ["settings"]
+body:
+  - type: dropdown
+    id: protocol
+    attributes:
+      label: Protocol
+      options: [MeshCore, Meshtastic, GMRS, Ham radio, Reticulum]
+    validations: { required: true }
+  - type: textarea
+    id: change
+    attributes: { label: What should change, description: Current value and proposed value }
+    validations: { required: true }
+  - type: textarea
+    id: why
+    attributes: { label: Why }
+    validations: { required: true }
+  - type: input
+    id: source
+    attributes: { label: Authoritative source, description: Official docs or a neighbouring group's published plan }
+    validations: { required: true }
+  - type: dropdown
+    id: who
+    attributes:
+      label: Who it affects
+      multiple: true
+      options: [Companion users, Repeater owners, Border sites, Everyone]
