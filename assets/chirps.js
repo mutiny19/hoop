@@ -8,6 +8,7 @@
   var DPR = Math.min(window.devicePixelRatio || 1, 2), hidden = false;
   document.addEventListener("visibilitychange", function () { hidden = document.hidden; });
   function light() { return document.documentElement.getAttribute("data-theme") === "light"; }
+  function off() { return document.documentElement.getAttribute("data-bg") === "off"; }
 
   /* ---------------- waterfall ---------------- */
   /* Modelled on a real receiver display (SDR++, Gqrx): a grainy deep-blue noise floor, carriers as sharp
@@ -69,7 +70,7 @@
     function shift() { ctx.drawImage(wfCanvas, 0, 0, DW, DH, 0, DROW, DW, DH); }
     function prefill() { for (var y = 0; y < DH; y += DROW) { shift(); row(); } }
     function frame(now) {
-      if (!hidden) {
+      if (!hidden && !off()) {
         var dt = last ? Math.min(0.1, (now - last) / 1000) : 0; last = now; acc += dt * SPEED;
         while (acc >= 1) { shift(); row(); acc -= 1; }
       } else last = 0;
@@ -89,7 +90,7 @@
     function fit() { var r = meshCanvas.getBoundingClientRect(); W = Math.round(r.width); H = Math.round(r.height); meshCanvas.width = Math.floor(W * DPR); meshCanvas.height = Math.floor(H * DPR); ctx.setTransform(DPR, 0, 0, DPR, 0, 0); }
     function seed() { nodes = []; var n = Math.max(14, Math.min(48, Math.round(W * H / 26000))); for (var i = 0; i < n; i++) nodes.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - 0.5) * 10, vy: (Math.random() - 0.5) * 10, r: 1.3 + Math.random() * 1.8 }); }
     function frame(now) {
-      if (!hidden) {
+      if (!hidden && !off()) {
         var dt = last ? Math.min(0.1, (now - last) / 1000) : 0; last = now;
         var ink = light() ? "19, 32, 28" : "214, 236, 230";
         ctx.clearRect(0, 0, W, H);

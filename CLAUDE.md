@@ -60,7 +60,7 @@ before `builder.js` and `modes.js`.
 - Nearby groups: the table on `meshcore/index.html`, the state cells below it, and step 4 of the
   Abbreviated mode on `advanced/index.html`.
 - Nets: `data/nets.json`. Suggested settings: `data/settings/*.json`.
-- After changing `assets/home.js` or `assets/chirps.js`, bump the `?v=` on their script tags in `index.html`; GitHub Pages and browsers cache them hard.
+- After changing `assets/home.js`, `assets/chirps.js`, `assets/theme.js`, or `assets/site.js`, bump the `?v=` on their script tags on every page that loads them; GitHub Pages and browsers cache them hard.
 
 ## Testing
 
