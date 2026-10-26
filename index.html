@@ -30,7 +30,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="assets/site.css?v=20261025i">
+<link rel="stylesheet" href="assets/site.css?v=20261026a">
 <style>
 /* Home: dark map band (map + alerts, dashboard view), then settings accordion, report, support. Built from the
    front-page design (design/front-page.dc.html); simulated parts replaced by live feeds or empty states. */
@@ -288,6 +288,7 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
     <span class="nav-more" id="navMore">
       <a href="#protocols">Settings</a>
       <a href="live/">Live</a>
+      <a href="meshnet/">#MeshNet</a>
       <a href="emergency/">Agencies</a>
       <a href="#report">Report</a>
       <a href="#support">Support</a>
@@ -386,7 +387,7 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
         <div id="alerts"><div class="empty">Loading National Weather Service alerts…</div></div>
         <div class="h"><b>Nets</b><span class="tag live">SCHEDULE</span></div>
         <div id="netlist" class="netlist"><div class="empty">Loading the net schedule…</div></div>
-        <div style="font-size:13px;color:var(--map-muted)">Tap a net to see its repeater and rough reach on the map · <a href="resources/indy-metro-net-card.pdf" target="_blank" rel="noopener">Printable net card (PDF)</a> · <a href="#report" data-tab="event">Add or fix a net</a></div>
+        <div style="font-size:13px;color:var(--map-muted)">Tap a net to see its repeater and rough reach on the map · <a href="meshnet/">#MeshNet check-ins</a> · <a href="resources/indy-metro-net-card.pdf" target="_blank" rel="noopener">Printable net card (PDF)</a> · <a href="#report" data-tab="event">Add or fix a net</a></div>
         <div class="h"><b>Propagation</b><span class="tag live">LIVE</span></div>
         <div class="prop">
           <div class="r"><span>Aurora (planetary Kp)</span><span id="kp">loading…</span></div>
@@ -554,6 +555,6 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
 <script src="assets/nets.js"></script>
 <script src="assets/home.js?v=20261025p"></script>
 <script src="assets/chirps.js?v=20261025l"></script>
-<script src="assets/site.js?v=20261025a"></script>
+<script src="assets/site.js?v=20261026a"></script>
 </body>
 </html>

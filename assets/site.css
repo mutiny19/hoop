@@ -39,7 +39,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 code { font-family: var(--mono); font-size: .9em; }
 
 .site-head { background: var(--ink); color: var(--ink-fg); }
-.site-head .bar { max-width: 1200px; margin: 0 auto; padding: 14px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; }
+.site-head .bar { max-width: 1240px; margin: 0 auto; padding: 14px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; }
 .site-head a { color: var(--ink-fg); text-decoration: none; }
 .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 19px; }
 .brand-mark { height: 50px; width: auto; display: block; }
@@ -58,7 +58,7 @@ code { font-family: var(--mono); font-size: .9em; }
   .nav-more a { display: inline; }
   .in-menu { display: inline; font-weight: 600; }
 }
-.site-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; font-size: 15px; }
+.site-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; font-size: 15px; }
 .site-nav a[aria-current="page"] { text-decoration: underline; text-decoration-color: var(--beacon); text-decoration-thickness: 2px; text-underline-offset: 6px; }
 .site-nav .cta { border: 2px solid #4E5A75; font-weight: 600; padding: 9px 14px; border-radius: 6px; }
 
@@ -84,11 +84,11 @@ code { font-family: var(--mono); font-size: .9em; }
 /* Every link that leaves the site carries the same marker; buttons and cards draw their own. */
 a[href^="http"]:where(:not(.btn, .card, .brand, .cta, .go, .layer, .links a, .site-nav a, .way a, .view a))::after { content: " \2197"; font-size: .85em; }
 
-/* Phones: secondary nav links behind a Menu button; Map, Join and Get on the mesh stay visible. */
+/* Below 1220px: secondary nav links behind a Menu button so the header stays one row; Map, Join and Get on the mesh stay visible. */
 .nav-menu { display: none; font: 600 15px/1 var(--body); border: 2px solid #4E5A75; background: transparent; color: var(--ink-fg); border-radius: 6px; padding: 9px 14px; min-height: 40px; cursor: pointer; }
 .nav-menu[aria-expanded="true"] { border-color: var(--beacon); }
 .nav-more { display: contents; }
-@media (max-width: 860px) {
+@media (max-width: 1220px) {
   .nav-menu { display: inline-flex; }
   .nav-more { display: none; width: 100%; flex-wrap: wrap; gap: 14px 18px; padding: 6px 0 2px; }
   .nav-more.open { display: flex; }

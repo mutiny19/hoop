@@ -1,0 +1,33 @@
+{
+ "channel": "#meshnet",
+ "source": "https://map.okimesh.org",
+ "about": "One check-in per sender heard by community observers between 6:57 and 7:13 PM Indiana time on net nights. No names, callsigns or message text are stored.",
+ "nets": [
+  {
+   "date": "2026-10-25",
+   "day": "Sun",
+   "start": "2026-10-25T18:57:00-04:00",
+   "end": "2026-10-25T19:12:59-04:00",
+   "logged": "2026-10-26T18:07:44Z",
+   "messages": 8,
+   "checkins": [
+    {
+     "time": "18:59",
+     "code": "UMP",
+     "place": "Indianapolis Metropolitan Airport",
+     "city": "Indianapolis",
+     "state": "IN",
+     "lat": 39.9352,
+     "lon": -86.045,
+     "device": "Wio L1 E-ink",
+     "months": 2.0,
+     "hops": 3,
+     "observers": 5,
+     "regions": [
+      "IND"
+     ]
+    }
+   ]
+  }
+ ]
+}

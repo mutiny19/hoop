@@ -1,0 +1,49 @@
+name: "#MeshNet check-in log"
+
+# Runs only on net nights, shortly after the 7:00-7:10 PM Indiana window closes, and logs that window alone.
+# GitHub cron is UTC and often runs late, so there are a few tries; each one is a no-op if nothing changed.
+#   EDT (summer): window closes 23:11 UTC Sun/Thu.   EST (winter): window closes 00:11 UTC Mon/Fri.
+# The script itself works out Indiana time and refuses anything but a net that ended in the last 6 hours.
+on:
+  schedule:
+    - cron: "25,55 23 * * 0,4"
+    - cron: "25,55 0 * * 1,5"
+    - cron: "25 1,2 * * 1,5"
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Net date to log, YYYY-MM-DD (Sun or Thu; only while the source still holds it, about a day)"
+        required: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: meshnet-log
+  cancel-in-progress: false
+
+jobs:
+  log:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install cryptography tzdata
+      - name: Log the #MeshNet window from community observers
+        env:
+          DATE: ${{ github.event.inputs.date }}
+        run: |
+          if [ -n "$DATE" ]; then python3 tools/meshnet_log.py --date "$DATE"; else python3 tools/meshnet_log.py; fi
+      - name: Commit if changed
+        run: |
+          if [ -z "$(git status --porcelain -- data/meshnet)" ]; then
+            echo "No change"; exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add data/meshnet/log.json
+          git commit -m "#MeshNet check-in log"
+          git pull --rebase origin main
+          git push
