@@ -262,6 +262,8 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
 .way { background: var(--ink); color: var(--ink-fg); border-radius: 12px; padding: 18px; display: grid; gap: 8px; }
 .way p { color: #B8C2D8; font-size: 15px; }
 .way a.btn { justify-self: start; }
+.way a.mini { justify-self: start; background: transparent; border-color: #4E5A75; color: #F2F3F7; }
+.way a.mini:hover { border-color: var(--beacon); }
 .way.alt { background: var(--panel); color: var(--fg); border: 1px dashed var(--line); }
 .way.alt p { color: var(--muted); }
 
@@ -537,7 +539,7 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
       <p style="font-size:13px;color:var(--muted)">Ranked by people per active repeater (heard in the last 30 days). Repeaters from the official MeshCore Map; population from the Census Bureau. Updated nightly.</p>
     </div>
     <div class="ways">
-      <div class="way"><h3>Host a site</h3><p>A roof, tower or grain leg. One good site can cover several counties.</p><a class="btn primary" href="https://github.com/mutiny19/hoop/issues/new?template=listing.yml" target="_blank" rel="noopener">Offer a site</a></div>
+      <div class="way"><h3>Host a site</h3><p>A roof, tower or grain leg. One good site can cover several counties; repeaters are what the mesh needs most right now.</p><a class="btn primary" href="https://github.com/mutiny19/hoop/issues/new?template=listing.yml" target="_blank" rel="noopener">Offer a site</a><a class="mini" href="resources/host-a-repeater-guide.pdf" target="_blank" rel="noopener">What hosting involves: one-page guide &#8599;</a></div>
       <div class="way"><h3>Put up a repeater</h3><p>Start with the settings above, then list it on the MeshCore Map so it shows here.</p><a class="btn primary" href="https://docs.meshcore.io/" target="_blank" rel="noopener">MeshCore docs</a></div>
       <div class="way alt"><h3>Run an observer</h3><p>A radio that uploads what it hears puts your area on the live maps. Waev is one option; your group may use another.</p><a class="btn primary" href="https://waev.app/#/connect" target="_blank" rel="noopener">Connect an observer ↗</a></div>
     </div>
