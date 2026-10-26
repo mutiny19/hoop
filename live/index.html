@@ -96,7 +96,6 @@ section { display: grid; gap: 14px; }
         <span class="badge live">Live map and packets · one observer service among several</span>
         <h3>Waev</h3>
         <p>Live map, packets, and links between nodes, built from what observers actually hear. Opens centred on Indiana.</p>
-        <ul><li>Nodes appear only where real radio observations confirm them</li><li>Observer setup for openHop, observer firmware, meshcoretomqtt, and Home Assistant</li></ul>
         <a class="btn primary" href="https://waev.app/#/live-map/@39.85,-86.30,7.00z" target="_blank" rel="noopener">Open the Waev live map ↗</a>
         <a class="btn ghost" href="https://waev.app/#/connect" target="_blank" rel="noopener">Connect an observer ↗</a>
       </div>
@@ -117,7 +116,6 @@ section { display: grid; gap: 14px; }
         <span class="badge live">Live map</span>
         <h3>MeshMapper: Indianapolis and Fort Wayne</h3>
         <p>MeshMapper's Indiana regions: repeaters, coverage from wardriving, and live traffic on a map.</p>
-        <ul><li>Coverage maps built from wardriving runs</li><li>Some live features need a free sign-in on MeshMapper</li></ul>
         <a class="btn primary" href="https://ind.meshmapper.net" target="_blank" rel="noopener">Open the Indianapolis map ↗</a>
         <a class="btn ghost" href="https://fwa.meshmapper.net" target="_blank" rel="noopener">Open the Fort Wayne map ↗</a>
       </div>
@@ -138,13 +136,12 @@ section { display: grid; gap: 14px; }
 
   <section aria-labelledby="obs-h">
     <h2 id="obs-h">Help fill the live views</h2>
-    <p class="lead">The more observers in Indiana, the more of the state shows up live. An observer is a repeater or radio connected to a computer that uploads what it hears.</p>
+    <p class="lead">An observer uploads what it hears, so your area shows up on these views and in the <a href="../meshnet/">#MeshNet</a> log.</p>
     <ol class="steps">
-      <li>Use <a href="https://github.com/Cisien/meshcoretomqtt" target="_blank" rel="noopener">meshcoretomqtt</a> on a Raspberry Pi or computer connected to a MeshCore repeater. openHop repeaters have the same uploads built in.</li>
-      <li>Any of the services works; Waev (<a href="https://waev.app/#/connect" target="_blank" rel="noopener">setup</a>) is listed first here for its documented privacy model, and OKI CoreScope, LetsMesh and MeshMapper are just as valid. Observers can feed several brokers at once.</li>
-      <li>Say hi in the <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Indiana Mesh Discord</a> so others know where coverage is.</li>
+      <li>Set one up with <a href="https://docs.meshcore.io/faq/#38-q-how-do-i-make-my-repeater-an-observer-on-the-mesh" target="_blank" rel="noopener">MeshCore's observer guide</a>.</li>
+      <li>Point it at a network's broker, using that network's own setup page: <a href="https://chicagolandmesh.org/guides/meshcore/mqtt/" target="_blank" rel="noopener">Chicagoland Mesh</a>, <a href="https://analyzer.letsmesh.net/observer/onboard" target="_blank" rel="noopener">LetsMesh</a>, <a href="https://docs.okimesh.org/books/meshcore-I9o/page/mqtt-broker-settings" target="_blank" rel="noopener">OKI Mesh</a>, or <a href="https://waev.app/#/connect" target="_blank" rel="noopener">Waev</a>.</li>
+      <li>Say where it is in the <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Indiana Mesh Discord</a> so others know where coverage is.</li>
     </ol>
-    <p class="note">These community networks are where Indiana's live traffic is.</p>
   </section>
 </main>
 

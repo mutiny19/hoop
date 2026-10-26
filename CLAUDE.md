@@ -19,7 +19,8 @@ official docs and to each group's own pages, and only publishes Indiana-specific
    every push; keep your own strings in an untracked `.pii-local` and pass `--names .pii-local`.
 2. **Nothing unkind about any other network or group.** Describe each in its own words, link to
    its own site, never compare or rank.
-3. **Link, don't copy.** If an official source explains it, link there.
+3. **Link, don't copy.** If an official source explains it, link there, and keep our own words to a line
+   or so. Every paraphrase of someone else's docs is something to maintain when they change.
 4. **Proposals stay proposals.** Region-tag structures on `advanced/` are "for consideration";
    the page says so and must keep saying so until the community decides.
 5. **Nothing simulated ships.** Real data from the named sources or nothing.

@@ -326,11 +326,11 @@
         },
         observer: {
           label: "Observer",
-          note: "An observer is a repeater or spare radio with an internet connection that uploads the packets it hears, so Indiana shows up on the live maps. It changes nothing about how messages route. MeshCore's own FAQ explains how to set one up; each service publishes its own broker settings.",
+          note: "An observer uploads the packets it hears, so Indiana shows up on the live maps and the #MeshNet log. It doesn't change how messages route.",
           rows: [
             ["Radio preset", "{PN}: {R}, the same as everyone"],
-            ["How", "MeshCore FAQ: make your repeater an observer (linked below under Official docs)"],
-            ["Where it reports", "Waev (mqtt.waev.app:443) is one option, listed first here for its documented privacy model; OKI CoreScope, LetsMesh, and MeshMapper also accept observers, and each publishes its own broker settings. Pick what your area uses"]
+            ["How", "MeshCore FAQ: make your repeater an observer (in the Official docs and FAQ link)"],
+            ["Where it reports", "A network's broker, from that network's own setup page (all linked on the Live page): Chicagoland Mesh, LetsMesh, OKI Mesh, or Waev"]
           ]
         }
       },
