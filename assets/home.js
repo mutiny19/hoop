@@ -282,7 +282,7 @@
     { id: "gmrs", netcard: true, name: "GMRS", tagline: "Thirty-five dollars, no exam, and a repeater on a hill: the quickest legal way to talk across a county.", meta: "$35 license, no exam · Voice", status: "Quick reference · reviewed 2026-10-15",
       note: "The calling channel and tone are community conventions, not FCC rules.",
       rows: [["Calling / travel", "Ch 20 · 141.3 Hz"], ["Repeater channels", "15 to 22"], ["Station ID", "Every 15 min and at the end"]],
-      links: [["FCC: GMRS and licensing", "fcc.gov", "https://www.fcc.gov/general-mobile-radio-service-gmrs"], ["The rules", "47 CFR Part 95, Subpart E", "https://www.ecfr.gov/current/title-47/chapter-I/subchapter-D/part-95/subpart-E"], ["Repeater directory", "myGMRS", "https://mygmrs.com"]] },
+      links: [["FCC: GMRS and licensing", "fcc.gov", "https://www.fcc.gov/general-mobile-radio-service-gmrs"], ["The rules", "47 CFR Part 95, Subpart E", "https://www.ecfr.gov/current/title-47/chapter-I/subchapter-D/part-95/subpart-E"], ["Repeater directory", "myGMRS", "https://mygmrs.com"], ["Project LongHaul", "A nationwide effort to connect GMRS operators, on the same Ch 20 · 141.3 Hz", "https://projectlonghaul.com/"]] },
     { id: "ham", netcard: true, name: "Ham radio", tagline: "One exam opens VHF, UHF, satellites, and every net on the card; two more open the planet.", meta: "FCC exam · Voice, data", status: "Links only",
       note: "National calling frequencies. Local practice comes from Indiana clubs.",
       rows: [["2 m simplex calling", "146.520 MHz"], ["70 cm simplex calling", "446.000 MHz"], ["Repeater coordination", "Indiana Repeater Council"], ["Emergency service", "ARES, ARRL Indiana Section"]],
