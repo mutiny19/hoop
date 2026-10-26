@@ -38,8 +38,8 @@
    "access": "#MeshNet",
    "type": "Mesh",
    "scope": "statewide",
-   "checkin": "airport code · device model · months on mesh",
-   "note": "Open to all, on MeshCore and Meshtastic across Indiana. Ten minutes, start to finish; it doubles as a stress test of the network. Check in on the #meshnet channel (all lowercase) with three things: closest airport code, device model, and months on the mesh. Postponed if weather or another emergency is putting traffic on the mesh; emergency traffic always comes first.",
+   "checkin": "airport, device, months (KUMP, Heltec V3, 4 months)",
+   "note": "Open to all, on MeshCore and Meshtastic across Indiana. Ten minutes, start to finish; it doubles as a stress test of the network. Check in on the #meshnet channel (all lowercase) with one message: closest four-letter airport code, device, and time on the mesh, separated by commas, such as \"KUMP, Heltec V3, 4 months\". Each net's check-ins are mapped on the #MeshNet page. Postponed if weather or another emergency is putting traffic on the mesh; emergency traffic always comes first.",
    "minutes": 10,
    "brief": "Stress test of the mesh · postponed for emergency traffic"
   },
@@ -263,8 +263,8 @@
    "access": "#MeshNet",
    "type": "Mesh",
    "scope": "statewide",
-   "checkin": "airport code · device model · months on mesh",
-   "note": "Open to all, on MeshCore and Meshtastic across Indiana. Ten minutes, start to finish; it doubles as a stress test of the network. Check in on the #meshnet channel (all lowercase) with three things: closest airport code, device model, and months on the mesh. Postponed if weather or another emergency is putting traffic on the mesh; emergency traffic always comes first.",
+   "checkin": "airport, device, months (KUMP, Heltec V3, 4 months)",
+   "note": "Open to all, on MeshCore and Meshtastic across Indiana. Ten minutes, start to finish; it doubles as a stress test of the network. Check in on the #meshnet channel (all lowercase) with one message: closest four-letter airport code, device, and time on the mesh, separated by commas, such as \"KUMP, Heltec V3, 4 months\". Each net's check-ins are mapped on the #MeshNet page. Postponed if weather or another emergency is putting traffic on the mesh; emergency traffic always comes first.",
    "minutes": 10,
    "brief": "Stress test of the mesh · postponed for emergency traffic"
   },

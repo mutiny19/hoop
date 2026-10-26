@@ -2,8 +2,8 @@
 """Log #MeshNet check-ins from the MeshCore #meshnet hashtag channel.
 
 #MeshNet runs Sundays and Thursdays at 7:00 PM Indiana time for ten minutes. This script reads only that
-window plus a 3-minute buffer each side (6:57:00 through 7:12:59) from a CoreScope instance that stores packets uploaded by community
-observers (OKI Mesh's map.okimesh.org by default), decrypts the public #meshnet channel itself, and keeps
+window plus a 3-minute buffer each side (6:57:00 through 7:12:59) from CoreScope instances that store packets uploaded by community
+observers (OKI Mesh's map.okimesh.org by default; more can be listed in SOURCES), decrypts the public #meshnet channel itself, and keeps
 one check-in per sender.
 
 What is written to data/meshnet/log.json: time, airport code (and that airport's public location), device
@@ -28,7 +28,9 @@ except ImportError:  # pragma: no cover
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "data", "meshnet", "log.json")
 AIRPORTS = os.path.join(ROOT, "tools", "meshnet_airports.json")
-SOURCE = "https://map.okimesh.org"
+# Any CoreScope instance (same /api/packets) can be listed; check-ins are merged, one per sender across all of them.
+# OKI Mesh's is the only open one covering Indiana today; LetsMesh and Waev publish no public API.
+SOURCES = ["https://map.okimesh.org"]
 CHANNEL = "#meshnet"
 TZ = ZoneInfo("America/Indiana/Indianapolis")
 NET_DAYS = {6: "Sun", 3: "Thu"}          # Python weekday numbers
@@ -131,7 +133,7 @@ def latest_window(now):
 def collect(source, start, end, airports):
     oldest = get(f"{source}/api/packets?type=5&limit=1&order=asc&sort=timestamp")["packets"]
     if not oldest or oldest[0]["timestamp"] > iso(start):
-        raise SystemExit(f"{source} no longer holds packets from {iso(start)}; not writing a partial log")
+        raise LookupError(f"{source} no longer holds packets from {iso(start)}")
     rows, off = [], 0
     while True:
         d = get(f"{source}/api/packets?type=5&groupByHash=true&limit=500&offset={off}&since={iso(start)}&until={iso(end)}")
@@ -156,7 +158,7 @@ def collect(source, start, end, airports):
         lid, a = place(code, airports)
         first[sender] = {
             "time": seen.astimezone(TZ).strftime("%H:%M"),
-            "code": lid if a else code,
+            "code": (a.get("icao") or lid) if a else code,      # shown as people type it, e.g. KUMP
             **({"place": a["name"], "city": a["city"], "state": a["state"], "lat": a["lat"], "lon": a["lon"]} if a else {}),
             "device": device,
             "months": months,
@@ -164,13 +166,13 @@ def collect(source, start, end, airports):
             "observers": p.get("observer_count") or 1,
             "regions": sorted(set(p.get("distinct_iatas") or ([p["observer_iata"]] if p.get("observer_iata") else []))),
         }
-    return list(first.values()), messages
+    return first, messages
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--date", help="net date in Indiana, YYYY-MM-DD (a Sunday or Thursday)")
-    ap.add_argument("--source", default=SOURCE)
+    ap.add_argument("--source", action="append", help="CoreScope base URL; repeat for several (default: %s)" % ", ".join(SOURCES))
     a = ap.parse_args()
     if a.date:
         day = datetime.strptime(a.date, "%Y-%m-%d").date()
@@ -186,7 +188,26 @@ def main():
             return
         start, end = w
     airports = json.load(open(AIRPORTS, encoding="utf-8"))["airports"]
-    checkins, messages = collect(a.source.rstrip("/"), start, end, airports)
+    sources = [u.rstrip("/") for u in (a.source or SOURCES)]
+    merged, messages, used = {}, 0, []
+    for src in sources:
+        try:
+            got, n = collect(src, start, end, airports)
+        except (LookupError, OSError, ValueError) as e:
+            print(f"skipping {src}: {e}")
+            continue
+        used.append(src); messages = max(messages, n)
+        for sender, c in got.items():
+            m = merged.get(sender)
+            if not m or c["time"] < m["time"]:
+                if m:
+                    c["observers"] = max(c["observers"], m["observers"]); c["regions"] = sorted(set(c["regions"]) | set(m["regions"]))
+                merged[sender] = c
+            else:
+                m["observers"] = max(m["observers"], c["observers"]); m["regions"] = sorted(set(m["regions"]) | set(c["regions"]))
+    if not used:
+        sys.exit("no source could provide that window; not writing a partial log")
+    checkins = sorted(merged.values(), key=lambda c: c["time"])
 
     log = {"nets": []}
     if os.path.exists(OUT):
@@ -207,7 +228,7 @@ def main():
     nets = [n for n in log.get("nets", []) if n["date"] != entry["date"]] + [entry]
     log = {
         "channel": CHANNEL,
-        "source": a.source.rstrip("/"),
+        "sources": used,
         "about": "One check-in per sender heard by community observers between 6:57 and 7:13 PM Indiana time on net nights. "
                  "No names, callsigns or message text are stored.",
         "nets": sorted(nets, key=lambda n: n["date"], reverse=True),
