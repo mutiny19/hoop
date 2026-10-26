@@ -44,11 +44,6 @@ p { margin: 0; }
 /* header CTA */
 .site-nav .go { background: var(--beacon); color: #0F1729; font-weight: 700; padding: 11px 16px; border-radius: 6px; }
 
-/* welcome strip for first-time visitors */
-.welcome { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; background: var(--map-panel); border: 1px solid var(--map-line); border-left: 4px solid var(--beacon); border-radius: 0 12px 12px 0; padding: 16px 20px; margin-top: 22px; }
-.welcome b { display: block; font: 800 18px/1.2 var(--display); margin-bottom: 4px; }
-.welcome p { color: var(--map-muted); max-width: 70ch; font-size: 15px; }
-.welcome .btn.primary { background: var(--beacon); color: #0F1729; font-weight: 700; white-space: nowrap; }
 
 /* map band */
 /* The waterfall and constellation sit behind the band's headline only; the map, alerts and everything below
@@ -152,6 +147,8 @@ p { margin: 0; }
 .net-card-box p { color: var(--muted); font-size: 14px; margin-bottom: 8px; }
 .net-card-box a.btn { font-size: 13px; padding: 8px 14px; min-height: 36px; }
 @media (max-width: 560px) { .net-card-box { flex-direction: column; align-items: flex-start; } .net-card-box img { width: 100%; max-width: 220px; } }
+/* inside the expanded GMRS and Ham cards */
+.proto .net-card-box { grid-column: 1 / -1; margin-bottom: 0; background: var(--bg); }
 .ghost { background: transparent; color: var(--fg); border: 2px solid var(--line); }
 .acc { display: grid; gap: 10px; }
 .proto { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
@@ -171,6 +168,14 @@ p { margin: 0; }
 .proto .tl small { display: block; font: 400 13px/1.4 var(--mono); margin-top: 2px; }
 .proto .chev { font: 500 24px/1 var(--mono); color: var(--muted); }
 .proto .body { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 16px; padding: 0 20px 20px; }
+/* "New here?" at the top of the expanded MeshCore card */
+.proto .intro { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; background: var(--bg); border-left: 4px solid var(--beacon); border-radius: 0 10px 10px 0; padding: 14px 18px; }
+.proto .intro b { display: block; font: 800 17px/1.2 var(--display); margin-bottom: 4px; }
+.proto .intro p { color: var(--muted); max-width: 70ch; font-size: 15px; }
+.proto .intro .btn { background: var(--beacon); color: #0F1729; font-weight: 700; white-space: nowrap; }
+.proto-meshcore .intro { background: #FBF1E8; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .proto-meshcore .intro { background: #17130E; } }
+:root[data-theme="dark"] .proto-meshcore .intro { background: #17130E; }
 .card-set { background: var(--bg); border-radius: 10px; padding: 16px; display: grid; gap: 10px; align-content: start; }
 .card-set .top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
 .card-set .top b { font-weight: 700; }
@@ -266,7 +271,7 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
   .legend { position: static; max-width: none; margin: 0; border-radius: 0; font-size: 12px; line-height: 1.6; }
   .side-toggle { display: block; }
   .side[hidden] { display: none; }
-  .welcome .btn.primary { width: 100%; justify-content: center; }
+  .proto .intro .btn { width: 100%; justify-content: center; }
   .srcbadge { top: 8px; left: 8px; right: auto; font-size: 10px; padding: 4px 7px; letter-spacing: 0; }
   .report .wrap, .sup-grid, .proto .body, .alts > div { grid-template-columns: 1fr; }
   .proto > button { grid-template-columns: minmax(0, 1fr) auto; }
@@ -414,13 +419,6 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
         <div class="cov" id="cov"></div>
       </section>
     </div>
-    <div class="welcome" id="welcome">
-      <div>
-        <b>New here?</b>
-        <p>The mesh is small radios that pass short text messages to each other with no cell service or internet. Volunteers run relay boxes on rooftops so messages travel across the state. You can be texting on it this weekend for about $30, with no license.</p>
-      </div>
-      <a class="btn primary" href="meshcore/">Start here: five steps</a>
-    </div>
   </div>
 </section>
 
@@ -428,14 +426,6 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
 <section id="protocols" class="wrap settings" aria-labelledby="set-h">
   <div class="sec-head">
     <div><h2 id="set-h">Settings people use in Indiana</h2><p>A starting point, not a standard; your local group may differ. For how it works, follow the official links below, whichever protocol you're starting with. <strong>New to MeshCore specifically?</strong> Its <a href="meshcore/">five steps</a> walk a radio from the box to its first message; GMRS and ham start with the license links in their own panels. Most protocols already have a real getting-started guide from the people who run them; MeshCore's steps are stitched together here because no single official page does that yet.</p></div>
-    <div class="net-card-box">
-      <a href="resources/indy-metro-net-card.pdf" target="_blank" rel="noopener"><img src="assets/net-card-thumb.png" alt="Indianapolis metro channel and net reference card, page 1 of 4" width="480" height="371" loading="lazy"></a>
-      <div class="nc-body">
-        <h3>Indianapolis metro channel &amp; net card</h3>
-        <p>One printable PDF: the weekly net schedule, GMRS and ham channels, antenna lengths, and known-good radio settings for a handheld. Four pages, built for the glovebox.</p>
-        <a class="btn ghost" href="resources/indy-metro-net-card.pdf" target="_blank" rel="noopener">Open the PDF &#8599;</a>
-      </div>
-    </div>
     <button type="button" class="btn ghost" id="toggleAll">Expand all</button>
   </div>
   <div class="acc" id="acc"></div>
@@ -544,7 +534,7 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
 </section>
 <section id="about" class="wrap about" aria-labelledby="about-h">
   <h2 id="about-h">About this site</h2>
-  <p>HOOP is the Hoosier Off-Grid Open Playbook: plays to consider, not rules, kept open for anyone to improve. It does not represent any network, collective, or organization. It exists to soften the onboarding of newcomers and the landing of advanced users, and then to point them on: the <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Indiana Mesh</a> Discord is where Indiana people talk, and groups like the Central Indiana Mesh Network and NEIMesh are regional communities with their own sites. None of them run or endorse this site. The site is a signpost, not a document repository: it keeps quick-glance settings and links, and points to the projects and groups that maintain each piece. Where an official source exists (a protocol's docs, a group's own site, an agency's page), that source is the authority and this site defers to it. It is informational only and not affiliated with the FCC, the ARRL, any protocol's developers, any agency, or any repeater owner. The soft waterfall and drifting nodes behind the page are drawn in the browser; they are decoration, not live traffic, and a nod to the background on <a href="https://rflab.io" target="_blank" rel="noopener">rflab.io</a>. Code and settings are open on <a href="https://github.com/mutiny19/hoop" target="_blank" rel="noopener">GitHub</a>; corrections are welcome by <a href="https://github.com/mutiny19/hoop/issues/new/choose" target="_blank" rel="noopener">issue</a> or on Discord.</p>
+  <p>HOOP is the Hoosier Off-Grid Open Playbook: plays to consider, not rules, kept open for anyone to improve. It does not represent any network, collective, or organization. It exists to soften the onboarding of newcomers and the landing of advanced users, and then to point them on: the <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Indiana Mesh</a> Discord is where Indiana people talk, and groups like the Central Indiana Mesh Network and NEIMesh are regional communities with their own sites. None of them run or endorse this site. The site is a signpost, not a document repository: it keeps quick-glance settings and links, and points to the projects and groups that maintain each piece. Where an official source exists (a protocol's docs, a group's own site, an agency's page), that source is the authority and this site defers to it. It is informational only and not affiliated with the FCC, the ARRL, any protocol's developers, any agency, or any repeater owner. The soft waterfall and drifting nodes behind the map headline are drawn in the browser; they are decoration, not live traffic, and a nod to the background on <a href="https://rflab.io" target="_blank" rel="noopener">rflab.io</a>. Code and settings are open on <a href="https://github.com/mutiny19/hoop" target="_blank" rel="noopener">GitHub</a>; corrections are welcome by <a href="https://github.com/mutiny19/hoop/issues/new/choose" target="_blank" rel="noopener">issue</a> or on Discord.</p>
 </section>
 </main>
 
@@ -553,7 +543,7 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
 </div></footer>
 
 <script src="assets/nets.js"></script>
-<script src="assets/home.js?v=20261025p"></script>
+<script src="assets/home.js?v=20261026b"></script>
 <script src="assets/chirps.js?v=20261025l"></script>
 <script src="assets/site.js?v=20261026a"></script>
 </body>

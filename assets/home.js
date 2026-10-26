@@ -279,15 +279,17 @@
 
   /* ---------- settings accordion ---------- */
   var PROTOS = [
-    { id: "gmrs", name: "GMRS", tagline: "Thirty-five dollars, no exam, and a repeater on a hill: the quickest legal way to talk across a county.", meta: "$35 license, no exam · Voice", status: "Quick reference · reviewed 2026-10-15",
+    { id: "gmrs", netcard: true, name: "GMRS", tagline: "Thirty-five dollars, no exam, and a repeater on a hill: the quickest legal way to talk across a county.", meta: "$35 license, no exam · Voice", status: "Quick reference · reviewed 2026-10-15",
       note: "The calling channel and tone are community conventions, not FCC rules.",
       rows: [["Calling / travel", "Ch 20 · 141.3 Hz"], ["Repeater channels", "15 to 22"], ["Station ID", "Every 15 min and at the end"]],
-      links: [["Indy metro channel & net card", "Printable PDF: nets, channels, settings for a handheld", "resources/indy-metro-net-card.pdf"], ["FCC: GMRS and licensing", "fcc.gov", "https://www.fcc.gov/general-mobile-radio-service-gmrs"], ["The rules", "47 CFR Part 95, Subpart E", "https://www.ecfr.gov/current/title-47/chapter-I/subchapter-D/part-95/subpart-E"], ["Repeater directory", "myGMRS", "https://mygmrs.com"]] },
-    { id: "ham", name: "Ham radio", tagline: "One exam opens VHF, UHF, satellites, and every net on the card; two more open the planet.", meta: "FCC exam · Voice, data", status: "Links only",
+      links: [["FCC: GMRS and licensing", "fcc.gov", "https://www.fcc.gov/general-mobile-radio-service-gmrs"], ["The rules", "47 CFR Part 95, Subpart E", "https://www.ecfr.gov/current/title-47/chapter-I/subchapter-D/part-95/subpart-E"], ["Repeater directory", "myGMRS", "https://mygmrs.com"]] },
+    { id: "ham", netcard: true, name: "Ham radio", tagline: "One exam opens VHF, UHF, satellites, and every net on the card; two more open the planet.", meta: "FCC exam · Voice, data", status: "Links only",
       note: "National calling frequencies. Local practice comes from Indiana clubs.",
       rows: [["2 m simplex calling", "146.520 MHz"], ["70 cm simplex calling", "446.000 MHz"], ["Repeater coordination", "Indiana Repeater Council"], ["Emergency service", "ARES, ARRL Indiana Section"]],
-      links: [["Indy metro channel & net card", "Printable PDF: nets, channels, settings for a handheld", "resources/indy-metro-net-card.pdf"], ["ARRL: getting licensed", "arrl.org", "https://www.arrl.org/getting-licensed"], ["Find an Indiana club", "ARRL club search", "https://www.arrl.org/find-a-club"], ["ARRL Indiana Section", "arrl.org", "https://www.arrl.org/sections/view/indiana"], ["Repeater directory", "RepeaterBook", "https://www.repeaterbook.com"]] },
-    { id: "meshcore", name: "MeshCore", tagline: "Texts that hop repeater to repeater with no carrier, no account, no bill. The repeaters are the network.", meta: "No license · Text · 915 MHz", status: "Radio: official MeshCore {PN} preset · reviewed 2026-10-25",
+      links: [["ARRL: getting licensed", "arrl.org", "https://www.arrl.org/getting-licensed"], ["Find an Indiana club", "ARRL club search", "https://www.arrl.org/find-a-club"], ["ARRL Indiana Section", "arrl.org", "https://www.arrl.org/sections/view/indiana"], ["Repeater directory", "RepeaterBook", "https://www.repeaterbook.com"]] },
+    { id: "meshcore", name: "MeshCore",
+      intro: ["New here?", "The mesh is small radios that pass short text messages to each other with no cell service or internet. Volunteers run relay boxes on rooftops so messages travel across the state. You can be texting on it this weekend for about $30, with no license.", "Start here: five steps", "meshcore/"],
+      tagline: "Texts that hop repeater to repeater with no carrier, no account, no bill. The repeaters are the network.", meta: "No license · Text · 915 MHz", status: "Radio: official MeshCore {PN} preset · reviewed 2026-10-25",
       views: {
         companion: {
           label: "Companion",
@@ -380,11 +382,15 @@
     return '<div class="card-set"><div class="top"><b>A starting point</b><span>' + esc(fillP(p.status)) + "</span></div>" + seg +
       '<div class="rows">' + body + "</div>" + all + alts + '<div class="note">' + esc(note) + "</div></div>";
   }
+  /* The Indianapolis net card, shown at the top of the expanded GMRS and Ham cards. */
+  var NETCARD = '<div class="net-card-box"> <a href="resources/indy-metro-net-card.pdf" target="_blank" rel="noopener"><img src="assets/net-card-thumb.png" alt="Indianapolis metro channel and net reference card, page 1 of 4" width="480" height="371" loading="lazy"></a> <div class="nc-body"> <h3>Indianapolis metro channel &amp; net card</h3> <p>One printable PDF: the weekly net schedule, GMRS and ham channels, antenna lengths, and known-good radio settings for a handheld. Four pages, built for the glovebox.</p> <a class="btn ghost" href="resources/indy-metro-net-card.pdf" target="_blank" rel="noopener">Open the PDF &#8599;</a> </div> </div>';
   function renderAcc() {
     clips = [];
     $("acc").innerHTML = PROTOS.map(function (p) {
       var o = !!open[p.id];
-      var body = !o ? "" : '<div class="body" id="pb-' + p.id + '">' + settingsCard(p) +
+      var card = p.netcard ? NETCARD : "";
+      var intro = p.intro ? '<div class="intro"><div><b>' + esc(p.intro[0]) + "</b><p>" + esc(p.intro[1]) + '</p></div><a class="btn" href="' + p.intro[3] + '">' + esc(p.intro[2]) + "</a></div>" : "";
+      var body = !o ? "" : '<div class="body" id="pb-' + p.id + '">' + intro + card + settingsCard(p) +
         '<div class="links">' + p.links.map(function (l) {
           var ext = /^https?:/.test(l[2]);
           return '<a href="' + l[2] + '"' + (ext ? ' target="_blank" rel="noopener"' : "") + "><span><b>" + esc(l[0]) + "</b><small>" + esc(l[1]) + "</small></span><span aria-hidden=\"true\">" + (ext ? "↗" : "→") + "</span></a>";
