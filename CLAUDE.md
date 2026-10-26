@@ -38,7 +38,7 @@ official docs and to each group's own pages, and only publishes Indiana-specific
 | `emergency/index.html` | Agencies article (APA citations) |
 | `live/index.html` | Where to watch live traffic |
 | `assets/site.css`, `theme.js`, `site.js` | Shared styles, pre-paint theme, nav/theme/copy behaviour |
-| `assets/chirps.js` | Fixed decoration behind the whole home page: a soft SDR waterfall and a node constellation. Decoration only; never drawn on the map itself |
+| `assets/chirps.js` | Decoration behind the map band's headline only (fades out via CSS mask before the map grid): a soft SDR waterfall and a node constellation. Decoration only; never drawn on the map itself |
 | `assets/arcs.js` | Not loaded. Packet-hop drawing kept for a real feed later (`HOOP.arcs.setSource(fn)`). The map shows no invented traffic; do not add the script tag until the source is real |
 | `data/` | Nightly repeater inventory, yearly county reference, nets, settings JSON |
 | `tools/` | The scripts the workflows run, plus `check_pii.py` and `check_links.py` |

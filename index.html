@@ -51,18 +51,21 @@ p { margin: 0; }
 .welcome .btn.primary { background: var(--beacon); color: #0F1729; font-weight: 700; white-space: nowrap; }
 
 /* map band */
-/* The waterfall and constellation sit on a fixed stage behind the whole page, so they run on under every section.
-   In the dark theme the band and the report strip go translucent to let it through; in the light theme the band
-   keeps its navy so its light text stays readable. */
-.bg-stage { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
-body > :not(.bg-stage) { position: relative; z-index: 1; }
+/* The waterfall and constellation sit behind the band's headline only; the map, alerts and everything below
+   are never animated. */
+.band { background: var(--map-bg); color: var(--map-fg); position: relative; overflow: hidden; }
+/* .hero holds the headline and layer buttons; the stage bleeds to the band's full width and up over the band's top
+   padding, and ends just under the buttons. .band clips the overflow. */
+.hero { position: relative; padding-bottom: 14px; }
+.hero > :not(.bg-stage) { position: relative; z-index: 1; }
+.hero .layers { margin-bottom: 0; }
+.bg-stage { position: absolute; top: -28px; bottom: 0; left: 50%; width: 100vw; transform: translateX(-50%); z-index: 0; pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0, #000 75%, transparent 100%); mask-image: linear-gradient(to bottom, #000 0, #000 75%, transparent 100%); }
+.band.dash .bg-stage { top: -20px; }
 .bg-chirps, .bg-mesh { position: absolute; inset: 0; width: 100%; height: 100%; }
-.bg-chirps { opacity: .5; }
+.bg-chirps { opacity: .5; image-rendering: pixelated; }
 .bg-mesh { opacity: .9; }
 :root[data-bg="off"] .bg-stage { display: none; }
-.band { background: rgba(15, 23, 41, .92); color: var(--map-fg); position: relative; overflow: hidden; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .band { background: transparent; } }
-:root[data-theme="dark"] .band { background: transparent; }
 .band > .wrap { position: relative; z-index: 1; }
 .band .wrap { padding-block: 28px 40px; }
 .band.dash .wrap { max-width: none; padding-block: 20px 32px; }
@@ -138,9 +141,7 @@ body > :not(.bg-stage) { position: relative; z-index: 1; }
 .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 8px; vertical-align: middle; }
 
 /* settings */
-.settings { padding-block: 48px 72px; background: rgba(255, 255, 255, .93); border-radius: 0; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .settings { background: rgba(8, 14, 28, .88); } }
-:root[data-theme="dark"] .settings { background: rgba(8, 14, 28, .88); }
+.settings { padding-block: 48px 72px; }
 .sec-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 12px; margin-bottom: 18px; }
 .sec-head h2 { font-size: 32px; font-weight: 800; }
 .sec-head p { color: var(--muted); margin-top: 6px; }
@@ -206,9 +207,9 @@ body > :not(.bg-stage) { position: relative; z-index: 1; }
 .sec-foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 20px; margin-top: 16px; font-size: 14px; color: var(--muted); }
 
 /* report */
-.report { background: rgba(228, 233, 230, .97); }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .report { background: rgba(13, 21, 38, .95); } }
-:root[data-theme="dark"] .report { background: rgba(13, 21, 38, .95); }
+.report { background: #E4E9E6; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .report { background: #0D1526; } }
+:root[data-theme="dark"] .report { background: #0D1526; }
 .report .wrap { padding-block: 56px 64px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 32px; align-items: start; }
 .report h2 { font-size: 32px; font-weight: 800; }
 .report .intro { display: grid; gap: 12px; }
@@ -234,18 +235,11 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
 
 /* about */
 .about { padding-block: 32px 64px; }
-.about { background: rgba(255, 255, 255, .97); }
-.about { border-radius: 0; }
-.about h2, .about p { max-width: 1200px; margin-inline: auto; padding-inline: 24px; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .about { background: rgba(8, 14, 28, .95); } }
-:root[data-theme="dark"] .about { background: rgba(8, 14, 28, .95); }
 .about h2 { font-size: 24px; font-weight: 800; margin-bottom: 10px; }
 .about p { color: var(--muted); max-width: 80ch; }
 
 /* support */
-.support { padding-block: 64px 72px; display: grid; gap: 20px; background: rgba(255, 255, 255, .93); border-radius: 0; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .support { background: rgba(8, 14, 28, .88); } }
-:root[data-theme="dark"] .support { background: rgba(8, 14, 28, .88); }
+.support { padding-block: 64px 72px; display: grid; gap: 20px; }
 .support h2 { font-size: 32px; font-weight: 800; }
 .support .lead { color: var(--muted); max-width: 70ch; }
 .sup-grid { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 16px; }
@@ -286,7 +280,6 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
 </style>
 </head>
 <body>
-<div class="bg-stage" aria-hidden="true"><canvas id="bgChirps" class="bg-chirps"></canvas><canvas id="bgMesh" class="bg-mesh"></canvas></div>
 <header class="site-head" id="top"><div class="bar">
   <a class="brand" href="./"><img class="brand-mark" src="assets/mark.svg?v=20261025e" alt="" width="34" height="53"><img class="brand-mark-sm" src="assets/favicon.svg?v=20261025e" alt="" width="30" height="38"><span class="brand-text">HOOP<small>Hoosier Off-Grid Open Playbook</small></span></a>
   <nav class="site-nav" aria-label="Site">
@@ -311,6 +304,8 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
 
 <section id="map" class="band" aria-label="Statewide map">
   <div class="wrap">
+    <div class="hero">
+    <div class="bg-stage" aria-hidden="true"><canvas id="bgChirps" class="bg-chirps"></canvas><canvas id="bgMesh" class="bg-mesh"></canvas></div>
     <div class="band-top">
       <div id="hero">
         <h1>Off-grid Indiana, on one map</h1>
@@ -328,6 +323,7 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
       <button type="button" class="layer" data-layer="meshcore" aria-pressed="true">✓ MeshCore repeaters</button>
       <button type="button" class="layer" data-layer="weather" aria-pressed="true">✓ Weather alerts</button>
       <button type="button" class="layer" data-layer="nets" aria-pressed="true">✓ Nets</button>
+    </div>
     </div>
 
     <div class="tiles" id="tiles" hidden></div>
@@ -557,7 +553,7 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
 
 <script src="assets/nets.js"></script>
 <script src="assets/home.js?v=20261025p"></script>
-<script src="assets/chirps.js?v=20261025g"></script>
+<script src="assets/chirps.js?v=20261025l"></script>
 <script src="assets/site.js?v=20261025a"></script>
 </body>
 </html>

@@ -1,4 +1,5 @@
-/* Fixed background behind the whole home page: an SDR waterfall with a sparse mesh constellation over it.
+/* Decoration behind the map band's headline only (fades out via CSS mask before the map grid): an SDR waterfall
+   with a sparse mesh constellation over it.
    Modelled on real receiver displays: grainy blue noise floor, carriers as hot vertical columns, wide smears,
    and short bursts that stand in for LoRa packets. Decoration only, nothing here is real traffic.
    Pauses in hidden tabs; draws one still frame under prefers-reduced-motion. */
@@ -7,14 +8,26 @@
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var DPR = Math.min(window.devicePixelRatio || 1, 2), hidden = false;
   document.addEventListener("visibilitychange", function () { hidden = document.hidden; });
-  function light() { return document.documentElement.getAttribute("data-theme") === "light"; }
+  /* The band is navy in both themes, so the waterfall and nodes always use their dark-band colours. */
+  function light() { return false; }
   function off() { return document.documentElement.getAttribute("data-bg") === "off"; }
 
   /* ---------------- waterfall ---------------- */
   /* Modelled on a real receiver display (SDR++, Gqrx): a grainy deep-blue noise floor, carriers as sharp
      vertical columns that burn yellow and red at the centre and halo out to cyan, a few wide smears that
      come and go, and short bursts standing in for LoRa packets. 2-pixel bins, painted as image data. */
-  if (wfCanvas) (function () {
+  /* Start after first paint so the decoration never delays the page. */
+  /* Refit when the canvas box itself changes (fonts loading, dashboard view, rotation), not only on window resize. */
+  function watch(el, fn) {
+    /* a hidden stage (background toggled off) measures 0x0; keep the last frame instead of refitting to nothing */
+    function check() { var r = el.getBoundingClientRect(); if (r.width >= 2 && r.height >= 2) fn(r); }
+    if (window.ResizeObserver) new ResizeObserver(check).observe(el);
+    else window.addEventListener("resize", check, { passive: true });
+  }
+  var later = window.requestIdleCallback ? function (f) { requestIdleCallback(f, { timeout: 600 }); } : function (f) { setTimeout(f, 200); };
+
+  if (wfCanvas) later(function () {
+    var DPR = 1;   /* blocky 2px bins by design; drawn at 1x and kept crisp with image-rendering: pixelated */
     var ctx = wfCanvas.getContext("2d"), W = 0, H = 0, DW = 0, DH = 0, BIN = 2, ROW = 2, DROW = 2, N = 0, acc = 0, last = 0;
     /* W, H are CSS px; DW, DH, DROW are device px. The canvas is drawn entirely in device px (no transform),
        because putImageData ignores the transform and would otherwise paint only the left 1/DPR of each row. */
@@ -78,14 +91,15 @@
     }
     fit(); seed(); prefill();
     var lastW = W;
-    window.addEventListener("resize", function () { var w = wfCanvas.getBoundingClientRect().width; if (Math.abs(w - lastW) < 2) return; lastW = w; fit(); seed(); prefill(); }, { passive: true });
+    var lastH = H;
+    watch(wfCanvas, function (r) { if (Math.abs(r.width - lastW) < 2 && Math.abs(r.height - lastH) < 2) return; lastW = r.width; lastH = r.height; fit(); seed(); prefill(); });
     var lastTheme = light();
     new MutationObserver(function () { if (light() !== lastTheme) { lastTheme = light(); prefill(); } }).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
     if (!reduce) requestAnimationFrame(frame);
-  })();
+  });
 
   /* ---------------- constellation ---------------- */
-  if (meshCanvas) (function () {
+  if (meshCanvas) later(function () {
     var ctx = meshCanvas.getContext("2d"), W = 0, H = 0, nodes = [], pulses = [], LINK = 220, last = 0;
     function fit() { var r = meshCanvas.getBoundingClientRect(); W = Math.round(r.width); H = Math.round(r.height); meshCanvas.width = Math.floor(W * DPR); meshCanvas.height = Math.floor(H * DPR); ctx.setTransform(DPR, 0, 0, DPR, 0, 0); }
     function seed() { nodes = []; var n = Math.max(14, Math.min(48, Math.round(W * H / 26000))); for (var i = 0; i < n; i++) nodes.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - 0.5) * 10, vy: (Math.random() - 0.5) * 10, r: (1.3 + Math.random() * 1.8) * 3 }); }
@@ -115,7 +129,8 @@
     }
     fit(); seed();
     var lastW = W;
-    window.addEventListener("resize", function () { var w = meshCanvas.getBoundingClientRect().width; if (Math.abs(w - lastW) < 2) return; lastW = w; fit(); seed(); }, { passive: true });
+    var lastH = H;
+    watch(meshCanvas, function (r) { if (Math.abs(r.width - lastW) < 2 && Math.abs(r.height - lastH) < 2) return; lastW = r.width; lastH = r.height; fit(); seed(); });
     requestAnimationFrame(frame);
-  })();
+  });
 })();
