@@ -329,8 +329,7 @@
           note: "An observer uploads the packets it hears, so Indiana shows up on the live maps and the #MeshNet log. It doesn't change how messages route.",
           rows: [
             ["Radio preset", "{PN}: {R}, the same as everyone"],
-            ["How", "MeshCore FAQ: make your repeater an observer (in the Official docs and FAQ link)"],
-            ["Where it reports", "A network's broker, from that network's own setup page (all linked on the Live page): Chicagoland Mesh, LetsMesh, OKI Mesh, or Waev"]
+            ["Setup and networks", "On the Live page, under Help fill the live views"]
           ]
         }
       },

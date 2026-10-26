@@ -39,7 +39,7 @@
    "type": "Mesh",
    "scope": "statewide",
    "checkin": "airport, device, months (KUMP, Heltec V3, 4 months)",
-   "note": "Open to all, on MeshCore and Meshtastic across Indiana. Ten minutes, start to finish; it doubles as a stress test of the network. Check in on the #meshnet channel (all lowercase) with one message: closest four-letter airport code, device, and time on the mesh, separated by commas, such as \"KUMP, Heltec V3, 4 months\". Each net's check-ins are mapped on the #MeshNet page. Postponed if weather or another emergency is putting traffic on the mesh; emergency traffic always comes first.",
+   "note": "Ten-minute check-in net on the #meshnet channel. How to check in, and each net's check-ins, are on the #MeshNet page. Postponed if there is severe weather or emergency traffic.",
    "minutes": 10,
    "brief": "Stress test of the mesh · postponed if there's emergency traffic"
   },
@@ -264,7 +264,7 @@
    "type": "Mesh",
    "scope": "statewide",
    "checkin": "airport, device, months (KUMP, Heltec V3, 4 months)",
-   "note": "Open to all, on MeshCore and Meshtastic across Indiana. Ten minutes, start to finish; it doubles as a stress test of the network. Check in on the #meshnet channel (all lowercase) with one message: closest four-letter airport code, device, and time on the mesh, separated by commas, such as \"KUMP, Heltec V3, 4 months\". Each net's check-ins are mapped on the #MeshNet page. Postponed if weather or another emergency is putting traffic on the mesh; emergency traffic always comes first.",
+   "note": "Ten-minute check-in net on the #meshnet channel. How to check in, and each net's check-ins, are on the #MeshNet page. Postponed if there is severe weather or emergency traffic.",
    "minutes": 10,
    "brief": "Stress test of the mesh · postponed if there's emergency traffic"
   },
