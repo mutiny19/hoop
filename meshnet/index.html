@@ -60,7 +60,8 @@ code.ex { font: 500 1rem/1 var(--mono); background: var(--panel); border: 1px so
 .parts > div { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr); gap: 12px; padding-top: 8px; border-top: 1px solid var(--line); }
 .parts dt { font-weight: 700; }
 .parts dd { margin: 0; color: var(--muted); }
-@media (max-width: 520px) { .parts > div { grid-template-columns: minmax(0, 1fr); gap: 2px; } }
+.fixes > div { grid-template-columns: 17rem minmax(0, 1fr); }
+@media (max-width: 520px) { .parts > div, .fixes > div { grid-template-columns: minmax(0, 1fr); gap: 2px; } }
 
 /* the log: map of Indiana (navy in both themes, like the home map) beside the check-in list */
 .logbox { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 16px; align-items: start; }
@@ -155,6 +156,7 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
       <li>See who your messages reach, and who reaches you.</li>
       <li>Practise, so it's routine when the mesh is needed.</li>
       <li>Meet the people on the mesh near you.</li>
+      <li>Stress-test the mesh on purpose. Everyone posting at once is how weak spots show up.</li>
     </ul>
     <p class="hold"><b>If there is severe weather or any emergency on the mesh, the net is postponed.</b> Emergency traffic always comes first.</p>
   </section>
@@ -174,7 +176,17 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
       <li>Read the channel to see who else checked in. One message each keeps the channel clear.</li>
     </ol>
     <p class="spread"><b>Help it grow.</b> Invite others the usual ways: tell a neighbour, mention it in your local group's chat or Discord, announce it on your local ham or GMRS net, or share this page. Every new check-in shows how far the mesh reaches.</p>
-  </section>
+    </section>
+
+  <section aria-labelledby="fix-h">
+    <h2 id="fix-h">When something fails</h2>
+    <p class="lead">Finding failures is the point of the net. Each one tells you what the mesh needs next.</p>
+    <dl class="parts fixes">
+      <div><dt>Nobody heard you</dt><dd>Your area needs a repeater with height and a good antenna. <a href="../#protocols">Put one up</a> (the MeshCore card in Settings has a Repeater tab), or <a href="../#support">offer a high site</a> to someone who will.</dd></div>
+      <div><dt>You got out, but you're not on the map</dt><dd>No observer heard you. Add one: a radio connected to an MQTT broker whose data is public, such as a local CoreScope. <a href="../live/#obs-h">How to run an observer</a>.</dd></div>
+      <div><dt>Your observer feeds a different CoreScope</dt><dd>Let us know on <a href="https://github.com/mutiny19/hoop/issues/new/choose" target="_blank" rel="noopener">GitHub</a> or the <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Indiana Mesh Discord</a>, and it can be added to the log.</dd></div>
+    </dl>
+</section>
 
 </main>
 
