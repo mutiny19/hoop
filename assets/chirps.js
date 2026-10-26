@@ -86,7 +86,7 @@
 
   /* ---------------- constellation ---------------- */
   if (meshCanvas) (function () {
-    var ctx = meshCanvas.getContext("2d"), W = 0, H = 0, nodes = [], pulses = [], LINK = 150, last = 0;
+    var ctx = meshCanvas.getContext("2d"), W = 0, H = 0, nodes = [], pulses = [], LINK = 220, last = 0;
     function fit() { var r = meshCanvas.getBoundingClientRect(); W = Math.round(r.width); H = Math.round(r.height); meshCanvas.width = Math.floor(W * DPR); meshCanvas.height = Math.floor(H * DPR); ctx.setTransform(DPR, 0, 0, DPR, 0, 0); }
     function seed() { nodes = []; var n = Math.max(14, Math.min(48, Math.round(W * H / 26000))); for (var i = 0; i < n; i++) nodes.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - 0.5) * 10, vy: (Math.random() - 0.5) * 10, r: (1.3 + Math.random() * 1.8) * 3 }); }
     function frame(now) {
@@ -95,10 +95,10 @@
         var ink = light() ? "19, 32, 28" : "214, 236, 230";
         ctx.clearRect(0, 0, W, H);
         nodes.forEach(function (n) { n.x += n.vx * dt; n.y += n.vy * dt; if (n.x < 0 || n.x > W) n.vx *= -1; if (n.y < 0 || n.y > H) n.vy *= -1; });
-        ctx.lineWidth = 1;
+        ctx.lineWidth = 1.6;
         for (var i = 0; i < nodes.length; i++) for (var j = i + 1; j < nodes.length; j++) {
           var a = nodes[i], b = nodes[j], d = Math.hypot(a.x - b.x, a.y - b.y);
-          if (d < LINK) { ctx.strokeStyle = "rgba(" + ink + "," + ((1 - d / LINK) * 0.2).toFixed(3) + ")"; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
+          if (d < LINK) { ctx.strokeStyle = "rgba(" + ink + "," + ((1 - d / LINK) * 0.45).toFixed(3) + ")"; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
         }
         nodes.forEach(function (n) { ctx.fillStyle = "rgba(" + ink + ",0.8)"; ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2); ctx.fill(); });
         if (!reduce && Math.random() < dt * 1.2 && nodes.length > 1) {
