@@ -29,8 +29,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "data", "meshnet", "log.json")
 AIRPORTS = os.path.join(ROOT, "tools", "meshnet_airports.json")
 # Any CoreScope instance (same /api/packets) can be listed; check-ins are merged, one per sender across all of them.
-# OKI Mesh's is the only open one covering Indiana today; LetsMesh and Waev publish no public API.
-SOURCES = ["https://map.okimesh.org"]
+# OKI Mesh (Ohio, Kentucky, Indiana) and Chicagoland Mesh (reaches Northwest Indiana) run open ones.
+# LetsMesh and Waev publish no public API, so they are not read.
+SOURCES = ["https://map.okimesh.org", "https://corescope.chicagolandmesh.org"]
 CHANNEL = "#meshnet"
 TZ = ZoneInfo("America/Indiana/Indianapolis")
 NET_DAYS = {6: "Sun", 3: "Thu"}          # Python weekday numbers

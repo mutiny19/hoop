@@ -1,7 +1,8 @@
 {
  "channel": "#meshnet",
  "sources": [
-  "https://map.okimesh.org"
+  "https://map.okimesh.org",
+  "https://corescope.chicagolandmesh.org"
  ],
  "about": "One check-in per sender heard by community observers between 6:57 and 7:13 PM Indiana time on net nights. No names, callsigns or message text are stored.",
  "nets": [
@@ -10,7 +11,7 @@
    "day": "Sun",
    "start": "2026-10-25T18:57:00-04:00",
    "end": "2026-10-25T19:12:59-04:00",
-   "logged": "2026-10-26T18:21:54Z",
+   "logged": "2026-10-26T18:37:08Z",
    "messages": 8,
    "checkins": [
     {
