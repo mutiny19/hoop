@@ -18,7 +18,7 @@
     var ctx = wfCanvas.getContext("2d"), W = 0, H = 0, DW = 0, DH = 0, BIN = 2, ROW = 2, DROW = 2, N = 0, acc = 0, last = 0;
     /* W, H are CSS px; DW, DH, DROW are device px. The canvas is drawn entirely in device px (no transform),
        because putImageData ignores the transform and would otherwise paint only the left 1/DPR of each row. */
-    var SPEED = 22;                                       /* rows per second */
+    var SPEED = 5.5;                                      /* rows per second */
     var DARK = [[3, 6, 22], [8, 28, 110], [18, 78, 200], [40, 160, 230], [110, 230, 210], [250, 232, 90], [255, 125, 40], [255, 50, 40], [255, 250, 240]];
     var LIGHT = [[243, 241, 234], [222, 228, 240], [190, 210, 236], [150, 200, 228], [110, 196, 190], [230, 190, 60], [232, 110, 30], [200, 50, 30], [90, 20, 10]];
     var carriers = [], smears = [], bursts = [], floor = null, buf = null, vals = null;
@@ -88,7 +88,7 @@
   if (meshCanvas) (function () {
     var ctx = meshCanvas.getContext("2d"), W = 0, H = 0, nodes = [], pulses = [], LINK = 150, last = 0;
     function fit() { var r = meshCanvas.getBoundingClientRect(); W = Math.round(r.width); H = Math.round(r.height); meshCanvas.width = Math.floor(W * DPR); meshCanvas.height = Math.floor(H * DPR); ctx.setTransform(DPR, 0, 0, DPR, 0, 0); }
-    function seed() { nodes = []; var n = Math.max(14, Math.min(48, Math.round(W * H / 26000))); for (var i = 0; i < n; i++) nodes.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - 0.5) * 10, vy: (Math.random() - 0.5) * 10, r: 1.3 + Math.random() * 1.8 }); }
+    function seed() { nodes = []; var n = Math.max(14, Math.min(48, Math.round(W * H / 26000))); for (var i = 0; i < n; i++) nodes.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - 0.5) * 10, vy: (Math.random() - 0.5) * 10, r: (1.3 + Math.random() * 1.8) * 3 }); }
     function frame(now) {
       if (!hidden && !off()) {
         var dt = last ? Math.min(0.1, (now - last) / 1000) : 0; last = now;
@@ -108,7 +108,7 @@
         for (var k = pulses.length - 1; k >= 0; k--) {
           var u = pulses[k]; u.t += dt * 0.8; if (u.t >= 1) { pulses.splice(k, 1); continue; }
           var x = u.a.x + (u.b.x - u.a.x) * u.t, y = u.a.y + (u.b.y - u.a.y) * u.t;
-          ctx.fillStyle = "#E8590C"; ctx.shadowColor = "#E8590C"; ctx.shadowBlur = 8; ctx.beginPath(); ctx.arc(x, y, 2.4, 0, Math.PI * 2); ctx.fill(); ctx.shadowBlur = 0;
+          ctx.fillStyle = "#E8590C"; ctx.shadowColor = "#E8590C"; ctx.shadowBlur = 8; ctx.beginPath(); ctx.arc(x, y, 7.2, 0, Math.PI * 2); ctx.fill(); ctx.shadowBlur = 0;
         }
       } else last = 0;
       if (!reduce) requestAnimationFrame(frame);
