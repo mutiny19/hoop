@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Log #MeshNet check-ins from the MeshCore #meshnet hashtag channel.
+"""Log #meshnet check-ins from the MeshCore #meshnet hashtag channel.
 
-#MeshNet runs Sundays and Thursdays at 7:00 PM Indiana time for ten minutes. This script reads only that
+#meshnet runs Sundays and Thursdays at 7:00 PM Indiana time for ten minutes. This script reads only that
 window plus a 3-minute buffer each side (6:57:00 through 7:12:59) from CoreScope instances that store packets uploaded by community
 observers (OKI Mesh's map.okimesh.org by default; more can be listed in SOURCES), decrypts the public #meshnet channel itself, and keeps
 one check-in per sender.
@@ -173,6 +173,7 @@ def collect(source, start, end, airports):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--date", help="net date in Indiana, YYYY-MM-DD (a Sunday or Thursday)")
+    ap.add_argument("--force", action="store_true", help="replace a logged net even if the new read has fewer check-ins")
     ap.add_argument("--source", action="append", help="CoreScope base URL; repeat for several (default: %s)" % ", ".join(SOURCES))
     a = ap.parse_args()
     if a.date:
@@ -185,7 +186,7 @@ def main():
     else:
         w = latest_window(datetime.now(TZ))
         if not w:
-            print("No #MeshNet window ended in the last few hours; nothing to log.")
+            print("No #meshnet window ended in the last few hours; nothing to log.")
             return
         start, end = w
     airports = json.load(open(AIRPORTS, encoding="utf-8"))["airports"]
@@ -224,7 +225,11 @@ def main():
     }
     old = next((n for n in log.get("nets", []) if n["date"] == entry["date"]), None)
     if old and {k: v for k, v in old.items() if k != "logged"} == {k: v for k, v in entry.items() if k != "logged"}:
-        print(f"#MeshNet {entry['date']}: unchanged ({len(checkins)} check-ins)")
+        print(f"#meshnet {entry['date']}: unchanged ({len(checkins)} check-ins)")
+        return
+    if old and len(entry["checkins"]) < len(old["checkins"]) and not a.force:
+        # A source can drop old packets; a late re-read must not shrink a good log.
+        print(f"#meshnet {entry['date']}: keeping the logged {len(old['checkins'])} check-ins; this read found only {len(entry['checkins'])} (use --force to replace)")
         return
     nets = [n for n in log.get("nets", []) if n["date"] != entry["date"]] + [entry]
     log = {
@@ -238,7 +243,7 @@ def main():
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(log, f, indent=1, ensure_ascii=False)
         f.write("\n")
-    print(f"#MeshNet {entry['date']}: {len(checkins)} check-ins from {messages} channel messages")
+    print(f"#meshnet {entry['date']}: {len(checkins)} check-ins from {messages} channel messages")
 
 
 if __name__ == "__main__":

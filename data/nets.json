@@ -33,13 +33,13 @@
   {
    "day": "Sun",
    "time": "19:00",
-   "name": "#MeshNet",
+   "name": "#meshnet",
    "freq": "MeshCore + Meshtastic",
-   "access": "#MeshNet",
+   "access": "#meshnet",
    "type": "Mesh",
    "scope": "statewide",
    "checkin": "airport, device, months (KUMP, Heltec V3, 4 months)",
-   "note": "Ten-minute check-in net on the #meshnet channel. How to check in, and each net's check-ins, are on the #MeshNet page. Postponed if there is severe weather or emergency traffic.",
+   "note": "Ten-minute check-in net on the #meshnet channel. How to check in, and each net's check-ins, are on the #meshnet page. Postponed if there is severe weather or emergency traffic.",
    "minutes": 10,
    "brief": "Stress test of the mesh · postponed if there's emergency traffic"
   },
@@ -258,13 +258,13 @@
   {
    "day": "Thu",
    "time": "19:00",
-   "name": "#MeshNet",
+   "name": "#meshnet",
    "freq": "MeshCore + Meshtastic",
-   "access": "#MeshNet",
+   "access": "#meshnet",
    "type": "Mesh",
    "scope": "statewide",
    "checkin": "airport, device, months (KUMP, Heltec V3, 4 months)",
-   "note": "Ten-minute check-in net on the #meshnet channel. How to check in, and each net's check-ins, are on the #MeshNet page. Postponed if there is severe weather or emergency traffic.",
+   "note": "Ten-minute check-in net on the #meshnet channel. How to check in, and each net's check-ins, are on the #meshnet page. Postponed if there is severe weather or emergency traffic.",
    "minutes": 10,
    "brief": "Stress test of the mesh · postponed if there's emergency traffic"
   },

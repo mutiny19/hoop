@@ -38,14 +38,14 @@ official docs and to each group's own pages, and only publishes Indiana-specific
 | `advanced/modes.js` | Simplest and Abbreviated modes, mode switch |
 | `emergency/index.html` | Agencies article (APA citations) |
 | `live/index.html` | Where to watch live traffic |
-| `meshnet/index.html` | #MeshNet check-in net: what it's for, how to check in, and the map/list of each net's check-ins from `data/meshnet/log.json` |
+| `meshnet/index.html` | #meshnet check-in net: what it's for, how to check in, and the map/list of each net's check-ins from `data/meshnet/log.json` |
 | `assets/site.css`, `theme.js`, `site.js` | Shared styles, pre-paint theme, nav/theme/copy behaviour |
 | `assets/chirps.js` | Decoration behind the map band's headline only (fades out via CSS mask before the map grid): a soft SDR waterfall and a node constellation. Decoration only; never drawn on the map itself |
 | `assets/arcs.js` | Not loaded. Packet-hop drawing kept for a real feed later (`HOOP.arcs.setSource(fn)`). The map shows no invented traffic; do not add the script tag until the source is real |
 | `data/` | Nightly repeater inventory, yearly county reference, nets, settings JSON |
 | `tools/` | The scripts the workflows run, plus `check_pii.py` and `check_links.py` |
-| `tools/meshnet_log.py` | #MeshNet collector: reads only 6:57-7:13 PM Indiana time on Sun/Thu from every CoreScope listed in `SOURCES` (OKI's and Chicagoland's; LetsMesh and Waev have no public API) and merges them, decrypts the public `#meshnet` hashtag channel, keeps one check-in per sender. **Never writes names, callsigns, observer names or message text**; names are used in memory only to count each person once. Airports from `tools/meshnet_airports.json` (OurAirports, public-use three-letter codes only, so nobody is placed on a private strip) |
-| `.github/workflows/` | nightly `nodes.yml`, yearly `reference.yml`, weekly `links.yml`, net-night `meshnet.yml` (runs minutes after each #MeshNet window, only logs that window) |
+| `tools/meshnet_log.py` | #meshnet collector: reads only 6:57-7:13 PM Indiana time on Sun/Thu from every CoreScope listed in `SOURCES` (OKI's and Chicagoland's; LetsMesh and Waev have no public API) and merges them, decrypts the public `#meshnet` hashtag channel, keeps one check-in per sender. **Never writes names, callsigns, observer names or message text**; names are used in memory only to count each person once. Airports from `tools/meshnet_airports.json` (OurAirports, public-use three-letter codes only, so nobody is placed on a private strip) |
+| `.github/workflows/` | nightly `nodes.yml`, yearly `reference.yml`, weekly `links.yml`, net-night `meshnet.yml` (runs minutes after each #meshnet window, only logs that window) |
 
 Each page keeps its own CSS inline in a `<style>` block; shared rules live in `assets/site.css`.
 Scripts are classic (non-module) and share globals in load order, so `regions.js` must load
@@ -63,10 +63,10 @@ before `builder.js` and `modes.js`.
 - Nearby groups: the table on `meshcore/index.html`, the state cells below it, and step 4 of the
   Abbreviated mode on `advanced/index.html`.
 - Say each thing once on the site, and link to that place from anywhere else: settings in the protocol cards
-  on the home page, observer setup in the Live page's "Help fill the live views" (`live/#obs-h`), #MeshNet details on
+  on the home page, observer setup in the Live page's "Help fill the live views" (`live/#obs-h`), #meshnet details on
   `meshnet/`. It is a small site; a second description is just a second thing to keep in sync.
 - Nets: `data/nets.json`. Suggested settings: `data/settings/*.json`.
-- #MeshNet times live in two places: `data/nets.json` (the schedule shown on the map) and the constants at the top of `tools/meshnet_log.py` plus the crons in `meshnet.yml`. Change them together.
+- #meshnet times live in two places: `data/nets.json` (the schedule shown on the map) and the constants at the top of `tools/meshnet_log.py` plus the crons in `meshnet.yml`. Change them together.
 - After changing `assets/home.js`, `assets/chirps.js`, `assets/theme.js`, or `assets/site.js`, bump the `?v=` on their script tags on every page that loads them; GitHub Pages and browsers cache them hard.
 
 ## Testing

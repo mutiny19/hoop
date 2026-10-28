@@ -326,7 +326,7 @@
         },
         observer: {
           label: "Observer",
-          note: "An observer uploads the packets it hears, so Indiana shows up on the live maps and the #MeshNet log. It doesn't change how messages route.",
+          note: "An observer uploads the packets it hears, so Indiana shows up on the live maps and the #meshnet log. It doesn't change how messages route.",
           rows: [
             ["Radio preset", "{PN}: {R}, the same as everyone"],
             ["Setup and networks", "On the Live page, under Help fill the live views"]
