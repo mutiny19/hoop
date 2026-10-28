@@ -22,6 +22,16 @@ body:
     attributes: { label: Authoritative source, description: Official docs or a neighbouring group's published plan }
     validations: { required: true }
   - type: dropdown
+    id: upstream
+    attributes:
+      label: Upstream status
+      description: Radios only hear radios on the same settings, so this helps reviewers see who stays compatible.
+      options: [Official default, Upstream recommendation, Local or experimental change]
+    validations: { required: true }
+  - type: input
+    id: discussion
+    attributes: { label: Public discussion, description: "Optional: a link to where this was discussed openly. This issue counts." }
+  - type: dropdown
     id: who
     attributes:
       label: Who it affects
