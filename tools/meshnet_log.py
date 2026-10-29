@@ -36,6 +36,7 @@ CHANNEL = "#meshnet"
 TZ = ZoneInfo("America/Indiana/Indianapolis")
 NET_DAYS = {6: "Sun", 3: "Thu"}          # Python weekday numbers
 START, MINUTES = (18, 57), 16            # 6:57:00 up to, not including, 7:13:00: the 7:00-7:10 net plus 3 minutes each side
+SETTLE = timedelta(minutes=8)            # observers upload within seconds; a read this long after the window is final
 LOOKBACK_HOURS = 6                       # the scheduled run only logs a net that ended in the last 6 hours
 UA = "HOOP-meshnet-log/1.0 (+https://github.com/mutiny19/hoop)"
 
@@ -131,10 +132,13 @@ def latest_window(now):
     return None
 
 
-def collect(source, start, end, airports):
-    oldest = get(f"{source}/api/packets?type=5&limit=1&order=asc&sort=timestamp")["packets"]
-    if not oldest or oldest[0]["timestamp"] > iso(start):
-        raise LookupError(f"{source} no longer holds packets from {iso(start)}")
+def collect(source, start, end, airports, check_oldest=False):
+    """One request per page of the 16-minute window (normally a single page). check_oldest is only for hand-run
+    backfills of an old date; it asks the source for its oldest packet, which is a heavier query."""
+    if check_oldest:
+        oldest = get(f"{source}/api/packets?type=5&limit=1&order=asc&sort=timestamp")["packets"]
+        if not oldest or oldest[0]["timestamp"] > iso(start):
+            raise LookupError(f"{source} no longer holds packets from {iso(start)}")
     rows, off = [], 0
     while True:
         d = get(f"{source}/api/packets?type=5&groupByHash=true&limit=500&offset={off}&since={iso(start)}&until={iso(end)}")
@@ -189,12 +193,22 @@ def main():
             print("No #meshnet window ended in the last few hours; nothing to log.")
             return
         start, end = w
-    airports = json.load(open(AIRPORTS, encoding="utf-8"))["airports"]
     sources = [u.rstrip("/") for u in (a.source or SOURCES)]
+    log = {"nets": []}
+    if os.path.exists(OUT):
+        log = json.load(open(OUT, encoding="utf-8"))
+    old = next((n for n in log.get("nets", []) if n["date"] == start.date().isoformat()), None)
+    # Light on the CoreScopes: once a net is logged from every source after its window closed, later runs that
+    # night stop here without sending a single request. A source that failed the first time is still retried.
+    if old and not a.force and set(sources) <= set(old.get("sources", [])) and \
+            old.get("logged", "") >= iso(end + SETTLE):
+        print(f"#meshnet {old['date']}: already logged from every source; not re-reading")
+        return
+    airports = json.load(open(AIRPORTS, encoding="utf-8"))["airports"]
     merged, messages, used = {}, 0, []
     for src in sources:
         try:
-            got, n = collect(src, start, end, airports)
+            got, n = collect(src, start, end, airports, check_oldest=bool(a.date))
         except (LookupError, OSError, ValueError) as e:
             print(f"skipping {src}: {e}")
             continue
@@ -211,9 +225,6 @@ def main():
         sys.exit("no source could provide that window; not writing a partial log")
     checkins = sorted(merged.values(), key=lambda c: c["time"])
 
-    log = {"nets": []}
-    if os.path.exists(OUT):
-        log = json.load(open(OUT, encoding="utf-8"))
     entry = {
         "date": start.date().isoformat(),
         "day": NET_DAYS[start.weekday()],
@@ -221,9 +232,9 @@ def main():
         "end": (end - timedelta(seconds=1)).isoformat(),
         "logged": iso(datetime.now(timezone.utc)),
         "messages": messages,
+        "sources": used,
         "checkins": checkins,
     }
-    old = next((n for n in log.get("nets", []) if n["date"] == entry["date"]), None)
     if old and {k: v for k, v in old.items() if k != "logged"} == {k: v for k, v in entry.items() if k != "logged"}:
         print(f"#meshnet {entry['date']}: unchanged ({len(checkins)} check-ins)")
         return
