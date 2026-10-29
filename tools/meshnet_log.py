@@ -81,9 +81,15 @@ DUR = re.compile(r"^(?:about\s+|~\s*)?(\d+(?:\.\d+)?)\s*(months?|mos?|m|years?|y
 UNIT = {"m": 1, "y": 12, "w": 12 / 52, "d": 12 / 365}
 
 
-def parse_checkin(text):
-    """'KUMP, Wio L1 E-ink, 2 months' or 'IND · Heltec V3 · 4 mo' -> (code, device, months), else None."""
+def parse_checkin(text, airports=None):
+    """'KUMP, Wio L1 E-ink, 2 months' or 'IND · Heltec V3 · 4 mo' -> (code, device, months), else None.
+    Without separators ('Ind Heltec 3 months') it is accepted only when the first word is a known airport code,
+    so ordinary chatter that happens to end in a duration is never logged."""
     parts = [x.strip(" .") for x in re.split(r"\s*[,·|;/]\s*", text.strip()) if x.strip(" .")]
+    if len(parts) < 3 and airports is not None:
+        sp = re.fullmatch(r"\s*([A-Za-z]{3,4})\s+(.+?)\s+((?:about\s+|~\s*)?\d+(?:\.\d+)?\s*[A-Za-z]+\.?|(?:brand\s+)?new)\s*", text, re.I)
+        if sp and place(sp.group(1).upper(), airports)[1]:
+            parts = [sp.group(1), sp.group(2), sp.group(3)]
     if len(parts) < 3 or not re.fullmatch(r"[A-Za-z]{3,4}", parts[0]):
         return None
     last = parts[-1].strip()
@@ -156,7 +162,7 @@ def collect(source, start, end, airports, check_oldest=False):
             continue
         sender, text, hops = r
         messages += 1
-        c = parse_checkin(text)
+        c = parse_checkin(text, airports)
         if not c or sender in first:
             continue
         code, device, months = c
