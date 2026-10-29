@@ -422,7 +422,7 @@
   /* ---------- report: tabs + prefilled GitHub issue ---------- */
   var COUNTIES = ["Adams", "Allen", "Bartholomew", "Benton", "Blackford", "Boone", "Brown", "Carroll", "Cass", "Clark", "Clay", "Clinton", "Crawford", "Daviess", "Dearborn", "Decatur", "DeKalb", "Delaware", "Dubois", "Elkhart", "Fayette", "Floyd", "Fountain", "Franklin", "Fulton", "Gibson", "Grant", "Greene", "Hamilton", "Hancock", "Harrison", "Hendricks", "Henry", "Howard", "Huntington", "Jackson", "Jasper", "Jay", "Jefferson", "Jennings", "Johnson", "Knox", "Kosciusko", "LaGrange", "Lake", "LaPorte", "Lawrence", "Madison", "Marion", "Marshall", "Martin", "Miami", "Monroe", "Montgomery", "Morgan", "Newton", "Noble", "Ohio", "Orange", "Owen", "Parke", "Perry", "Pike", "Porter", "Posey", "Pulaski", "Putnam", "Randolph", "Ripley", "Rush", "St. Joseph", "Scott", "Shelby", "Spencer", "Starke", "Steuben", "Sullivan", "Switzerland", "Tippecanoe", "Tipton", "Union", "Vanderburgh", "Vermillion", "Vigo", "Wabash", "Warren", "Warrick", "Washington", "Wayne", "Wells", "White", "Whitley"];
   $("county").insertAdjacentHTML("beforeend", COUNTIES.map(function (c) { return "<option>" + c + "</option>"; }).join(""));
-  var tabs = ["use", "event", "outage", "proto"];
+  var tabs = ["use", "outage", "proto"];
   function pick(id) {
     tabs.forEach(function (t) {
       $("tab-" + t).setAttribute("aria-selected", String(t === id));
@@ -432,8 +432,8 @@
   }
   tabs.forEach(function (t) { $("tab-" + t).addEventListener("click", function () { pick(t); }); });
   document.querySelectorAll("a[data-tab]").forEach(function (a) { a.addEventListener("click", function () { pick(a.dataset.tab); }); });
-  var TITLES = { use: "[count] ", event: "[event] ", outage: "[outage] ", proto: "[protocol] " };
-  var LABELS = { use: "count", event: "event", outage: "outage", proto: "protocol" };
+  var TITLES = { use: "[count] ", outage: "[outage] ", proto: "[protocol] " };
+  var LABELS = { use: "count", outage: "outage", proto: "protocol" };
   document.querySelectorAll("form[data-kind]").forEach(function (f) {
     f.addEventListener("submit", function (e) {
       e.preventDefault();

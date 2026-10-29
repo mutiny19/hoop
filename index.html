@@ -392,7 +392,7 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
         <div id="alerts"><div class="empty">Loading National Weather Service alerts…</div></div>
         <div class="h"><b>Nets</b><span class="tag live">SCHEDULE</span></div>
         <div id="netlist" class="netlist"><div class="empty">Loading the net schedule…</div></div>
-        <div style="font-size:13px;color:var(--map-muted)">Tap a net to see its repeater and rough reach on the map · <a href="meshnet/">#meshnet check-ins</a> · <a href="resources/indy-metro-net-card.pdf" target="_blank" rel="noopener">Printable net card (PDF)</a> · <a href="#report" data-tab="event">Add or fix a net</a></div>
+        <div style="font-size:13px;color:var(--map-muted)">Tap a net to see its repeater and rough reach on the map · <a href="meshnet/">#meshnet check-ins</a> · <a href="resources/indy-metro-net-card.pdf" target="_blank" rel="noopener">Printable net card (PDF)</a> · <a href="https://github.com/mutiny19/hoop/issues/new?template=other.yml&amp;title=%5Bnet%5D%20" target="_blank" rel="noopener">Add or fix a net</a></div>
         <div class="h"><b>Propagation</b><span class="tag live">LIVE</span></div>
         <div class="prop">
           <div class="r"><span>Aurora (planetary Kp)</span><span id="kp">loading…</span></div>
@@ -440,10 +440,9 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
   <div class="wrap">
     <div class="intro">
       <h2 id="rep-h">Report</h2>
-      <p>Tell us what you run, what's happening, and what's broken. Reports feed the counts, the map and the event calendar.</p>
+      <p>Tell us what you run, what's broken, or what's missing. A person reads each report; nothing on the site updates from it automatically.</p>
       <ul>
-        <li>Counts are shown by county, never by address</li>
-        <li>Events and outages are reviewed before they appear</li>
+        <li>Meetups and events: post them on the <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Indiana Mesh Discord</a></li>
         <li>No addresses or personal details, please</li>
         <li>New protocols with enough users get their own entry</li>
       </ul>
@@ -452,8 +451,7 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
     <div class="formbox">
       <div class="tabs" role="tablist" aria-label="Report type">
         <button type="button" role="tab" id="tab-use" aria-selected="true" aria-controls="f-use">I use…</button>
-        <button type="button" role="tab" id="tab-event" aria-selected="false" aria-controls="f-event">Event</button>
-        <button type="button" role="tab" id="tab-outage" aria-selected="false" aria-controls="f-outage">Outage</button>
+                <button type="button" role="tab" id="tab-outage" aria-selected="false" aria-controls="f-outage">Outage</button>
         <button type="button" role="tab" id="tab-proto" aria-selected="false" aria-controls="f-proto">New protocol</button>
       </div>
       <form id="f-use" data-kind="use" role="tabpanel" aria-labelledby="tab-use">
@@ -473,19 +471,7 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
           <label>Your role<select name="role"><option>I use it</option><option>I run a repeater or fixed node</option><option>I organize a club or group</option></select></label>
           <label>How many radios or nodes<input type="number" name="count" min="1" value="1"></label>
         </div>
-        <div class="submit"><small>Your GitHub account keeps you from being counted twice. Don't post addresses.</small><button class="btn primary" type="submit">Count me in</button></div>
-      </form>
-      <form id="f-event" data-kind="event" role="tabpanel" aria-labelledby="tab-event" hidden>
-        <label>Event name<input type="text" name="name" required></label>
-        <div class="fields">
-          <label>Type<select name="type"><option>Net (recurring)</option><option>SKYWARN net (activated during severe weather)</option><option>Meetup</option><option>Build night</option><option>Hamfest</option><option>Field day or exercise</option></select></label>
-          <label>Date and time<input type="datetime-local" name="when"></label>
-          <label>Repeats<select name="repeats"><option>One time</option><option>Weekly</option><option>Monthly</option></select></label>
-          <label>Protocol<select name="protocol"><option>GMRS</option><option>Ham radio</option><option>MeshCore</option><option>Meshtastic</option><option>Reticulum</option><option>Mixed</option></select></label>
-        </div>
-        <label>Where (venue, or repeater for a net)<input type="text" name="where"></label>
-        <label>Link (optional)<input type="url" name="link"></label>
-        <div class="submit"><small>Reviewed before it shows on the map and calendar.</small><button class="btn primary" type="submit">Submit event</button></div>
+        <div class="submit"><small>Don't post addresses.</small><button class="btn primary" type="submit">Count me in</button></div>
       </form>
       <form id="f-outage" data-kind="outage" role="tabpanel" aria-labelledby="tab-outage" hidden>
         <div class="fields">
@@ -495,7 +481,7 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
           <label>Are you the owner?<select name="owner"><option>No, just noticed it</option><option>Yes, I run it</option></select></label>
         </div>
         <label>What are you seeing?<textarea rows="3" name="what"></textarea></label>
-        <div class="submit"><small>Shown as reported until the owner confirms.</small><button class="btn primary" type="submit">Report outage</button></div>
+        <div class="submit"><small>Don't post addresses or the owner's details.</small><button class="btn primary" type="submit">Report outage</button></div>
       </form>
       <form id="f-proto" data-kind="proto" role="tabpanel" aria-labelledby="tab-proto" hidden>
         <div class="fields">
@@ -543,7 +529,7 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
 </div></footer>
 
 <script src="assets/nets.js"></script>
-<script src="assets/home.js?v=20261028a"></script>
+<script src="assets/home.js?v=20261028b"></script>
 <script src="assets/chirps.js?v=20261025l"></script>
 <script src="assets/site.js?v=20261026a"></script>
 </body>
