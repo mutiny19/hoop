@@ -177,10 +177,23 @@ def collect(source, start, end, airports, check_oldest=False):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--date", help="net date in Indiana, YYYY-MM-DD (a Sunday or Thursday)")
+    ap.add_argument("--so-far", action="store_true", help="during tonight's net: save the check-ins heard so far, marked in progress")
     ap.add_argument("--force", action="store_true", help="replace a logged net even if the new read has fewer check-ins")
     ap.add_argument("--source", action="append", help="CoreScope base URL; repeat for several (default: %s)" % ", ".join(SOURCES))
     a = ap.parse_args()
-    if a.date:
+    partial = False
+    if a.so_far:
+        # A mid-net snapshot: tonight's window up to now, saved as in progress. The normal run after the window
+        # closes replaces it (its read covers everything the snapshot had), and the skip check below never treats
+        # a snapshot as final because it was logged before the window ended.
+        now = datetime.now(TZ)
+        if now.weekday() not in NET_DAYS:
+            sys.exit("--so-far only works on a net night")
+        start, end = window_for(now.date())
+        if not (start <= now < end):
+            sys.exit("--so-far only works while the window is open (6:57 to 7:13 PM)")
+        end, partial = now.replace(second=0, microsecond=0), True
+    elif a.date:
         day = datetime.strptime(a.date, "%Y-%m-%d").date()
         if day.weekday() not in NET_DAYS:
             sys.exit(f"{a.date} is not a Sunday or Thursday")
@@ -198,6 +211,8 @@ def main():
     if os.path.exists(OUT):
         log = json.load(open(OUT, encoding="utf-8"))
     old = next((n for n in log.get("nets", []) if n["date"] == start.date().isoformat()), None)
+    if old and old.get("partial") and not partial:
+        old = dict(old, checkins=[])          # a snapshot never blocks or shrinks the final read
     # Light on the CoreScopes: once a net is logged from every source after its window closed, later runs that
     # night stop here without sending a single request. A source that failed the first time is still retried.
     if old and not a.force and set(sources) <= set(old.get("sources", [])) and \
@@ -233,6 +248,7 @@ def main():
         "logged": iso(datetime.now(timezone.utc)),
         "messages": messages,
         "sources": used,
+        **({"partial": True} if partial else {}),
         "checkins": checkins,
     }
     if old and {k: v for k, v in old.items() if k != "logged"} == {k: v for k, v in entry.items() if k != "logged"}:

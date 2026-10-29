@@ -222,6 +222,7 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
   }
 
   function show(net) {
+    var live = net.partial ? '<p class="hold" style="margin-bottom:12px"><b>In progress:</b> check-ins heard so far, up to ' + clock(net.end.slice(11, 16)) + '. The full net is logged after it ends.</p>' : "";
     [].forEach.call(netsEl.children, function (b) { b.setAttribute("aria-pressed", b.dataset.date === net.date ? "true" : "false"); });
     draw(net);
     var c = net.checkins, airports = {}, devices = {};
@@ -229,19 +230,19 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
     var head = "<div class=\"tally\"><div><b>" + c.length + "</b><span>check-in" + (c.length === 1 ? "" : "s") + "</span></div><div><b>" + Object.keys(airports).length +
       "</b><span>airport" + (Object.keys(airports).length === 1 ? "" : "s") + "</span></div><div><b>" + Object.keys(devices).length + "</b><span>device model" + (Object.keys(devices).length === 1 ? "" : "s") + "</span></div></div>";
     if (!c.length) {
-      detail.innerHTML = head + "<div class=\"empty\" style=\"margin-top:12px\">No check-ins were heard by observers on " + esc(nice(net.date)) +
-        ". The net may have been postponed for weather or emergency traffic.</div>";
+      detail.innerHTML = live + head + "<div class=\"empty\" style=\"margin-top:12px\">" + (net.partial ? "No check-ins heard yet." : "No check-ins were heard by observers on " + esc(nice(net.date)) +
+        ". The net may have been postponed for weather or emergency traffic.") + "</div>";
       return;
     }
     var rows = c.map(function (x) {
       return "<tr><td class=\"mono\">" + clock(x.time) + "</td><td><span class=\"mono\">" + esc(x.code) + "</span>" + (x.place ? "<br><small style=\"color:var(--muted)\">" + esc(x.city || x.place) + ", " + esc(x.state) + "</small>" : "") +
         "</td><td>" + esc(x.device) + "</td><td class=\"mono\">" + months(x.months) + "</td><td class=\"mono\">" + x.hops + "</td><td class=\"mono\">" + x.observers + "</td></tr>";
     }).join("");
-    detail.innerHTML = head + "<div class=\"tablewrap\" style=\"margin-top:12px\"><table><thead><tr><th>Time</th><th>Airport</th><th>Device</th><th>On mesh</th><th title=\"Repeater hops when first heard\">Hops</th><th title=\"How many observers heard it\">Heard by</th></tr></thead><tbody>" +
+    detail.innerHTML = live + head + "<div class=\"tablewrap\" style=\"margin-top:12px\"><table><thead><tr><th>Time</th><th>Airport</th><th>Device</th><th>On mesh</th><th title=\"Repeater hops when first heard\">Hops</th><th title=\"How many observers heard it\">Heard by</th></tr></thead><tbody>" +
       rows + "</tbody></table></div><p class=\"note\" style=\"margin-top:8px\">Hops: repeaters between the sender and the first observer that heard it. Heard by: how many observers caught it.</p>";
   }
 
-  fetch("../data/meshnet/log.json?t=" + Math.floor(Date.now() / 600000), { cache: "no-cache" })
+  fetch("../data/meshnet/log.json?t=" + Math.floor(Date.now() / 60000), { cache: "no-cache" })
     .then(function (r) { if (!r.ok) throw 0; return r.json(); })
     .then(function (log) {
       var nets = (log.nets || []).slice(0, 26);
