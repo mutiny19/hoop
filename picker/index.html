@@ -10,8 +10,6 @@
  --d1:#dbe7e2;--d2:#e3e3d6;--d3:#dde0ea;--d4:#e7ded9;--d5:#d7e6ea;--d6:#e6e0e8;--d7:#dfe8d6;--d8:#ebe3d3;--d9:#d9e1e8;--d10:#e8e0dc;--d11:#e4e6dd;}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1c1b18;--card:#24231f;--ink:#ece7dc;--mute:#9b958a;--line:#38362f;--acc:#e07a52;--acc-soft:#4a2e23;--ok:#8fbf8a;--warn:#e0a35a;
  --d1:#22312c;--d2:#2b2d22;--d3:#252a36;--d4:#302824;--d5:#1f3135;--d6:#2e2732;--d7:#263222;--d8:#332c1f;--d9:#232c34;--d10:#312a26;--d11:#2a3027;}}
-:root[data-theme="dark"]{--bg:#1c1b18;--card:#24231f;--ink:#ece7dc;--mute:#9b958a;--line:#38362f;--acc:#e07a52;--acc-soft:#4a2e23;--ok:#8fbf8a;--warn:#e0a35a;
- --d1:#22312c;--d2:#2b2d22;--d3:#252a36;--d4:#302824;--d5:#1f3135;--d6:#2e2732;--d7:#263222;--d8:#332c1f;--d9:#232c34;--d10:#312a26;--d11:#2a3027;}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
 header{padding:14px 16px 0;max-width:1180px;margin:0 auto}
@@ -88,7 +86,7 @@ footer{max-width:1180px;margin:0 auto;padding:0 16px 24px;font-size:12px;color:v
       <h2>States and shared tags</h2>
       <div class="chips" id="states"></div>
       <div class="chips" id="shared" style="margin-top:8px"></div>
-      <p class="note">Each tag is one table entry on this node only. <code>oki</code> matches the three-state group. <code>us-midwest</code> is OKI's meta region. Metro tags follow OKI's codes.</p>
+      <p class="note">An outlined chip is implied by what you picked on the map; a filled one you chose. Each tag is one table entry on this node only. <code>oki</code> matches the three-state group. <code>us-midwest</code> is OKI's meta region. Metro tags follow OKI's codes.</p>
     </section>
     <section class="card opts">
       <h2>Options</h2>
@@ -115,7 +113,8 @@ const $=id=>document.getElementById(id);
 const MAX=32, LINE=160;
 const REG_OF={}; D.regions.forEach(r=>r.c.forEach(c=>REG_OF[c]=r.k));
 const REG_BY={}; D.regions.forEach(r=>REG_BY[r.k]=r);
-const STATES=[["OH","Ohio"],["KY","Kentucky"],["MI","Michigan"],["IL","Illinois"]];
+const STATES=[["IN","Indiana"],["OH","Ohio"],["KY","Kentucky"],["MI","Michigan"],["IL","Illinois"]];
+const STATE_TAG=Object.assign({IN:"us-in"},D.state);
 const SHARED=[["oki","OKI Mesh, three states"],["us-midwest","OKI meta region"]];
 const byF={}; D.counties.forEach(c=>byF[c.f]=c);
 
@@ -137,8 +136,9 @@ function plan(){
   Object.keys(grouped).sort((a,b)=>REG_BY[a].n-REG_BY[b].n).forEach(k=>{
     grouped[k].forEach(c=>chains.push([...root,"us-in",`us-in-${k}`,`us-in-${k}-${D.codes[c.n]}`]));
   });
-  // out-of-state: state tag chain
-  const outStates=new Set([...sel.states, ...outCounties.map(c=>c.st)]);
+  // state chains: Indiana if its chip is pressed, other states if pressed or implied by a county
+  if(sel.states.has("IN")) chains.push([...root,"us-in"]);
+  const outStates=new Set([...sel.states].filter(s=>s!=="IN").concat(outCounties.map(c=>c.st)));
   [...outStates].sort().forEach(st=>chains.push([...root,D.state[st]]));
   // metro tags
   if(metro){
@@ -212,7 +212,7 @@ function render(){
   $("tree").textContent=sim.tree;
   // chips + map state
   document.querySelectorAll("#regions .chip").forEach(b=>{ const k=b.dataset.k; const whole=sel.regions.has(k); const some=REG_BY[k].c.some(n=>[...sel.counties].some(f=>byF[f].n===n&&byF[f].st==="IN")); b.setAttribute("aria-pressed",String(whole)); b.classList.toggle("part",!whole&&some); });
-  document.querySelectorAll("#states .chip").forEach(b=>b.setAttribute("aria-pressed",String(sel.states.has(b.dataset.k))));
+  document.querySelectorAll("#states .chip").forEach(b=>{ const st=b.dataset.k; const on=sel.states.has(st); const implied=[...sel.counties].some(f=>byF[f].st===st)||(st==="IN"&&sel.regions.size>0); b.setAttribute("aria-pressed",String(on)); b.classList.toggle("part",!on&&implied); });
   document.querySelectorAll("#shared .chip").forEach(b=>b.setAttribute("aria-pressed",String(sel.shared.has(b.dataset.k))));
   document.querySelectorAll("path.cty").forEach(p=>{ const f=p.dataset.f; const c=byF[f]; const regionOn=c.st==="IN"&&sel.regions.has(REG_OF[c.n]); p.classList.toggle("on",sel.counties.has(f)); p.style.opacity=regionOn&&!sel.counties.has(f)?".75":""; p.style.stroke=regionOn?"var(--acc)":""; });
 }
@@ -236,7 +236,7 @@ function esc(s){return s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"
 })();
 // chips
 D.regions.forEach(r=>{ const b=document.createElement("button"); b.className="chip"; b.dataset.k=r.k; b.setAttribute("aria-pressed","false"); b.innerHTML=`<i style="background:var(--d${r.n})"></i>us-in-${r.k} <small>${r.name}</small>`; b.onclick=()=>{ if(sel.regions.has(r.k)) sel.regions.delete(r.k); else sel.regions.add(r.k); render(); }; $("regions").appendChild(b); });
-STATES.forEach(([st,name])=>{ const b=document.createElement("button"); b.className="chip"; b.dataset.k=st; b.setAttribute("aria-pressed","false"); b.innerHTML=`${D.state[st]} <small>${name}</small>`; b.onclick=()=>{ if(sel.states.has(st)) sel.states.delete(st); else sel.states.add(st); render(); }; $("states").appendChild(b); });
+STATES.forEach(([st,name])=>{ const b=document.createElement("button"); b.className="chip"; b.dataset.k=st; b.setAttribute("aria-pressed","false"); b.innerHTML=`${STATE_TAG[st]} <small>${name}</small>`; b.onclick=()=>{ if(sel.states.has(st)) sel.states.delete(st); else sel.states.add(st); render(); }; $("states").appendChild(b); });
 SHARED.forEach(([k,name])=>{ const b=document.createElement("button"); b.className="chip"; b.dataset.k=k; b.setAttribute("aria-pressed","false"); b.innerHTML=`${k} <small>${name}</small>`; b.onclick=()=>{ if(sel.shared.has(k)) sel.shared.delete(k); else sel.shared.add(k); render(); }; $("shared").appendChild(b); });
 ["usroot","metro","fw"].forEach(id=>$(id).addEventListener("input",render));
 $("clear").onclick=()=>{ sel.counties.clear(); sel.regions.clear(); sel.states.clear(); sel.shared.clear(); render(); };
