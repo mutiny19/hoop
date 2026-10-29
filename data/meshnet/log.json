@@ -10,14 +10,13 @@
    "date": "2026-10-29",
    "day": "Thu",
    "start": "2026-10-29T18:57:00-04:00",
-   "end": "2026-10-29T19:06:59-04:00",
-   "logged": "2026-10-29T23:07:57Z",
-   "messages": 13,
+   "end": "2026-10-29T19:12:59-04:00",
+   "logged": "2026-10-29T23:23:22Z",
+   "messages": 23,
    "sources": [
     "https://map.okimesh.org",
     "https://corescope.chicagolandmesh.org"
    ],
-   "partial": true,
    "checkins": [
     {
      "time": "19:00",
@@ -45,6 +44,54 @@
      "lon": -86.045,
      "device": "Cardputer",
      "months": 11.0,
+     "hops": 0,
+     "observers": 1,
+     "regions": [
+      "IND"
+     ]
+    },
+    {
+     "time": "19:08",
+     "code": "KUMP",
+     "place": "Indianapolis Metropolitan Airport",
+     "city": "Indianapolis",
+     "state": "IN",
+     "lat": 39.9352,
+     "lon": -86.045,
+     "device": "Seeed L1 Pro",
+     "months": 1.0,
+     "hops": 2,
+     "observers": 5,
+     "regions": [
+      "IND"
+     ]
+    },
+    {
+     "time": "19:09",
+     "code": "KUMP",
+     "place": "Indianapolis Metropolitan Airport",
+     "city": "Indianapolis",
+     "state": "IN",
+     "lat": 39.9352,
+     "lon": -86.045,
+     "device": "tdeck",
+     "months": 11.0,
+     "hops": 0,
+     "observers": 5,
+     "regions": [
+      "IND"
+     ]
+    },
+    {
+     "time": "19:10",
+     "code": "KIND",
+     "place": "Indianapolis International Airport",
+     "city": "Indianapolis",
+     "state": "IN",
+     "lat": 39.7173,
+     "lon": -86.2944,
+     "device": "Heltec",
+     "months": 3.0,
      "hops": 0,
      "observers": 1,
      "regions": [
