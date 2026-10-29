@@ -32,6 +32,7 @@ official docs and to each group's own pages, and only publishes Indiana-specific
 | `index.html` + `assets/home.js` | Home: map band (repeaters, NWS alerts, nets, Kp), dashboard, settings accordion, report form |
 | `meshcore/index.html` | Start page: first radio to first message, nearby groups table. Keep it simple and close to the official docs |
 | `advanced/index.html` | **Hidden for now**: unlinked from every page and marked noindex, kept in the repo. Three proposed region structures, open base commands, neighbours' tags, observer brokers. Do not link to it from the main pages until the community wants it back |
+| `picker/index.html` | **Hidden**: unlinked from every page, noindex, disallowed in robots.txt, not in the sitemap. A single self-contained page: pick counties, cultural regions, or neighbouring states and get the repeater region CLI for the cultural region + county proposal. Carries its own copy of the county outlines and region tables; it does not load `advanced/*.js`. A proposal, and says so |
 | `advanced/regions.js` | **Every table the region page draws from**: metro codes, regions, districts, neighbours, bands |
 | `advanced/counties.js` | County outlines for the maps (generated from Census data) |
 | `advanced/builder.js` | County & district builder logic |
