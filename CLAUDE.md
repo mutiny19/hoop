@@ -45,7 +45,7 @@ official docs and to each group's own pages, and only publishes Indiana-specific
 | `data/` | Nightly repeater inventory, yearly county reference, nets, settings JSON |
 | `tools/` | The scripts the workflows run, plus `check_pii.py` and `check_links.py` |
 | `tools/meshnet_log.py` | #meshnet collector: reads only 6:57-7:13 PM Indiana time on Sun/Thu from every CoreScope listed in `SOURCES` (OKI's and Chicagoland's; LetsMesh and Waev have no public API) and merges them, decrypts the public `#meshnet` hashtag channel, keeps one check-in per sender. **Never writes names, callsigns, observer names or message text**; names are used in memory only to count each person once. Airports from `tools/meshnet_airports.json` (OurAirports, public-use three-letter codes only, so nobody is placed on a private strip) |
-| `.github/workflows/` | nightly `nodes.yml`, yearly `reference.yml`, weekly `links.yml`, net-night `meshnet.yml` (runs minutes after each #meshnet window, only logs that window) |
+| `.github/workflows/` | nightly `nodes.yml`, yearly `reference.yml`, weekly `links.yml`, net-night `meshnet.yml` (scheduled after each #meshnet window; GitHub often starts it hours late, so the script looks back 30 hours; only logs that window) |
 
 Each page keeps its own CSS inline in a `<style>` block; shared rules live in `assets/site.css`.
 Scripts are classic (non-module) and share globals in load order, so `regions.js` must load

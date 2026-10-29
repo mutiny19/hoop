@@ -37,7 +37,7 @@ TZ = ZoneInfo("America/Indiana/Indianapolis")
 NET_DAYS = {6: "Sun", 3: "Thu"}          # Python weekday numbers
 START, MINUTES = (18, 57), 16            # 6:57:00 up to, not including, 7:13:00: the 7:00-7:10 net plus 3 minutes each side
 SETTLE = timedelta(minutes=8)            # observers upload within seconds; a read this long after the window is final
-LOOKBACK_HOURS = 6                       # the scheduled run only logs a net that ended in the last 6 hours
+LOOKBACK_HOURS = 30                      # scheduled runs log a net that ended in the last 30 hours (GitHub often starts them 5-7 h late)
 UA = "HOOP-meshnet-log/1.0 (+https://github.com/mutiny19/hoop)"
 
 
