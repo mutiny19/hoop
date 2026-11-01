@@ -47,11 +47,12 @@ section { display: grid; gap: 14px; }
 .fact { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
 .fact b { display: block; font: 600 .75rem/1 var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
 .fact span { font-weight: 600; }
+.fact span.clock { display: block; font-size: 1.15rem; font-weight: 700; margin-bottom: 2px; }
 .fact span.utc { display: block; font-weight: 400; font-size: .85rem; color: var(--muted); margin-top: 4px; }
 .zones { margin-top: 14px; }
 .zones ul { list-style: none; margin: 10px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
-.zones li { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; }
-.zones li b { display: block; font-weight: 700; font-variant-numeric: tabular-nums; }
+.zones li { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; }
+.zones li b { display: block; font-weight: 700; font-size: .92rem; font-variant-numeric: tabular-nums; }
 .zones li span { font-size: .85rem; color: var(--muted); }
 .zones li.you { border-color: var(--accent, #E8590C); }
 .why { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; font-size: 1.05rem; }
@@ -126,16 +127,16 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
     <h1>#meshnet</h1>
     <p class="lead">A ten-minute check-in net on MeshCore, open to anyone on the mesh; this site tracks Indiana and its border counties. It works like a weekly ham or GMRS net, with no net control: you post your check-in, and everyone within reach sees who's on the air. The ten minutes are short on purpose, so everyone posting at once puts real pressure on the mesh and shows where it holds up.</p>
     <div class="facts">
-      <div class="fact"><b>When</b><span>Sundays and Thursdays, 7:00 to 7:10 PM US Eastern</span><span class="utc">00:00 UTC Mon and Fri in winter; 23:00 UTC Sun and Thu in summer</span></div>
+      <div class="fact"><b>When</b><span class="clock">7:00 to 7:10 PM US Eastern</span><span>Sundays and Thursdays. Ten minutes, start to finish.</span><span class="utc">00:00 to 00:10 UTC Mon and Fri in winter; 23:00 to 23:10 UTC Sun and Thu in summer</span></div>
       <div class="fact"><b>Where</b><span>The <span class="mono">#meshnet</span> channel on MeshCore</span></div>
       <div class="fact"><b>Check in with</b><span class="mono">KUMP, Heltec V3, 4 months</span></div>
     </div>
     <div class="zones" id="zones">
-      <p class="note"><b>One moment for everyone, wherever you are.</b> The net runs on US Eastern time, so check in at the same instant as everyone else, not at 7:00 your time. <span id="zonesNext"></span></p>
+      <p class="note"><b>The same ten minutes for everyone, wherever you are.</b> The net runs on US Eastern time, so check in during the same window as everyone else, not at 7:00 your time. It starts and ends together; that's what loads the mesh. <span id="zonesNext"></span></p>
       <ul id="zoneList">
-        <li><b>7:00 PM</b><span>Eastern</span></li>
-        <li><b>Mon and Fri 00:00</b><span>UTC in winter</span></li>
-        <li><b>Sun and Thu 23:00</b><span>UTC in summer</span></li>
+        <li><b>7:00 to 7:10 PM</b><span>US Eastern</span></li>
+        <li><b>Mon and Fri 00:00 to 00:10</b><span>UTC in winter</span></li>
+        <li><b>Sun and Thu 23:00 to 23:10</b><span>UTC in summer</span></li>
       </ul>
     </div>
   </div>
@@ -313,7 +314,15 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
     }
     if (!start) return;
     var Z = [["Newfoundland", "America/St_Johns"], ["Atlantic", "America/Halifax"], ["Eastern", NET], ["Central", "America/Chicago"], ["Mexico City", "America/Mexico_City"], ["Mountain", "America/Denver"], ["Arizona", "America/Phoenix"], ["Pacific", "America/Los_Angeles"], ["Alaska", "America/Anchorage"], ["Hawaii", "Pacific/Honolulu"], ["UTC", "UTC"]];
-    function fmt(tz, h24) { return new Intl.DateTimeFormat("en-US", { timeZone: tz, weekday: "short", hour: "numeric", minute: "2-digit", hourCycle: h24 ? "h23" : "h12" }).format(start); }
+    var end = new Date(start.getTime() + 10 * 6e4), netDay = parts(start, NET).weekday;
+    function fmt(tz, h24) { /* "Sun 7:00 to 7:10 PM": start and end of the same ten minutes */
+      function p(d) { var o = {}; new Intl.DateTimeFormat("en-US", { timeZone: tz, weekday: "short", hour: "numeric", minute: "2-digit", hourCycle: h24 ? "h23" : "h12" }).formatToParts(d).forEach(function (x) { o[x.type] = x.value; }); return o; }
+      var a = p(start), b = p(end), ta = a.hour + ":" + a.minute, tb = b.hour + ":" + b.minute;
+      var da = a.weekday !== netDay ? a.weekday + " " : "", db = b.weekday !== a.weekday ? b.weekday + " " : "";  /* name the day only where it differs */
+      if (h24) return da + ta + " to " + db + tb;
+      if (a.dayPeriod === b.dayPeriod && !db) return da + ta + " to " + tb + " " + b.dayPeriod;
+      return da + ta + " " + a.dayPeriod + " to " + db + tb + " " + b.dayPeriod;
+    }
     var mine = null; try { mine = Intl.DateTimeFormat().resolvedOptions().timeZone; } catch (e) {}
     var html = "";
     if (mine && mine !== "UTC") html += '<li class="you"><b>' + fmt(mine) + "</b><span>Your time</span></li>";
