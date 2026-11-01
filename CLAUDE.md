@@ -67,7 +67,7 @@ before `builder.js` and `modes.js`.
   on the home page, observer setup in the Live page's "Help fill the live views" (`live/#obs-h`), #meshnet details on
   `meshnet/`. It is a small site; a second description is just a second thing to keep in sync.
 - Nets: `data/nets.json`. Suggested settings: `data/settings/*.json`.
-- #meshnet times live in two places: `data/nets.json` (the schedule shown on the map) and the constants at the top of `tools/meshnet_log.py` plus the crons in `meshnet.yml`, plus the time-zone script at the bottom of `meshnet/index.html` (`at7`). Change them together.
+- #meshnet times live in three places: `data/nets.json` (the schedule shown on the map) and the constants at the top of `tools/meshnet_log.py` plus the crons in `meshnet.yml`, plus the time-zone script at the bottom of `meshnet/index.html` (`at7`). Change them together.
 - After changing `assets/home.js`, `assets/chirps.js`, `assets/theme.js`, or `assets/site.js`, bump the `?v=` on their script tags on every page that loads them; GitHub Pages and browsers cache them hard.
 
 ## Testing
