@@ -44,6 +44,24 @@ The home-page map is an SVG with a fixed linear projection (`P(lat, lon)` in `as
 mirrored in `tools/update_nodes.py`). For another state, fit two constants per axis to your
 state's bounding box and regenerate the county paths.
 
+## #meshnet log
+
+The net itself belongs to no one; anyone can log it for their own area. Keep the channel
+(`#meshnet`), the days (Sunday and Thursday), and the time (7:00 PM Eastern) the same, so every
+log shows the same ten minutes across the whole mesh.
+
+| What | File | Change |
+|---|---|---|
+| Where messages are read from | `tools/meshnet_log.py` → `SOURCES` | the CoreScope instances your observers report to (any with the `/api/packets` endpoint) |
+| Airports check-ins are placed at | `tools/meshnet_airports.json` | your states' public-use airports from [OurAirports](https://ourairports.com/data/), same fields; leave out codes with digits so nobody is placed on a private strip |
+| When it runs | `.github/workflows/meshnet.yml` | nothing, unless you move the time; GitHub starts scheduled runs late, so the script looks back 30 hours |
+| The page and map | `meshnet/index.html` | the map outline and projection, the airport-finder link, and the wording about your area |
+| The log | `data/meshnet/log.json` | start it empty: `{"nets": []}` |
+
+Do not change `TZ`, `START`, or `MINUTES` at the top of `meshnet_log.py` unless every group moves
+together; a shared time is the point. The script never stores names, callsigns, or message text;
+keep it that way.
+
 ## 4. Keep the rules
 
 - **No personal information.** `python3 tools/check_pii.py --names .pii-local` before every push,
