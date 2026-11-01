@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Log #meshnet check-ins from the MeshCore #meshnet hashtag channel.
 
-#meshnet runs Sundays and Thursdays at 7:00 PM Indiana time for ten minutes. This script reads only that
+#meshnet runs Sundays and Thursdays at 7:00 PM US Eastern (Indiana's clock) for ten minutes. This script reads only that
 window plus a 3-minute buffer each side (6:57:00 through 7:12:59) from CoreScope instances that store packets uploaded by community
 observers (OKI Mesh's map.okimesh.org by default; more can be listed in SOURCES), decrypts the public #meshnet channel itself, and keeps
 one check-in per sender.
@@ -268,7 +268,7 @@ def main():
     log = {
         "channel": CHANNEL,
         "sources": used,
-        "about": "One check-in per sender heard by community observers between 6:57 and 7:13 PM Indiana time on net nights. "
+        "about": "One check-in per sender heard by community observers between 6:57 and 7:13 PM US Eastern on net nights. "
                  "No names, callsigns or message text are stored.",
         "nets": sorted(nets, key=lambda n: n["date"], reverse=True),
     }

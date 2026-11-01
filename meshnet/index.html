@@ -47,6 +47,7 @@ section { display: grid; gap: 14px; }
 .fact { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
 .fact b { display: block; font: 600 .75rem/1 var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
 .fact span { font-weight: 600; }
+.fact span.utc { display: block; font-weight: 400; font-size: .85rem; color: var(--muted); margin-top: 4px; }
 .zones { margin-top: 14px; }
 .zones ul { list-style: none; margin: 10px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
 .zones li { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; }
@@ -125,15 +126,16 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
     <h1>#meshnet</h1>
     <p class="lead">A ten-minute check-in net on MeshCore, open to anyone on the mesh; this site tracks Indiana and its border counties. It works like a weekly ham or GMRS net, with no net control: you post your check-in, and everyone within reach sees who's on the air. The ten minutes are short on purpose, so everyone posting at once puts real pressure on the mesh and shows where it holds up.</p>
     <div class="facts">
-      <div class="fact"><b>When</b><span>Sundays and Thursdays, 7:00 to 7:10 PM Eastern (Indiana time)</span></div>
+      <div class="fact"><b>When</b><span>Sundays and Thursdays, 7:00 to 7:10 PM US Eastern</span><span class="utc">00:00 UTC Mon and Fri in winter; 23:00 UTC Sun and Thu in summer</span></div>
       <div class="fact"><b>Where</b><span>The <span class="mono">#meshnet</span> channel on MeshCore</span></div>
       <div class="fact"><b>Check in with</b><span class="mono">KUMP, Heltec V3, 4 months</span></div>
     </div>
     <div class="zones" id="zones">
-      <p class="note"><b>One moment for everyone, wherever you are.</b> The net runs on Indiana's clock, so check in at the same instant as everyone else, not at 7:00 your time. <span id="zonesNext"></span></p>
+      <p class="note"><b>One moment for everyone, wherever you are.</b> The net runs on US Eastern time, so check in at the same instant as everyone else, not at 7:00 your time. <span id="zonesNext"></span></p>
       <ul id="zoneList">
         <li><b>7:00 PM</b><span>Eastern</span></li>
-        <li><b>00:00</b><span>UTC, Mon and Fri (23:00 in summer)</span></li>
+        <li><b>Mon and Fri 00:00</b><span>UTC in winter</span></li>
+        <li><b>Sun and Thu 23:00</b><span>UTC in summer</span></li>
       </ul>
     </div>
   </div>
@@ -163,7 +165,7 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
         <div id="detail"><div class="empty">Loading the check-in log…</div></div>
       </div>
     </div>
-    <p class="note">Logged automatically on Sundays and Thursdays only, from 6:57 to 7:13 PM (the net plus three minutes each side); nothing outside that window is recorded. Each net shows up here after it ends, usually within a few hours; during the net, the channel itself is the live view. The log reads the <span class="mono">#meshnet</span> messages community observers upload to <a href="https://map.okimesh.org" target="_blank" rel="noopener">OKI Mesh's CoreScope</a> and <a href="https://corescope.chicagolandmesh.org" target="_blank" rel="noopener">Chicagoland Mesh's CoreScope</a>, one check-in per person. No names or callsigns are kept. A check-in shows here only if an observer heard it, so <a href="../live/">more observers</a> means a fuller map. Meshtastic check-ins are not logged.</p>
+    <p class="note">Logged automatically on Sundays and Thursdays only, from 6:57 to 7:13 PM US Eastern (the net plus three minutes each side); nothing outside that window is recorded. Each net shows up here after it ends, usually within a few hours; during the net, the channel itself is the live view. The log reads the <span class="mono">#meshnet</span> messages community observers upload to <a href="https://map.okimesh.org" target="_blank" rel="noopener">OKI Mesh's CoreScope</a> and <a href="https://corescope.chicagolandmesh.org" target="_blank" rel="noopener">Chicagoland Mesh's CoreScope</a>, one check-in per person. No names or callsigns are kept. A check-in shows here only if an observer heard it, so <a href="../live/">more observers</a> means a fuller map. Meshtastic check-ins are not logged.</p>
   </section>
 
   <section aria-labelledby="why-h">
@@ -174,7 +176,7 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
       <li>Practise, so it's routine when the mesh is needed.</li>
       <li>Meet the people on the mesh near you.</li>
     </ul>
-    <p class="note">No one owns <span class="mono">#meshnet</span>. Any person, group, or organization is free to make it their own: announce it, host it, and bring it to their mesh. What makes it valuable is the shared days and time. New users find a busy channel to test against, and advanced users see the whole mesh, including the links between neighbouring meshes, under load at once. Please keep Sundays and Thursdays at 7:00 PM.</p>
+    <p class="note">No one owns <span class="mono">#meshnet</span>. Any person, group, or organization is free to make it their own: announce it, host it, and bring it to their mesh. What makes it valuable is the shared days and time. New users find a busy channel to test against, and advanced users see the whole mesh, including the links between neighbouring meshes, under load at once. Please keep Sundays and Thursdays at 7:00 PM US Eastern.</p>
     <p class="hold"><b>If there is severe weather or any emergency on the mesh, the net is postponed.</b> Emergency traffic always comes first.</p>
   </section>
 
@@ -183,7 +185,7 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
     <ol class="steps">
       <li>In the MeshCore app, add the hashtag channel <span class="mono">#meshnet</span>, all lowercase. New to MeshCore? <a href="../meshcore/">Start here</a>.
         <div class="addch"><img src="../assets/meshnet-channel-qr.svg" alt="QR code that adds the #meshnet channel in the MeshCore app" width="120" height="120"><div><a class="btn primary" href="meshcore://channel/add?name=%23meshnet&amp;secret=0c975040209531454726cc939483b36b">Add #meshnet in the app</a><p class="note">On your phone, tap the button; on a computer, scan the code with the MeshCore app. Needs app version 1.47 or newer. The link uses <a href="https://docs.meshcore.io/qr_codes/" target="_blank" rel="noopener">MeshCore's channel QR format</a>.</p></div></div></li>
-      <li>Between 7:00 and 7:10 PM, post your check-in: three things, separated by commas. Send it up to five times during the net; only one is logged.
+      <li>Between 7:00 and 7:10 PM US Eastern, post your check-in: three things, separated by commas. Send it up to five times during the net; only one is logged.
         <p class="format"><code class="ex">KUMP, Heltec V3, 4 months</code></p>
         <dl class="parts">
           <div><dt>Airport</dt><dd>Your closest airport's four-letter code, starting with K. It doesn't need to be a big one; the nearest small field is better. <a href="https://ourairports.com/countries/US/IN/airports.html" target="_blank" rel="noopener">Find yours on the Indiana airport map</a>.</dd></div>
@@ -290,7 +292,7 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
 })();
 </script>
 <script>
-/* #meshnet time zones: the next net's start in each North American zone, computed from Indiana's clock so daylight time is always right */
+/* #meshnet time zones: the next net's start in each North American zone, computed from US Eastern time so daylight time is always right */
 (function () {
   var list = document.getElementById("zoneList"), next = document.getElementById("zonesNext");
   if (!list || !window.Intl) return;
