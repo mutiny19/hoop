@@ -47,6 +47,12 @@ section { display: grid; gap: 14px; }
 .fact { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
 .fact b { display: block; font: 600 .75rem/1 var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
 .fact span { font-weight: 600; }
+.zones { margin-top: 14px; }
+.zones ul { list-style: none; margin: 10px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+.zones li { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; }
+.zones li b { display: block; font-weight: 700; font-variant-numeric: tabular-nums; }
+.zones li span { font-size: .85rem; color: var(--muted); }
+.zones li.you { border-color: var(--accent, #E8590C); }
 .why { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; font-size: 1.05rem; }
 .hold { background: var(--signal-soft); border-left: 4px solid var(--beacon); border-radius: 0 10px 10px 0; padding: 12px 16px; }
 .steps { margin: 0; padding-left: 1.3em; display: grid; gap: 10px; }
@@ -119,9 +125,16 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
     <h1>#meshnet</h1>
     <p class="lead">A ten-minute check-in net on MeshCore, open to anyone on the mesh; this site tracks Indiana and its border counties. It works like a weekly ham or GMRS net, with no net control: you post your check-in, and everyone within reach sees who's on the air. The ten minutes are short on purpose, so everyone posting at once puts real pressure on the mesh and shows where it holds up.</p>
     <div class="facts">
-      <div class="fact"><b>When</b><span>Sundays and Thursdays, 7:00 to 7:10 PM Indiana time</span></div>
+      <div class="fact"><b>When</b><span>Sundays and Thursdays, 7:00 to 7:10 PM Eastern (Indiana time)</span></div>
       <div class="fact"><b>Where</b><span>The <span class="mono">#meshnet</span> channel on MeshCore</span></div>
       <div class="fact"><b>Check in with</b><span class="mono">KUMP, Heltec V3, 4 months</span></div>
+    </div>
+    <div class="zones" id="zones">
+      <p class="note"><b>One moment for everyone, wherever you are.</b> The net runs on Indiana's clock, so check in at the same instant as everyone else, not at 7:00 your time. <span id="zonesNext"></span></p>
+      <ul id="zoneList">
+        <li><b>7:00 PM</b><span>Eastern</span></li>
+        <li><b>00:00</b><span>UTC, Mon and Fri (23:00 in summer)</span></li>
+      </ul>
     </div>
   </div>
 
@@ -263,6 +276,38 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
       show(nets[0]);
     })
     .catch(function () { detail.innerHTML = "<div class=\"empty\">No nets logged yet. The next net shows up here after it ends, usually within a few hours.</div>"; });
+})();
+</script>
+<script>
+/* #meshnet time zones: the next net's start in each North American zone, computed from Indiana's clock so daylight time is always right */
+(function () {
+  var list = document.getElementById("zoneList"), next = document.getElementById("zonesNext");
+  if (!list || !window.Intl) return;
+  try {
+    var NET = "America/Indiana/Indianapolis";
+    function parts(d, tz) { var o = {}; new Intl.DateTimeFormat("en-US", { timeZone: tz, hourCycle: "h23", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", weekday: "short" }).formatToParts(d).forEach(function (x) { o[x.type] = x.value; }); return o; }
+    function at7(y, m, d) { /* the instant it is 19:00 on y-m-d in Indiana */
+      var t = Date.UTC(y, m - 1, d, 24, 0);
+      for (var i = 0; i < 2; i++) { var q = parts(new Date(t), NET), seen = Date.UTC(+q.year, +q.month - 1, +q.day, +q.hour % 24, +q.minute); t += Date.UTC(y, m - 1, d, 19, 0) - seen; }
+      return new Date(t);
+    }
+    var now = new Date(), start = null;
+    for (var k = 0; k < 8 && !start; k++) {
+      var day = new Date(now.getTime() + k * 864e5), q = parts(day, NET);
+      if (q.weekday !== "Sun" && q.weekday !== "Thu") continue;
+      var s = at7(+q.year, +q.month, +q.day);
+      if (s.getTime() + 10 * 6e4 > now.getTime()) start = s;
+    }
+    if (!start) return;
+    var Z = [["Newfoundland", "America/St_Johns"], ["Atlantic", "America/Halifax"], ["Eastern", NET], ["Central", "America/Chicago"], ["Mexico City", "America/Mexico_City"], ["Mountain", "America/Denver"], ["Arizona", "America/Phoenix"], ["Pacific", "America/Los_Angeles"], ["Alaska", "America/Anchorage"], ["Hawaii", "Pacific/Honolulu"], ["UTC", "UTC"]];
+    function fmt(tz, h24) { return new Intl.DateTimeFormat("en-US", { timeZone: tz, weekday: "short", hour: "numeric", minute: "2-digit", hourCycle: h24 ? "h23" : "h12" }).format(start); }
+    var mine = null; try { mine = Intl.DateTimeFormat().resolvedOptions().timeZone; } catch (e) {}
+    var html = "";
+    if (mine && mine !== "UTC") html += '<li class="you"><b>' + fmt(mine) + "</b><span>Your time</span></li>";
+    Z.forEach(function (z) { html += "<li><b>" + fmt(z[1], z[1] === "UTC") + "</b><span>" + z[0] + "</span></li>"; });
+    list.innerHTML = html;
+    next.textContent = "Next net: " + new Intl.DateTimeFormat("en-US", { timeZone: NET, weekday: "long", month: "long", day: "numeric" }).format(start) + ".";
+  } catch (e) { /* keep the static times */ }
 })();
 </script>
 </body>
