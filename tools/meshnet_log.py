@@ -4,7 +4,7 @@
 #meshnet runs Sundays and Thursdays at 7:00 PM US Eastern (Indiana's clock) for ten minutes. This script reads only that
 window plus a 3-minute buffer each side (6:57:00 through 7:12:59) from CoreScope instances that store packets uploaded by community
 observers (OKI Mesh's map.okimesh.org by default; more can be listed in SOURCES), decrypts the public #meshnet channel itself, and keeps
-one check-in per sender.
+one check-in per radio (a person may check in from several).
 
 What is written to data/meshnet/log.json: time, airport code (and that airport's public location), device
 model, months on the mesh, hop count and how many observers heard it. What is never written: sender
@@ -77,33 +77,74 @@ def decrypt(raw_hex):
 
 
 # ---------- check-in format: airport, device model, time on the mesh ----------
-DUR = re.compile(r"^(?:about\s+|~\s*)?(\d+(?:\.\d+)?)\s*(months?|mos?|m|years?|yrs?|yr|y|weeks?|wks?|wk|w|days?|d)\.?$", re.I)
+DUR = re.compile(r"^(?:about\s+|~\s*)?(\d+(?:\.\d+)?)\+?\s*(months?|mos?|m|years?|yrs?|yr|y|weeks?|wks?|wk|w|days?|d)\.?$", re.I)
 UNIT = {"m": 1, "y": 12, "w": 12 / 52, "d": 12 / 365}
+
+
+DEVICE_HINT = re.compile(r"\d|heltec|t-?deck|t-?beam|t-?echo|wio|seeed|xiao|rak|lilygo|cardputer|station|sensecap|"
+                         r"tracker|ikoka|nano|solar|repeater|companion|pager|phone|radio|node", re.I)
+
+
+def _months(s):
+    s = s.strip()
+    if re.fullmatch(r"(?:brand\s+)?new|first\s+(?:net|time|day)", s, re.I):
+        return 0.0
+    m = DUR.match(s)
+    return round(float(m.group(1)) * UNIT[m.group(2)[0].lower()], 1) if m else None
 
 
 def parse_checkin(text, airports=None):
     """'KUMP, Wio L1 E-ink, 2 months' or 'IND · Heltec V3 · 4 mo' -> (code, device, months), else None.
     Without separators ('Ind Heltec 3 months') it is accepted only when the first word is a known airport code,
-    so ordinary chatter that happens to end in a duration is never logged."""
-    parts = [x.strip(" .") for x in re.split(r"\s*[,·|;/]\s*", text.strip()) if x.strip(" .")]
+    so ordinary chatter that happens to end in a duration is never logged.
+    Lenient on purpose, because the format trips people up: when the message starts with a known airport code,
+    the device and the months are optional and can come in any order ('KUMP', 'KUMP Heltec V3', 'KUMP, 4 months').
+    A missing device is stored as "" and missing months as None."""
+    parts = [x.strip(" .") for x in re.split(r"\s*[,·|;/]\s*|\s+[-–]\s+", text.strip()) if x.strip(" .")]
     if len(parts) < 3 and airports is not None:
-        sp = re.fullmatch(r"\s*([A-Za-z]{3,4})\s+(.+?)\s+((?:about\s+|~\s*)?\d+(?:\.\d+)?\s*[A-Za-z]+\.?|(?:brand\s+)?new)\s*", text, re.I)
+        sp = re.fullmatch(r"\s*([A-Za-z]{3,4})\s+(.+?)\s+((?:about\s+|~\s*)?\d+(?:\.\d+)?\+?\s*[A-Za-z]+\.?|(?:brand\s+)?new)\s*", text, re.I)
         if sp and place(sp.group(1).upper(), airports)[1]:
-            parts = [sp.group(1), sp.group(2), sp.group(3)]
-    if len(parts) < 3 or not re.fullmatch(r"[A-Za-z]{3,4}", parts[0]):
+            parts = [sp.group(1), sp.group(2).strip(" ,;-–"), sp.group(3)]
+    if len(parts) >= 3 and re.fullmatch(r"[A-Za-z]{3,4}", parts[0]):
+        months = _months(parts[-1])
+        device = " ".join(parts[1:-1]).strip()
+        if months is not None and device and len(device) <= 40 and "@[" not in device:
+            return parts[0].upper(), device, months
+    return _lenient(text, airports)
+
+
+def _lenient(text, airports):
+    if airports is None or "@[" in text:
         return None
-    last = parts[-1].strip()
-    if re.fullmatch(r"(?:brand\s+)?new|first\s+(?:net|time|day)", last, re.I):
-        months = 0.0
-    else:
-        m = DUR.match(last)
-        if not m:
-            return None
-        months = round(float(m.group(1)) * UNIT[m.group(2)[0].lower()], 1)
-    device = " ".join(parts[1:-1]).strip()
-    if not device or len(device) > 40 or "@[" in device:
+    t = text.strip(" .!")
+    m = re.match(r"([A-Za-z]{3,4})\b[\s,·|;/:-]*(.*)$", t, re.S)
+    if not m or not place(m.group(1).upper(), airports)[1]:
         return None
-    return parts[0].upper(), device, months
+    code, rest = m.group(1).upper(), m.group(2).strip(" .")
+    if len(rest) > 60:
+        return None
+    bits = [b.strip(" .") for b in re.split(r"\s*[,·|;/]\s*|\s+[-–]\s+", rest) if b.strip(" .")] if rest else []
+    if len(bits) == 1 and _months(bits[0]) is None:          # 'Heltec V3 4 months' with no commas
+        d = re.match(r"(.+?)\s+((?:about\s+|~\s*)?\d+(?:\.\d+)?\+?\s*[A-Za-z]+\.?|(?:brand\s+)?new)$", bits[0], re.I)
+        if d and _months(d.group(2)) is not None:
+            bits = [d.group(1), d.group(2)]
+        else:                                                  # '1 year Heltec V4': months first
+            d = re.match(r"((?:about\s+|~\s*)?\d+(?:\.\d+)?\+?\s*[A-Za-z]+\.?)\s+(.+)$", bits[0], re.I)
+            if d and _months(d.group(1)) is not None:
+                bits = [d.group(1), d.group(2)]
+    months, device = None, []
+    for b in bits:
+        mo = _months(b)
+        if mo is not None and months is None:
+            months = mo
+        else:
+            device.append(b)
+    device = " ".join(device).strip(" ,;-–")
+    if device and (len(device) > 40 or not DEVICE_HINT.search(device)):
+        device = ""                                            # chatter after the code, not a radio: keep the code only
+        if months is None and len(rest.split()) > 2:
+            return None                                        # 'IND is busy tonight' is not a check-in
+    return code, device, months
 
 
 def place(code, airports):
@@ -163,12 +204,16 @@ def collect(source, start, end, airports, check_oldest=False):
         sender, text, hops = r
         messages += 1
         c = parse_checkin(text, airports)
-        if not c or sender in first:
+        if not c:
             continue
         code, device, months = c
+        score = bool(device) + (months is not None)
+        key = (sender, device.lower())                         # one check-in per radio: a person may test several
+        if key in first and first[key]["_score"] >= score:
+            continue                                            # keep each radio's most complete check-in
         lid, a = place(code, airports)
-        first[sender] = {
-            "time": seen.astimezone(TZ).strftime("%H:%M"),
+        first[key] = {
+            "time": first[key]["time"] if key in first else seen.astimezone(TZ).strftime("%H:%M"),
             "code": (a.get("icao") or lid) if a else code,      # shown as people type it, e.g. KUMP
             **({"place": a["name"], "city": a["city"], "state": a["state"], "lat": a["lat"], "lon": a["lon"]} if a else {}),
             "device": device,
@@ -176,8 +221,17 @@ def collect(source, start, end, airports, check_oldest=False):
             "hops": hops,
             "observers": p.get("observer_count") or 1,
             "regions": sorted(set(p.get("distinct_iatas") or ([p["observer_iata"]] if p.get("observer_iata") else []))),
+            "_score": score,
         }
-    return first, messages
+    for c in first.values():
+        c.pop("_score", None)
+    return fold(first), messages
+
+
+def fold(d):
+    """A bare check-in with no device ('KUMP') from someone who also named a device is the same radio: drop it."""
+    named = {s for (s, dev) in d if dev}
+    return {k: v for k, v in d.items() if k[1] or k[0] not in named}
 
 
 def main():
@@ -244,7 +298,7 @@ def main():
                 m["observers"] = max(m["observers"], c["observers"]); m["regions"] = sorted(set(m["regions"]) | set(c["regions"]))
     if not used:
         sys.exit("no source could provide that window; not writing a partial log")
-    checkins = sorted(merged.values(), key=lambda c: c["time"])
+    checkins = sorted(fold(merged).values(), key=lambda c: c["time"])
 
     entry = {
         "date": start.date().isoformat(),
@@ -268,7 +322,7 @@ def main():
     log = {
         "channel": CHANNEL,
         "sources": used,
-        "about": "One check-in per sender heard by community observers between 6:57 and 7:13 PM US Eastern on net nights. "
+        "about": "One check-in per radio heard by community observers between 6:57 and 7:13 PM US Eastern on net nights. "
                  "No names, callsigns or message text are stored.",
         "nets": sorted(nets, key=lambda n: n["date"], reverse=True),
     }

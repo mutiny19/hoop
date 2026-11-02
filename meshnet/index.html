@@ -166,7 +166,7 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
         <div id="detail"><div class="empty">Loading the check-in log…</div></div>
       </div>
     </div>
-    <p class="note">Logged automatically on Sundays and Thursdays only, from 6:57 to 7:13 PM US Eastern (the net plus three minutes each side); nothing outside that window is recorded. Each net shows up here after it ends, usually within a few hours; during the net, the channel itself is the live view. The log reads the <span class="mono">#meshnet</span> messages community observers upload to <a href="https://map.okimesh.org" target="_blank" rel="noopener">OKI Mesh's CoreScope</a> and <a href="https://corescope.chicagolandmesh.org" target="_blank" rel="noopener">Chicagoland Mesh's CoreScope</a>, one check-in per person. No names or callsigns are kept. A check-in shows here only if an observer heard it, so <a href="../live/">more observers</a> means a fuller map. Meshtastic check-ins are not logged.</p>
+    <p class="note">Logged automatically on Sundays and Thursdays only, from 6:57 to 7:13 PM US Eastern (the net plus three minutes each side); nothing outside that window is recorded. Each net shows up here after it ends, usually within a few hours; during the net, the channel itself is the live view. The log reads the <span class="mono">#meshnet</span> messages community observers upload to <a href="https://map.okimesh.org" target="_blank" rel="noopener">OKI Mesh's CoreScope</a> and <a href="https://corescope.chicagolandmesh.org" target="_blank" rel="noopener">Chicagoland Mesh's CoreScope</a>, one check-in per radio. No names or callsigns are kept. A check-in shows here only if an observer heard it, so <a href="../live/">more observers</a> means a fuller map. Meshtastic check-ins are not logged.</p>
   </section>
 
   <section aria-labelledby="why-h">
@@ -186,13 +186,14 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
     <ol class="steps">
       <li>In the MeshCore app, add the hashtag channel <span class="mono">#meshnet</span>, all lowercase. New to MeshCore? <a href="../meshcore/">Start here</a>.
         <div class="addch"><img src="../assets/meshnet-channel-qr.svg" alt="QR code that adds the #meshnet channel in the MeshCore app" width="120" height="120"><div><a class="btn primary" href="meshcore://channel/add?name=%23meshnet&amp;secret=0c975040209531454726cc939483b36b">Add #meshnet in the app</a><p class="note">On your phone, tap the button; on a computer, scan the code with the MeshCore app. Needs app version 1.47 or newer. The link uses <a href="https://docs.meshcore.io/qr_codes/" target="_blank" rel="noopener">MeshCore's channel QR format</a>.</p></div></div></li>
-      <li>Between 7:00 and 7:10 PM US Eastern, post your check-in: three things, separated by commas. Send it up to five times during the net; only one is logged.
+      <li>Between 7:00 and 7:10 PM US Eastern, post your check-in. Send it <b>at least five times</b> over the ten minutes; the repeats are what load the mesh, and only one is logged. Testing more than one radio? Check in from each, at least five times on each; every radio is logged. Tip: type it before 7:00 and copy it, so each send is just a paste.
         <p class="format"><code class="ex">KUMP, Heltec V3, 4 months</code></p>
         <dl class="parts">
           <div><dt>Airport</dt><dd>Your closest airport's four-letter code, starting with K. It doesn't need to be a big one; the nearest small field is better. <a href="https://ourairports.com/countries/US/IN/airports.html" target="_blank" rel="noopener">Find yours on the Indiana airport map</a>.</dd></div>
           <div><dt>Device</dt><dd>The radio you're sending from, such as Heltec V3, T-Deck or Wio L1.</dd></div>
           <div><dt>Time on the mesh</dt><dd>How long you've been on MeshCore: 4 months, 1 year, or new.</dd></div>
         </dl>
+        <p class="note" style="margin-top:12px">Start with the airport code; that's the one part that has to be there. The device and months are welcome in any order, and commas help but aren't required: <span class="mono">KUMP</span>, <span class="mono">KUMP Heltec V3</span>, and <span class="mono">KUMP 4 months Heltec V3</span> all count.</p>
       </li>
       <li>Acknowledge each check-in you hear with a mention and a greeting, or just "heard".</li>
     </ol>
@@ -214,7 +215,7 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
     <h2 id="copy-h">Run it for your area</h2>
     <p>Everything behind this page is open source under the MIT license, so any group can copy it and log the same net for their own region. Keep the channel, days, and time the same; that's what makes every log a picture of the same moment.</p>
     <ul class="why">
-      <li><a href="https://github.com/mutiny19/hoop/blob/main/tools/meshnet_log.py" target="_blank" rel="noopener">The collector</a> reads the <span class="mono">#meshnet</span> window from public CoreScopes and keeps one check-in per sender, with no names.</li>
+      <li><a href="https://github.com/mutiny19/hoop/blob/main/tools/meshnet_log.py" target="_blank" rel="noopener">The collector</a> reads the <span class="mono">#meshnet</span> window from public CoreScopes and keeps one check-in per radio, with no names.</li>
       <li><a href="https://github.com/mutiny19/hoop/blob/main/.github/workflows/meshnet.yml" target="_blank" rel="noopener">The schedule</a> runs it on GitHub after each net, for free.</li>
       <li><a href="https://github.com/mutiny19/hoop/blob/main/meshnet/index.html" target="_blank" rel="noopener">This page</a> draws the map and list from <a href="https://github.com/mutiny19/hoop/blob/main/data/meshnet/log.json" target="_blank" rel="noopener">the log</a>.</li>
     </ul>
@@ -236,7 +237,7 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   function clock(hm) { var p = hm.split(":"), h = +p[0]; return (h % 12 || 12) + ":" + p[1] + (h < 12 ? " AM" : " PM"); }
   function nice(d) { return new Date(d + "T12:00:00").toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" }); }
-  function months(m) { return m < 1 ? (m === 0 ? "new" : "under 1 mo") : (m >= 12 && m % 12 === 0 ? m / 12 + " yr" : m + " mo"); }
+  function months(m) { if (m === null || m === undefined) return ""; return m < 1 ? (m === 0 ? "new" : "under 1 mo") : (m >= 12 && m % 12 === 0 ? m / 12 + " yr" : m + " mo"); }
 
   function draw(net) {
     while (pts.firstChild) pts.removeChild(pts.firstChild);
@@ -259,7 +260,7 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
     [].forEach.call(netsEl.children, function (b) { b.setAttribute("aria-pressed", b.dataset.date === net.date ? "true" : "false"); });
     draw(net);
     var c = net.checkins, airports = {}, devices = {};
-    c.forEach(function (x) { airports[x.code] = 1; devices[x.device.toLowerCase()] = 1; });
+    c.forEach(function (x) { airports[x.code] = 1; if (x.device) devices[x.device.toLowerCase()] = 1; });
     var head = "<div class=\"tally\"><div><b>" + c.length + "</b><span>check-in" + (c.length === 1 ? "" : "s") + "</span></div><div><b>" + Object.keys(airports).length +
       "</b><span>airport" + (Object.keys(airports).length === 1 ? "" : "s") + "</span></div><div><b>" + Object.keys(devices).length + "</b><span>device model" + (Object.keys(devices).length === 1 ? "" : "s") + "</span></div></div>";
     if (!c.length) {
