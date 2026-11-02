@@ -64,6 +64,15 @@ code.ex { font: 500 1rem/1 var(--mono); background: var(--panel); border: 1px so
 .addch img { background: #fff; padding: 6px; border-radius: 8px; flex: none; }
 .addch .note { margin-top: 8px; max-width: 46ch; }
 .addch .btn { display: inline-block; font: 700 15px/1 var(--body); border-radius: 6px; padding: 13px 18px; text-decoration: none; background: var(--beacon); color: #0F1729; }
+.share { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 14px 0; }
+.share figure { margin: 0; }
+.share img { display: block; width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--line); }
+.share figcaption { font-size: .88rem; color: var(--muted); margin-top: 6px; }
+button.copy { font: 600 .82rem/1 var(--body); background: transparent; color: var(--link); border: 1px solid var(--link); border-radius: 999px; padding: 7px 12px; cursor: pointer; }
+button.copy:hover { background: var(--link); color: var(--panel); }
+.invite { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+.invite .head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 8px; }
+.invite pre { margin: 0; white-space: pre-wrap; word-break: break-word; font: .9rem/1.45 var(--body); max-height: 22rem; overflow: auto; }
 .spread { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; }
 .mono { font-family: var(--mono); }
 .format { margin: 10px 0 12px; }
@@ -198,8 +207,42 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
       <li>Acknowledge each check-in you hear with a mention and a greeting, or just "heard".</li>
     </ol>
     <p class="note">Chat on <span class="mono">#meshnet</span> before, during, and after the net is welcome. Only 6:57 to 7:13 PM is logged, and those minutes are the time to load the mesh.</p>
-    <p class="spread"><b>Help it grow.</b> Invite others the usual ways: tell a neighbour, mention it in your local group's chat or Discord, announce it on your local ham or GMRS net, or share this page. Every new check-in shows how far the mesh reaches.</p>
+    <p class="spread"><b>Help it grow.</b> Invite others the usual ways: tell a neighbour, mention it in your local group's chat or Discord, announce it on your local ham or GMRS net, or <a href="#share-h">share the invite</a>. Every new check-in shows how far the mesh reaches.</p>
     </section>
+
+  <section aria-labelledby="share-h">
+    <h2 id="share-h">Share the invite</h2>
+    <p>Post it to your ham, GMRS, off-grid, or mesh groups, your club's email list, or anywhere else people will see it. The image and the text each stand on their own, so use either or both.</p>
+    <div class="share">
+      <figure><a href="../assets/meshnet-invite.png" download="meshnet-invite.png"><img src="../assets/meshnet-invite.png" alt="#meshnet invite: Sundays and Thursdays, 7:00 to 7:10 PM US Eastern, with times for other North American zones and UTC, on the #meshnet MeshCore hashtag channel. Start with your closest small airfield code; send at least five times from each radio." width="1080" height="1350" loading="lazy"></a><figcaption><a href="../assets/meshnet-invite.png" download="meshnet-invite.png">Download</a> · North American time zones</figcaption></figure>
+      <figure><a href="../assets/meshnet-invite-utc.png" download="meshnet-invite-utc.png"><img src="../assets/meshnet-invite-utc.png" alt="#meshnet invite with the time in US Eastern and UTC for winter and summer." width="1080" height="1350" loading="lazy"></a><figcaption><a href="../assets/meshnet-invite-utc.png" download="meshnet-invite-utc.png">Download</a> · UTC for both seasons</figcaption></figure>
+    </div>
+    <div class="invite">
+      <div class="head"><b>Text version</b><button class="copy" type="button" data-copy="invite-text">Copy</button></div>
+      <pre id="invite-text">#meshnet: ten minutes, everyone at once
+
+Why it matters
+A mesh that works on a quiet night can fall apart when everyone needs it at once. Posts spread across the day rarely collide, so they tell us little. Ten tight minutes with everyone posting together loads repeaters the way a real emergency would and shows where messages get through. One shared time across every group also tests the links between neighboring meshes.
+
+When: Sundays and Thursdays, 7:00 to 7:10 PM US Eastern
+6:00 to 6:10 Central · 5:00 to 5:10 Mountain · 4:00 to 4:10 Pacific · 3:00 to 3:10 Alaska
+UTC: 00:00 to 00:10 Monday and Friday in winter, 23:00 to 23:10 Sunday and Thursday in summer
+
+Where: the #meshnet hashtag channel on MeshCore, all lowercase.
+
+Post: start with your closest small airfield code, KXXX. Device and months on MeshCore are optional.
+KUMP, Heltec V3, 4 months
+Send it at least 5 times from each radio you're testing. Answer each one you hear with a mention or just "heard". Chat before and after is welcome.
+
+Welcome, new meshheads. Advanced meshers, land here.
+
+No one owns #meshnet or the idea. Make it your own, but please keep the same days and time so every radio and every group tests the mesh together.
+
+If there is severe weather or any emergency on the mesh, the net is postponed. Emergency traffic always comes first.
+
+Channel link, your local time, and past check-ins (guidance only): https://mutiny19.github.io/hoop/meshnet/</pre>
+    </div>
+  </section>
 
   <section aria-labelledby="fix-h">
     <h2 id="fix-h">When something fails</h2>
