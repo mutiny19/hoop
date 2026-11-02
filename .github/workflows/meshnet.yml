@@ -15,6 +15,11 @@ on:
       date:
         description: "Net date to log, YYYY-MM-DD (Sun or Thu; only while the source still holds it, about a day)"
         required: false
+      so_far:
+        description: "Mid-net snapshot: log the check-ins heard so far (only while the net is on)"
+        type: boolean
+        required: false
+        default: false
 
 permissions:
   contents: write
@@ -35,8 +40,11 @@ jobs:
       - name: Log the #meshnet window from community observers
         env:
           DATE: ${{ github.event.inputs.date }}
+          SO_FAR: ${{ github.event.inputs.so_far }}
         run: |
-          if [ -n "$DATE" ]; then python3 tools/meshnet_log.py --date "$DATE"; else python3 tools/meshnet_log.py; fi
+          if [ "$SO_FAR" = "true" ]; then python3 tools/meshnet_log.py --so-far
+          elif [ -n "$DATE" ]; then python3 tools/meshnet_log.py --date "$DATE"
+          else python3 tools/meshnet_log.py; fi
       - name: Commit if changed
         run: |
           if [ -z "$(git status --porcelain -- data/meshnet)" ]; then
