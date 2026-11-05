@@ -36,6 +36,7 @@ CHANNEL = "#meshnet"
 TZ = ZoneInfo("America/Indiana/Indianapolis")
 NET_DAYS = {6: "Sun", 3: "Thu"}          # Python weekday numbers
 START, MINUTES = (18, 57), 16            # 6:57:00 up to, not including, 7:13:00: the 7:00-7:10 net plus 3 minutes each side
+MAX_PAGES = 6                             # a net window is ~50-500 packets; never more than 3,000 per source
 SETTLE = timedelta(minutes=8)            # observers upload within seconds; a read this long after the window is final
 LOOKBACK_HOURS = 30                      # scheduled runs log a net that ended in the last 30 hours (GitHub often starts them 5-7 h late)
 UA = "HOOP-meshnet-log/1.0 (+https://github.com/mutiny19/hoop)"
@@ -187,12 +188,19 @@ def collect(source, start, end, airports, check_oldest=False):
         if not oldest or oldest[0]["timestamp"] > iso(start):
             raise LookupError(f"{source} no longer holds packets from {iso(start)}")
     rows, off = [], 0
-    while True:
+    for _ in range(MAX_PAGES):
         d = get(f"{source}/api/packets?type=5&groupByHash=true&limit=500&offset={off}&since={iso(start)}&until={iso(end)}")
-        rows += d["packets"]
-        off += len(d["packets"])
-        if not d["packets"] or off >= d.get("total", 0):
+        page = d["packets"]
+        rows += page
+        off += len(page)
+        if not page or off >= d.get("total", 0):
             break
+        # since/until are honoured but not in CoreScope's published spec. If a source ever ignores them, its pages run
+        # past the window: stop as soon as a page reaches back before it, rather than walking the whole store.
+        if any((x.get("first_seen") or x.get("timestamp") or "9") < iso(start) for x in page):
+            break
+    else:
+        print(f"{source}: stopped after {MAX_PAGES} pages; the window may be incomplete")
     first, messages = {}, 0
     for p in sorted(rows, key=lambda r: r.get("first_seen") or r["timestamp"]):
         seen = datetime.strptime(p.get("first_seen") or p["timestamp"], "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
