@@ -41,17 +41,6 @@
    "archived": false
   },
   {
-   "url": "https://github.com/mutiny19/porchlight-openhop-plugin",
-   "category": "Mesh apps and tools",
-   "indiana": "made",
-   "name": "porchlight-openhop-plugin",
-   "description": "Porchlight: an openHop plugin that leaves the porch light on in #porchlight for anyone new to MeshCore",
-   "license": "GPL-3.0",
-   "updated": "2026-11-06",
-   "archived": false,
-   "title": "Porchlight"
-  },
-  {
    "url": "https://github.com/kk7ds/chirp",
    "category": "Ham and GMRS tools",
    "indiana": "used",
