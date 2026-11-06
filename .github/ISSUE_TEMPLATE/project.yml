@@ -1,0 +1,45 @@
+name: Add a project
+description: List an off-grid communications project made or used in Indiana (GitHub repo or Printables model).
+title: "[project] "
+labels: ["project"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Projects show up on https://mutiny19.github.io/hoop/projects/. A check runs as soon as you submit and replies here; a maintainer then approves it. The card shows the project's own name and GitHub description, never a user name.
+  - type: input
+    id: link
+    attributes:
+      label: Link
+      description: A public GitHub repository (https://github.com/owner/project) or a Printables model (https://www.printables.com/model/...).
+      placeholder: https://github.com/owner/project
+    validations: { required: true }
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options: [Mesh firmware, Mesh apps and tools, Enclosures and 3D prints, Ham and GMRS tools, Maps and monitoring, Other]
+    validations: { required: true }
+  - type: dropdown
+    id: indiana
+    attributes:
+      label: Indiana connection
+      options: [Made in Indiana, Used in Indiana]
+    validations: { required: true }
+  - type: input
+    id: title
+    attributes:
+      label: Title (Printables only)
+      description: The model's name as Printables shows it. Leave blank for GitHub repos; their name comes from GitHub.
+  - type: textarea
+    id: why
+    attributes:
+      label: Why it's useful (for the reviewer)
+      description: Optional, and not shown on the site.
+  - type: checkboxes
+    id: ok
+    attributes:
+      label: Listing
+      options:
+        - label: The project is public and meant to be shared. I understand listing isn't endorsement.
+          required: true

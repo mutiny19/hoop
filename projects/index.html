@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script src="../assets/theme.js?v=20261025a"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Off-grid communications projects made or used in Indiana: mesh firmware, apps and tools, 3D-printed enclosures, ham and GMRS tools, and maps. Anyone can add one.">
+<title>Off-Grid Projects Made or Used in Indiana | HOOP</title>
+<link rel="icon" href="../assets/favicon.svg?v=20261025e" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HOOP · Hoosier Off-Grid Open Playbook">
+<meta property="og:title" content="Off-grid projects made or used in Indiana">
+<meta property="og:description" content="Mesh firmware, apps, 3D prints, ham and GMRS tools, and maps, made or used in Indiana. Anyone can add one.">
+<meta property="og:url" content="https://mutiny19.github.io/hoop/projects/">
+<meta property="og:image" content="https://mutiny19.github.io/hoop/assets/social.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://mutiny19.github.io/hoop/projects/">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="geo.region" content="US-IN">
+<meta name="geo.placename" content="Indiana">
+<meta property="og:locale" content="en_US">
+<meta property="og:image:alt" content="HOOP: Hoosier Off-Grid Open Playbook">
+<meta name="twitter:title" content="Off-grid projects made or used in Indiana">
+<meta name="twitter:description" content="Mesh firmware, apps, 3D prints, ham and GMRS tools, and maps, made or used in Indiana.">
+<meta name="twitter:image" content="https://mutiny19.github.io/hoop/assets/social.png">
+<meta name="twitter:image:alt" content="HOOP: Hoosier Off-Grid Open Playbook">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CollectionPage", "url": "https://mutiny19.github.io/hoop/projects/", "name": "Off-grid projects made or used in Indiana", "description": "Off-grid communications projects made or used in Indiana: mesh firmware, apps and tools, 3D-printed enclosures, ham and GMRS tools, and maps. Anyone can add one.", "isPartOf": {"@id": "https://mutiny19.github.io/hoop/#website"}, "dateModified": "2026-11-06"}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/site.css?v=20261026a">
+<style>
+/* Projects: a self-maintaining catalogue from data/projects.json. Names and descriptions are each project's own. */
+.wrap { max-width: 1100px; margin: 0 auto; padding-inline: 24px; padding-block: 36px 24px; display: grid; gap: 32px; }
+h1, h2, h3 { font-family: var(--display); margin: 0; line-height: 1.08; text-wrap: balance; }
+h1 { font-size: clamp(2.2rem, 5.5vw, 3.4rem); font-weight: 800; }
+h2 { font-size: 1.6rem; font-weight: 800; }
+h3 { font-size: 1.15rem; font-weight: 700; }
+p { margin: 0; }
+.site-nav .go { background: var(--beacon); color: #0F1729; font-weight: 700; padding: 11px 16px; border-radius: 6px; }
+.eyebrow { font: 600 .78rem/1 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--signal); }
+.hero { display: grid; gap: 12px; }
+.lead { font-size: 1.1rem; color: var(--muted); max-width: 66ch; }
+.note { font-size: .9rem; color: var(--muted); }
+section { display: grid; gap: 14px; }
+.btn { justify-self: start; font: 700 15px/1 var(--body); border-radius: 6px; padding: 13px 18px; text-decoration: none; display: inline-block; }
+.btn.primary { background: var(--beacon); color: #0F1729; }
+.tools { display: grid; gap: 12px; }
+.tools input { font: 500 1rem/1.2 var(--body); padding: 11px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--panel); color: var(--fg); width: 100%; max-width: 420px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips button { font: 600 .85rem/1 var(--body); padding: 9px 12px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--fg); cursor: pointer; }
+.chips button[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+.cat { display: grid; gap: 12px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 14px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: grid; gap: 8px; align-content: start; }
+.card h3 a { color: inherit; text-decoration: none; word-break: break-word; }
+.card h3 a:hover { text-decoration: underline; }
+.card p { color: var(--muted); font-size: .95rem; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px 12px; font-size: .82rem; color: var(--muted); }
+.tag { font: 600 .72rem/1 var(--body); letter-spacing: .06em; text-transform: uppercase; padding: 5px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+.tag.made { border-color: var(--beacon); color: var(--beacon); }
+.tag.old { border-color: var(--line); color: var(--muted); font-style: italic; }
+.how { margin: 0; padding-left: 1.3em; display: grid; gap: 10px; }
+.how b { color: var(--fg); }
+.empty { color: var(--muted); }
+#list { display: grid; gap: 28px; }
+</style>
+</head>
+<body>
+<header class="site-head"><div class="bar">
+  <a class="brand" href="../"><img class="brand-mark" src="../assets/mark.svg?v=20261025e" alt="" width="34" height="53"><img class="brand-mark-sm" src="../assets/favicon.svg?v=20261025e" alt="" width="30" height="38"><span class="brand-text">HOOP<small>Hoosier Off-Grid Open Playbook</small></span></a>
+  <nav class="site-nav" aria-label="Site">
+    <a href="../#map">Map</a>
+    <button type="button" class="nav-menu" id="navMenu" aria-expanded="false" aria-controls="navMore">Menu</button>
+    <span class="nav-more" id="navMore">
+      <a href="../#protocols">Settings</a>
+      <a href="../live/">Live</a>
+      <a href="../meshnet/">#meshnet</a>
+      <a href="./" aria-current="page">Projects</a>
+      <a href="../emergency/">Agencies</a>
+      <a href="../#report">Report</a>
+      <a href="../#support">Support</a>
+      <a href="https://github.com/mutiny19/hoop" target="_blank" rel="noopener">GitHub</a>
+      <a class="in-menu" href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Join Indiana Mesh</a>
+    </span>
+    <a class="cta" href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Join Indiana Mesh</a>
+    <a class="go" href="../meshcore/">Get on the mesh</a>
+    <button type="button" class="theme-toggle" id="themeBtn" aria-label="Switch to light mode" title="Switch to light mode"><svg class="i-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="i-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+  </nav>
+</div></header>
+<div class="site-notice" role="note"><div class="bar"><b>For consideration only.</b> This site is a signpost, not a document repository and not the authority on anything here; nothing on it is concluded or complete. Where an official source exists, that source is the authority: the projects and groups linked from each page maintain their own work, and where they differ from this site, they win. An open-source mesh belongs to everyone who builds it; respecting that means collaboration, not ownership.</div></div>
+
+<main class="wrap">
+  <div class="hero">
+    <span class="eyebrow">Projects · made or used in Indiana</span>
+    <h1>Off-grid projects</h1>
+    <p class="lead">Firmware, apps, 3D prints, and radio tools that people in Indiana build or use for off-grid communications. Each one links to its own page, and the name and description are the project's own. Anyone can add a project.</p>
+    <a class="btn primary" href="https://github.com/mutiny19/hoop/issues/new?template=project.yml" target="_blank" rel="noopener">Add a project ↗</a>
+  </div>
+
+  <section aria-label="Projects">
+    <div class="tools">
+      <input id="q" type="search" placeholder="Search projects" aria-label="Search projects">
+      <div class="chips" id="cats" role="group" aria-label="Category"></div>
+      <div class="chips" id="ind" role="group" aria-label="Indiana connection">
+        <button type="button" data-ind="" aria-pressed="true">Made or used in Indiana</button>
+        <button type="button" data-ind="made" aria-pressed="false">Made in Indiana</button>
+        <button type="button" data-ind="used" aria-pressed="false">Used in Indiana</button>
+      </div>
+    </div>
+    <div id="list"><p class="empty">Loading projects…</p></div>
+    <p class="note">Listed, not endorsed or ranked: projects are sorted by name within each category. Check each project's own docs before flashing firmware or printing parts. Details refresh from each project's page every week.</p>
+  </section>
+
+  <section aria-labelledby="add-h">
+    <h2 id="add-h">How to add a project</h2>
+    <ol class="how">
+      <li><b>Check it fits.</b> An off-grid communications project (mesh, ham, GMRS, LoRa, or anything that helps people talk without the grid), made in Indiana or used here. It has to be a public GitHub repository or a Printables model page.</li>
+      <li><b>Open the form.</b> Click <a href="https://github.com/mutiny19/hoop/issues/new?template=project.yml" target="_blank" rel="noopener">Add a project</a>. You'll need a free GitHub account; GitHub asks you to sign in first.</li>
+      <li><b>Fill in four things:</b> the link, a category, whether it's made in Indiana or used here, and for Printables only, the model's name. Then click <b>Create</b>.</li>
+      <li><b>Wait about a minute.</b> An automatic check replies on your issue. If something needs fixing, it says what; edit the issue (the ··· menu, then Edit) and it checks again.</li>
+      <li><b>A maintainer approves it.</b> Once approved, the project shows up here within a few minutes, and the issue closes on its own.</li>
+    </ol>
+    <p class="note">The card shows the project's name and its own GitHub description, never a user name. To improve how a GitHub project reads here, edit the description in the repo's About box; the site picks it up the next week. To fix or remove a listing, <a href="https://github.com/mutiny19/hoop/issues/new?template=other.yml&amp;title=%5Bproject%5D%20" target="_blank" rel="noopener">open an issue</a>. A project whose page disappears is dropped automatically after two weekly checks.</p>
+  </section>
+</main>
+
+<footer class="site-foot"><div class="bar">
+  <span>HOOP, the Hoosier Off-Grid Open Playbook. Represents no network, collective, or organization; here to ease onboarding for newcomers and landing for advanced users. Informational only. This site has no connection to the <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Indiana Mesh Discord</a>; it is still the statewide place to ask questions and talk with others getting on the air in Indiana. <a href="../#about">About this site</a> · <a href="https://github.com/mutiny19/hoop" target="_blank" rel="noopener">Source</a> · <a href="https://github.com/mutiny19/hoop/issues/new/choose" target="_blank" rel="noopener">Open an issue</a></span>
+</div></footer>
+
+
+<script src="../assets/site.js?v=20261026a"></script>
+<script>
+(function () {
+  var list = document.getElementById("list"), q = document.getElementById("q"), catsEl = document.getElementById("cats"), indEl = document.getElementById("ind");
+  var data = null, cat = "", ind = "";
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function month(d) { if (!d) return ""; var t = new Date(d + "T12:00:00"); return isNaN(t) ? "" : t.toLocaleDateString("en-US", { month: "short", year: "numeric" }); }
+  function name(p) { if (p.title) return p.title; if (p.name) return p.name; var m = /github\.com\/[^\/]+\/([^\/?#]+)/.exec(p.url); return m ? m[1] : p.url; }
+  function host(u) { return /printables\.com/.test(u) ? "Printables" : "GitHub"; }
+  function card(p) {
+    var meta = [];
+    meta.push('<span class="tag' + (p.indiana === "made" ? " made" : "") + '">' + (p.indiana === "made" ? "Made in Indiana" : "Used in Indiana") + "</span>");
+    if (p.archived) meta.push('<span class="tag old">Archived</span>');
+    meta.push("<span>" + host(p.url) + "</span>");
+    if (p.license) meta.push("<span>" + esc(p.license) + "</span>");
+    if (p.updated) meta.push("<span>Updated " + esc(month(p.updated)) + "</span>");
+    return '<article class="card"><h3><a href="' + esc(p.url) + '" target="_blank" rel="noopener">' + esc(name(p)) + "</a></h3>" +
+      (p.description ? "<p>" + esc(p.description) + "</p>" : "") + '<div class="meta">' + meta.join("") + "</div></article>";
+  }
+  function render() {
+    var term = q.value.trim().toLowerCase(), html = "", n = 0;
+    data.categories.forEach(function (c) {
+      if (cat && c !== cat) return;
+      var ps = data.projects.filter(function (p) {
+        if (p.category !== c || (ind && p.indiana !== ind)) return false;
+        return !term || (name(p) + " " + (p.description || "") + " " + p.category).toLowerCase().indexOf(term) >= 0;
+      }).sort(function (a, b) { return name(a).toLowerCase() < name(b).toLowerCase() ? -1 : 1; });
+      if (!ps.length) return;
+      n += ps.length;
+      html += '<div class="cat"><h2>' + esc(c) + '</h2><div class="cards">' + ps.map(card).join("") + "</div></div>";
+    });
+    list.innerHTML = n ? html : '<p class="empty">No projects match. <a href="https://github.com/mutiny19/hoop/issues/new?template=project.yml" target="_blank" rel="noopener">Add one</a>?</p>';
+  }
+  function chips() {
+    var used = data.categories.filter(function (c) { return data.projects.some(function (p) { return p.category === c; }); });
+    catsEl.innerHTML = '<button type="button" data-cat="" aria-pressed="true">All</button>' + used.map(function (c) { return '<button type="button" data-cat="' + esc(c) + '" aria-pressed="false">' + esc(c) + "</button>"; }).join("");
+  }
+  function press(group, attr, val) { group.querySelectorAll("button").forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute(attr) === val ? "true" : "false"); }); }
+  catsEl.addEventListener("click", function (e) { var b = e.target.closest("button"); if (!b) return; cat = b.getAttribute("data-cat"); press(catsEl, "data-cat", cat); render(); });
+  indEl.addEventListener("click", function (e) { var b = e.target.closest("button"); if (!b) return; ind = b.getAttribute("data-ind"); press(indEl, "data-ind", ind); render(); });
+  q.addEventListener("input", render);
+  fetch("../data/projects.json?t=" + Math.floor(Date.now() / 6e5)).then(function (r) { return r.json(); }).then(function (d) { data = d; chips(); render(); })
+    .catch(function () { list.innerHTML = '<p class="empty">The project list didn\'t load. Try again in a moment.</p>'; });
+})();
+</script>
+</body>
+</html>

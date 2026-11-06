@@ -8,6 +8,7 @@ Open an issue with one of the forms at [New issue](https://github.com/mutiny19/h
 
 - **Settings change:** a proposed change to the settings listed here
 - **Add a listing:** a repeater you own or host, or a local group
+- **Add a project:** an off-grid communications project made or used in Indiana (a GitHub repo or a Printables model); it shows up on the [Projects page](https://mutiny19.github.io/hoop/projects/) once a maintainer approves it
 - **Something else:** guides, tools, corrections
 
 ## Pull requests

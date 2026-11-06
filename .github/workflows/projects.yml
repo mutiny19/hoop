@@ -1,0 +1,74 @@
+name: Projects catalogue
+
+# Intake: an "Add a project" issue is checked by tools/projects.py and, if it passes, becomes a pull request that a
+# maintainer merges. The issue text is untrusted, so it is only ever read from the event file by the script, never
+# placed in a shell command. Refresh: weekly, each project's own name, description, license, and last update.
+on:
+  issues:
+    types: [opened, edited, reopened]
+  schedule:
+    - cron: "41 8 * * 2"     # Tuesdays, overnight in Indiana
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: projects
+  cancel-in-progress: false
+
+jobs:
+  intake:
+    if: github.event_name == 'issues' && contains(github.event.issue.labels.*.name, 'project') && github.event.issue.state == 'open'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check the submission
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 tools/projects.py intake
+      - name: Open or update the pull request, and reply
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE: ${{ github.event.issue.number }}
+        run: |
+          ok=$(python3 -c "import json;print(json.load(open('.projects-result.json'))['ok'])")
+          if [ "$ok" = "True" ]; then
+            title=$(python3 -c "import json;print(json.load(open('.projects-result.json'))['title'])")
+            branch="project-$ISSUE"
+            git config user.name "github-actions[bot]"
+            git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+            git checkout -B "$branch"
+            git add data/projects.json
+            git commit -m "Projects: add $title (#$ISSUE)"
+            git push --force origin "$branch"
+            if ! gh pr view "$branch" >/dev/null 2>&1; then
+              if ! gh pr create --head "$branch" --base main --title "Projects: add $title" \
+                   --body "Adds the project from #$ISSUE. Checks passed; merge to list it. Closes #$ISSUE"; then
+                printf '\n\nMaintainer: the pull request could not be opened automatically. Open it here: %s\n' \
+                  "https://github.com/${GITHUB_REPOSITORY}/compare/main...$branch?expand=1" >> .projects-comment.md
+              fi
+            fi
+          fi
+          gh issue comment "$ISSUE" --body-file .projects-comment.md
+
+  refresh:
+    if: github.event_name != 'issues'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Refresh from each project's own page
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 tools/projects.py refresh
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- data/projects.json; then echo "No change"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add data/projects.json
+          git commit -m "Weekly projects refresh"
+          git pull --rebase origin "$GITHUB_REF_NAME"
+          git push

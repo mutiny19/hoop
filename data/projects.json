@@ -1,0 +1,45 @@
+{
+ "about": "Off-grid communications projects made or used in Indiana. Submitted through the 'Add a project' issue form; name, description, license, and last update come from each project's own page and are refreshed weekly by tools/projects.py. Listing is not endorsement.",
+ "categories": [
+  "Mesh firmware",
+  "Mesh apps and tools",
+  "Enclosures and 3D prints",
+  "Ham and GMRS tools",
+  "Maps and monitoring",
+  "Other"
+ ],
+ "projects": [
+  {
+   "url": "https://github.com/meshcore-dev/MeshCore",
+   "category": "Mesh firmware",
+   "indiana": "used"
+  },
+  {
+   "url": "https://github.com/meshtastic/firmware",
+   "category": "Mesh firmware",
+   "indiana": "used",
+   "title": "Meshtastic firmware"
+  },
+  {
+   "url": "https://github.com/mutiny19/porchlight-openhop-plugin",
+   "category": "Mesh apps and tools",
+   "indiana": "made"
+  },
+  {
+   "url": "https://github.com/Cisien/meshcoretomqtt",
+   "category": "Mesh apps and tools",
+   "indiana": "used"
+  },
+  {
+   "url": "https://github.com/kk7ds/chirp",
+   "category": "Ham and GMRS tools",
+   "indiana": "used",
+   "title": "CHIRP"
+  },
+  {
+   "url": "https://github.com/OKI-Mesh/CoreScope",
+   "category": "Maps and monitoring",
+   "indiana": "used"
+  }
+ ]
+}

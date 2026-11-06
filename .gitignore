@@ -1,2 +1,4 @@
 .pii-local
 __pycache__/
+.projects-result.json
+.projects-comment.md

@@ -14,7 +14,8 @@ official docs and to each group's own pages, and only publishes Indiana-specific
 
 1. **No personal information, anywhere.** No personal names, GitHub user names, e-mail addresses,
    individual callsigns, home locations, or personal node positions in pages, data, commit
-   messages, commit authors, workflows, or issue templates. Commits are authored
+   messages, commit authors, workflows, or issue templates. The one exception is a link to a public
+   repository on `projects/`: its URL contains the owner's name, but the page shows only the project's name. Commits are authored
    `Indiana Mesh <mutiny19@users.noreply.github.com>`. Run `python3 tools/check_pii.py` before
    every push; keep your own strings in an untracked `.pii-local` and pass `--names .pii-local`.
 2. **Nothing unkind about any other network or group.** Describe each in its own words, link to
@@ -39,6 +40,7 @@ official docs and to each group's own pages, and only publishes Indiana-specific
 | `advanced/modes.js` | Simplest and Abbreviated modes, mode switch |
 | `emergency/index.html` | Agencies article (APA citations) |
 | `live/index.html` | Where to watch live traffic |
+| `projects/index.html` + `data/projects.json` | Off-grid projects made or used in Indiana (GitHub repos and Printables models). Submitted through the "Add a project" issue form; `tools/projects.py intake` checks it and `projects.yml` opens a pull request for a maintainer to merge; `tools/projects.py refresh` updates each project's own name, description, license, and last update weekly and drops ones gone two weeks running. Shows the project's own words only, never a user name; sorted by name, never ranked. An optional `title` overrides an unhelpful repo name |
 | `meshnet/index.html` | #meshnet check-in net: what it's for, how to check in, and the map/list of each net's check-ins from `data/meshnet/log.json` |
 | `assets/site.css`, `theme.js`, `site.js` | Shared styles, pre-paint theme, nav/theme/copy behaviour |
 | `assets/chirps.js` | Decoration behind the map band's headline only (fades out via CSS mask before the map grid): a soft SDR waterfall and a node constellation. Decoration only; never drawn on the map itself |
@@ -46,7 +48,7 @@ official docs and to each group's own pages, and only publishes Indiana-specific
 | `data/` | Nightly repeater inventory, yearly county reference, nets, settings JSON |
 | `tools/` | The scripts the workflows run, plus `check_pii.py` and `check_links.py` |
 | `tools/meshnet_log.py` | #meshnet collector: reads only 6:57-7:13 PM Indiana time on Sun/Thu from every CoreScope listed in `SOURCES` (OKI's and Chicagoland's; LetsMesh and Waev have no public API) and merges them, decrypts the public `#meshnet` hashtag channel, keeps one check-in per radio (sender plus device, so one person can test several; a bare code from someone who also named a device is folded in). **Never writes names, callsigns, observer names or message text**; names are used in memory only to count each person once. Airports from `tools/meshnet_airports.json` (OurAirports, public-use three-letter codes only, so nobody is placed on a private strip) |
-| `.github/workflows/` | nightly `nodes.yml`, yearly `reference.yml`, weekly `links.yml`, net-night `meshnet.yml` (scheduled after each #meshnet window; GitHub often starts it hours late, so the script looks back 30 hours; only logs that window. For a faster log, run it by hand from the Actions tab: tick `so_far` during the net for a mid-net snapshot, or leave it unticked after 7:21 PM for the final read) |
+| `.github/workflows/` | nightly `nodes.yml`, yearly `reference.yml`, weekly `links.yml`, weekly `projects.yml` (plus intake on each "Add a project" issue), net-night `meshnet.yml` (scheduled after each #meshnet window; GitHub often starts it hours late, so the script looks back 30 hours; only logs that window. For a faster log, run it by hand from the Actions tab: tick `so_far` during the net for a mid-net snapshot, or leave it unticked after 7:21 PM for the final read) |
 
 Each page keeps its own CSS inline in a `<style>` block; shared rules live in `assets/site.css`.
 Scripts are classic (non-module) and share globals in load order, so `regions.js` must load

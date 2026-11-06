@@ -36,6 +36,7 @@ is on the home page and start page.
 | County outlines for the region page | `advanced/counties.js` | generated from the same Census data (name, fips, SVG path, centroid, neighbours) |
 | Region tags, metro codes, neighbours, bands | `advanced/regions.js` | your neighbouring groups' published lists; keep the `published` / `convention` distinction honest |
 | Weather alerts | `assets/home.js` → `ALERTS_URL` | NWS API; change `area=` to your states |
+| Projects | `data/projects.json` | start with an empty `projects` list, or keep the ones your area uses; the issue form and workflow work unchanged |
 | Nets | `data/nets.json` | your clubs' schedules; sites carry a lat/lon for the map |
 | Suggested settings | `data/settings/*.json` | the protocol's official defaults; link, don't invent |
 | Nearby groups | `meshcore/index.html` table and state cells; `advanced/index.html` step 4 | each group's own site |
