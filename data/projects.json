@@ -12,34 +12,64 @@
   {
    "url": "https://github.com/meshcore-dev/MeshCore",
    "category": "Mesh firmware",
-   "indiana": "used"
+   "indiana": "used",
+   "name": "MeshCore",
+   "description": "A new lightweight, hybrid routing mesh protocol for packet radios",
+   "license": "MIT",
+   "updated": "2026-11-04",
+   "archived": false
   },
   {
    "url": "https://github.com/meshtastic/firmware",
    "category": "Mesh firmware",
    "indiana": "used",
-   "title": "Meshtastic firmware"
-  },
-  {
-   "url": "https://github.com/mutiny19/porchlight-openhop-plugin",
-   "category": "Mesh apps and tools",
-   "indiana": "made"
+   "title": "Meshtastic firmware",
+   "name": "firmware",
+   "description": "The official firmware for Meshtastic, an open-source, off-grid mesh communication system.",
+   "license": "GPL-3.0",
+   "updated": "2026-11-06",
+   "archived": false
   },
   {
    "url": "https://github.com/Cisien/meshcoretomqtt",
    "category": "Mesh apps and tools",
-   "indiana": "used"
+   "indiana": "used",
+   "name": "meshcoretomqtt",
+   "description": "A python based script to send meshore debug and packet capture data to MQTT for analysis  Requires meshcore repeater to be connected to a raspberry pi, server or similar linux device able to run python.",
+   "license": "MIT",
+   "updated": "2026-10-13",
+   "archived": false
+  },
+  {
+   "url": "https://github.com/mutiny19/porchlight-openhop-plugin",
+   "category": "Mesh apps and tools",
+   "indiana": "made",
+   "name": "porchlight-openhop-plugin",
+   "description": "Porchlight: an openHop plugin that leaves the porch light on in #porchlight for anyone new to MeshCore",
+   "license": "GPL-3.0",
+   "updated": "2026-11-06",
+   "archived": false
   },
   {
    "url": "https://github.com/kk7ds/chirp",
    "category": "Ham and GMRS tools",
    "indiana": "used",
-   "title": "CHIRP"
+   "title": "CHIRP",
+   "name": "chirp",
+   "description": "Official git repo for the CHIRP project",
+   "license": "GPL-3.0",
+   "updated": "2026-11-06",
+   "archived": false
   },
   {
    "url": "https://github.com/OKI-Mesh/CoreScope",
    "category": "Maps and monitoring",
-   "indiana": "used"
+   "indiana": "used",
+   "name": "CoreScope",
+   "description": "MeshCore mesh network analyzer — live packet visualization, VCR replay, channel decryption, node health, analytics",
+   "license": "GPL-3.0",
+   "updated": "2026-11-06",
+   "archived": false
   }
  ]
 }
