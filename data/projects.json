@@ -48,7 +48,8 @@
    "description": "Porchlight: an openHop plugin that leaves the porch light on in #porchlight for anyone new to MeshCore",
    "license": "GPL-3.0",
    "updated": "2026-11-06",
-   "archived": false
+   "archived": false,
+   "title": "Porchlight"
   },
   {
    "url": "https://github.com/kk7ds/chirp",
