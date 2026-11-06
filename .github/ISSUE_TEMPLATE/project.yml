@@ -29,8 +29,8 @@ body:
   - type: input
     id: title
     attributes:
-      label: Title (Printables only)
-      description: The model's name as Printables shows it. Leave blank for GitHub repos; their name comes from GitHub.
+      label: Name to show
+      description: Required for Printables (the model's name as Printables shows it). Optional for GitHub, when the repo name isn't how people know the project (for example "Porchlight" for porchlight-openhop-plugin).
   - type: textarea
     id: why
     attributes:

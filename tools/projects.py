@@ -111,7 +111,7 @@ def intake():
     link = (f.get("link") or "").split()[0] if f.get("link") else ""
     cat = f.get("category", "")
     ind = INDIANA.get(f.get("indiana connection", ""))
-    title = re.sub(r"\s+", " ", f.get("title (printables only)", ""))[:80].strip()
+    title = re.sub(r"\s+", " ", f.get("name to show") or f.get("title (printables only)", ""))[:60].strip()
     problems, notes, entry = [], [], None
 
     if cat not in d["categories"]:
@@ -143,9 +143,11 @@ def intake():
             if not TOPIC.search(" ".join([meta["name"], meta["description"], meta["_topics"]])):
                 notes.append("Reviewer: nothing in the name, description, or topics says off-grid communications.")
             entry = {k: v for k, v in meta.items() if not k.startswith("_")}
+            if title and title.lower() != meta["name"].lower():
+                entry["title"] = title
     else:
         if not title:
-            problems.append("Printables links need a title (the model's name as shown on Printables).")
+            problems.append("Printables links need a name to show (the model's name as Printables shows it).")
         else:
             alive = printables_alive(link)
             if alive is False:
@@ -162,14 +164,14 @@ def intake():
 
     ok = not problems and entry is not None
     if ok:
-        msg = (f"Thanks! **{entry['name']}** passed the automatic checks and is waiting for a maintainer to approve it "
+        msg = (f"Thanks! **{entry.get('title') or entry['name']}** passed the automatic checks and is waiting for a maintainer to approve it "
                f"in a pull request. Once it's merged it appears on https://mutiny19.github.io/hoop/projects/ within a few minutes.")
         if notes:
             msg += "\n\nNotes:\n" + "\n".join("- " + n for n in notes)
     else:
         msg = "This couldn't be added yet:\n" + "\n".join("- " + p for p in problems) + \
               "\n\nEdit this issue (the ··· menu, then Edit) to fix it, and the check runs again."
-    json.dump({"ok": ok, "title": entry["name"] if entry else ""}, open(os.path.join(ROOT, ".projects-result.json"), "w"))
+    json.dump({"ok": ok, "title": (entry.get("title") or entry["name"]) if entry else ""}, open(os.path.join(ROOT, ".projects-result.json"), "w"))
     open(os.path.join(ROOT, ".projects-comment.md"), "w").write(msg + "\n")
     print(msg)
 
