@@ -31,6 +31,18 @@
    "archived": false
   },
   {
+   "url": "https://github.com/OffbandMesh/meshcore-firmware",
+   "name": "meshcore-firmware",
+   "description": "A MeshCore fork with deep diagnostics and field reliability: crash-survival logging, boot and low-voltage protection, and MQTT mesh-observation publishing. Companion, observer and repeater roles on Heltec, RAK, XIAO, Sen",
+   "license": "MIT",
+   "updated": "2026-11-07",
+   "archived": false,
+   "title": "Offband",
+   "category": "Mesh firmware",
+   "indiana": "used",
+   "added": "2026-11-07"
+  },
+  {
    "url": "https://github.com/Cisien/meshcoretomqtt",
    "category": "Mesh apps and tools",
    "indiana": "used",
