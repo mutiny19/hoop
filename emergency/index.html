@@ -31,13 +31,14 @@
 <meta name="theme-color" content="#0F1729">
 <link rel="apple-touch-icon" href="../assets/icon-192.png">
 <link rel="preload" href="../assets/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/site.css?v=20261107e">
+<link rel="stylesheet" href="../assets/site.css?v=20261107f">
 <style>
 .site-nav .go { background: var(--beacon); color: #0F1729; font-weight: 700; padding: 11px 16px; border-radius: 6px; }
 .wrap { max-width: 960px; margin: 0 auto; padding: 40px 24px 72px; }
 h1, h2, h3 { font-family: var(--display); margin: 0; line-height: 1.1; text-wrap: balance; }
 .eyebrow { font: 500 12px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--signal); }
 h1 { font-size: clamp(32px, 5vw, 46px); font-weight: 800; margin: 10px 0 14px; }
+.key.one p { margin: 6px 0 0; }
 .lead { font-size: 19px; color: var(--muted); max-width: 64ch; }
 .meta { font-size: 14px; color: var(--muted); margin-top: 14px; }
 h2 { font-size: 27px; font-weight: 800; margin: 44px 0 12px; }
@@ -99,6 +100,8 @@ th { font-weight: 700; border-top: 0; }
 <h1>Off-grid mesh radio as a layer in the emergency communications plan</h1>
 <p class="lead">What LoRa mesh networks are, how agencies and volunteer groups outside Indiana are already using them, what they can and cannot do, and why the amateur repeater sites already on the map are the fastest way to make the layer stronger.</p>
 <p class="meta">HOOP, the Hoosier Off-Grid Open Playbook · October 2026 · Citations in APA style; every claim links to its source in the References.</p>
+
+<div class="key one"><b>If you only read one screen</b><p><strong>What it is.</strong> MeshCore and Meshtastic are open-source, license-free text radio networks that keep working when cell, internet, and power do not. Volunteers in Indiana already run repeaters on them.</p><p><strong>What it is not.</strong> Voice, a replacement for the ICS 205 or for amateur and public-safety radio, or an agency system. It is a low-bandwidth data layer beside those, and Indiana Mesh is a volunteer community, not an agency.</p><p><strong>One ask.</strong> Let volunteers onto the tower and rooftop sites you control, and write the mesh into your communications plan as a data channel. Sources are in the sections below.</p><p class="noprint"><button type="button" class="btn ghost" id="printBtn">Print or save as PDF</button></p></div>
 
 <div class="key"><b>In one paragraph</b>MeshCore and Meshtastic are open-source, license-free text radio networks that keep working when cell, internet, and power do not. MeshCore launched in early 2025 and its public map grew from its first 1,000 nodes to about 30,000 in a year (Vysoky, 2026). A regional emergency management office in New Zealand has made MeshCore one of its backup communication modes after a cyclone took out every network it had (Gisborne District Council, 2025), and county CERT programs, towns, and faith-based groups in the United States are building local meshes for the next storm. The networks carry short text, not voice; they depend on well-placed repeaters; and a regulatory question about channel bandwidth is still open. Used as one layer among several, alongside amateur voice nets, satellite, and the public safety radio system, they fill a specific gap: cheap, encrypted, volunteer-run text that a neighborhood can keep running for days on solar power.</div>
 
@@ -212,6 +215,7 @@ th { font-weight: 700; border-top: 0; }
 </div>
 </details>
 </main>
+<script>document.getElementById("printBtn").addEventListener("click",function(){window.print()});window.addEventListener("beforeprint",function(){document.querySelectorAll("details").forEach(function(d){d.open=true})});</script>
 
 <footer class="site-foot"><div class="bar">
   <span>HOOP, the Hoosier Off-Grid Open Playbook. Informational only; represents no network, collective, or organization, and has no connection to the <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Indiana Mesh Discord</a>, which is still the statewide place to ask questions. <a href="../#about">About this site</a> · <a href="https://github.com/mutiny19/hoop" target="_blank" rel="noopener">Source</a> · <a href="https://github.com/mutiny19/hoop/issues/new/choose" target="_blank" rel="noopener">Open an issue</a></span>
