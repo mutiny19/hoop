@@ -16,7 +16,7 @@
    "name": "MeshCore",
    "description": "A new lightweight, hybrid routing mesh protocol for packet radios",
    "license": "MIT",
-   "updated": "2026-11-04",
+   "updated": "2026-11-07",
    "archived": false
   },
   {
@@ -27,13 +27,13 @@
    "name": "firmware",
    "description": "The official firmware for Meshtastic, an open-source, off-grid mesh communication system.",
    "license": "GPL-3.0",
-   "updated": "2026-11-06",
+   "updated": "2026-11-07",
    "archived": false
   },
   {
    "url": "https://github.com/OffbandMesh/meshcore-firmware",
    "name": "meshcore-firmware",
-   "description": "A MeshCore fork with deep diagnostics and field reliability: crash-survival logging, boot and low-voltage protection, and MQTT mesh-observation publishing. Companion, observer and repeater roles on Heltec, RAK, XIAO, Sen",
+   "description": "A MeshCore fork with deep diagnostics and field reliability: crash-survival logging, boot and low-voltage protection, and MQTT mesh-observation publishing. Companion, observer and repeater roles on Heltec, RAK, XIAO, SenseCAP and RadioCore…",
    "license": "MIT",
    "updated": "2026-11-07",
    "archived": false,
@@ -55,7 +55,7 @@
   {
    "url": "https://github.com/OffbandMesh/meshcore-client",
    "name": "meshcore-client",
-   "description": "Offband MeshCore: an open-source client for MeshCore LoRa mesh radios. Direct and channel chat, contact and repeater management, a live node map, and on-device message translation, over Bluetooth LE, USB serial or TCP. A",
+   "description": "Offband MeshCore: an open-source client for MeshCore LoRa mesh radios. Direct and channel chat, contact and repeater management, a live node map, and on-device message translation, over Bluetooth LE, USB serial or TCP. Android, Windows…",
    "license": "MIT",
    "updated": "2026-11-07",
    "archived": false,
@@ -84,7 +84,7 @@
    "name": "chirp",
    "description": "Official git repo for the CHIRP project",
    "license": "GPL-3.0",
-   "updated": "2026-11-06",
+   "updated": "2026-11-07",
    "archived": false
   },
   {
