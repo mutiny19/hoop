@@ -220,6 +220,9 @@ p { margin: 0; }
 .report .intro { display: grid; gap: 12px; }
 .report .intro p { color: var(--muted); }
 .report ul { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; color: var(--fg); }
+.formfold > summary { list-style: none; cursor: pointer; background: var(--beacon); color: #0F1729; font-weight: 700; }
+.formfold > summary::-webkit-details-marker { display: none; }
+.formfold[open] > summary { display: none; }
 .formbox { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
 .tabs { display: flex; flex-wrap: wrap; }
 .tabs button { flex: 1 1 120px; min-height: 52px; padding: 12px 16px; border: 0; cursor: pointer; font: 600 15px/1 var(--body); background: var(--bg); color: var(--muted); }
@@ -307,7 +310,7 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
     <button type="button" class="theme-toggle" id="themeBtn" aria-label="Switch to light mode" title="Switch to light mode"><svg class="i-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="i-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
   </nav>
 </div></header>
-<div class="site-notice" role="note"><div class="bar"><b>For consideration only.</b> This site is a signpost, not a document repository and not the authority on anything here; nothing on it is concluded or complete. Where an official source exists, that source is the authority: the projects and groups linked from each page maintain their own work, and where they differ from this site, they win. An open-source mesh belongs to everyone who builds it; respecting that means collaboration, not ownership.</div></div>
+<div class="site-notice" role="note"><div class="bar"><b>For consideration only.</b> A signpost, not the authority: where an official source exists, it wins. <a href="#about">About this site</a></div></div>
 
 <section id="map" class="band" aria-label="Statewide map">
   <div class="wrap">
@@ -426,7 +429,7 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
 <main>
 <section id="protocols" class="wrap settings" aria-labelledby="set-h">
   <div class="sec-head">
-    <div><h2 id="set-h">Settings people use in Indiana</h2><p>A starting point, not a standard; your local group may differ. Mesh radios only hear radios on the same preset, so the MeshCore and Meshtastic cards start from each project's official one; check it against your neighbours before putting up a high site. For how it works, follow the official links below, whichever protocol you're starting with. <strong>New to MeshCore specifically?</strong> Its <a href="meshcore/">five steps</a> walk a radio from the box to its first message; GMRS and ham start with the license links in their own panels. Most protocols already have a real getting-started guide from the people who run them; MeshCore's steps are stitched together here because no single official page does that yet.</p></div>
+    <div><h2 id="set-h">Settings people use in Indiana</h2><p>A starting point, not a standard: each card starts from the project's official settings, and radios only hear others on the same preset, so check with your neighbours. New to MeshCore? Its <a href="meshcore/">five steps</a> go from the box to a first message.</p></div>
     <button type="button" class="btn ghost" id="toggleAll">Expand all</button>
   </div>
   <div class="acc" id="acc"></div>
@@ -449,6 +452,8 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
       </ul>
       <p style="font-size:14px">Reports open as a prefilled GitHub issue, so they're reviewed in the open. You'll need a free GitHub account, or just <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">post it in the Discord</a> and someone will file it.</p>
     </div>
+    <details class="formfold" id="reportFold">
+    <summary class="btn">Open the report form</summary>
     <div class="formbox">
       <div class="tabs" role="tablist" aria-label="Report type">
         <button type="button" role="tab" id="tab-use" aria-selected="true" aria-controls="f-use">I use…</button>
@@ -500,6 +505,7 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
         <button type="button" class="btn ghost" id="again" style="justify-self:start">Submit another</button>
       </div>
     </div>
+    </details>
   </div>
 </section>
 
@@ -521,14 +527,15 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
 </section>
 <section id="about" class="wrap about" aria-labelledby="about-h">
   <h2 id="about-h">About this site</h2>
-  <p>HOOP is the Hoosier Off-Grid Open Playbook: plays to consider, not rules, kept open for anyone to improve. It does not represent any network, collective, or organization. It exists to soften the onboarding of newcomers and the landing of advanced users, and then to point them on: the <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Indiana Mesh</a> Discord is where Indiana people talk, and groups like the Central Indiana Mesh Network and NEIMesh are regional communities with their own sites. None of them run or endorse this site. The site is a signpost, not a document repository: it keeps quick-glance settings and links, and points to the projects and groups that maintain each piece. Where an official source exists (a protocol's docs, a group's own site, an agency's page), that source is the authority and this site defers to it. It is informational only and not affiliated with the FCC, the ARRL, any protocol's developers, any agency, or any repeater owner. The soft waterfall and drifting nodes behind the map headline are drawn in the browser; they are decoration, not live traffic, and a nod to the background on <a href="https://rflab.io" target="_blank" rel="noopener">rflab.io</a>. Code and settings are open on <a href="https://github.com/mutiny19/hoop" target="_blank" rel="noopener">GitHub</a>; corrections are welcome by <a href="https://github.com/mutiny19/hoop/issues/new/choose" target="_blank" rel="noopener">issue</a> or on Discord.</p>
+  <p>HOOP is the Hoosier Off-Grid Open Playbook: plays to consider, not rules, kept open for anyone to improve. Nothing on it is concluded or complete, and where the projects and groups it links to differ from it, they win. An open-source mesh belongs to everyone who builds it; respecting that means collaboration, not ownership. It does not represent any network, collective, or organization. It exists to soften the onboarding of newcomers and the landing of advanced users, and then to point them on: the <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Indiana Mesh</a> Discord is where Indiana people talk, and groups like the Central Indiana Mesh Network and NEIMesh are regional communities with their own sites. None of them run or endorse this site. The site is a signpost, not a document repository: it keeps quick-glance settings and links, and points to the projects and groups that maintain each piece. Where an official source exists (a protocol's docs, a group's own site, an agency's page), that source is the authority and this site defers to it. It is informational only and not affiliated with the FCC, the ARRL, any protocol's developers, any agency, or any repeater owner. The soft waterfall and drifting nodes behind the map headline are drawn in the browser; they are decoration, not live traffic, and a nod to the background on <a href="https://rflab.io" target="_blank" rel="noopener">rflab.io</a>. Code and settings are open on <a href="https://github.com/mutiny19/hoop" target="_blank" rel="noopener">GitHub</a>; corrections are welcome by <a href="https://github.com/mutiny19/hoop/issues/new/choose" target="_blank" rel="noopener">issue</a> or on Discord.</p>
 </section>
 </main>
 
 <footer class="site-foot"><div class="bar">
-  <span>HOOP, the Hoosier Off-Grid Open Playbook. Represents no network, collective, or organization; here to ease onboarding for newcomers and landing for advanced users. Not a document repository; the linked sources are the authority. Informational only. This site has no connection to the <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Indiana Mesh Discord</a>; it is still the statewide place to ask questions and talk with others getting on the air in Indiana. <a href="#about">About this site</a> · <a href="https://github.com/mutiny19/hoop" target="_blank" rel="noopener">Source</a> · <a href="https://github.com/mutiny19/hoop/issues/new/choose" target="_blank" rel="noopener">Open an issue</a></span>
+  <span>HOOP, the Hoosier Off-Grid Open Playbook. Informational only; represents no network, collective, or organization, and has no connection to the <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Indiana Mesh Discord</a>, which is still the statewide place to ask questions. <a href="#about">About this site</a> · <a href="https://github.com/mutiny19/hoop" target="_blank" rel="noopener">Source</a> · <a href="https://github.com/mutiny19/hoop/issues/new/choose" target="_blank" rel="noopener">Open an issue</a></span>
 </div></footer>
 
+<script>(function(){var d=document.getElementById("reportFold");try{if(d&&window.matchMedia("(min-width: 861px)").matches)d.open=true;}catch(e){}})();</script>
 <script src="assets/nets.js"></script>
 <script src="assets/home.js?v=20261028b"></script>
 <script src="assets/chirps.js?v=20261025l"></script>
