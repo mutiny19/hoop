@@ -53,9 +53,16 @@
                 [/.*/, "#FCC419", "#29240F", "#FFE066"]];
   var colorFor = function (ev) { for (var i = 0; i < COLORS.length; i++) if (COLORS[i][0].test(ev)) return COLORS[i]; };
   var rank = function (e) { return /warning/i.test(e) ? 0 : /watch/i.test(e) ? 1 : 2; };
+  /* Most watches and advisories cover zones and carry no polygon of their own: draw those zones from data/nws-zones.json
+     (written weekly by tools/update_zones.py), so a visit makes no per-zone requests. A zone missing from the file
+     (the NWS added one since) is fetched singly if it is Indiana's, at most 10 per refresh. */
+  var zonesFile = fetch("data/nws-zones.json").then(function (r) { return r.ok ? r.json() : { zones: {} }; })
+    .then(function (d) { return d.zones || {}; }).catch(function () { return {}; });
   var zoneCache = {};
-  /* Most watches and advisories cover counties or zones and carry no polygon of their own: draw those zones. */
-  function zoneGeom(url) {
+  function zoneGeom(url, known, budget) {
+    var id = url.split("/").pop();
+    if (known[id]) return Promise.resolve({ type: "MultiPolygon", coordinates: known[id] });
+    if (!/^INZ/.test(id) || budget.left-- <= 0) return Promise.resolve(null);   // only Indiana zones are worth a single fetch
     if (!zoneCache[url]) zoneCache[url] = fetch(url, { headers: { Accept: "application/geo+json" } })
       .then(function (r) { return r.ok ? r.json() : null; }).then(function (d) { return d && d.geometry; }).catch(function () { return null; });
     return zoneCache[url];
@@ -68,14 +75,15 @@
   }
   var isIndiana = function (f) { return ((f.properties.geocode || {}).UGC || []).some(function (u) { return u.indexOf("IN") === 0; }); };
   function loadAlerts() {
-    fetch(ALERTS_URL, { headers: { Accept: "application/geo+json" } }).then(function (r) {
+    Promise.all([fetch(ALERTS_URL, { headers: { Accept: "application/geo+json" } }).then(function (r) {
       if (!r.ok) throw new Error(r.status); return r.json();
-    }).then(function (d) {
+    }), zonesFile]).then(function (res) {
+      var d = res[0], known = res[1], budget = { left: 10 };
       var feats = (d.features || []).filter(function (f) { return f.properties && f.properties.status === "Actual"; });
       feats.sort(function (a, b) { return rank(b.properties.event) - rank(a.properties.event); });   // advisories first, warnings on top
       var jobs = feats.map(function (f) {
         if (f.geometry) return Promise.resolve([{ g: f.geometry, storm: true }]);
-        return Promise.all((f.properties.affectedZones || []).slice(0, 60).map(zoneGeom)).then(function (gs) {
+        return Promise.all((f.properties.affectedZones || []).slice(0, 60).map(function (u) { return zoneGeom(u, known, budget); })).then(function (gs) {
           return gs.filter(Boolean).map(function (g) { return { g: g, storm: false }; });
         });
       });
