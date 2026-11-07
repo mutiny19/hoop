@@ -19,7 +19,7 @@ body:
     validations: { required: true }
   - type: input
     id: source
-    attributes: { label: Authoritative source, description: Official docs or a neighbouring group's published plan }
+    attributes: { label: Authoritative source, description: Official docs or a neighboring group's published plan }
     validations: { required: true }
   - type: dropdown
     id: upstream

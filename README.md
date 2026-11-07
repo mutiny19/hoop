@@ -11,7 +11,7 @@ protocol's official home.
 |---|---|
 | [`index.html`](index.html) | Home: statewide map (MeshCore repeaters from the nightly inventory, live NWS alerts, net schedule, live Kp), dashboard view, settings people use in Indiana for each protocol, report form (opens a GitHub issue), support |
 | [`meshcore/`](meshcore/) | **Get on the Indiana mesh:** first radio to first message, nearby groups, repeater region setup |
-| [`advanced/`](advanced/) | **Hidden for now** (unlinked, noindex): Indiana-specific proposals for repeater owners. Three proposed tag structures, open base commands, neighbours' tags, observer brokers. Tables in [`regions.js`](advanced/regions.js), county outlines in [`counties.js`](advanced/counties.js) |
+| [`advanced/`](advanced/) | **Hidden for now** (unlinked, noindex): Indiana-specific proposals for repeater owners. Three proposed tag structures, open base commands, neighbors' tags, observer brokers. Tables in [`regions.js`](advanced/regions.js), county outlines in [`counties.js`](advanced/counties.js) |
 | [`emergency/`](emergency/) | **For agencies:** how emergency management, CERT, ARES/RACES, and disaster groups use off-grid mesh, with cited case studies (APA) |
 | [`live/`](live/) | Where to watch live MeshCore traffic: Waev, OKI CoreScope, LetsMesh, MeshMapper, the MeshCore Map |
 | [`assets/`](assets/) | Shared styles (`site.css`), pre-paint theme (`theme.js`), nav/theme/copy behaviour (`site.js`), home-page script (`home.js`), map-band background (`chirps.js`); `arcs.js` is unused until a real packet feed exists |

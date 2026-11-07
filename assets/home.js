@@ -46,7 +46,7 @@
     $("pillSub").textContent = "map data unavailable right now";
   });
 
-  /* ---------- NWS alerts, live (map: Indiana + neighbours; list: Indiana) ---------- */
+  /* ---------- NWS alerts, live (map: Indiana + neighbors; list: Indiana) ---------- */
   var ALERTS_URL = "https://api.weather.gov/alerts/active?area=IN,IL,OH,KY,MI";
   var COLORS = [[/tornado/i, "#FF6B6B", "#2A1414", "#FFA8A8"], [/severe thunderstorm/i, "#FFA94D", "#2A1E10", "#FFC078"],
                 [/flood/i, "#40C057", "#12241A", "#8CE99A"], [/winter|ice|snow|blizzard|freeze|frost|chill/i, "#74C0FC", "#10202C", "#A5D8FF"],
@@ -131,7 +131,7 @@
     var n = (d.nets || [])[0]; if (n) { lastNet = { n: (n.checkins || []).length, date: n.date }; renderTiles(); }
   }).catch(function () {});
 
-  /* ---------- nets (data/nets.json, Indiana time): 3-4 live or upcoming ---------- */
+  /* ---------- nets (data/nets.json, US Eastern): 3-4 live or upcoming ---------- */
   var netData = null, netSel = null, netShown = {};
   /* Click a net: draw its repeater (town-level) and a dashed circle of typical reach for its band. */
   function bandOf(freq) {
@@ -147,7 +147,7 @@
       var live0 = o.start <= new Date(), col0 = "#E8590C";
       var st = el("path", { d: "M110 15 L173 35 L245 0 L630 0 L628 665 L613 745 L517 757 L507 815 L440 870 L402 940 L326 890 L249 952 L191 990 L96 960 L29 995 L10 965 L38 865 L96 770 L115 690 L109 602 Z", fill: col0, "fill-opacity": "0.14", stroke: col0, "stroke-width": "4", "stroke-dasharray": live0 ? "none" : "14 10" }, g);
       if (live0) st.setAttribute("class", "pulse");
-      var lines = [n.name + "  ·  " + n.freq + (n.minutes ? "  ·  " + n.minutes + " min" : ""), "Open to all, anywhere in Indiana · stress test of the mesh", "Check in with: " + (n.checkin || ""), "Postponed if weather or another emergency is on the mesh"];
+      var lines = [n.name + "  ·  " + n.freq + (n.minutes ? "  ·  " + n.minutes + " min" : ""), "Open to anyone on the mesh · stress test of the mesh", "Check in with: " + (n.checkin || ""), "Postponed if weather or another emergency is on the mesh"];
       var w0 = Math.max.apply(null, lines.map(function (t, i) { return t.length * (i ? 9.6 : 10.5); })) + 24, lx0 = 890 - w0, ly0 = -45;
       el("rect", { x: lx0, y: ly0, width: w0, height: 98, rx: 8, fill: "#080E1C", stroke: col0, "stroke-width": "1.5" }, g);
       lines.forEach(function (t, i) {
@@ -228,7 +228,7 @@
     t.addEventListener("click", function () {
       var open = t.getAttribute("aria-expanded") === "true";
       t.setAttribute("aria-expanded", String(!open)); panel.hidden = open;
-      t.textContent = open ? "Show alerts, nets and propagation" : "Hide alerts, nets and propagation";
+      t.textContent = open ? "Show alerts, nets, and propagation" : "Hide alerts, nets, and propagation";
     });
     mq.addEventListener ? mq.addEventListener("change", apply) : mq.addListener(apply);
     apply();
@@ -342,7 +342,7 @@
             ["Zero-hop advert", "0 (off)", "set advert.interval 0"],
             ["Flood advert", "every 47 h", "set flood.advert.interval 47"],
             ["multi.acks", "1 rural · 0 urban", "set multi.acks 1"],
-            ["Regions", "Nothing required. Neighbouring groups publish their own region names; the MeshCore CLI reference covers the commands"]
+            ["Regions", "Nothing required. Neighboring groups publish their own region names; the MeshCore CLI reference covers the commands"]
           ]
         },
         observer: {

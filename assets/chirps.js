@@ -8,7 +8,7 @@
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var DPR = Math.min(window.devicePixelRatio || 1, 2), hidden = false;
   document.addEventListener("visibilitychange", function () { hidden = document.hidden; });
-  /* The band is navy in both themes, so the waterfall and nodes always use their dark-band colours. */
+  /* The band is navy in both themes, so the waterfall and nodes always use their dark-band colors. */
   function light() { return false; }
   function off() { return document.documentElement.getAttribute("data-bg") === "off"; }
 
@@ -70,7 +70,7 @@
       /* bursts: a packet on a few bins for a handful of rows */
       if (Math.random() < 0.08) bursts.push({ b0: Math.floor(Math.random() * (N - 6)), n: 2 + Math.floor(Math.random() * 4), rows: 4 + Math.floor(Math.random() * 14), a: 0.6 + Math.random() * 0.5 });
       for (k = bursts.length - 1; k >= 0; k--) { p = bursts[k]; for (i = p.b0; i < p.b0 + p.n; i++) vals[i] += p.a * (0.7 + Math.random() * 0.4); if (--p.rows <= 0) bursts.splice(k, 1); }
-      /* colour the row */
+      /* color the row */
       var P = pal(), d8 = buf.data, M = P.length - 1;
       var BD = BIN * DPR;
       for (x = 0; x < DW; x++) {

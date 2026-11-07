@@ -31,7 +31,7 @@
 <meta name="theme-color" content="#0F1729">
 <link rel="apple-touch-icon" href="../assets/icon-192.png">
 <link rel="preload" href="../assets/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/site.css?v=20261107f">
+<link rel="stylesheet" href="../assets/site.css?v=20261107g">
 <style>
 /* Projects: a self-maintaining catalogue from data/projects.json. Names and descriptions are each project's own. */
 .wrap { max-width: 1100px; margin: 0 auto; padding-inline: 24px; padding-block: 36px 24px; display: grid; gap: 32px; }
@@ -61,7 +61,7 @@ section { display: grid; gap: 14px; }
 .card p { color: var(--muted); font-size: .95rem; }
 .meta { display: flex; flex-wrap: wrap; gap: 6px 12px; font-size: .82rem; color: var(--muted); }
 .tag { font: 600 .72rem/1 var(--body); letter-spacing: .06em; text-transform: uppercase; padding: 5px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
-.tag.made { border-color: var(--beacon); color: var(--beacon); }
+.tag.made { border-color: var(--signal); color: var(--signal); }
 .tag.old { border-color: var(--line); color: var(--muted); font-style: italic; }
 .how { margin: 0; padding-left: 1.3em; display: grid; gap: 10px; }
 .how b { color: var(--fg); }
@@ -86,7 +86,7 @@ section { display: grid; gap: 14px; }
     <button type="button" class="theme-toggle" id="themeBtn" aria-label="Switch to light mode" title="Switch to light mode"><svg class="i-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="i-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
   </nav>
 </div></header>
-<div class="site-notice" role="note"><div class="bar"><b>For consideration only.</b> A signpost, not the authority: where an official source exists, it wins. <a href="../#about">About this site</a></div></div>
+<div class="site-notice" role="region" aria-label="Notice"><div class="bar"><b>For consideration only.</b> A signpost, not the authority: where an official source exists, it wins. <a href="../#about">About this site</a></div></div>
 
 <main class="wrap">
   <div class="hero">
@@ -129,7 +129,7 @@ section { display: grid; gap: 14px; }
 </div></footer>
 
 
-<script src="../assets/site.js?v=20261107b"></script>
+<script src="../assets/site.js?v=20261107c"></script>
 <script>
 (function () {
   var list = document.getElementById("list"), q = document.getElementById("q"), catsEl = document.getElementById("cats"), indEl = document.getElementById("ind");

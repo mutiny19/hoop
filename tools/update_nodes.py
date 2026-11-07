@@ -2,7 +2,7 @@
 """Nightly MeshCore inventory for the home-page map.
 
 Reads the official public node list (map.meshcore.io/api/v1/nodes), keeps REPEATERS inside the map's area
-(Indiana and its neighbours), and writes data/meshcore-nodes.json. Companion (personal) node locations are never
+(Indiana and its neighbors), and writes data/meshcore-nodes.json. Companion (personal) node locations are never
 written; they are only counted. Usage: update_nodes.py [nodes.json]  (no argument = download the feed).
 """
 import datetime

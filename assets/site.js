@@ -72,8 +72,8 @@ document.querySelectorAll("button.copy[data-copy]").forEach(function (btn) {
   if (!notice || /\/meshnet\/?$/.test(location.pathname) || !window.Intl) return;
   var me = document.querySelector('script[src*="assets/site.js"]'), root = me ? me.getAttribute("src").replace(/assets\/site\.js.*$/, "") : "";
   var bar = document.createElement("a");
-  bar.className = "nextnet"; bar.href = root + "meshnet/"; bar.setAttribute("role", "note");
-  notice.parentNode.insertBefore(bar, notice.nextSibling);
+  bar.className = "nextnet"; bar.href = root + "meshnet/";
+  notice.appendChild(bar);
   var logged = null;   // { date, n } for the net that ended in the last 24 hours, once its log is in
   function dayName(d) { return new Intl.DateTimeFormat("en-US", { timeZone: NET, weekday: "long" }).format(d); }
   function render() {
@@ -107,7 +107,7 @@ document.querySelectorAll("button.copy[data-copy]").forEach(function (btn) {
   var bar = null;
   function show() {
     if (navigator.onLine !== false) { if (bar) bar.hidden = true; return; }
-    if (!bar) { bar = document.createElement("div"); bar.className = "offbar"; bar.setAttribute("role", "status"); var n = document.querySelector(".site-notice"); if (n) n.parentNode.insertBefore(bar, n); else document.body.insertBefore(bar, document.body.firstChild); }
+    if (!bar) { bar = document.createElement("div"); bar.className = "offbar"; bar.setAttribute("role", "status"); var n = document.querySelector(".site-notice"); if (n) n.insertBefore(bar, n.firstChild); else document.body.insertBefore(bar, document.body.firstChild); }
     bar.hidden = false; bar.textContent = "You're offline. This is the copy saved on this device.";
     fetch(location.href).then(function (r) { var d = r.headers.get("date"); if (d) bar.textContent = "You're offline. This is the copy saved on this device, from " + new Date(d).toLocaleString([], { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" }) + "."; }).catch(function () {});
   }

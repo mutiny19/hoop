@@ -31,7 +31,7 @@
 <meta name="theme-color" content="#0F1729">
 <link rel="apple-touch-icon" href="../assets/icon-192.png">
 <link rel="preload" href="../assets/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/site.css?v=20261107f">
+<link rel="stylesheet" href="../assets/site.css?v=20261107g">
 <style>
 /* #meshnet: what the net is for, how to check in, and the automatic log of each net's check-ins. */
 .wrap { max-width: 1100px; margin: 0 auto; padding-inline: 24px; padding-block: 36px 48px; display: grid; gap: 40px; }
@@ -55,7 +55,7 @@ section { display: grid; gap: 14px; }
 .zones li { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; }
 .zones li b { display: block; font-weight: 700; font-size: .92rem; font-variant-numeric: tabular-nums; }
 .zones li span { font-size: .85rem; color: var(--muted); }
-.fact span.you { display: block; font-weight: 600; font-size: .95rem; color: var(--accent, #E8590C); margin-bottom: 2px; }
+.fact span.you { display: block; font-weight: 600; font-size: .95rem; color: var(--signal); margin-bottom: 2px; }
 .morez { margin-top: 10px; }
 .morez > summary { cursor: pointer; font-weight: 600; }
 .morez ul { list-style: none; margin: 10px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
@@ -141,7 +141,7 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
     <button type="button" class="theme-toggle" id="themeBtn" aria-label="Switch to light mode" title="Switch to light mode"><svg class="i-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="i-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
   </nav>
 </div></header>
-<div class="site-notice" role="note"><div class="bar"><b>For consideration only.</b> A signpost, not the authority: where an official source exists, it wins. <a href="../#about">About this site</a></div></div>
+<div class="site-notice" role="region" aria-label="Notice"><div class="bar"><b>For consideration only.</b> A signpost, not the authority: where an official source exists, it wins. <a href="../#about">About this site</a></div></div>
 
 <main class="wrap">
   <div class="hero">
@@ -173,7 +173,7 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
         <p class="format"><code class="ex">KUMP, Heltec V3, 4 months</code></p>
         <dl class="parts">
           <div><dt>Airport</dt><dd>Your closest airport's four-letter code, starting with K. It doesn't need to be a big one; the nearest small field is better. <a href="https://ourairports.com/countries/US/IN/airports.html" target="_blank" rel="noopener">Find yours on the Indiana airport map</a>.</dd></div>
-          <div><dt>Device</dt><dd>The radio you're sending from, such as Heltec V3, T-Deck or Wio L1.</dd></div>
+          <div><dt>Device</dt><dd>The radio you're sending from, such as Heltec V3, T-Deck, or Wio L1.</dd></div>
           <div><dt>Time on the mesh</dt><dd>How long you've been on MeshCore: 4 months, 1 year, or new.</dd></div>
         </dl>
         <p class="note" style="margin-top:12px">Start with your closest small airfield code, <span class="mono">KXXX</span>; that's the one part that has to be there. The device and months are welcome in any order, and commas help but aren't required: <span class="mono">KUMP</span>, <span class="mono">KUMP Heltec V3</span>, and <span class="mono">KUMP 4 months Heltec V3</span> all count.</p>
@@ -181,7 +181,7 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
       <li>Acknowledge each check-in you hear with a mention and a greeting, or just "heard".</li>
     </ol>
     <p class="note">Chat on <span class="mono">#meshnet</span> before, during, and after the net is welcome. Only 6:57 to 7:13 PM is logged, and those minutes are the time to load the mesh.</p>
-    <p class="spread"><b>Help it grow.</b> Invite others the usual ways: tell a neighbour, mention it in your local group's chat or Discord, announce it on your local ham or GMRS net, or <a href="#share-h">share the invite</a>. Every new check-in shows how far the mesh reaches.</p>
+    <p class="spread"><b>Help it grow.</b> Invite others the usual ways: tell a neighbor, mention it in your local group's chat or Discord, announce it on your local ham or GMRS net, or <a href="#share-h">share the invite</a>. Every new check-in shows how far the mesh reaches.</p>
     </section>
 
   <section aria-labelledby="log-h">
@@ -219,10 +219,10 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
     <ul class="why">
       <li>Test your radio and your settings.</li>
       <li>See who your messages reach, and who reaches you.</li>
-      <li>Practise, so it's routine when the mesh is needed.</li>
+      <li>Practice, so it's routine when the mesh is needed.</li>
       <li>Meet the people on the mesh near you.</li>
     </ul>
-    <p class="note">No one owns <span class="mono">#meshnet</span>. Any person, group, or organization is free to make it their own: announce it, host it, and bring it to their mesh. What makes it valuable is the shared days and time. New users find a busy channel to test against, and advanced users see the whole mesh, including the links between neighbouring meshes, under load at once. Please keep Sundays and Thursdays at 7:00 PM US Eastern.</p>
+    <p class="note">No one owns <span class="mono">#meshnet</span>. Any person, group, or organization is free to make it their own: announce it, host it, and bring it to their mesh. What makes it valuable is the shared days and time. New users find a busy channel to test against, and advanced users see the whole mesh, including the links between neighboring meshes, under load at once. Please keep Sundays and Thursdays at 7:00 PM US Eastern.</p>
     <p class="hold"><b>If there is severe weather or any emergency on the mesh, the net is postponed.</b> Emergency traffic always comes first.</p>
   </section>
 
@@ -236,7 +236,7 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
     </div>
     <div class="invite">
       <div class="head"><b>Text version</b><button class="copy" type="button" data-copy="invite-text">Copy</button></div>
-      <pre id="invite-text">#meshnet: ten minutes, everyone at once
+      <pre id="invite-text" tabindex="0">#meshnet: ten minutes, everyone at once
 
 Why it matters
 A mesh that works on a quiet night can fall apart when everyone needs it at once. Posts spread across the day rarely collide, so they tell us little. Ten tight minutes with everyone posting together loads repeaters the way a real emergency would and shows where messages get through. One shared time across every group also tests the links between neighboring meshes.
@@ -292,7 +292,7 @@ Channel link, your local time, and past check-ins (guidance only): https://mutin
 <span class="foot-links"><a href="../#report">Report</a> · <a href="../#support">Support</a> · <a href="https://github.com/mutiny19/hoop" target="_blank" rel="noopener">GitHub</a> · <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Join the Indiana Mesh Discord</a></span>
 </div></footer>
 
-<script src="../assets/site.js?v=20261107b"></script>
+<script src="../assets/site.js?v=20261107c"></script>
 <script>
 (function () {
   var P = function (lat, lon) { return [191.3 * lon + 16854, -250 * lat + 10440]; };   /* same projection as the home map */

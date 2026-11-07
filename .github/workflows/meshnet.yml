@@ -3,7 +3,7 @@ name: "#meshnet check-in log"
 # Runs only on net nights, shortly after the 7:00-7:10 PM Indiana window closes, and logs that window alone.
 # GitHub cron is UTC and often runs late, so there are a few tries; each one is a no-op if nothing changed.
 #   EDT (summer): window closes 23:11 UTC Sun/Thu.   EST (winter): window closes 00:11 UTC Mon/Fri.
-# The script itself works out Indiana time and only logs a net that ended in the last 30 hours (scheduled runs
+# The script itself works out US Eastern and only logs a net that ended in the last 30 hours (scheduled runs
 # on this repo often start 5-7 hours late).
 on:
   schedule:

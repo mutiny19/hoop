@@ -19,7 +19,7 @@ ONE = "https://api.weather.gov/zones/forecast/"
 # The home map's frame (from viewBox and projection in assets/home.js): lon -89.4..-83.4, lat 37.3..42.3
 LON0, LON1, LAT0, LAT1 = -89.4, -83.4, 37.3, 42.3
 TOL = 0.01          # Indiana zones
-TOL_OTHER = 0.025   # neighbouring states: context only, drawn at the edge of the map
+TOL_OTHER = 0.025   # neighboring states: context only, drawn at the edge of the map
 
 
 def dp(pts, tol):

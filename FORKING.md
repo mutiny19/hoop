@@ -33,8 +33,8 @@ is on the home page and start page.
 |---|---|---|
 | Repeater inventory (nightly) | `tools/update_nodes.py` | official MeshCore Map feed; change the bounding box in `in_indiana()` and the map projection constants in `svg_xy()` |
 | County outlines + population (yearly) | `tools/update_reference.py` | Census TIGER and ACS; change the state FIPS (`18`) |
-| County outlines for the region page | `advanced/counties.js` | generated from the same Census data (name, fips, SVG path, centroid, neighbours) |
-| Region tags, metro codes, neighbours, bands | `advanced/regions.js` | your neighbouring groups' published lists; keep the `published` / `convention` distinction honest |
+| County outlines for the region page | `advanced/counties.js` | generated from the same Census data (name, fips, SVG path, centroid, neighbors) |
+| Region tags, metro codes, neighbors, bands | `advanced/regions.js` | your neighboring groups' published lists; keep the `published` / `convention` distinction honest |
 | Weather alerts | `assets/home.js` → `ALERTS_URL` | NWS API; change `area=` to your states |
 | Projects | `data/projects.json` | start with an empty `projects` list, or keep the ones your area uses; the issue form and workflow work unchanged |
 | Nets | `data/nets.json` | your clubs' schedules; sites carry a lat/lon for the map |

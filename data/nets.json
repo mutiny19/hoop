@@ -2,7 +2,7 @@
  "source": "Community net card, Indianapolis metro (resources/indy-metro-net-card.pdf), October 2026. Suggest a change on GitHub.",
  "timezone": "America/Indiana/Indianapolis",
  "default_minutes": 30,
- "note": "Times are Eastern. unverified = listed but not yet confirmed on air.",
+ "note": "Times are US Eastern. unverified = listed but not yet confirmed on air.",
  "weekly": [
   {
    "day": "Sun",
