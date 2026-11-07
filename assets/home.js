@@ -14,7 +14,7 @@
     if (d < 60) return Math.round(d) + " d";
     return Math.round(d / 30) + " mo";
   };
-  var stats = {}, alertCount = null, kpNow = null, netsOnAir = null, netsSoon = null;
+  var stats = {}, alertCount = null, lastNet = null, netsOnAir = null, netsSoon = null;
 
   /* ---------- MeshCore repeaters (nightly inventory) ---------- */
   fetch("data/meshcore-nodes.json", { cache: "no-cache" }).then(function (r) { return r.json(); }).then(function (d) {
@@ -126,18 +126,10 @@
   loadAlerts();
   setInterval(loadAlerts, 3 * 60 * 1000);
 
-  /* ---------- Kp, live ---------- */
-  function loadKp() {
-    fetch("https://services.swpc.noaa.gov/products/noaa-planetary-k-index.json").then(function (r) { return r.json(); }).then(function (rows) {
-      var last = rows[rows.length - 1], kp = Array.isArray(last) ? parseFloat(last[1]) : last.Kp;
-      kpNow = kp;
-      var word = kp >= 7 ? "strong storm" : kp >= 5 ? "storm" : kp >= 4 ? "active" : "quiet";
-      $("kp").textContent = "Kp " + kp.toFixed(1) + " · " + word;
-      renderTiles();
-    }).catch(function () { $("kp").textContent = "unavailable"; });
-  }
-  loadKp();
-  setInterval(loadKp, 15 * 60 * 1000);
+  /* ---------- last #meshnet, from the check-in log ---------- */
+  fetch("data/meshnet/log.json").then(function (r) { return r.json(); }).then(function (d) {
+    var n = (d.nets || [])[0]; if (n) { lastNet = { n: (n.checkins || []).length, date: n.date }; renderTiles(); }
+  }).catch(function () {});
 
   /* ---------- nets (data/nets.json, Indiana time): 3-4 live or upcoming ---------- */
   var netData = null, netSel = null, netShown = {};
@@ -221,23 +213,13 @@
       ["Indiana companions, 30 d", stats.in_companions_30d, "count only, never plotted", "#F2F3F7"],
       ["Active NWS alerts", alertCount, "Indiana, live", alertCount ? "#FFA94D" : "#F2F3F7"],
       ["Nets on air", netsOnAir, "plus starting within 1 h: " + (netsSoon == null ? "…" : netsSoon), netsOnAir ? "#FF6B6B" : "#F2F3F7"],
-      ["Planetary Kp", kpNow == null ? null : kpNow.toFixed(1), "aurora and HF conditions", "#66D9E8"]
+      ["Last #meshnet check-ins", lastNet ? lastNet.n : null, lastNet ? "net of " + lastNet.date : "from the log", "#F2F3F7"]
     ];
     $("tiles").innerHTML = T.map(function (t) {
       return '<div class="tile"><div class="k">' + t[0] + '</div><div class="v" style="color:' + t[3] + '">' + (t[1] == null ? "…" : esc(t[1])) + '</div><div class="s">' + t[2] + "</div></div>";
     }).join("");
   }
-  var band = $("map"), dashOn = false, clockTimer = null;
-  $("dashBtn").addEventListener("click", function () {
-    dashOn = !dashOn;
-    band.classList.toggle("dash", dashOn);
-    this.setAttribute("aria-pressed", String(dashOn));
-    this.textContent = dashOn ? "⤡ Exit dashboard" : "⤢ Dashboard view";
-    $("hero").hidden = dashOn; $("dashHead").hidden = !dashOn; $("tiles").hidden = !dashOn; $("dashRow").hidden = !dashOn;
-    document.getElementById("protocols").parentElement.hidden = dashOn;
-    if (dashOn) { tick(); clockTimer = setInterval(tick, 1000); } else clearInterval(clockTimer);
-  });
-  function tick() { $("clock").textContent = "Updated live · " + new Date().toLocaleTimeString(); }
+  renderTiles();
 
   /* ---------- phones: side panel behind a toggle ---------- */
   (function () {
@@ -377,7 +359,7 @@
       note: "Few active users in Indiana right now. The stock defaults work here; if you run it, report yours below so it's counted.",
       rows: [["Region", "US"], ["Modem preset", "LongFast (default)"], ["Primary channel", "LongFast (default)"], ["MQTT", "Off by default"]],
       links: [["Official site and docs", "meshtastic.org", "https://meshtastic.org"], ["Source", "github.com/meshtastic", "https://github.com/meshtastic"]] },
-    { id: "reticulum", name: "Reticulum", tagline: "Encrypted end to end over anything that moves bits: LoRa, Wi-Fi, packet, or the internet. The quiet, serious option.", meta: "Depends on link · Text, files", status: "Suggested starting point · no statewide network yet",
+    { id: "reticulum", name: "Reticulum", tagline: "Encrypted end to end over anything that moves bits: LoRa, Wi-Fi, packet, or the internet. The quiet, serious option.", meta: "Advanced · depends on link · Text, files", status: "Suggested starting point · no statewide network yet",
       note: "There's no statewide Reticulum network yet. These match what Indiana's early users run. RNodes only hear each other when frequency, bandwidth, spreading factor and coding rate all match.",
       copyAll: "[[RNode LoRa]]\n  type = RNodeInterface\n  interface_enabled = True\n  port = /dev/ttyACM0\n  frequency = 915000000\n  bandwidth = 125000\n  spreadingfactor = 9\n  codingrate = 5\n  txpower = 17",
       copyAllLabel: "Copy RNode interface",
@@ -461,7 +443,7 @@
   /* ---------- report: tabs + prefilled GitHub issue ---------- */
   var COUNTIES = ["Adams", "Allen", "Bartholomew", "Benton", "Blackford", "Boone", "Brown", "Carroll", "Cass", "Clark", "Clay", "Clinton", "Crawford", "Daviess", "Dearborn", "Decatur", "DeKalb", "Delaware", "Dubois", "Elkhart", "Fayette", "Floyd", "Fountain", "Franklin", "Fulton", "Gibson", "Grant", "Greene", "Hamilton", "Hancock", "Harrison", "Hendricks", "Henry", "Howard", "Huntington", "Jackson", "Jasper", "Jay", "Jefferson", "Jennings", "Johnson", "Knox", "Kosciusko", "LaGrange", "Lake", "LaPorte", "Lawrence", "Madison", "Marion", "Marshall", "Martin", "Miami", "Monroe", "Montgomery", "Morgan", "Newton", "Noble", "Ohio", "Orange", "Owen", "Parke", "Perry", "Pike", "Porter", "Posey", "Pulaski", "Putnam", "Randolph", "Ripley", "Rush", "St. Joseph", "Scott", "Shelby", "Spencer", "Starke", "Steuben", "Sullivan", "Switzerland", "Tippecanoe", "Tipton", "Union", "Vanderburgh", "Vermillion", "Vigo", "Wabash", "Warren", "Warrick", "Washington", "Wayne", "Wells", "White", "Whitley"];
   $("county").insertAdjacentHTML("beforeend", COUNTIES.map(function (c) { return "<option>" + c + "</option>"; }).join(""));
-  var tabs = ["use", "outage", "proto"];
+  var tabs = ["use", "outage"];
   function pick(id) {
     tabs.forEach(function (t) {
       $("tab-" + t).setAttribute("aria-selected", String(t === id));
@@ -470,9 +452,14 @@
     $("thanks").hidden = true;
   }
   tabs.forEach(function (t) { $("tab-" + t).addEventListener("click", function () { pick(t); }); });
-  document.querySelectorAll("a[data-tab]").forEach(function (a) { a.addEventListener("click", function () { pick(a.dataset.tab); }); });
-  var TITLES = { use: "[count] ", outage: "[outage] ", proto: "[protocol] " };
-  var LABELS = { use: "count", outage: "outage", proto: "protocol" };
+  document.querySelectorAll("a[data-tab]").forEach(function (a) { a.addEventListener("click", function () {
+    pick(a.dataset.tab); var fold = $("reportFold"); if (fold) fold.open = true;
+    if (a.dataset["else"]) { var c = document.querySelector('#f-use input[value="Something else"]'); if (c) { c.checked = true; showElse(); } }
+  }); });
+  function showElse() { var c = document.querySelector('#f-use input[value="Something else"]'); $("elseFields").hidden = !(c && c.checked); }
+  document.querySelectorAll('#f-use input[name="proto"]').forEach(function (c) { c.addEventListener("change", showElse); });
+  var TITLES = { use: "[count] ", outage: "[outage] " };
+  var LABELS = { use: "count", outage: "outage" };
   document.querySelectorAll("form[data-kind]").forEach(function (f) {
     f.addEventListener("submit", function (e) {
       e.preventDefault();
@@ -482,6 +469,8 @@
         if (!protos.length) { alertBox(f, "Pick at least one."); return; }
         title = TITLES.use + protos.join(", ") + " in " + fd.get("county") + " County";
         lines.push("**Uses:** " + protos.join(", "), "**County:** " + fd.get("county"), "**Role:** " + fd.get("role"), "**Radios or nodes:** " + fd.get("count"));
+        if (fd.get("else_name")) lines.push("**Other protocol or project:** " + fd.get("else_name"));
+        if (fd.get("else_site")) lines.push("**Its site:** " + fd.get("else_site"));
       } else {
         title = TITLES[kind] + (fd.get("name") || "");
         fd.forEach(function (v, k) { if (v) lines.push("**" + k + ":** " + v); });
