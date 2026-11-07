@@ -41,6 +41,18 @@
    "archived": false
   },
   {
+   "url": "https://github.com/OffbandMesh/meshcore-client",
+   "name": "meshcore-client",
+   "description": "Offband MeshCore: an open-source client for MeshCore LoRa mesh radios. Direct and channel chat, contact and repeater management, a live node map, and on-device message translation, over Bluetooth LE, USB serial or TCP. A",
+   "license": "MIT",
+   "updated": "2026-11-07",
+   "archived": false,
+   "title": "Offband MeshCore",
+   "category": "Mesh apps and tools",
+   "indiana": "used",
+   "added": "2026-11-07"
+  },
+  {
    "url": "https://github.com/mutiny19/porchlight-openhop-plugin",
    "name": "porchlight-openhop-plugin",
    "description": "Porchlight: an openHop plugin that leaves the porch light on in #porchlight for anyone new to MeshCore",
