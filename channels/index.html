@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <script src="../assets/theme.js?v=20261025a"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Listen-only channel lists you can import into CHIRP: FRS, GMRS, MURS, NOAA Weather Radio for your county, calling frequencies, and Indiana nets. For information only; check the official sources.">
-<title>Channel Lists for CHIRP: FRS, GMRS, MURS, Weather, and Indiana Nets | HOOP</title>
+<meta name="description" content="Listen-only channel lists you can import into CHIRP: FRS, GMRS, MURS, Indianapolis area repeaters, NOAA Weather Radio for your county, calling frequencies, and more. For information only; check the official sources.">
+<title>Channel Lists for CHIRP: FRS, GMRS, MURS, Repeaters, and Weather | HOOP</title>
 <link rel="icon" href="../assets/favicon.svg?v=20261025e" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="HOOP · Hoosier Off-Grid Open Playbook">
 <meta property="og:title" content="Channel lists for CHIRP, Indiana">
-<meta property="og:description" content="Listen-only FRS, GMRS, MURS, weather, and Indiana net channels, as a file for CHIRP.">
+<meta property="og:description" content="Listen-only FRS, GMRS, MURS, repeater, and weather channels, as a file for CHIRP.">
 <meta property="og:url" content="https://mutiny19.github.io/hoop/channels/">
 <meta property="og:image" content="https://mutiny19.github.io/hoop/assets/social.png">
 <meta property="og:image:width" content="1200">
@@ -76,7 +76,7 @@ ol.how { margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }
       <a href="../#protocols">Settings</a>
       <a href="../meshnet/">#meshnet</a>
       <a href="../live/">Live</a>
-      <a href="./">Projects</a>
+      <a href="../projects/">Projects</a>
       <a href="../emergency/">For agencies</a>
     </span>
     <a class="go" href="../meshcore/">Get on the mesh</a>
@@ -108,7 +108,7 @@ ol.how { margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }
       <div class="opts">
         <label><input type="checkbox" id="b-vhf" checked> <span>VHF, 136 to 174 MHz <small>(2 meters, MURS, weather)</small></span></label>
         <label><input type="checkbox" id="b-uhf" checked> <span>UHF, 400 to 520 MHz <small>(70 cm, FRS, GMRS)</small></span></label>
-        <label><input type="checkbox" id="b-air"> <span>Airband, 108 to 136 MHz AM <small>(adds the 121.5 emergency channel)</small></span></label>
+        <label><input type="checkbox" id="b-air"> <span>Airband, 108 to 136 MHz AM <small>(needed for the Aircraft group)</small></span></label>
       </div>
       <div class="row">
         <label>Name length your radio shows<select id="nlen"><option>6</option><option>7</option><option selected>8</option><option>12</option></select></label>
@@ -117,17 +117,11 @@ ol.how { margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }
     </fieldset>
     <fieldset>
       <legend>What to include</legend>
-      <div class="opts">
-        <label><input type="checkbox" id="g-frs" checked> <span>FRS and GMRS channels 1 to 22 <small>(plus the GMRS repeater input frequencies, to hear handhelds talking to a repeater)</small></span></label>
-        <label><input type="checkbox" id="g-murs" checked> <span>MURS channels 1 to 5</span></label>
-        <label><input type="checkbox" id="g-wx" checked> <span>NOAA Weather Radio <small>(the 7 channels, or your county's transmitters)</small></span></label>
-        <label><input type="checkbox" id="g-call" checked> <span>National calling frequencies <small>(146.520 and 446.000 simplex)</small></span></label>
-        <label><input type="checkbox" id="g-nets" checked> <span>Indiana nets <small>(from the net card; VHF and UHF ones your radio can tune)</small></span></label>
-        <label><input type="checkbox" id="g-sky" checked> <span>Skywarn nets <small>(as listed)</small></span></label>
-      </div>
+      <div class="opts" id="groups"></div>
       <div class="row">
         <label>County, for its weather radio transmitters<select id="wxc"><option value="">All 7 weather channels</option></select></label>
       </div>
+      <p class="hint">Repeaters are listed by their output frequency, with the tone to hear them. A net's day and time is added to the comment of the repeater it meets on.</p>
     </fieldset>
     <div class="bar2">
       <button type="button" class="btn primary" id="dl">Download for CHIRP (.csv)</button>
@@ -152,7 +146,7 @@ ol.how { margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }
 
   <section class="panel ops" aria-labelledby="ops-h">
     <h2 id="ops-h">Run a net or a repeater?</h2>
-    <p>You decide what's said about it. To add a link, update a listing, or have it removed, <a href="https://github.com/mutiny19/hoop/issues/new?template=channel-listing.yml" target="_blank" rel="noopener">open an issue</a>, or open a pull request that edits <a href="https://github.com/mutiny19/hoop/edit/main/data/nets.json" target="_blank" rel="noopener"><code>data/nets.json</code></a>. The net list covers the Indianapolis metro today; nets elsewhere in Indiana are added the same way. Weather radio comes from the <a href="https://www.weather.gov/nwr/" target="_blank" rel="noopener">National Weather Service</a>. The <a href="../resources/indy-metro-net-card.pdf" target="_blank" rel="noopener">printable net card (PDF)</a> is still there for paper.</p>
+    <p>You decide what's said about it. To add a repeater or a net, add a link, update a listing, or have one removed, <a href="https://github.com/mutiny19/hoop/issues/new?template=channel-listing.yml" target="_blank" rel="noopener">open an issue</a>, or open a pull request that edits <a href="https://github.com/mutiny19/hoop/edit/main/data/channels.json" target="_blank" rel="noopener"><code>data/channels.json</code></a> (repeaters and channels) or <a href="https://github.com/mutiny19/hoop/edit/main/data/nets.json" target="_blank" rel="noopener"><code>data/nets.json</code></a> (net schedules). The repeater lists cover Indianapolis and the nearby counties today; for the rest of Indiana, use RepeaterBook. Weather radio comes from the <a href="https://www.weather.gov/nwr/" target="_blank" rel="noopener">National Weather Service</a>. The <a href="../resources/indy-metro-net-card.pdf" target="_blank" rel="noopener">printable net card (PDF)</a> is still there for paper.</p>
   </section>
 </main>
 
@@ -171,20 +165,7 @@ ol.how { margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }
   var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
   var HEAD = ["Location", "Name", "Frequency", "Duplex", "Offset", "Tone", "rToneFreq", "cToneFreq", "DtcsCode", "DtcsPolarity", "RxDtcsCode", "CrossMode", "Mode", "TStep", "Skip", "Power", "Comment", "URCALL", "RPT1CALL", "RPT2CALL", "DVCODE"];
 
-  /* Fixed public channel plans (47 CFR Part 95, NOAA). Mode: NFM where the channel is 12.5 kHz or narrower. */
-  function frsGmrs() {
-    var out = [], f1 = [462.5625, 462.5875, 462.6125, 462.6375, 462.6625, 462.6875, 462.7125], f8 = [467.5625, 467.5875, 467.6125, 467.6375, 467.6625, 467.6875, 467.7125];
-    f1.forEach(function (f, i) { out.push({ n: "FRS " + (i + 1), f: f, m: "NFM", c: "FRS and GMRS channel " + (i + 1) }); });
-    f8.forEach(function (f, i) { out.push({ n: "FRS " + (i + 8), f: f, m: "NFM", c: "FRS channel " + (i + 8) }); });
-    for (var i = 0; i < 8; i++) out.push({ n: "GMRS " + (15 + i), f: +(462.55 + 0.025 * i).toFixed(4), m: "FM", c: "GMRS and FRS channel " + (15 + i) + (i === 5 ? " (channel 20 is the common travel and calling channel)" : "") });
-    for (var j = 0; j < 8; j++) out.push({ n: "GIN " + (15 + j), f: +(467.55 + 0.025 * j).toFixed(4), m: "FM", c: "GMRS repeater input " + (15 + j) + "R: hear handhelds talking to a repeater" });
-    return out;
-  }
-  var MURS = [[151.82, "NFM"], [151.88, "NFM"], [151.94, "NFM"], [154.57, "FM"], [154.6, "FM"]].map(function (x, i) { return { n: "MURS " + (i + 1), f: x[0], m: x[1], c: "MURS channel " + (i + 1) }; });
-  var WX = [162.4, 162.425, 162.45, 162.475, 162.5, 162.525, 162.55].map(function (f, i) { return { n: "WX " + (i + 1), f: f, m: "FM", c: "NOAA Weather Radio" }; });
-  var CALL = [{ n: "2M CALL", f: 146.52, m: "FM", c: "National simplex calling frequency, 2 meters" }, { n: "70CM CALL", f: 446.0, m: "FM", c: "National simplex calling frequency, 70 cm" }];
-  var AIR = [{ n: "AIR GUARD", f: 121.5, m: "AM", c: "Aviation emergency (guard) frequency" }];
-
+  var CH = null;      // data/channels.json: every group of channels, so the page holds no frequency lists of its own
   /* CHIRP rejects tones and codes that are not on its lists, so anything else falls back to its default and is noted in the comment */
   var TONES = [67.0, 69.3, 71.9, 74.4, 77.0, 79.7, 82.5, 85.4, 88.5, 91.5, 94.8, 97.4, 100.0, 103.5, 107.2, 110.9, 114.8, 118.8, 123.0, 127.3, 131.8, 136.5, 141.3, 146.2, 151.4, 156.7, 159.8, 162.2, 165.5, 167.9, 171.3, 173.8, 177.3, 179.9, 183.5, 186.2, 189.9, 192.8, 196.6, 199.5, 203.5, 206.5, 210.7, 218.1, 225.7, 229.1, 233.6, 241.8, 250.3, 254.1];
   var DCS = [23, 25, 26, 31, 32, 36, 43, 47, 51, 53, 54, 65, 71, 72, 73, 74, 114, 115, 116, 122, 125, 131, 132, 134, 143, 145, 152, 155, 156, 162, 165, 172, 174, 205, 212, 223, 225, 226, 243, 244, 245, 246, 251, 252, 255, 261, 263, 265, 266, 271, 274, 306, 311, 315, 325, 331, 332, 343, 346, 351, 356, 364, 365, 371, 411, 412, 413, 423, 431, 432, 445, 446, 452, 454, 455, 462, 464, 465, 466, 503, 506, 516, 523, 526, 532, 546, 565, 606, 612, 624, 627, 631, 632, 654, 662, 664, 703, 712, 723, 731, 732, 734, 743, 754];
@@ -200,26 +181,28 @@ ol.how { margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }
     if (n.day && n.time) return (n.weeks ? "week" + (n.weeks.length > 1 ? "s " : " ") + n.weeks.join(" and ") + ", " : "") + n.day + " " + n.time + " US Eastern";
     return n.day ? n.day : "daily";
   }
-  function netEntries() {
-    if (!nets) return [];
-    var out = [];
-    [["weekly", ""], ["monthly", ""], ["daily", ""]].forEach(function (g) {
-      (nets[g[0]] || []).forEach(function (n) {
+  function toRow(r, gid) {
+    var a = access(r[2]);
+    return { n: r[3], f: r[0], m: r[1], c: r[4], tone: a.tone, dcs: a.dcs, g: gid };
+  }
+  /* nets and Skywarn from nets.json, keyed by frequency, so each shows up as a note on the repeater it meets on */
+  function netsByFreq() {
+    var map = {}; if (!nets) return map;
+    var add = function (f, t, n) { var k = f.toFixed(4); (map[k] = map[k] || []).push({ t: t, n: n }); };
+    ["weekly", "monthly", "daily"].forEach(function (g) {
+      (nets[g] || []).forEach(function (n) {
         if (n.type !== "Ham" && n.type !== "GMRS") return;       // analog FM voice nets only; HF, digital, Zello, and mesh entries are left out
-        var f = parseFloat(n.freq); if (!(f > 0) || /\//.test(n.freq || "")) return;      // skips HF pairs and non-radio entries
-        var a = access(n.access);
-        out.push({ n: n.name, f: f, m: "FM", c: n.name + ", " + when(n) + (n.unverified ? " (unverified)" : "") + (n.access ? ", " + n.access : ""), tone: a.tone, dcs: a.dcs });
+        var f = parseFloat(n.freq); if (!(f > 0) || /\//.test(n.freq || "")) return;
+        add(f, n.name + ", " + when(n) + (n.unverified ? " (unverified)" : ""), n);
       });
     });
-    return out;
+    (nets.skywarn || []).forEach(function (s) { var f = parseFloat(s.freq); if (f > 0) add(f, "Skywarn " + s.id + ", " + s.area, s); });
+    return map;
   }
-  function skyEntries() {
-    return ((nets && nets.skywarn) || []).map(function (s) { var a = access(s.access); return { n: "SKY " + s.id, f: parseFloat(s.freq), m: "FM", c: "Skywarn " + s.id + ", " + s.area + (s.access ? ", " + s.access : ""), tone: a.tone, dcs: a.dcs }; }).filter(function (x) { return x.f > 0; });
-  }
-  function wxEntries() {
+  function wxEntries(g) {
     var c = $("wxc").value;
-    if (!c || !nwr) return WX;
-    return (nwr.counties[c] || []).map(function (call) { var s = nwr.sites[call]; return { n: "WX " + call, f: parseFloat(s[0]), m: "FM", c: "NOAA Weather Radio " + call + ", " + s[1] + (s[2] && s[2] !== "IN" ? ", " + s[2] : "") + ", serves " + c + " County" }; });
+    if (!c || !nwr) return g.rows.map(function (r) { return toRow(r, g.id); });
+    return (nwr.counties[c] || []).map(function (call) { var s = nwr.sites[call]; return { n: "WX " + call, f: parseFloat(s[0]), m: "FM", c: "NOAA Weather Radio " + call + ", " + s[1] + (s[2] && s[2] !== "IN" ? ", " + s[2] : "") + ", serves " + c + " County", tone: "", dcs: "" }; });
   }
   function inBand(f) {
     return ($("b-vhf").checked && f >= 136 && f <= 174) || ($("b-uhf").checked && f >= 400 && f <= 520) || ($("b-air").checked && f >= 108 && f < 136);
@@ -229,19 +212,31 @@ ol.how { margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }
     var s = [5, 12.5, 6.25, 25]; for (var i = 0; i < s.length; i++) { var q = k / s[i]; if (Math.abs(q - Math.round(q)) < 1e-6) return s[i].toFixed(1); }
     return "5.0";
   }
+  var REPS = { rep2: 1, rep70: 1, gmrsrep: 1 };
   function build() {
-    var list = [];
-    if ($("g-frs").checked) list = list.concat(frsGmrs());
-    if ($("g-murs").checked) list = list.concat(MURS);
-    if ($("g-wx").checked) list = list.concat(wxEntries());
-    if ($("g-call").checked) list = list.concat(CALL);
-    if ($("b-air").checked) list = list.concat(AIR);
-    if ($("g-nets").checked) list = list.concat(netEntries());
-    if ($("g-sky").checked) list = list.concat(skyEntries());
+    var list = [], repOn = false;
+    (CH ? CH.groups : []).forEach(function (g) {
+      var box = $("g-" + g.id); if (!box || !box.checked) return;
+      if (REPS[g.id]) repOn = true;
+      list = list.concat(g.county ? wxEntries(g) : g.rows.map(function (r) { return toRow(r, g.id); }));
+    });
     var seen = {}, out = [];
     list.forEach(function (e) {
       if (!inBand(e.f)) return;
       var key = e.f.toFixed(4) + "|" + e.m + "|" + (e.tone || "") + (e.dcs || "") + "|" + e.n; if (seen[key]) return; seen[key] = 1; out.push(e);
+    });
+    /* a net's day and time goes in the comment of the repeater it meets on; a net on a frequency nothing else carries gets its own row */
+    var byF = netsByFreq(), covered = {};
+    out.forEach(function (e) {
+      var k = e.f.toFixed(4), hit = byF[k]; if (!hit) return;
+      covered[k] = 1;
+      if (REPS[e.g] || e.g === "call") e.c += ". Nets: " + hit.map(function (h) { return h.t; }).join("; ");
+    });
+    if (repOn) Object.keys(byF).forEach(function (k) {
+      if (covered[k]) return;
+      var f = parseFloat(k); if (!inBand(f)) return;
+      var h = byF[k][0], a = access(h.n.access);
+      out.push({ n: h.n.name || ("SKY " + h.n.id), f: f, m: "FM", c: byF[k].map(function (x) { return x.t; }).join("; ") + (h.n.access ? ", " + h.n.access : ""), tone: a.tone, dcs: a.dcs, g: "net" });
     });
     var cap = +$("cap").value, over = Math.max(0, out.length - cap);
     return { rows: out.slice(0, cap), over: over, total: out.length };
@@ -270,8 +265,12 @@ ol.how { margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }
     a.href = URL.createObjectURL(blob); a.download = "hoop-indiana-listen-only.csv"; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
   });
   window.HOOPchannels = { build: build, csv: csv };
-  Promise.all([fetch("../data/nets.json").then(function (r) { return r.json(); }).catch(function () { return null; }), fetch("../data/nwr-indiana.json").then(function (r) { return r.json(); }).catch(function () { return null; })]).then(function (x) {
-    nets = x[0]; nwr = x[1];
+  Promise.all([fetch("../data/channels.json").then(function (r) { return r.json(); }).catch(function () { return null; }), fetch("../data/nets.json").then(function (r) { return r.json(); }).catch(function () { return null; }), fetch("../data/nwr-indiana.json").then(function (r) { return r.json(); }).catch(function () { return null; })]).then(function (x) {
+    CH = x[0]; nets = x[1]; nwr = x[2];
+    if (CH) {
+      $("groups").innerHTML = CH.groups.map(function (g) { return '<label><input type="checkbox" id="g-' + g.id + '"' + (g.default ? " checked" : "") + '> <span>' + esc(g.label) + (g.hint ? ' <small>(' + esc(g.hint) + ')</small>' : "") + '</span></label>'; }).join("");
+      $("groups").querySelectorAll("input").forEach(function (i) { i.addEventListener("change", draw); });
+    }
     if (nwr) $("wxc").insertAdjacentHTML("beforeend", Object.keys(nwr.counties).map(function (c) { return "<option>" + esc(c) + "</option>"; }).join(""));
     draw();
   });
