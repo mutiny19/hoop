@@ -99,3 +99,17 @@ document.querySelectorAll("button.copy[data-copy]").forEach(function (btn) {
     }).catch(function () {});
   }
 })();
+
+/* Offline: register the service worker (sw.js at the site root) and say so when the page is a saved copy. */
+(function () {
+  var me = document.querySelector('script[src*="assets/site.js"]'), root = me ? me.getAttribute("src").replace(/assets\/site\.js.*$/, "") : "";
+  if ("serviceWorker" in navigator && location.protocol !== "file:") navigator.serviceWorker.register(root + "sw.js").catch(function () {});
+  var bar = null;
+  function show() {
+    if (navigator.onLine !== false) { if (bar) bar.hidden = true; return; }
+    if (!bar) { bar = document.createElement("div"); bar.className = "offbar"; bar.setAttribute("role", "status"); var n = document.querySelector(".site-notice"); if (n) n.parentNode.insertBefore(bar, n); else document.body.insertBefore(bar, document.body.firstChild); }
+    bar.hidden = false; bar.textContent = "You're offline. This is the copy saved on this device.";
+    fetch(location.href).then(function (r) { var d = r.headers.get("date"); if (d) bar.textContent = "You're offline. This is the copy saved on this device, from " + new Date(d).toLocaleString([], { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" }) + "."; }).catch(function () {});
+  }
+  window.addEventListener("offline", show); window.addEventListener("online", show); show();
+})();

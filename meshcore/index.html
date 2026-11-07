@@ -27,8 +27,11 @@
 <meta name="twitter:image" content="https://mutiny19.github.io/hoop/assets/social.png">
 <meta name="twitter:image:alt" content="HOOP: Hoosier Off-Grid Open Playbook">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "HowTo", "name": "Get on the Indiana mesh with MeshCore", "description": "From a new radio to your first MeshCore message in five steps.", "totalTime": "PT1H", "estimatedCost": {"@type": "MonetaryAmount", "currency": "USD", "value": "30"}, "step": [{"@type": "HowToStep", "name": "Pick a radio", "text": "A SenseCAP T1000-E or a Heltec V3/V4."}, {"@type": "HowToStep", "name": "Flash the companion firmware", "text": "Use the official MeshCore web flasher."}, {"@type": "HowToStep", "name": "Set the USA preset and path hash size", "text": "The radio preset must match everyone else's; set path hash size to 2 bytes."}, {"@type": "HowToStep", "name": "Join the channels people use", "text": "Public is built in; add the hashtag channels for your area."}, {"@type": "HowToStep", "name": "Send a flood advert", "text": "So people and repeaters learn you are there."}], "isPartOf": {"@id": "https://mutiny19.github.io/hoop/#website"}, "dateModified": "2026-10-25"}</script>
+<link rel="manifest" href="../manifest.webmanifest">
+<meta name="theme-color" content="#0F1729">
+<link rel="apple-touch-icon" href="../assets/icon-192.png">
 <link rel="preload" href="../assets/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/site.css?v=20261107d">
+<link rel="stylesheet" href="../assets/site.css?v=20261107e">
 <style>
 /* Page styles. Tokens, header and footer come from ../assets/site.css.
    Layout: newcomer steps first, then 'hear everything', then the repeater-owner tile map, setup, rules, in-depth, neighbours. */
@@ -221,6 +224,7 @@ details.depth[open] { padding-bottom: 18px; }
         <p class="note"><strong>What to expect:</strong> your radio only has to reach one repeater, not the whole state; the repeaters do the rest. If you hear nothing, the fix is almost always height and a nearby repeater, not a different radio. Recheck step 4, put the radio in a window or upstairs, then ask in the <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Indiana Mesh Discord</a> where the nearest repeater is.</p>
       </div></div>
     </div>
+    <p class="note">Tip: add this page to your phone's home screen (Share, then Add to Home Screen) and it opens with no signal.</p>
   </section>
 
   <details class="depth" id="glossary">
@@ -312,6 +316,6 @@ var d = (c.config && c.config.suggested_radio_settings && c.config.suggested_rad
   document.getElementById("pc").textContent = "CR" + d.coding_rate;
 }).catch(function () {});
 </script>
-<script src="../assets/site.js?v=20261107a"></script>
+<script src="../assets/site.js?v=20261107b"></script>
 </body>
 </html>
