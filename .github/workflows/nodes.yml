@@ -17,11 +17,11 @@ jobs:
         run: python3 tools/update_nodes.py
       - name: Commit if changed
         run: |
-          if git diff --quiet -- data/meshcore-nodes.json; then
+          if git diff --quiet -- data/meshcore-nodes.json data/meshcore-history.json; then
             echo "No change"; exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
-          git add data/meshcore-nodes.json
+          git add data/meshcore-nodes.json data/meshcore-history.json
           git commit -m "Nightly MeshCore inventory"
           git push

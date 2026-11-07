@@ -102,3 +102,4 @@ a[href^="http"]:where(:not(.btn, .card, .brand, .cta, .go, .layer, .links a, .si
 .nextnet { display: block; background: var(--panel); color: var(--fg); border-bottom: 1px solid var(--line); padding: 8px 24px; font-size: 13.5px; line-height: 1.4; text-align: center; text-decoration: none; }
 .nextnet b { color: var(--signal); }
 .nextnet:hover, .nextnet:focus-visible { text-decoration: underline; }
+.rung { max-width: 1100px; margin: 0 auto; padding: 0 24px 40px; font-size: 15px; color: var(--muted); }

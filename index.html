@@ -29,7 +29,7 @@
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://mutiny19.github.io/hoop/#website", "url": "https://mutiny19.github.io/hoop/", "name": "HOOP", "alternateName": "Hoosier Off-Grid Open Playbook", "description": "Off-grid communications in Indiana: MeshCore, Meshtastic, GMRS, ham radio, and Reticulum. Represents no network or organization.", "inLanguage": "en-US"}, {"@type": "WebPage", "@id": "https://mutiny19.github.io/hoop/#webpage", "url": "https://mutiny19.github.io/hoop/", "name": "HOOP: Indiana Off-Grid Comms, MeshCore Map, Nets and Settings", "isPartOf": {"@id": "https://mutiny19.github.io/hoop/#website"}, "about": {"@type": "Place", "name": "Indiana", "address": {"@type": "PostalAddress", "addressRegion": "IN", "addressCountry": "US"}}, "dateModified": "2026-10-25"}]}</script>
 <link rel="preload" href="assets/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preconnect" href="https://api.weather.gov" crossorigin>
-<link rel="stylesheet" href="assets/site.css?v=20261107b">
+<link rel="stylesheet" href="assets/site.css?v=20261107c">
 <style>
 /* Home: dark map band (map + alerts, dashboard view), then settings accordion, report, support. Built from the
    front-page design (design/front-page.dc.html); simulated parts replaced by live feeds or empty states. */
@@ -259,6 +259,27 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
 .county .w { color: var(--muted); font-size: 14px; }
 .county .p { grid-column: 2; grid-row: 1 / span 2; text-align: right; font: 400 13px/1.5 var(--mono); }
 .county .p em { font-style: normal; color: var(--signal); display: block; }
+.path { padding-block: 36px 8px; display: grid; gap: 14px; }
+.paths { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.pcard { display: grid; gap: 8px; align-content: start; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px; color: var(--fg); text-decoration: none; }
+.pcard b { font: 700 1.25rem/1.15 var(--display); }
+.pcard span { color: var(--muted); font-size: 15px; }
+.pcard em { font-style: normal; font-weight: 700; color: var(--signal); }
+.pcard:hover, .pcard:focus-visible { border-color: var(--signal); }
+.pcard.mine { border-color: var(--signal); box-shadow: inset 0 0 0 1px var(--signal); }
+.prog { display: grid; gap: 6px; }
+.prog .bar { height: 14px; border-radius: 999px; background: var(--line); overflow: hidden; }
+.prog .bar i { display: block; height: 100%; width: 0; background: var(--signal); border-radius: 999px; }
+.prog p { font-size: 14px; }
+.needs .h.sub { margin-top: 6px; }
+.ladder { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: grid; gap: 10px; align-content: start; }
+.ladder h3 { font: 800 18px/1.2 var(--display); }
+.ladder ol { margin: 0; padding: 0; list-style: none; counter-reset: rung; display: grid; gap: 10px; }
+.ladder li { counter-increment: rung; display: grid; grid-template-columns: 28px 1fr; column-gap: 10px; row-gap: 2px; font-size: 15px; }
+.ladder li::before { content: counter(rung); grid-row: 1 / span 3; font: 700 1.3rem/1.1 var(--display); color: var(--signal); }
+.ladder li span { color: var(--muted); }
+.ladder li a { justify-self: start; grid-column: 2; }
+.ladder li a + a { margin-top: 2px; }
 .ways { display: grid; gap: 12px; align-content: start; }
 .way { background: var(--ink); color: var(--ink-fg); border-radius: 12px; padding: 18px; display: grid; gap: 8px; }
 .way p { color: #B8C2D8; font-size: 15px; }
@@ -275,6 +296,7 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
   .side[hidden] { display: none; }
   .proto .intro .btn { width: 100%; justify-content: center; }
   .srcbadge { top: 8px; left: 8px; right: auto; font-size: 10px; padding: 4px 7px; letter-spacing: 0; }
+  .paths { grid-template-columns: 1fr; }
   .report .wrap, .sup-grid, .proto .body, .alts > div { grid-template-columns: 1fr; }
   .proto > button { grid-template-columns: minmax(0, 1fr) auto; }
   .proto .tl { grid-column: 1 / -1; grid-row: 2; }
@@ -426,6 +448,15 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
 </section>
 
 <main>
+<section id="path" class="wrap path" aria-labelledby="path-h">
+  <h2 id="path-h">Where do you fit?</h2>
+  <div class="paths" id="paths">
+    <a class="pcard" data-path="new" href="meshcore/"><b>New to all this</b><span>Five steps from a new radio to your first message.</span><em>Start here <i aria-hidden="true">→</i></em></a>
+    <a class="pcard" data-path="mesh" href="meshnet/"><b>Already on the mesh</b><span id="pathNet">Check in on #meshnet, Sundays and Thursdays at 7:00 PM US Eastern.</span><em>Check in <i aria-hidden="true">→</i></em></a>
+    <a class="pcard" data-path="agency" href="emergency/"><b>Agency or site owner</b><span>What this is for, and how to offer a roof or tower.</span><em>For agencies <i aria-hidden="true">→</i></em></a>
+  </div>
+</section>
+
 <section id="protocols" class="wrap settings" aria-labelledby="set-h">
   <div class="sec-head">
     <div><h2 id="set-h">Settings people use in Indiana</h2><p>A starting point, not a standard: each card starts from the project's official settings, and radios only hear others on the same preset, so check with your neighbours. New to MeshCore? Its <a href="meshcore/">five steps</a> go from the box to a first message.</p></div>
@@ -513,14 +544,22 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
   <p class="lead">Indiana Mesh lives on <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Discord</a>. The most useful help is a high site, a repeater, or your time.</p>
   <div class="sup-grid">
     <div class="needs">
-      <div class="h"><b>Where Indiana needs MeshCore repeaters</b><span id="needsDate">people per active repeater</span></div>
+      <div class="h"><b>Counties with an active repeater</b><span id="needsDate">people per active repeater</span></div>
+      <div class="prog" id="prog"><div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="92" aria-valuenow="0" aria-label="Indiana counties with an active repeater"><i id="progFill"></i></div><p id="progText">Loading…</p></div>
+      <div class="h sub"><b>Where one more repeater would help the most people</b></div>
       <div id="needs" class="needs-list"><div class="county"><b>Loading…</b></div></div>
-      <p style="font-size:13px;color:var(--muted)">Ranked by people per active repeater (heard in the last 30 days). Repeaters from the official MeshCore Map; population from the Census Bureau. Updated nightly.</p>
+      <p style="font-size:13px;color:var(--muted)">People per active repeater (heard in the last 30 days), highest first. Repeaters from the official MeshCore Map; population from the Census Bureau. Updated nightly.</p>
     </div>
-    <div class="ways">
-      <div class="way"><h3>Host a site</h3><p>A roof, tower or grain leg. One good site can cover several counties; repeaters are what the mesh needs most right now.</p><a class="btn primary" href="https://github.com/mutiny19/hoop/issues/new?template=listing.yml" target="_blank" rel="noopener">Offer a site</a><a class="mini" href="resources/host-a-repeater-guide.pdf" target="_blank" rel="noopener">What hosting involves: one-page guide &#8599;</a></div>
-      <div class="way"><h3>Put up a repeater</h3><p>Start with the settings above, then list it on the MeshCore Map so it shows here.</p><a class="btn primary" href="https://docs.meshcore.io/" target="_blank" rel="noopener">MeshCore docs</a></div>
-      <div class="way alt"><h3>Run an observer</h3><p>A radio that uploads what it hears puts your area on the live maps and the #meshnet log.</p><a class="btn primary" href="live/#obs-h">How to run one</a></div>
+    <div class="ladder">
+      <h3>Ways to help, smallest first</h3>
+      <ol>
+        <li><b>Check in</b><span>Sundays and Thursdays, 7:00 PM US Eastern.</span><a href="meshnet/">#meshnet</a></li>
+        <li><b>Share the invite</b><span>An image and text for your own group.</span><a href="meshnet/#share-h">Get it</a></li>
+        <li><b>Run an observer</b><span>Puts your area on the live maps and the #meshnet log.</span><a href="live/#obs-h">How</a></li>
+        <li><b>Add a project</b><span>Something made or used in Indiana.</span><a href="projects/#add-h">How</a></li>
+        <li><b>Put up a repeater</b><span>Start with the settings above, then list it on the MeshCore Map.</span><a href="https://docs.meshcore.io/" target="_blank" rel="noopener">MeshCore docs</a></li>
+        <li><b>Offer a site</b><span>A roof, tower, or grain leg. One good site can cover several counties.</span><a href="https://github.com/mutiny19/hoop/issues/new?template=listing.yml" target="_blank" rel="noopener">Offer a site</a> <a href="resources/host-a-repeater-guide.pdf" target="_blank" rel="noopener">What hosting involves</a></li>
+      </ol>
     </div>
   </div>
 </section>
@@ -536,7 +575,7 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
 
 <script>(function(){var d=document.getElementById("reportFold");try{if(d&&window.matchMedia("(min-width: 861px)").matches)d.open=true;}catch(e){}})();</script>
 <script src="assets/nets.js"></script>
-<script src="assets/home.js?v=20261107a"></script>
+<script src="assets/home.js?v=20261107c"></script>
 <script src="assets/chirps.js?v=20261025l"></script>
 <script src="assets/site.js?v=20261107a"></script>
 </body>

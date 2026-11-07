@@ -282,8 +282,39 @@
       return '<div class="county"><b>' + esc(k) + '</b><span class="w">' + (roadsOf[k] ? roadsOf[k].join(", ") : "No interstate") + '</span><span class="p">' +
         v[2].toLocaleString() + " people<em>" + v[0] + " repeater" + (v[0] === 1 ? "" : "s") + ", " + v[1] + " active</em></span></div>";
     }).join("");
+    renderProgress(Object.keys(C).length || 92, d.stats.in_counties_with_active);
     $("covDate").textContent = $("needsDate").textContent = "MeshCore Map " + d.generated.slice(0, 10) + " · Census population";
   }
+
+  /* counties with an active repeater; the change since last month shows only once the nightly history holds a day at least 28 days back */
+  function renderProgress(total, n) {
+    $("progFill").style.width = Math.round(100 * n / total) + "%";
+    var bar = $("progFill").parentNode; bar.setAttribute("aria-valuemax", total); bar.setAttribute("aria-valuenow", n);
+    var txt = "<b>" + n + " of " + total + "</b> Indiana counties have a repeater heard in the last 30 days.";
+    $("progText").innerHTML = txt;
+    fetch("data/meshcore-history.json").then(function (r) { return r.json(); }).then(function (h) {
+      var cut = new Date(Date.now() - 28 * 86400000).toISOString().slice(0, 10);
+      var old = h.filter(function (x) { return x.date <= cut; }).pop();
+      if (!old) return;
+      var dlt = n - old.counties;
+      $("progText").innerHTML = txt + " " + (dlt > 0 ? "+" + dlt + " since " + old.date + "." : dlt < 0 ? dlt + " since " + old.date + "." : "No change since " + old.date + ".");
+    }).catch(function () {});
+  }
+
+  /* ---------- "Where do you fit?": remember the choice on this device and lead with it next time ---------- */
+  (function () {
+    var box = $("paths"); if (!box) return;
+    var cards = [].slice.call(box.querySelectorAll(".pcard"));
+    cards.forEach(function (c) { c.addEventListener("click", function () { try { localStorage.setItem("hoop-path", c.getAttribute("data-path")); } catch (e) {} }); });
+    var mine = null; try { mine = localStorage.getItem("hoop-path"); } catch (e) {}
+    var first = cards.filter(function (c) { return c.getAttribute("data-path") === mine; })[0];
+    if (first) { box.insertBefore(first, box.firstChild); first.classList.add("mine"); first.querySelector("em").innerHTML = "Continue <i aria-hidden=\"true\">→</i>"; }
+    var nn = $("pathNet");
+    function tick() { if (!window.HOOP || !HOOP.net || !nn) return; var nx = HOOP.net.next(), ms = nx - Date.now(); if (ms <= 0) { nn.textContent = "On now, until 7:10 PM US Eastern. Check in."; return; }
+      var m = Math.round(ms / 6e4), d = Math.floor(m / 1440), hh = Math.floor(m % 1440 / 60), left = d ? d + " d " + hh + " h" : hh ? hh + " h " + (m % 60) + " min" : (m % 60) + " min";
+      nn.textContent = "Next #meshnet: " + new Intl.DateTimeFormat("en-US", { timeZone: HOOP.net.tz, weekday: "long" }).format(nx) + " 7:00 PM US Eastern, in " + left + "."; }
+    window.addEventListener("load", tick); setInterval(tick, 30000);   // site.js loads after this file
+  })();
 
   /* ---------- settings accordion ---------- */
   var PROTOS = [

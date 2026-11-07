@@ -115,6 +115,12 @@ def main():
     text = json.dumps(out, separators=(",", ":"), ensure_ascii=False)
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(text + "\n")
+    # One line per day (real counts, never estimated) so the home page can show a true month-over-month change.
+    hist_path = OUT.parent / "meshcore-history.json"
+    hist = json.loads(hist_path.read_text()) if hist_path.exists() else []
+    today = now.strftime("%Y-%m-%d")
+    hist = [h for h in hist if h["date"] != today] + [{"date": today, "counties": stats["in_counties_with_active"], "repeaters_30d": stats["in_repeaters_30d"]}]
+    hist_path.write_text(json.dumps(hist[-800:], separators=(",", ":")) + "\n")
     print(f"{len(repeaters)} repeaters ({len(ind)} in Indiana), stats {stats}, {len(text)} bytes")
 
 
