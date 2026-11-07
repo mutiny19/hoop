@@ -1,5 +1,5 @@
-name: Update or remove a net or repeater listing
-description: Add, correct, add links to, or remove a net or repeater on the Channel lists page (or ask for it to come down).
+name: Add, update, or remove a repeater or net
+description: Add a repeater or a net, correct a listing, add a link, or ask for a listing to come down.
 title: "[channels] "
 labels: ["channels"]
 body:
@@ -7,21 +7,44 @@ body:
     attributes:
       value: |
         The Channel lists page (https://mutiny19.github.io/hoop/channels/) is for information only and is built from `data/nets.json`. Operators decide what is listed about their own net or repeater. You can also open a pull request that edits that file directly: https://github.com/mutiny19/hoop/edit/main/data/nets.json
+
+        Only Ham and GMRS entries go into the CHIRP files. Other types are kept as listings.
   - type: dropdown
     id: what
     attributes:
       label: What would you like to do?
-      options: [Add a net or repeater, Correct a listing, Add a link or website to a listing, Remove a listing]
+      options: [Add a repeater, Add a net, Correct a listing, Add a link or website to a listing, Remove a listing]
+    validations: { required: true }
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type
+      options: [Ham, GMRS, Reticulum, MeshCore, Other]
     validations: { required: true }
   - type: input
     id: name
-    attributes: { label: Net or repeater name, description: As it is listed now, or as you'd like it listed }
+    attributes: { label: Repeater or net name, description: As it is listed now, or as you'd like it listed }
     validations: { required: true }
+  - type: input
+    id: area
+    attributes: { label: Area, description: County or city. Never a home address or a personal node location. }
+  - type: input
+    id: freq
+    attributes: { label: Frequency or channel, description: "For example 146.700 MHz, GMRS 20, or the MeshCore or Reticulum settings name. Leave blank if not applicable." }
+  - type: input
+    id: access
+    attributes: { label: Tone or access, description: "For example PL 88.5, DCS 465, open, or needs registration. For a repeater, include the offset (for example +0.600)." }
+  - type: input
+    id: schedule
+    attributes: { label: Schedule (nets), description: "Day and time with the time zone, for example Sundays 7:30 PM Eastern. For a net, also name the repeater it meets on." }
+  - type: input
+    id: link
+    attributes: { label: Public website or link }
   - type: textarea
     id: details
     attributes:
-      label: Frequency, tone or access, schedule, and link
-      description: Whatever changes. Leave out personal details; a club or net name and a public website are enough.
+      label: Anything else
+      description: What should change, or notes for a maintainer. Leave out personal details; a club or net name and a public website are enough.
   - type: checkboxes
     id: ok
     attributes:
