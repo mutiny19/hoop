@@ -1,0 +1,31 @@
+name: Update or remove a net or repeater listing
+description: Add, correct, add links to, or remove a net or repeater on the Channel lists page (or ask for it to come down).
+title: "[channels] "
+labels: ["channels"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The Channel lists page (https://mutiny19.github.io/hoop/channels/) is for information only and is built from `data/nets.json`. Operators decide what is listed about their own net or repeater. You can also open a pull request that edits that file directly: https://github.com/mutiny19/hoop/edit/main/data/nets.json
+  - type: dropdown
+    id: what
+    attributes:
+      label: What would you like to do?
+      options: [Add a net or repeater, Correct a listing, Add a link or website to a listing, Remove a listing]
+    validations: { required: true }
+  - type: input
+    id: name
+    attributes: { label: Net or repeater name, description: As it is listed now, or as you'd like it listed }
+    validations: { required: true }
+  - type: textarea
+    id: details
+    attributes:
+      label: Frequency, tone or access, schedule, and link
+      description: Whatever changes. Leave out personal details; a club or net name and a public website are enough.
+  - type: checkboxes
+    id: ok
+    attributes:
+      label: Listing
+      options:
+        - label: I run or speak for this net or repeater, or it is publicly listed by its operators.
+          required: true

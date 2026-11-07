@@ -1,13 +1,13 @@
 /* HOOP offline support. Pages and assets: show the saved copy at once and refresh it in the background.
    data/*.json: network first, saved copy when offline. Anything on another site (weather, maps) is left alone.
    Bump CACHE when the list below changes. */
-var CACHE = "hoop-v4";
-var PRECACHE = ["./", "meshcore/", "meshnet/", "emergency/", "live/", "projects/",
+var CACHE = "hoop-v5";
+var PRECACHE = ["./", "meshcore/", "meshnet/", "emergency/", "live/", "projects/", "channels/",
   "assets/site.css", "assets/site.js", "assets/theme.js", "assets/home.js", "assets/nets.js", "assets/chirps.js",
   "assets/fonts/archivo.woff2", "assets/fonts/plex-mono-400.woff2", "assets/fonts/plex-mono-500.woff2",
   "assets/favicon.svg", "assets/mark.svg", "assets/meshnet-invite.png", "assets/meshnet-invite-utc.png", "assets/meshnet-channel-qr.svg", "assets/net-card-thumb.png",
   "resources/indy-metro-net-card.pdf", "resources/host-a-repeater-guide.pdf",
-  "data/meshnet/log.json", "data/meshcore-nodes.json", "data/meshcore-history.json", "data/nws-zones.json", "data/nets.json"];
+  "data/meshnet/log.json", "data/meshcore-nodes.json", "data/meshcore-history.json", "data/nws-zones.json", "data/nets.json", "data/nwr-indiana.json"];
 
 self.addEventListener("install", function (e) {
   e.waitUntil(caches.open(CACHE).then(function (c) {

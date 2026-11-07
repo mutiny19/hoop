@@ -403,7 +403,7 @@
       '<div class="rows">' + body + "</div>" + all + alts + '<div class="note">' + esc(note) + "</div></div>";
   }
   /* The Indianapolis net card, shown at the top of the expanded GMRS and Ham cards. */
-  var NETCARD = '<div class="net-card-box"> <a href="resources/indy-metro-net-card.pdf" target="_blank" rel="noopener"><img src="assets/net-card-thumb.png" alt="Indianapolis metro channel and net reference card, page 1 of 4" width="480" height="371" loading="lazy"></a> <div class="nc-body"> <h3>Indianapolis metro channel &amp; net card</h3> <p>One printable PDF: the weekly net schedule, GMRS and ham channels, antenna lengths, and known-good radio settings for a handheld. Four pages, built for the glovebox.</p> <a class="btn ghost" href="resources/indy-metro-net-card.pdf" target="_blank" rel="noopener">Open the PDF &#8599;</a> </div> </div>';
+  var NETCARD = '<div class="net-card-box"> <a href="resources/indy-metro-net-card.pdf" target="_blank" rel="noopener"><img src="assets/net-card-thumb.png" alt="Indianapolis metro channel and net reference card, page 1 of 4" width="480" height="371" loading="lazy"></a> <div class="nc-body"> <h3>Indianapolis metro channel &amp; net card</h3> <p>One printable PDF: the weekly net schedule, GMRS and ham channels, antenna lengths, and known-good radio settings for a handheld. Four pages, built for the glovebox.</p> <a class="btn ghost" href="resources/indy-metro-net-card.pdf" target="_blank" rel="noopener">Open the PDF &#8599;</a> <a class="btn ghost" href="channels/">Channel lists for CHIRP</a> </div> </div>';
   function renderAcc() {
     clips = [];
     $("acc").innerHTML = PROTOS.map(function (p) {
