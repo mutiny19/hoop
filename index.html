@@ -148,12 +148,11 @@ p { margin: 0; }
 .sec-head h2 { font-size: 32px; font-weight: 800; }
 .sec-head p { color: var(--muted); margin-top: 6px; }
 .net-card-box { display: flex; gap: 18px; align-items: center; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px; margin-bottom: 20px; }
-.net-card-box img { width: 108px; height: auto; border-radius: 6px; border: 1px solid var(--line); flex: none; }
 .net-card-box .nc-body { min-width: 0; }
 .net-card-box h3 { font-size: 16px; font-weight: 700; margin-bottom: 3px; }
 .net-card-box p { color: var(--muted); font-size: 14px; margin-bottom: 8px; }
 .net-card-box a.btn { font-size: 13px; padding: 8px 14px; min-height: 36px; }
-@media (max-width: 560px) { .net-card-box { flex-direction: column; align-items: flex-start; } .net-card-box img { width: 100%; max-width: 220px; } }
+@media (max-width: 560px) { .net-card-box { flex-direction: column; align-items: flex-start; } }
 /* inside the expanded GMRS and Ham cards */
 .proto .net-card-box { grid-column: 1 / -1; margin-bottom: 0; background: var(--bg); }
 .ghost { background: transparent; color: var(--fg); border: 2px solid var(--line); }
@@ -424,7 +423,7 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
         <div id="alerts"><div class="empty">Loading National Weather Service alerts…</div></div>
         <div class="h"><b>Nets</b><span class="tag live">SCHEDULE</span></div>
         <div id="netlist" class="netlist"><div class="empty">Loading the net schedule…</div></div>
-        <div style="font-size:13px;color:var(--map-muted)">Tap a net to see its repeater and rough reach on the map · <a href="meshnet/">#meshnet check-ins</a> · <a href="resources/indy-metro-net-card.pdf" target="_blank" rel="noopener">Printable net card (PDF)</a> · <a href="https://github.com/mutiny19/hoop/issues/new?template=other.yml&amp;title=%5Bnet%5D%20" target="_blank" rel="noopener">Add or fix a net</a></div>
+        <div style="font-size:13px;color:var(--map-muted)">Tap a net to see its repeater and rough reach on the map · <a href="meshnet/">#meshnet check-ins</a> · <a href="channels/">Channel lists and the printable net card</a> · <a href="https://github.com/mutiny19/hoop/issues/new?template=other.yml&amp;title=%5Bnet%5D%20" target="_blank" rel="noopener">Add or fix a net</a></div>
         <div class="h"><b>Propagation</b><span class="tag live">LIVE</span></div>
         <div class="prop">
           <div class="r"><span>Tropo ducting</span><span><a href="https://www.dxinfocentre.com/tropo.html" target="_blank" rel="noopener">Hepburn forecast</a></span></div>
@@ -583,7 +582,7 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
 
 <script>(function(){try{if(window.matchMedia("(min-width: 861px)").matches)["reportFold","layerFold"].forEach(function(i){var d=document.getElementById(i);if(d)d.open=true;});}catch(e){}})();</script>
 <script src="assets/nets.js"></script>
-<script src="assets/home.js?v=20261107f"></script>
+<script src="assets/home.js?v=20261107g"></script>
 <script src="assets/chirps.js?v=20261025l"></script>
 <script src="assets/site.js?v=20261107d"></script>
 </body>

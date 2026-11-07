@@ -17,7 +17,7 @@ protocol's official home.
 | [`assets/`](assets/) | Shared styles (`site.css`), pre-paint theme (`theme.js`), nav/theme/copy behaviour (`site.js`), home-page script (`home.js`), map-band background (`chirps.js`); `arcs.js` is unused until a real packet feed exists |
 | [`data/meshcore-nodes.json`](data/meshcore-nodes.json) | Repeaters on the map, refreshed nightly by [`tools/update_nodes.py`](tools/update_nodes.py) ([workflow](.github/workflows/nodes.yml)) from the official MeshCore Map feed. Repeaters only; personal nodes are counted, never plotted |
 | [`data/in-counties.json`](data/in-counties.json) | Indiana county boundaries and population from the Census Bureau, refreshed yearly ([workflow](.github/workflows/reference.yml)); feeds the coverage view |
-| [`data/nets.json`](data/nets.json) | Net schedule that feeds the home page's Nets box (on air now, starting within the hour, next up); [`resources/indy-metro-net-card.pdf`](resources/indy-metro-net-card.pdf) is the printable card it comes from |
+| [`data/nets.json`](data/nets.json) | Net schedule that feeds the home page's Nets box (on air now, starting within the hour, next up); [`resources/indy-metro-net-card.pdf`](resources/indy-metro-net-card.pdf) is the printable card it comes from, linked from the Channel lists page |
 | [`data/settings/`](data/settings/) | Settings people use in Indiana, as data; a starting point, not a standard |
 | [`tools/check_links.py`](tools/check_links.py) | Weekly link check ([workflow](.github/workflows/links.yml)); opens an issue if an outside link breaks |
 | [`tools/check_pii.py`](tools/check_pii.py) | Scans the repo for e-mail addresses, callsigns, and your own strings before a push |
