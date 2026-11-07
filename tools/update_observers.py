@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Nightly: how many #meshnet-capable observers report from each Indiana county -> data/observers.json.
+"""Weekly: how many #meshnet-capable observers report from each Indiana county -> data/observers.json.
 
 One request a day to each CoreScope's /api/observers (the same instances tools/meshnet_log.py reads). Observers heard
 in the last 30 days are placed in a county and COUNTED. Nothing else is stored: no names, no IDs, no coordinates,

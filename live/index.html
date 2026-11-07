@@ -160,7 +160,7 @@ section { display: grid; gap: 14px; }
 
 
 <script>
-/* Observers by county, from data/observers.json (counts only; written nightly by tools/update_observers.py) */
+/* Observers by county, from data/observers.json (counts only; written weekly by tools/update_observers.py) */
 fetch("../data/observers.json").then(function (r) { return r.json(); }).then(function (o) {
   return fetch("../data/meshcore-nodes.json").then(function (r) { return r.json(); }).then(function (n) {
     var names = Object.keys(n.counties).sort(), O = o.counties || {}, have = 0, blind = 0;

@@ -15,15 +15,13 @@ jobs:
       - uses: actions/checkout@v4
       - name: Update repeaters from the official MeshCore Map feed
         run: python3 tools/update_nodes.py
-      - name: Count observers by county (one request a day to each CoreScope)
-        run: python3 tools/update_observers.py
       - name: Commit if changed
         run: |
-          if git diff --quiet -- data/meshcore-nodes.json data/meshcore-history.json data/observers.json; then
+          if git diff --quiet -- data/meshcore-nodes.json data/meshcore-history.json; then
             echo "No change"; exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
-          git add data/meshcore-nodes.json data/meshcore-history.json data/observers.json
+          git add data/meshcore-nodes.json data/meshcore-history.json
           git commit -m "Nightly MeshCore inventory"
           git push

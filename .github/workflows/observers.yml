@@ -1,0 +1,28 @@
+name: Weekly observer counts
+
+on:
+  schedule:
+    - cron: "23 9 * * 1"   # Monday, early morning in Indiana
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Count observers by county (one request to each CoreScope)
+        run: python3 tools/update_observers.py
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- data/observers.json; then
+            echo "No change"; exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add data/observers.json
+          git commit -m "Weekly observer counts"
+          git pull --rebase origin main
+          git push
