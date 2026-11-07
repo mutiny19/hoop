@@ -52,6 +52,16 @@ section { display: grid; gap: 14px; }
 .zones li { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; }
 .zones li b { display: block; font-weight: 700; font-size: .92rem; font-variant-numeric: tabular-nums; }
 .zones li span { font-size: .85rem; color: var(--muted); }
+.fact span.you { display: block; font-weight: 600; font-size: .95rem; color: var(--accent, #E8590C); margin-bottom: 2px; }
+.morez { margin-top: 10px; }
+.morez > summary { cursor: pointer; font-weight: 600; }
+.morez ul { list-style: none; margin: 10px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+.morez li { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; }
+.morez li b { display: block; font-weight: 700; font-size: .92rem; font-variant-numeric: tabular-nums; }
+.morez li span { font-size: .85rem; color: var(--muted); }
+.spark { display: block; width: 100%; max-width: 420px; height: auto; }
+.spark text { font: 500 11px var(--mono); fill: var(--muted); }
+.sumline { font-weight: 600; }
 .zones li.you { border-color: var(--accent, #E8590C); }
 .why { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; font-size: 1.05rem; }
 .hold { background: var(--signal-soft); border-left: 4px solid var(--beacon); border-radius: 0 10px 10px 0; padding: 12px 16px; }
@@ -115,7 +125,6 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
 <header class="site-head"><div class="bar">
   <a class="brand" href="../"><img class="brand-mark" src="../assets/mark.svg?v=20261025e" alt="" width="34" height="53"><img class="brand-mark-sm" src="../assets/favicon.svg?v=20261025e" alt="" width="30" height="38"><span class="brand-text">HOOP<small>Hoosier Off-Grid Open Playbook</small></span></a>
   <nav class="site-nav" aria-label="Site">
-    <a href="../#map">Map</a>
     <button type="button" class="nav-menu" id="navMenu" aria-expanded="false" aria-controls="navMore">Menu</button>
     <span class="nav-more" id="navMore">
       <a href="../#map">Map</a>
@@ -137,7 +146,7 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
     <h1>#meshnet</h1>
     <p class="lead">A ten-minute check-in net on MeshCore, open to anyone on the mesh; this site tracks Indiana and its border counties. It works like a weekly ham or GMRS net, with no net control: you post your check-in, and everyone within reach sees who's on the air. The ten minutes are short on purpose, so everyone posting at once puts real pressure on the mesh and shows where it holds up.</p>
     <div class="facts">
-      <div class="fact"><b>When</b><span class="clock">7:00 to 7:10 PM US Eastern</span><span>Sundays and Thursdays. Ten minutes, start to finish.</span><span class="utc">00:00 to 00:10 UTC Mon and Fri in winter; 23:00 to 23:10 UTC Sun and Thu in summer</span></div>
+      <div class="fact"><b>When</b><span class="clock">7:00 to 7:10 PM US Eastern</span><span class="you" id="whenYou" hidden></span><span>Sundays and Thursdays. Ten minutes, start to finish.</span><span class="utc">00:00 to 00:10 UTC Mon and Fri in winter; 23:00 to 23:10 UTC Sun and Thu in summer</span></div>
       <div class="fact"><b>Where</b><span>The <span class="mono">#meshnet</span> channel on MeshCore</span></div>
       <div class="fact"><b>Check in with</b><span class="mono">KUMP, Heltec V3, 4 months</span></div>
     </div>
@@ -148,6 +157,7 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
         <li><b>Mon and Fri 00:00 to 00:10</b><span>UTC in winter</span></li>
         <li><b>Sun and Thu 23:00 to 23:10</b><span>UTC in summer</span></li>
       </ul>
+      <details class="morez"><summary>More zones</summary><ul id="zoneMore"></ul></details>
     </div>
   </div>
 
@@ -192,7 +202,9 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
         </svg>
       </div>
       <div class="side">
+        <div id="spark"></div>
         <div class="nets" id="nets" role="group" aria-label="Choose a net"></div>
+        <p class="note" id="heard" hidden></p>
         <div id="detail"><div class="empty">Loading the check-in log…</div></div>
       </div>
     </div>
@@ -282,7 +294,7 @@ Channel link, your local time, and past check-ins (guidance only): https://mutin
 (function () {
   var P = function (lat, lon) { return [191.3 * lon + 16854, -250 * lat + 10440]; };   /* same projection as the home map */
   var NS = "http://www.w3.org/2000/svg", pts = document.getElementById("pts");
-  var netsEl = document.getElementById("nets"), detail = document.getElementById("detail");
+  var netsEl = document.getElementById("nets"), detail = document.getElementById("detail"), allNets = [];
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   function clock(hm) { var p = hm.split(":"), h = +p[0]; return (h % 12 || 12) + ":" + p[1] + (h < 12 ? " AM" : " PM"); }
   function nice(d) { return new Date(d + "T12:00:00").toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" }); }
@@ -304,13 +316,34 @@ Channel link, your local time, and past check-ins (guidance only): https://mutin
     });
   }
 
+  /* check-ins per net, oldest to newest, from the log itself */
+  function spark(nets) {
+    var el = document.getElementById("spark"); if (!el || nets.length < 2) return;
+    var v = nets.slice().reverse().map(function (n) { return n.checkins.length; }), max = Math.max.apply(null, v) || 1, W = 420, H = 64, step = W / (v.length - 1 || 1);
+    var pts = v.map(function (n, i) { return (i * step).toFixed(1) + "," + (H - 14 - (H - 24) * n / max).toFixed(1); });
+    el.innerHTML = '<svg class="spark" viewBox="-8 -4 ' + (W + 16) + " " + (H + 4) + '" role="img" aria-label="Check-ins per net, oldest to newest: ' + v.join(", ") + '"><polyline points="' + pts.join(" ") + '" fill="none" stroke="#E8590C" stroke-width="2.5" stroke-linejoin="round"/>' +
+      v.map(function (n, i) { var xy = pts[i].split(","); return '<circle cx="' + xy[0] + '" cy="' + xy[1] + '" r="3.5" fill="#E8590C"/><text x="' + xy[0] + '" y="' + (+xy[1] - 8) + '" text-anchor="middle">' + n + "</text>"; }).join("") + "</svg>";
+  }
+  /* every airport heard so far, in the order each first appeared */
+  function heardFrom(nets) {
+    var seen = [], el = document.getElementById("heard");
+    nets.slice().reverse().forEach(function (n) { n.checkins.forEach(function (x) { if (seen.indexOf(x.code) < 0) seen.push(x.code); }); });
+    if (!el || !seen.length) return;
+    el.hidden = false; el.innerHTML = "<b>Heard from so far:</b> " + seen.map(function (k) { return '<span class="mono">' + esc(k) + "</span>"; }).join(", ") + ".";
+  }
+
   function show(net) {
     var live = net.partial ? '<p class="hold" style="margin-bottom:12px"><b>In progress:</b> check-ins heard so far, up to ' + clock(net.end.slice(11, 16)) + '. The full net is logged after it ends.</p>' : "";
     [].forEach.call(netsEl.children, function (b) { b.setAttribute("aria-pressed", b.dataset.date === net.date ? "true" : "false"); });
     draw(net);
     var c = net.checkins, airports = {}, devices = {};
     c.forEach(function (x) { airports[x.code] = 1; if (x.device) devices[x.device.toLowerCase()] = 1; });
-    var head = "<div class=\"tally\"><div><b>" + c.length + "</b><span>check-in" + (c.length === 1 ? "" : "s") + "</span></div><div><b>" + Object.keys(airports).length +
+    var maxObs = 0; c.forEach(function (x) { if (x.observers > maxObs) maxObs = x.observers; });
+    var older = {}; allNets.slice(allNets.indexOf(net) + 1).forEach(function (n) { n.checkins.forEach(function (x) { older[x.code] = 1; }); });
+    var firsts = allNets.indexOf(net) < allNets.length - 1 ? Object.keys(airports).filter(function (k) { return !older[k]; }) : [];
+    var sum = c.length ? "<p class=\"sumline\">" + c.length + " check-in" + (c.length === 1 ? "" : "s") + " · " + Object.keys(devices).length + " device model" + (Object.keys(devices).length === 1 ? "" : "s") + " · " +
+      Object.keys(airports).length + " airport" + (Object.keys(airports).length === 1 ? "" : "s") + " · heard by up to " + maxObs + " observer" + (maxObs === 1 ? "" : "s") + (firsts.length ? "<br><span style=\"font-weight:400\">First time heard: " + firsts.map(esc).join(", ") + "</span>" : "") + "</p>" : "";
+    var head = sum + "<div class=\"tally\"><div><b>" + c.length + "</b><span>check-in" + (c.length === 1 ? "" : "s") + "</span></div><div><b>" + Object.keys(airports).length +
       "</b><span>airport" + (Object.keys(airports).length === 1 ? "" : "s") + "</span></div><div><b>" + Object.keys(devices).length + "</b><span>device model" + (Object.keys(devices).length === 1 ? "" : "s") + "</span></div></div>";
     if (!c.length) {
       detail.innerHTML = live + head + "<div class=\"empty\" style=\"margin-top:12px\">" + (net.partial ? "No check-ins heard yet." : "No check-ins were heard by observers on " + esc(nice(net.date)) +
@@ -331,6 +364,8 @@ Channel link, your local time, and past check-ins (guidance only): https://mutin
     .then(function (log) {
       var nets = (log.nets || []).slice(0, 26);
       if (!nets.length) throw 0;
+      allNets = nets;
+      spark(nets); heardFrom(nets);
       nets.forEach(function (n) {
         var b = document.createElement("button"); b.type = "button"; b.dataset.date = n.date;
         b.textContent = nice(n.date) + " · " + n.checkins.length;
@@ -363,10 +398,12 @@ Channel link, your local time, and past check-ins (guidance only): https://mutin
       return da + ta + " " + a.dayPeriod + " to " + db + tb + " " + b.dayPeriod;
     }
     var mine = null; try { mine = Intl.DateTimeFormat().resolvedOptions().timeZone; } catch (e) {}
-    var html = "";
-    if (mine && mine !== "UTC") html += '<li class="you"><b>' + fmt(mine) + "</b><span>Your time</span></li>";
-    Z.forEach(function (z) { html += "<li><b>" + fmt(z[1], z[1] === "UTC") + "</b><span>" + z[0] + "</span></li>"; });
-    list.innerHTML = html;
+    var main = { Eastern: 1, Central: 1, UTC: 1 }, a = "", more = "";
+    Z.forEach(function (z) { var li = "<li><b>" + fmt(z[1], z[1] === "UTC") + "</b><span>" + z[0] + "</span></li>"; if (main[z[0]]) a += li; else more += li; });
+    list.innerHTML = a;
+    var mz = document.getElementById("zoneMore"); if (mz) mz.innerHTML = more;
+    var you = document.getElementById("whenYou");
+    if (you && mine && mine !== "UTC" && mine !== NET) { you.textContent = "Your time: " + fmt(mine); you.hidden = false; }
     next.textContent = "Next net: " + new Intl.DateTimeFormat("en-US", { timeZone: NET, weekday: "long", month: "long", day: "numeric" }).format(start) + ".";
   } catch (e) { /* keep the static times */ }
 })();
