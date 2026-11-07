@@ -57,6 +57,14 @@ def key(url):
     return ("pr:" + m.group(1)) if m else url.strip().lower().rstrip("/")
 
 
+def clip(text, n):
+    """Shorten at a word boundary, never mid-word, and mark the cut."""
+    if len(text) <= n:
+        return text
+    cut = text[:n].rsplit(" ", 1)[0].rstrip(" ,;:-")
+    return cut + "…"
+
+
 def github_meta(owner, repo):
     """(fields, problem). problem is None, 'missing', or a short reason."""
     try:
@@ -72,7 +80,7 @@ def github_meta(owner, repo):
     return {
         "url": r["html_url"],
         "name": r["name"],
-        "description": (r.get("description") or "").strip()[:220],
+        "description": clip((r.get("description") or "").strip(), 240),
         "license": None if lic in (None, "NOASSERTION") else lic,
         "updated": (r.get("pushed_at") or "")[:10],
         "archived": bool(r.get("archived")),
