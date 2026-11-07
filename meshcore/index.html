@@ -28,7 +28,7 @@
 <meta name="twitter:image:alt" content="HOOP: Hoosier Off-Grid Open Playbook">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "HowTo", "name": "Get on the Indiana mesh with MeshCore", "description": "From a new radio to your first MeshCore message in five steps.", "totalTime": "PT1H", "estimatedCost": {"@type": "MonetaryAmount", "currency": "USD", "value": "30"}, "step": [{"@type": "HowToStep", "name": "Pick a radio", "text": "A SenseCAP T1000-E or a Heltec V3/V4."}, {"@type": "HowToStep", "name": "Flash the companion firmware", "text": "Use the official MeshCore web flasher."}, {"@type": "HowToStep", "name": "Set the USA preset and path hash size", "text": "The radio preset must match everyone else's; set path hash size to 2 bytes."}, {"@type": "HowToStep", "name": "Join the channels people use", "text": "Public is built in; add the hashtag channels for your area."}, {"@type": "HowToStep", "name": "Send a flood advert", "text": "So people and repeaters learn you are there."}], "isPartOf": {"@id": "https://mutiny19.github.io/hoop/#website"}, "dateModified": "2026-10-25"}</script>
 <link rel="preload" href="../assets/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/site.css?v=20261107a">
+<link rel="stylesheet" href="../assets/site.css?v=20261107b">
 <style>
 /* Page styles. Tokens, header and footer come from ../assets/site.css.
    Layout: newcomer steps first, then 'hear everything', then the repeater-owner tile map, setup, rules, in-depth, neighbours. */
@@ -85,7 +85,7 @@ pre { margin: 0; background: var(--code-bg); color: var(--code-fg); font: 400 .9
 button.copy { font: 600 .82rem/1 var(--body); background: transparent; color: var(--link); border: 1px solid var(--link); border-radius: 999px; padding: 7px 12px; cursor: pointer; }
 button.copy:hover { background: var(--link); color: var(--panel); }
 .steps { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; font-size: .95rem; }
-.steps code, .rules code, td code, .why code { font-family: var(--mono); font-size: .88em; }
+.steps code, .rules code, td code { font-family: var(--mono); font-size: .88em; }
 
 /* rules */
 .rules { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
@@ -94,7 +94,6 @@ button.copy:hover { background: var(--link); color: var(--panel); }
 .rules li::before { position: absolute; left: 0; top: 0; font-weight: 700; font-family: var(--body); }
 .do li::before { content: "✓"; color: var(--link); }
 .dont li::before { content: "✕"; color: var(--signal); }
-.why { background: var(--panel); border-left: 4px solid var(--signal); padding: 14px 18px; border-radius: 0 10px 10px 0; font-size: 1rem; }
 
 /* neighbours table */
 .tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); }
@@ -131,10 +130,12 @@ details.depth[open] { padding-bottom: 18px; }
 .border-box ul { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; }
 .addons { width: 100%; min-width: 0; }
 .addons td, .addons th { padding: 9px 10px; }
-.wip { font-size: 13.5px; color: var(--muted); border-left: 3px solid var(--signal); padding: 6px 12px; margin-bottom: 18px; }
-.wip strong { color: var(--signal); font-weight: 700; }
-.chips { display: flex; flex-wrap: wrap; gap: 8px; }
-.chip { font: 600 .82rem/1 var(--body); padding: 7px 11px; border-radius: 999px; border: 1px solid var(--link); color: var(--link); background: var(--panel); }
+.progress { display: flex; flex-wrap: wrap; gap: 8px; }
+.progress a { font: 600 .85rem/1 var(--body); padding: 8px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--panel); color: var(--fg); text-decoration: none; }
+.progress a b { color: var(--signal); margin-right: 4px; }
+.progress a:hover { border-color: var(--link); }
+.step { scroll-margin-top: 16px; }
+.step .alt { color: var(--muted); margin-top: 6px; }
 .flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
 .flow .panel h3 { font-size: 1.2rem; }
 .flow .panel p { font-size: .93rem; color: var(--muted); }
@@ -178,32 +179,31 @@ details.depth[open] { padding-bottom: 18px; }
 
 <div class="wrap">
   <header>
-    <div class="wip"><strong>Work in progress.</strong> A draft for discussion, not a published standard; names and steps may change.</div>
     <span class="eyebrow">MeshCore · Indiana · Start here</span>
     <h1>Get on the Indiana mesh</h1>
-    <p class="lead">From a new radio to your first message in five steps. You'll hear everything the repeaters around you pass along. Regions are rarely used; ask people in your area before setting one.</p>
-    <div class="chips"><span class="chip">Default: open</span><span class="chip">Hear everything</span><span class="chip">Regions: ask locally</span></div>
-    <div class="why"><strong>On regions: ask before you set one.</strong> Region usage is rare. Most traffic in Indiana goes out unscoped, which reaches the most contacts, including across state lines. Check with others in your area whether they use regions on their repeaters or companions, and match what they do. If a channel gets too busy, muting or leaving it is simpler than scoping it. Repeater owners: see the official <a href="https://docs.meshcore.io/" target="_blank" rel="noopener">MeshCore docs</a>.</div>
+    <p class="lead">From a new radio to your first message in five steps. Leave regions alone for now; most Indiana traffic is unscoped.</p>
+    <nav class="progress" aria-label="The five steps"><a href="#s1"><b>1</b> Radio</a><a href="#s2"><b>2</b> Firmware</a><a href="#s3"><b>3</b> App</a><a href="#s4"><b>4</b> Settings</a><a href="#s5"><b>5</b> Hello</a></nav>
   </header>
 
   <section aria-labelledby="start-h">
     <h2 id="start-h">First radio to first message</h2>
     <div class="start">
-      <div class="step"><div>
+      <div class="step" id="s1"><div>
         <h3>Get a radio</h3>
-        <p>Two safe first picks, roughly $20 to $40, both on the <a href="https://flasher.meshcore.io/" target="_blank" rel="noopener">MeshCore flasher</a> list: the <strong>SenseCAP T1000-E</strong>, a credit-card-sized tracker with its own battery and antenna, nothing to assemble; or a <strong>Heltec V3 or V4</strong> board, cheaper and more flexible, which you'll want a case and a small battery for. Buy the <strong>US 915 MHz</strong> version of either. Any other device on the flasher list works too.</p>
+        <p><strong>Not sure? Get a SenseCAP T1000-E</strong> (US 915 MHz version, roughly $40). It's a credit-card-sized tracker with its own battery and antenna, nothing to assemble, and it's on the <a href="https://flasher.meshcore.io/" target="_blank" rel="noopener">MeshCore flasher</a> list.</p>
+        <p class="alt">Other good picks: a <strong>Heltec V3 or V4</strong> board (roughly $20 to $30, more flexible; you'll want a case and a small battery), or any other device on the flasher list. Buy the US 915 MHz version.</p>
 <p class="note">Not sure? Ask in the <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Indiana Mesh Discord</a> before you order; someone will tell you what they'd buy today. The MeshCore FAQ has more on <a href="https://docs.meshcore.io/faq/#12-q-what-do-you-need-to-start-using-meshcore" target="_blank" rel="noopener">what you need to start</a>.</p>
       </div></div>
-      <div class="step"><div>
+      <div class="step" id="s2"><div>
         <h3>Install Companion firmware</h3>
 <p class="note"><abbr title="The firmware for a radio you carry and control from your phone. The other kind, Repeater, is for fixed boxes on rooftops that relay for everyone.">What's "Companion"?</abbr> It means a radio you carry and control from your phone. Rooftop relay boxes run the other kind, Repeater; you don't need one to start.</p>
         <p>Open the <a href="https://flasher.meshcore.io/" target="_blank" rel="noopener">MeshCore flasher</a> in Chrome or Edge on a computer, plug the radio in by USB, pick your device and choose the <strong>Companion (Bluetooth)</strong> firmware.</p>
       </div></div>
-      <div class="step"><div>
+      <div class="step" id="s3"><div>
         <h3>Install the app and pair</h3>
         <p>Get the MeshCore app for <a href="https://apps.apple.com/nz/app/meshcore/id6742354151" target="_blank" rel="noopener">iPhone</a>, <a href="https://play.google.com/store/apps/details?id=com.liamcottle.meshcore.android" target="_blank" rel="noopener">Android</a> or the <a href="https://app.meshcore.nz/" target="_blank" rel="noopener">web</a>. Connect to your radio over Bluetooth and give yourself a name.</p>
       </div></div>
-      <div class="step"><div>
+      <div class="step" id="s4"><div>
         <h3>Set the US radio settings</h3>
         <p>In the radio settings pick the <strong id="pn">USA</strong> preset. It must match these, or you'll hear nothing:</p>
         <div class="radio">
@@ -216,7 +216,7 @@ details.depth[open] { padding-bottom: 18px; }
         <p>Then set <strong>Path hash size</strong> to <strong id="ph">2 bytes</strong>. In the app it lives under the Optimise screen on recent versions, or Experimental settings on older ones. It needs firmware 1.14 or newer on your radio; Indiana's repeaters already run 2-byte or newer, so this is just about getting your own device caught up.</p>
         <p class="note">Why these numbers: <a href="https://docs.meshcore.io/faq/#23-q-what-frequencies-are-supported-by-meshcore" target="_blank" rel="noopener">supported frequencies</a> in the MeshCore FAQ; path hash size is explained in the <a href="https://blog.meshcore.io/2026/03/06/path-diagnostics-improvements" target="_blank" rel="noopener">MeshCore 1.14 release notes</a>.</p>
       </div></div>
-      <div class="step"><div>
+      <div class="step" id="s5"><div>
         <h3>Say hello</h3>
         <ul>
           <li>Send a <strong>flood advert</strong> (the app's "announce me to everyone" button) so nearby people and repeaters learn about you.</li>
@@ -247,7 +247,7 @@ details.depth[open] { padding-bottom: 18px; }
     <h2 id="hear-h">Hear everything around you</h2>
     <div class="hear">
       <div class="panel"><h3>Regions: rare, so ask</h3>
-        <p>Most people leave region and default scope unset; unscoped messages go out to everyone, and you still receive everything that reaches you. If the people near you do use regions on their repeaters or companions, match them.</p></div>
+        <p>Most people leave region and default scope unset; unscoped messages go out to everyone, and you still receive everything that reaches you. If the people near you do use regions on their repeaters or companions, match them. If a channel gets too busy, muting or leaving it is simpler than scoping it.</p></div>
       <div class="panel"><h3>Join the channels people use</h3>
         <p>Public is there from the start. Add hashtag channels like <code>#test</code>, <code>#hamradio</code> or <code>#wardriving</code>. In <code>#porchlight</code>, people share the names of channels worth joining.</p></div>
       <div class="panel"><h3>Get some height</h3>
@@ -292,7 +292,7 @@ details.depth[open] { padding-bottom: 18px; }
 
   <section aria-labelledby="owner-h">
     <h2 id="owner-h">Running a repeater?</h2>
-    <p class="owner-intro">Companion users need nothing beyond the steps above. Repeater owners: the official <a href="https://docs.meshcore.io/" target="_blank" rel="noopener">MeshCore docs</a> cover setup and the <a href="https://docs.meshcore.io/cli_commands/" target="_blank" rel="noopener">CLI</a>. Neighbouring groups publish their own region names; follow theirs exactly where your repeater can hear them.</p>
+    <p class="owner-intro">Companion users need nothing beyond the steps above. Repeater owners: the official <a href="https://docs.meshcore.io/" target="_blank" rel="noopener">MeshCore docs</a> cover setup and the <a href="https://docs.meshcore.io/cli_commands/" target="_blank" rel="noopener">CLI</a>. Neighboring groups publish their own region names; follow theirs exactly where your repeater can hear them.</p>
   </section>
 
   <footer>
@@ -316,6 +316,6 @@ var d = (c.config && c.config.suggested_radio_settings && c.config.suggested_rad
   document.getElementById("pc").textContent = "CR" + d.coding_rate;
 }).catch(function () {});
 </script>
-<script src="../assets/site.js?v=20261026a"></script>
+<script src="../assets/site.js?v=20261107a"></script>
 </body>
 </html>

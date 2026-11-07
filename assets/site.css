@@ -97,3 +97,8 @@ a[href^="http"]:where(:not(.btn, .card, .brand, .cta, .go, .layer, .links a, .si
   .nav-more { display: none; width: 100%; flex-wrap: wrap; gap: 14px 18px; padding: 6px 0 2px; }
   .nav-more.open { display: flex; }
 }
+
+/* Slim "Next #meshnet" bar under the site notice (written by assets/site.js) */
+.nextnet { display: block; background: var(--panel); color: var(--fg); border-bottom: 1px solid var(--line); padding: 8px 24px; font-size: 13.5px; line-height: 1.4; text-align: center; text-decoration: none; }
+.nextnet b { color: var(--signal); }
+.nextnet:hover, .nextnet:focus-visible { text-decoration: underline; }

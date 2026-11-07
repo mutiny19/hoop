@@ -44,3 +44,58 @@ document.querySelectorAll("button.copy[data-copy]").forEach(function (btn) {
     } catch (e) { selectIt(); }
   });
 });
+
+/* #meshnet clock, written once: Sundays and Thursdays 7:00 to 7:10 PM US Eastern (change with data/nets.json, tools/meshnet_log.py and meshnet.yml).
+   HOOP.net.at7 and .parts are used by the #meshnet page's time-zone list; the slim "Next #meshnet" bar below shows on every other page. */
+(function () {
+  var NET = "America/Indiana/Indianapolis", DAYS = { Sun: 1, Thu: 1 };
+  window.HOOP = window.HOOP || {};
+  function parts(d, tz) { var o = {}; new Intl.DateTimeFormat("en-US", { timeZone: tz, hourCycle: "h23", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", weekday: "short" }).formatToParts(d).forEach(function (x) { o[x.type] = x.value; }); return o; }
+  function at7(y, m, d) { /* the instant it is 19:00 on y-m-d in Indiana */
+    var t = Date.UTC(y, m - 1, d, 24, 0);
+    for (var i = 0; i < 2; i++) { var q = parts(new Date(t), NET), seen = Date.UTC(+q.year, +q.month - 1, +q.day, +q.hour % 24, +q.minute); t += Date.UTC(y, m - 1, d, 19, 0) - seen; }
+    return new Date(t);
+  }
+  /* the net start nearest to now in direction dir (+1: the one in progress or next; -1: the latest that has ended) */
+  function find(now, dir) {
+    for (var k = 0; k < 9; k++) {
+      var q = parts(new Date(now.getTime() + dir * k * 864e5), NET);
+      if (!DAYS[q.weekday]) continue;
+      var s = at7(+q.year, +q.month, +q.day);
+      if (dir > 0 ? s.getTime() + 10 * 6e4 > now.getTime() : s.getTime() + 10 * 6e4 <= now.getTime()) return s;
+    }
+    return null;
+  }
+  HOOP.net = { tz: NET, parts: parts, at7: at7, next: function (now) { return find(now || new Date(), 1); }, last: function (now) { return find(now || new Date(), -1); } };
+
+  var notice = document.querySelector(".site-notice");
+  if (!notice || /\/meshnet\/?$/.test(location.pathname) || !window.Intl) return;
+  var me = document.querySelector('script[src*="assets/site.js"]'), root = me ? me.getAttribute("src").replace(/assets\/site\.js.*$/, "") : "";
+  var bar = document.createElement("a");
+  bar.className = "nextnet"; bar.href = root + "meshnet/"; bar.setAttribute("role", "note");
+  notice.parentNode.insertBefore(bar, notice.nextSibling);
+  var logged = null;   // { date, n } for the net that ended in the last 24 hours, once its log is in
+  function dayName(d) { return new Intl.DateTimeFormat("en-US", { timeZone: NET, weekday: "long" }).format(d); }
+  function render() {
+    var now = new Date(), nx = HOOP.net.next(now), t;
+    if (!nx) { bar.hidden = true; return; }
+    var ms = nx - now;
+    if (ms <= 0) t = "<b>#meshnet is on now</b> (7:00 to 7:10 PM US Eastern). Check in";
+    else {
+      var m = Math.round(ms / 6e4), d = Math.floor(m / 1440), h = Math.floor(m % 1440 / 60), mi = m % 60;
+      var left = d ? d + " d " + h + " h" : h ? h + " h " + mi + " min" : mi + " min";
+      t = "<b>Next #meshnet:</b> " + dayName(nx) + " 7:00 PM US Eastern, in " + left;
+    }
+    if (logged && ms > 0) t = "<b>#meshnet logged:</b> " + logged + (logged === 1 ? " check-in" : " check-ins") + " last time. " + t.replace("<b>Next #meshnet:</b> ", "Next: ");
+    bar.innerHTML = t + ' <span aria-hidden="true">→</span>';
+  }
+  render(); setInterval(render, 30000);
+  var last = HOOP.net.last(), now0 = new Date();
+  if (last && now0 - last < 24 * 36e5 + 10 * 6e4) {
+    var q = parts(last, NET), iso = q.year + "-" + q.month + "-" + q.day;
+    fetch(root + "data/meshnet/log.json").then(function (r) { return r.json(); }).then(function (d) {
+      var n = (d.nets || []).filter(function (x) { return x.date === iso; })[0];
+      if (n) { logged = (n.checkins || []).length; render(); }
+    }).catch(function () {});
+  }
+})();
