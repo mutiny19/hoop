@@ -50,6 +50,12 @@ section { display: grid; gap: 14px; }
 .view.main { border: 2px solid var(--beacon); }
 .view p { color: var(--muted); }
 .view ul { margin: 0; padding-left: 1.1em; display: grid; gap: 4px; color: var(--muted); font-size: .95rem; }
+.ocov { display: flex; flex-wrap: wrap; gap: 5px; }
+.ocov span { font: 500 12px/1 var(--mono); padding: 5px 7px; border-radius: 6px; border: 1px solid var(--line); color: var(--muted); }
+.ocov span.g { border-color: var(--live); color: var(--live); font-weight: 600; }
+.ocov span.a { border-color: var(--signal); color: var(--signal); font-weight: 600; }
+.dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 4px; vertical-align: middle; border: 2px solid var(--line); }
+.dot.g { border-color: var(--live); } .dot.a { border-color: var(--signal); }
 .badge { justify-self: start; font: 600 .72rem/1 var(--body); letter-spacing: .08em; text-transform: uppercase; padding: 5px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
 .badge.live { border-color: var(--live); color: var(--live); }
 .btn { justify-self: start; font: 700 15px/1 var(--body); border-radius: 6px; padding: 13px 18px; text-decoration: none; display: inline-block; }
@@ -134,6 +140,10 @@ section { display: grid; gap: 14px; }
   <section aria-labelledby="obs-h">
     <h2 id="obs-h">Help fill the live views</h2>
     <p class="lead">An observer uploads what it hears, so your area shows up on these views and in the <a href="../meshnet/">#meshnet</a> log.</p>
+    <h3 id="obsmap-h">Where observers are today</h3>
+    <p class="note" id="obsSum">Loading…</p>
+    <div class="ocov" id="ocov" role="group" aria-labelledby="obsmap-h"></div>
+    <p class="note"><span class="dot g"></span>has an observer · <span class="dot a"></span>has an active repeater but no observer yet (the log is blind here) · <span class="dot n"></span>neither. Counted by county; nothing about any one observer is stored.</p>
     <ol class="steps">
       <li>Set one up with <a href="https://docs.meshcore.io/faq/#38-q-how-do-i-make-my-repeater-an-observer-on-the-mesh" target="_blank" rel="noopener">MeshCore's observer guide</a>.</li>
       <li>Point it at a network's broker, using that network's own setup page: <a href="https://chicagolandmesh.org/guides/meshcore/mqtt/" target="_blank" rel="noopener">Chicagoland Mesh</a>, <a href="https://analyzer.letsmesh.net/observer/onboard" target="_blank" rel="noopener">LetsMesh</a>, <a href="https://docs.okimesh.org/books/meshcore-I9o/page/mqtt-broker-settings" target="_blank" rel="noopener">OKI Mesh</a>, or <a href="https://waev.app/#/connect" target="_blank" rel="noopener">Waev</a>.</li>
@@ -149,6 +159,20 @@ section { display: grid; gap: 14px; }
 </div></footer>
 
 
-<script src="../assets/site.js?v=20261107c"></script>
+<script>
+/* Observers by county, from data/observers.json (counts only; written nightly by tools/update_observers.py) */
+fetch("../data/observers.json").then(function (r) { return r.json(); }).then(function (o) {
+  return fetch("../data/meshcore-nodes.json").then(function (r) { return r.json(); }).then(function (n) {
+    var names = Object.keys(n.counties).sort(), O = o.counties || {}, have = 0, blind = 0;
+    document.getElementById("ocov").innerHTML = names.map(function (k) {
+      var c = O[k] || 0, a = n.counties[k][1] > 0, cls = c ? "g" : a ? "a" : "";
+      if (c) have++; else if (a) blind++;
+      return '<span class="' + cls + '" title="' + k + ": " + c + " observer" + (c === 1 ? "" : "s") + ", " + n.counties[k][1] + ' active repeater(s)">' + k + (c ? " " + c : "") + "</span>";
+    }).join("");
+    document.getElementById("obsSum").textContent = o.total + " observers heard in the last 30 days, in " + have + " of " + names.length + " Indiana counties. " + blind + " more have an active repeater but no observer. Data as of " + o.generated.slice(0, 10) + ".";
+  });
+}).catch(function () { document.getElementById("obsSum").textContent = "The observer counts aren't available right now."; });
+</script>
+<script src="../assets/site.js?v=20261107d"></script>
 </body>
 </html>

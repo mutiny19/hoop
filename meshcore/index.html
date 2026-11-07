@@ -133,6 +133,7 @@ details.depth[open] { padding-bottom: 18px; }
 .border-box ul { margin: 0; padding-left: 1.1em; display: grid; gap: 6px; }
 .addons { width: 100%; min-width: 0; }
 .addons td, .addons th { padding: 9px 10px; }
+@media print { .wrap > section:not(#start), .wrap > details, .wrap > footer, .progress { display: none !important; } .step { break-inside: avoid; } }
 .progress { display: flex; flex-wrap: wrap; gap: 8px; }
 .progress a { font: 600 .85rem/1 var(--body); padding: 8px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--panel); color: var(--fg); text-decoration: none; }
 .progress a b { color: var(--signal); margin-right: 4px; }
@@ -183,7 +184,7 @@ details.depth[open] { padding-bottom: 18px; }
     <nav class="progress" aria-label="The five steps"><a href="#s1"><b>1</b> Radio</a><a href="#s2"><b>2</b> Firmware</a><a href="#s3"><b>3</b> App</a><a href="#s4"><b>4</b> Settings</a><a href="#s5"><b>5</b> Hello</a></nav>
   </header>
 
-  <section aria-labelledby="start-h">
+  <section id="start" aria-labelledby="start-h">
     <h2 id="start-h">First radio to first message</h2>
     <div class="start">
       <div class="step" id="s1"><div>
@@ -224,7 +225,7 @@ details.depth[open] { padding-bottom: 18px; }
         <p class="note"><strong>What to expect:</strong> your radio only has to reach one repeater, not the whole state; the repeaters do the rest. If you hear nothing, the fix is almost always height and a nearby repeater, not a different radio. Recheck step 4, put the radio in a window or upstairs, then ask in the <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Indiana Mesh Discord</a> where the nearest repeater is.</p>
       </div></div>
     </div>
-    <p class="note">Tip: add this page to your phone's home screen (Share, then Add to Home Screen) and it opens with no signal.</p>
+    <p class="note">Tip: add this page to your phone's home screen (Share, then Add to Home Screen) and it opens with no signal. <button type="button" class="btn ghost noprint" id="printStart">Print these five steps</button></p>
   </section>
 
   <details class="depth" id="glossary">
@@ -316,6 +317,7 @@ var d = (c.config && c.config.suggested_radio_settings && c.config.suggested_rad
   document.getElementById("pc").textContent = "CR" + d.coding_rate;
 }).catch(function () {});
 </script>
-<script src="../assets/site.js?v=20261107c"></script>
+<script>document.getElementById("printStart").addEventListener("click",function(){window.print()});</script>
+<script src="../assets/site.js?v=20261107d"></script>
 </body>
 </html>

@@ -113,3 +113,16 @@ document.querySelectorAll("button.copy[data-copy]").forEach(function (btn) {
   }
   window.addEventListener("offline", show); window.addEventListener("online", show); show();
 })();
+
+/* Footer "What's new": the last human-made change, from data/changelog.json (written by .github/workflows/changelog.yml) */
+(function () {
+  var bar = document.querySelector(".site-foot .bar"), me = document.querySelector('script[src*="assets/site.js"]');
+  if (!bar || !me) return;
+  var root = me.getAttribute("src").replace(/assets\/site\.js.*$/, "");
+  fetch(root + "data/changelog.json").then(function (r) { return r.json(); }).then(function (rows) {
+    if (!rows.length) return;
+    var s = document.createElement("span"), d = new Date(rows[0].date + "T12:00:00");
+    s.className = "whatsnew"; s.textContent = "What's new (" + d.toLocaleDateString("en-US", { month: "short", day: "numeric" }) + "): " + rows[0].text;
+    bar.appendChild(s);
+  }).catch(function () {});
+})();

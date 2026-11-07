@@ -40,7 +40,7 @@
     }).join("");
     renderCoverage(d);
     renderTiles();
-    HOOP.repeaters = d.repeaters; HOOP.project = P; window.dispatchEvent(new Event("hoop:repeaters"));
+    HOOP.repeaters = d.repeaters; HOOP.counties = d.counties; HOOP.project = P; window.dispatchEvent(new Event("hoop:repeaters"));
   }).catch(function () {
     $("pillCount").textContent = "Indiana MeshCore repeaters";
     $("pillSub").textContent = "map data unavailable right now";
@@ -491,4 +491,28 @@
     document.querySelectorAll("form[data-kind]").forEach(function (f) { f.reset(); });
     pick(cur);
   });
+  /* ---------- "Your county": the choice stays in this browser; the numbers come from the nightly files ---------- */
+  (function () {
+    var sel = $("myCounty"), out = $("myCountyOut"); if (!sel) return;
+    sel.insertAdjacentHTML("beforeend", COUNTIES.filter(function (c) { return c !== "Other"; }).map(function (c) { return "<option>" + c + "</option>"; }).join(""));
+    var extra = null;
+    function load() { return extra || (extra = Promise.all([fetch("data/observers.json").then(function (r) { return r.json(); }), fetch("data/county-airports.json").then(function (r) { return r.json(); })]).catch(function () { return [{ counties: {} }, {}]; })); }
+    function draw() {
+      var name = sel.value; if (!name) { out.hidden = true; return; }
+      var C = HOOP.counties; if (!C || !C[name]) { out.hidden = false; out.innerHTML = '<div class="wide"><span>Loading the repeater counts…</span></div>'; return; }
+      load().then(function (x) {
+        var v = C[name], obs = (x[0].counties || {})[name] || 0, ap = x[1][name], per = v[1] ? Math.round(v[2] / v[1]).toLocaleString() : null;
+        out.hidden = false;
+        out.innerHTML = "<div><b>" + v[0] + "</b><span>repeaters on the MeshCore Map</span></div><div><b>" + v[1] + "</b><span>heard in the last 30 days</span></div>" +
+          "<div><b>" + obs + "</b><span>observer" + (obs === 1 ? "" : "s") + " uploading what they hear</span></div>" +
+          "<div><b>" + (per || "none") + "</b><span>" + (per ? "people per active repeater" : "active repeater yet, and " + v[2].toLocaleString() + " people") + "</span></div>" +
+          (ap ? '<div class="wide"><span>Start your #meshnet check-in with <b style="display:inline;font-size:1em">' + esc(ap[0]) + "</b>, the closest public airfield code to the middle of " + esc(name) + " County (" + esc(ap[1]) + ", about " + ap[2] + " mi). Your own closest one may differ.</span></div>" : "");
+      });
+    }
+    var saved = null; try { saved = localStorage.getItem("hoop-county"); } catch (e) {}
+    if (saved) sel.value = saved;
+    sel.addEventListener("change", function () { try { localStorage.setItem("hoop-county", sel.value); } catch (e) {} draw(); });
+    window.addEventListener("hoop:repeaters", draw);
+    if (HOOP.counties) draw();
+  })();
 })();

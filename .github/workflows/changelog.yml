@@ -1,0 +1,30 @@
+name: What's new line
+
+on:
+  push:
+    branches: [main]
+    paths-ignore: ["data/changelog.json"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 60
+      - run: python3 tools/changelog.py
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- data/changelog.json; then
+            echo "No change"; exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add data/changelog.json
+          git commit -m "Update what's new"
+          git pull --rebase origin main
+          git push

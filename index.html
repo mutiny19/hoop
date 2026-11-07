@@ -268,6 +268,15 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
 .county .p { grid-column: 2; grid-row: 1 / span 2; text-align: right; font: 400 13px/1.5 var(--mono); }
 .county .p em { font-style: normal; color: var(--signal); display: block; }
 .path { padding-block: 36px 8px; display: grid; gap: 14px; }
+.yourcounty { padding-block: 8px 8px; display: grid; gap: 12px; }
+.ccard { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: grid; gap: 14px; }
+.ccard label { display: grid; gap: 6px; font-size: 14px; color: var(--muted); max-width: 420px; }
+.ccard select { font: 600 16px/1.2 var(--body); padding: 10px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); }
+.cout { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
+.cout div { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+.cout b { display: block; font: 500 1.5rem/1.2 var(--mono); }
+.cout span { font-size: 13px; color: var(--muted); }
+.cout .wide { grid-column: 1 / -1; }
 .paths { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
 .pcard { display: grid; gap: 8px; align-content: start; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px; color: var(--fg); text-decoration: none; }
 .pcard b { font: 700 1.25rem/1.15 var(--display); }
@@ -453,6 +462,14 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
   </div>
 </section>
 
+<section id="yourcounty" class="wrap yourcounty" aria-labelledby="county-h">
+  <h2 id="county-h">Your county</h2>
+  <div class="ccard">
+    <label>Pick it once; this device remembers it (nothing is sent anywhere).<select id="myCounty"><option value="">Choose a county</option></select></label>
+    <div id="myCountyOut" class="cout" hidden></div>
+  </div>
+</section>
+
 <section id="protocols" class="wrap settings" aria-labelledby="set-h">
   <div class="sec-head">
     <div><h2 id="set-h">Settings people use in Indiana</h2><p>A starting point, not a standard: each card starts from the project's official settings, and radios only hear others on the same preset, so check with your neighbors. New to MeshCore? Its <a href="meshcore/">five steps</a> go from the box to a first message.</p></div>
@@ -568,6 +585,6 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
 <script src="assets/nets.js"></script>
 <script src="assets/home.js?v=20261107e"></script>
 <script src="assets/chirps.js?v=20261025l"></script>
-<script src="assets/site.js?v=20261107c"></script>
+<script src="assets/site.js?v=20261107d"></script>
 </body>
 </html>
