@@ -43,6 +43,18 @@
    "added": "2026-11-07"
   },
   {
+   "url": "https://github.com/slack-space/meshage-community",
+   "name": "meshage-community",
+   "description": "Official issue tracker and discussion board for the Meshage app available at https://meshage.me.",
+   "license": null,
+   "updated": "2026-11-09",
+   "archived": false,
+   "title": "Meshage",
+   "category": "Mesh apps and tools",
+   "indiana": "made",
+   "added": "2026-11-09"
+  },
+  {
    "url": "https://github.com/Cisien/meshcoretomqtt",
    "category": "Mesh apps and tools",
    "indiana": "used",
