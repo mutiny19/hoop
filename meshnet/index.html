@@ -5,12 +5,12 @@
 <script src="../assets/theme.js?v=20261025a"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="#meshnet: a ten-minute MeshCore check-in net open to anyone on the mesh, Sundays and Thursdays at 7:00 PM. This site logs check-ins from Indiana and its border counties on a map.">
-<title>#meshnet: MeshCore Check-in Net, Logged for Indiana | HOOP</title>
+<title>#meshnet: The Universal MeshCore Check-in Net | HOOP</title>
 <link rel="icon" href="../assets/favicon.svg?v=20261025e" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="HOOP · Hoosier Off-Grid Open Playbook">
-<meta property="og:title" content="#meshnet: the MeshCore check-in net, logged for Indiana">
-<meta property="og:description" content="Ten minutes, Sundays and Thursdays at 7:00 PM. Test your radio, see who you can reach, and see each net's check-ins on a map.">
+<meta property="og:title" content="#meshnet: the same check-in on every mesh, at the same time">
+<meta property="og:description" content="One channel, ten minutes, Sundays and Thursdays at 7:00 PM US Eastern. Check in from anywhere, mirror it for your area, and see Indiana's check-ins on a map.">
 <meta property="og:url" content="https://mutiny19.github.io/hoop/meshnet/">
 <meta property="og:image" content="https://mutiny19.github.io/hoop/assets/social.png">
 <meta property="og:image:width" content="1200">
@@ -22,11 +22,11 @@
 <meta name="geo.placename" content="Indiana">
 <meta property="og:locale" content="en_US">
 <meta property="og:image:alt" content="HOOP: Hoosier Off-Grid Open Playbook">
-<meta name="twitter:title" content="#meshnet: the MeshCore check-in net, logged for Indiana">
-<meta name="twitter:description" content="Ten minutes, Sundays and Thursdays at 7:00 PM. Test your radio, see who you can reach, and see each net's check-ins on a map.">
+<meta name="twitter:title" content="#meshnet: the same check-in on every mesh, at the same time">
+<meta name="twitter:description" content="One channel, ten minutes, Sundays and Thursdays at 7:00 PM US Eastern. Check in from anywhere, mirror it for your area, and see Indiana's check-ins on a map.">
 <meta name="twitter:image" content="https://mutiny19.github.io/hoop/assets/social.png">
 <meta name="twitter:image:alt" content="HOOP: Hoosier Off-Grid Open Playbook">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "url": "https://mutiny19.github.io/hoop/meshnet/", "name": "#meshnet: the MeshCore check-in net, logged for Indiana", "description": "A ten-minute MeshCore check-in net open to anyone on the mesh, Sundays and Thursdays at 7:00 PM, with check-ins from Indiana and its border counties on a map.", "isPartOf": {"@id": "https://mutiny19.github.io/hoop/#website"}, "dateModified": "2026-11-01"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "url": "https://mutiny19.github.io/hoop/meshnet/", "name": "#meshnet: the same check-in on every mesh, at the same time", "description": "A ten-minute MeshCore check-in net open to anyone on the mesh, Sundays and Thursdays at 7:00 PM, with check-ins from Indiana and its border counties on a map.", "isPartOf": {"@id": "https://mutiny19.github.io/hoop/#website"}, "dateModified": "2026-11-01"}</script>
 <link rel="manifest" href="../manifest.webmanifest">
 <meta name="theme-color" content="#0F1729">
 <link rel="apple-touch-icon" href="../assets/icon-192.png">
@@ -34,7 +34,7 @@
 <link rel="stylesheet" href="../assets/site.css?v=20261107g">
 <style>
 /* #meshnet: what the net is for, how to check in, and the automatic log of each net's check-ins. */
-.wrap { max-width: 1100px; margin: 0 auto; padding-inline: 24px; padding-block: 36px 48px; display: grid; gap: 40px; }
+.wrap { max-width: 1100px; margin: 0 auto; padding-inline: 24px; padding-block: 36px 48px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; }
 h1, h2, h3 { font-family: var(--display); margin: 0; line-height: 1.08; text-wrap: balance; }
 h1 { font-size: clamp(2.2rem, 5.5vw, 3.4rem); font-weight: 800; }
 h2 { font-size: 1.7rem; font-weight: 800; }
@@ -67,6 +67,10 @@ section { display: grid; gap: 14px; }
 .sumline { font-weight: 600; }
 .zones li.you { border-color: var(--accent, #E8590C); }
 .why { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; font-size: 1.05rem; }
+.std { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px,100%), 1fr)); gap: 16px; }
+.std > div { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.std h3, #regions-h { font-size: 1.1rem; font-weight: 700; }
+.regions { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; }
 .hold { background: var(--signal-soft); border-left: 4px solid var(--beacon); border-radius: 0 10px 10px 0; padding: 12px 16px; }
 .steps { margin: 0; padding-left: 1.3em; display: grid; gap: 10px; }
 code.ex { font: 500 1rem/1 var(--mono); background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 4px 8px; }
@@ -145,12 +149,12 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
 
 <main class="wrap">
   <div class="hero">
-    <span class="eyebrow">Check-in net · MeshCore · Indiana</span>
+    <span class="eyebrow">Universal check-in net · MeshCore</span>
     <h1>#meshnet</h1>
-    <p class="lead">A ten-minute check-in net on MeshCore, open to anyone on the mesh; this site tracks Indiana and its border counties. It works like a weekly ham or GMRS net, with no net control: you post your check-in, and everyone within reach sees who's on the air. The ten minutes are short on purpose, so everyone posting at once puts real pressure on the mesh and shows where it holds up.</p>
+    <p class="lead">One channel, two evenings a week, ten minutes. Everyone on MeshCore checks in at the same moment, wherever they are, so the whole mesh is tested at once. No net control and no sign-up. <b>Add the channel. Check in. Answer what you hear.</b> This page is the home of #meshnet for Indiana, with Indiana's check-ins on the map below. Any other mesh group can <a href="#mirror">mirror it for its own area</a>.</p>
     <div class="facts">
       <div class="fact"><b>When</b><span class="clock">7:00 to 7:10 PM US Eastern</span><span class="you" id="whenYou" hidden></span><span>Sundays and Thursdays. Ten minutes, start to finish.</span><span class="utc">00:00 to 00:10 UTC Mon and Fri in winter; 23:00 to 23:10 UTC Sun and Thu in summer</span></div>
-      <div class="fact"><b>Where</b><span>The <span class="mono">#meshnet</span> channel on MeshCore</span></div>
+      <div class="fact"><b>Where</b><span>The <span class="mono">#meshnet</span> channel on MeshCore, in every region</span></div>
       <div class="fact"><b>Check in with</b><span class="mono">KUMP, Heltec V3, 4 months</span></div>
     </div>
     <div class="zones" id="zones">
@@ -185,7 +189,7 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
     </section>
 
   <section aria-labelledby="log-h">
-    <h2 id="log-h">Latest check-ins</h2>
+    <h2 id="log-h">Indiana's check-ins</h2>
     <div class="logbox">
       <div class="mapbox">
         <svg id="netmap" viewBox="-245 -130 1150 1240" role="img" aria-labelledby="netmapTitle">
@@ -220,9 +224,8 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
       <li>Test your radio and your settings.</li>
       <li>See who your messages reach, and who reaches you.</li>
       <li>Practice, so it's routine when the mesh is needed.</li>
-      <li>Meet the people on the mesh near you.</li>
+      <li>Meet the people on the mesh near you, and in the next region over.</li>
     </ul>
-    <p class="note">No one owns <span class="mono">#meshnet</span>. Any person, group, or organization is free to make it their own: announce it, host it, and bring it to their mesh. What makes it valuable is the shared days and time. New users find a busy channel to test against, and advanced users see the whole mesh, including the links between neighboring meshes, under load at once. Please keep Sundays and Thursdays at 7:00 PM US Eastern.</p>
     <p class="hold"><b>If there is severe weather or any emergency on the mesh, the net is postponed.</b> Emergency traffic always comes first.</p>
   </section>
 
@@ -253,7 +256,7 @@ Send it at least 5 times from each radio you're testing. Answer each one you hea
 
 Welcome, new meshheads. Advanced meshers, land here.
 
-No one owns #meshnet or the idea. Make it your own, but please keep the same days and time so every radio and every group tests the mesh together.
+It is the same everywhere. No one owns #meshnet or the idea: any mesh group can mirror it for its own area, add its own spin, and bring improvements back. Keep the channel, the days, and the time, so every radio and every group tests the mesh together. Mirror it: https://mutiny19.github.io/hoop/meshnet/#mirror
 
 If there is severe weather or any emergency on the mesh, the net is postponed. Emergency traffic always comes first.
 
@@ -272,16 +275,43 @@ Channel link, your local time, and past check-ins (guidance only): https://mutin
 </details>
   </section>
 
-  <section aria-labelledby="copy-h">
-    <details class="fold big"><summary><h2 id="copy-h">Run it for your area</h2></summary>
-    <p>Everything behind this page is open source under the MIT license, so any group can copy it and log the same net for their own region. Keep the channel, days, and time the same; that's what makes every log a picture of the same moment.</p>
+  <section aria-labelledby="mirror-h" id="mirror">
+    <h2 id="mirror-h">Mirror it in your area</h2>
+    <p class="lead">#meshnet works because it is the same everywhere. No one owns it. Any mesh group, club, collective, or organization is welcome to run it, announce it under its own name, and make it its own.</p>
+    <div class="std">
+      <div>
+        <h3>Keep the same</h3>
+        <ul class="why">
+          <li>The channel: <span class="mono">#meshnet</span></li>
+          <li>The days: Sundays and Thursdays</li>
+          <li>The time: 7:00 to 7:10 PM US Eastern, for every region</li>
+          <li>The check-in: airport code first, then device and months</li>
+          <li>Postponed for severe weather or any emergency on the mesh</li>
+        </ul>
+        <p class="note">The shared time is the whole point. New users find a busy channel to test against, and advanced users see the whole mesh, including the links between neighboring meshes, under load at once.</p>
+      </div>
+      <div>
+        <h3>Make it yours</h3>
+        <ul class="why">
+          <li>Your page, your name, and your welcome</li>
+          <li>Your own log, map, and stats</li>
+          <li>Your local airport finder and invite art</li>
+          <li>Where and how you announce it</li>
+          <li>Extra tools on top: bots, leaderboards, a regional net script</li>
+        </ul>
+        <p class="note">Bring your own spin. Nothing here needs permission.</p>
+      </div>
+    </div>
+    <p><b>Bring improvements back.</b> If you build something that helps every region, such as a better collector, a clearer invite, or a fix, open a pull request or an issue and it can be merged here. Everything behind this page is open source under the MIT license.</p>
     <ul class="why">
+      <li><a href="https://github.com/mutiny19/hoop/blob/main/FORKING.md#meshnet-log" target="_blank" rel="noopener">The mirroring guide</a> lists what to copy and what to change.</li>
       <li><a href="https://github.com/mutiny19/hoop/blob/main/tools/meshnet_log.py" target="_blank" rel="noopener">The collector</a> reads the <span class="mono">#meshnet</span> window from public CoreScopes and keeps one check-in per radio, with no names.</li>
       <li><a href="https://github.com/mutiny19/hoop/blob/main/.github/workflows/meshnet.yml" target="_blank" rel="noopener">The schedule</a> runs it on GitHub after each net, for free.</li>
       <li><a href="https://github.com/mutiny19/hoop/blob/main/meshnet/index.html" target="_blank" rel="noopener">This page</a> draws the map and list from <a href="https://github.com/mutiny19/hoop/blob/main/data/meshnet/log.json" target="_blank" rel="noopener">the log</a>.</li>
     </ul>
-    <p class="note"><a href="https://github.com/mutiny19/hoop/blob/main/FORKING.md#meshnet-log" target="_blank" rel="noopener">The copying guide</a> lists what to change: your CoreScopes, your airports, and your map.</p>
-</details>
+    <h3 id="regions-h">Regions running #meshnet</h3>
+    <ul class="regions" id="regions" aria-labelledby="regions-h"><li>Loading the list…</li></ul>
+    <p class="note">Running it for your area? <a href="https://github.com/mutiny19/hoop/issues/new?template=meshnet-region.yml" target="_blank" rel="noopener">List your region</a> with a public page or invite link. Use your group's name, never a person's.</p>
   </section>
 
 <p class="rung">Next rung: <a href="../#support">all the ways to help, smallest first</a>.</p>
@@ -409,6 +439,18 @@ Channel link, your local time, and past check-ins (guidance only): https://mutin
     if (you && mine && mine !== "UTC" && mine !== NET) { you.textContent = "Your time: " + fmt(mine); you.hidden = false; }
     next.textContent = "Next net: " + new Intl.DateTimeFormat("en-US", { timeZone: NET, weekday: "long", month: "long", day: "numeric" }).format(start) + ".";
   } catch (e) { /* keep the static times */ }
+})();
+
+/* Regions that run #meshnet, from data/meshnet/regions.json (added by pull request or the "List your region" form) */
+(function () {
+  var el = document.getElementById("regions"); if (!el) return;
+  var esc = function (t) { return String(t).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+  fetch("../data/meshnet/regions.json").then(function (r) { return r.json(); }).then(function (d) {
+    var list = (d.regions || []).filter(function (x) { return /^https:\/\//.test(x.url || ""); });
+    el.innerHTML = list.length ? list.map(function (x) {
+      return "<li><a href=\"" + esc(x.url) + "\"" + (/mutiny19\.github\.io\/hoop/.test(x.url) ? "" : " target=\"_blank\" rel=\"noopener\"") + ">" + esc(x.name) + "</a>" + (x.by ? ", " + esc(x.by) : "") + (x.log ? ", publishes a log" : "") + "</li>";
+    }).join("") : "<li>None listed yet.</li>";
+  }).catch(function () { el.innerHTML = "<li>The list is not available right now.</li>"; });
 })();
 </script>
 </body>

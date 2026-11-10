@@ -45,11 +45,24 @@ The home-page map is an SVG with a fixed linear projection (`P(lat, lon)` in `as
 mirrored in `tools/update_nodes.py`). For another state, fit two constants per axis to your
 state's bounding box and regenerate the county paths.
 
-## #meshnet log
+## Mirror #meshnet
 
-The net itself belongs to no one; anyone can log it for their own area. Keep the channel
-(`#meshnet`), the days (Sunday and Thursday), and the time (7:00 PM Eastern) the same, so every
-log shows the same ten minutes across the whole mesh.
+#meshnet is the same everywhere, and it belongs to no one. Any mesh group, club, collective, or
+organization can run it for its own area, announce it under its own name, and add its own spin.
+
+**Keep the same:** the channel (`#meshnet`), the days (Sundays and Thursdays), the time (7:00 to 7:10 PM
+US Eastern, for every region), the check-in format (airport code first, then device and months), and the
+postponement for severe weather or emergencies. The shared time is the point: every region tests the whole
+mesh in the same ten minutes.
+
+**Make it yours:** your page, name, and welcome; your own log, map, and stats; your airport finder and
+invite art; where you announce it; extra tools on top.
+
+**Bring improvements back:** if you build something that helps every region, such as a collector fix, a clearer
+invite, or a better map, open a pull request or an issue here. **List your region** with the
+"List your region's #meshnet" issue form; entries live in `data/meshnet/regions.json` (group names only).
+
+If you also want a log for your area, copy these:
 
 | What | File | Change |
 |---|---|---|

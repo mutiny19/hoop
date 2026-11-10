@@ -1,0 +1,11 @@
+{
+ "about": "Regions that run #meshnet on the same channel, days, and time. Listed by pull request or the 'List your region' issue form. Group names only, never people.",
+ "regions": [
+  {
+   "name": "Indiana",
+   "by": "HOOP, this page",
+   "url": "https://mutiny19.github.io/hoop/meshnet/",
+   "log": true
+  }
+ ]
+}

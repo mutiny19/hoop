@@ -1,0 +1,39 @@
+name: List your region's #meshnet
+description: Add or update your area in the list of regions that run #meshnet.
+title: "[meshnet] "
+labels: ["meshnet"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        #meshnet is the same everywhere: the channel, the days, and the time. Anyone can mirror it, add their own spin, and bring improvements back. Regions that run it can be listed on https://mutiny19.github.io/hoop/meshnet/#mirror
+  - type: input
+    id: region
+    attributes: { label: Region, description: "State, province, metro, or area, for example Northern Michigan." }
+    validations: { required: true }
+  - type: input
+    id: group
+    attributes: { label: Group, description: "The club, collective, or organization that runs it. A group name, never a person." }
+    validations: { required: true }
+  - type: input
+    id: link
+    attributes: { label: Public page or invite link, description: "An https link people can open to learn about your net." }
+    validations: { required: true }
+  - type: dropdown
+    id: log
+    attributes:
+      label: Do you publish a log of check-ins?
+      options: [Yes, No]
+    validations: { required: true }
+  - type: textarea
+    id: spin
+    attributes: { label: Your spin or an improvement to share (optional), description: "Anything you added that other regions could use. A link to a pull request is welcome." }
+  - type: checkboxes
+    id: same
+    attributes:
+      label: The same everywhere
+      options:
+        - label: We use the #meshnet channel, Sundays and Thursdays, 7:00 to 7:10 PM US Eastern.
+          required: true
+        - label: This listing has no personal information.
+          required: true
