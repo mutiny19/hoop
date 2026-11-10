@@ -48,6 +48,10 @@ section { display: grid; gap: 14px; }
 .fact { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
 .fact b { display: block; font: 600 .75rem/1 var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
 .fact span { font-weight: 600; }
+.bits { margin: 8px 0 0; display: grid; gap: 6px; font-size: .88rem; }
+.bits div { display: grid; grid-template-columns: 6.5em minmax(0, 1fr); gap: 8px; }
+.bits dt { font-size: .82rem; }
+.bits dd { margin: 0; color: var(--muted); }
 .fact span.clock { display: block; font-size: 1.15rem; font-weight: 700; margin-bottom: 2px; }
 .fact span.utc { display: block; font-weight: 400; font-size: .85rem; color: var(--muted); margin-top: 4px; }
 .zones { margin-top: 14px; }
@@ -155,7 +159,8 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
     <div class="facts">
       <div class="fact"><b>When</b><span class="clock">7:00 to 7:10 PM US Eastern</span><span class="you" id="whenYou" hidden></span><span>Sundays and Thursdays. Ten minutes, start to finish.</span><span class="utc">00:00 to 00:10 UTC Mon and Fri in winter; 23:00 to 23:10 UTC Sun and Thu in summer</span></div>
       <div class="fact"><b>Where</b><span>The <span class="mono">#meshnet</span> channel on MeshCore, in every region</span></div>
-      <div class="fact"><b>Check in with</b><span class="mono">KUMP, Heltec V3, 4 months</span></div>
+      <div class="fact"><b>Check in with</b><span class="mono">KUMP, Heltec V3, 4 months</span>
+        <dl class="bits"><div><dt class="mono">KUMP</dt><dd>Your closest small airport's code, four letters starting with K. The one part that must be there. <a href="https://ourairports.com/countries/US/IN/airports.html" target="_blank" rel="noopener">Find yours</a>.</dd></div><div><dt class="mono">Heltec V3</dt><dd>The radio you're sending from. Optional.</dd></div><div><dt class="mono">4 months</dt><dd>How long you've been on MeshCore, or "new". Optional.</dd></div></dl></div>
     </div>
     <div class="zones" id="zones">
       <p class="note"><b>The same ten minutes for everyone, wherever you are.</b> The net runs on US Eastern time, so check in during the same window as everyone else, not at 7:00 your time. It starts and ends together; that's what loads the mesh. <span id="zonesNext"></span></p>
@@ -175,12 +180,7 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
         <div class="addch"><img src="../assets/meshnet-channel-qr.svg" alt="QR code that adds the #meshnet channel in the MeshCore app" width="120" height="120"><div><a class="btn primary" href="meshcore://channel/add?name=%23meshnet&amp;secret=0c975040209531454726cc939483b36b">Add #meshnet in the app</a><p class="note">On your phone, tap the button; on a computer, scan the code with the MeshCore app. Needs app version 1.47 or newer. The link uses <a href="https://docs.meshcore.io/qr_codes/" target="_blank" rel="noopener">MeshCore's channel QR format</a>.</p></div></div></li>
       <li>Between 7:00 and 7:10 PM US Eastern, post your check-in. Send it <b>at least five times</b> over the ten minutes; the repeats are what load the mesh, and only one is logged. Testing more than one radio? Check in from each, at least five times on each; every radio is logged. Tip: type it before 7:00 and copy it, so each send is just a paste.
         <p class="format"><code class="ex">KUMP, Heltec V3, 4 months</code></p>
-        <dl class="parts">
-          <div><dt>Airport</dt><dd>Your closest airport's four-letter code, starting with K. It doesn't need to be a big one; the nearest small field is better. <a href="https://ourairports.com/countries/US/IN/airports.html" target="_blank" rel="noopener">Find yours on the Indiana airport map</a>.</dd></div>
-          <div><dt>Device</dt><dd>The radio you're sending from, such as Heltec V3, T-Deck, or Wio L1.</dd></div>
-          <div><dt>Time on the mesh</dt><dd>How long you've been on MeshCore: 4 months, 1 year, or new.</dd></div>
-        </dl>
-        <p class="note" style="margin-top:12px">Start with your closest small airfield code, <span class="mono">KXXX</span>; that's the one part that has to be there. The device and months are welcome in any order, and commas help but aren't required: <span class="mono">KUMP</span>, <span class="mono">KUMP Heltec V3</span>, and <span class="mono">KUMP 4 months Heltec V3</span> all count.</p>
+        <p class="note" style="margin-top:12px">Start with your closest small airfield code, <span class="mono">KXXX</span>. The device and months are welcome in any order, and commas help but aren't required: <span class="mono">KUMP</span>, <span class="mono">KUMP Heltec V3</span>, and <span class="mono">KUMP 4 months Heltec V3</span> all count.</p>
       </li>
       <li>Acknowledge each check-in you hear with a mention and a greeting, or just "heard".</li>
     </ol>
