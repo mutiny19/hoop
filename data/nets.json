@@ -10,7 +10,7 @@
    "name": "IN Section ARES HF Net",
    "freq": "3.900 / 7.280",
    "access": "SSB",
-   "type": "HF"
+   "type": "HF", "link": "https://inarrl.org/index.php/emcomm/indiana-section-ares-hf-net"
   },
   {
    "day": "Sun",
@@ -19,7 +19,7 @@
    "freq": "146.835",
    "access": "PL 151.4",
    "type": "Ham",
-   "site": "franklin"
+   "site": "franklin", "link": "https://www.midstatehams.org/"
   },
   {
    "day": "Sun",
@@ -59,7 +59,7 @@
    "freq": "145.170",
    "access": "PL 77.0",
    "type": "Ham",
-   "site": "noblesville"
+   "site": "noblesville", "link": "https://n9eoc.org/"
   },
   {
    "day": "Sun",
@@ -95,7 +95,7 @@
    "freq": "145.480",
    "access": "PL 88.5",
    "type": "Ham",
-   "site": "shelbyville"
+   "site": "shelbyville", "link": "https://www.brvars.com/"
   },
   {
    "day": "Mon",
@@ -120,7 +120,7 @@
    "freq": "443.125",
    "access": "PL 131.8",
    "type": "Ham",
-   "site": "tipton"
+   "site": "tipton", "link": "https://www.k9trc.org/"
   },
   {
    "day": "Mon",
@@ -153,7 +153,7 @@
    "freq": "444.450",
    "access": "DCS 465",
    "type": "Ham",
-   "site": "greenfield"
+   "site": "greenfield", "link": "https://www.w9atg.org/"
   },
   {
    "day": "Tue",
@@ -181,7 +181,7 @@
    "freq": "443.525",
    "access": "C4FM",
    "type": "Digital",
-   "site": "greenwood"
+   "site": "greenwood", "link": "https://www.midstatehams.org/"
   },
   {
    "day": "Tue",
@@ -208,7 +208,7 @@
    "freq": "146.700",
    "access": "PL 88.5",
    "type": "Ham",
-   "site": "indianapolis"
+   "site": "indianapolis", "link": "https://www.w9ira.org/"
   },
   {
    "day": "Wed",
@@ -235,7 +235,7 @@
    "freq": "145.390",
    "access": "PL 151.4",
    "type": "Ham",
-   "site": "anderson"
+   "site": "anderson", "link": "https://www.w9vcf.org/"
   },
   {
    "day": "Thu",
@@ -275,7 +275,7 @@
    "freq": "147.210",
    "access": "PL 88.5",
    "type": "Ham",
-   "site": "indianapolis"
+   "site": "indianapolis", "link": "https://www.in.gov/dhs/emergency-management-and-preparedness/eoc-operations/communications-and-dispatch/radio-amateur-civil-emergency-service"
   },
   {
    "day": "Thu",
@@ -348,7 +348,7 @@
    "name": "AUXCOMM HF pre-net",
    "freq": "7.250 / 3.844",
    "access": "SSB",
-   "type": "HF"
+   "type": "HF", "link": "https://www.in.gov/dhs/emergency-management-and-preparedness/eoc-operations/communications-and-dispatch/radio-amateur-civil-emergency-service"
   }
  ],
  "daily": [
@@ -356,13 +356,13 @@
    "name": "Indiana Traffic Net",
    "freq": "3.910",
    "access": "SSB",
-   "type": "HF"
+   "type": "HF", "link": "https://inarrl.org/index.php/traffic"
   },
   {
    "name": "Indiana Section CW Net (QIN)",
    "freq": "3.535",
    "access": "CW",
-   "type": "HF"
+   "type": "HF", "link": "https://inarrl.org/index.php/traffic"
   }
  ],
  "skywarn": [
