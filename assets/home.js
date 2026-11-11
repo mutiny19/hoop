@@ -215,11 +215,25 @@
       ["Nets on air", netsOnAir, "plus starting within 1 h: " + (netsSoon == null ? "…" : netsSoon), netsOnAir ? "#FF6B6B" : "#F2F3F7"],
       ["Last #meshnet check-ins", lastNet ? lastNet.n : null, lastNet ? "net of " + lastNet.date : "from the log", "#F2F3F7"]
     ];
-    $("tiles").innerHTML = T.map(function (t) {
-      return '<div class="tile"><div class="k">' + t[0] + '</div><div class="v" style="color:' + t[3] + '">' + (t[1] == null ? "…" : esc(t[1])) + '</div><div class="s">' + t[2] + "</div></div>";
-    }).join("");
+    function html(rows) {
+      return rows.map(function (t) {
+        return '<div class="tile"><div class="k">' + t[0] + '</div><div class="v" style="color:' + t[3] + '">' + (t[1] == null ? "…" : esc(t[1])) + '</div><div class="s">' + t[2] + "</div></div>";
+      }).join("");
+    }
+    $("tiles").innerHTML = html([T[3], T[4]]);            // alerts and nets: not MeshCore-only, stay on the map
+    $("mctiles").innerHTML = html([T[0], T[1], T[2], T[5]]);
   }
   renderTiles();
+
+  /* a link to #support (or any id inside the MeshCore fold) opens the fold first */
+  function openFold() {
+    var el = location.hash.length > 1 && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    var d = el && el.closest("details");
+    if (!d) return;
+    while (d) { d.open = true; d = d.parentElement && d.parentElement.closest("details"); }
+    el.scrollIntoView();
+  }
+  openFold(); window.addEventListener("hashchange", openFold);
 
   /* ---------- phones: side panel behind a toggle ---------- */
   (function () {

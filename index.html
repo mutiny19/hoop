@@ -86,7 +86,7 @@ p { margin: 0; }
 .dashfold > summary { cursor: pointer; font-weight: 700; padding: 12px 0; color: var(--map-fg); }
 .proto-reticulum .nm::after { content: "ADVANCED"; font: 600 10px/1 var(--mono); letter-spacing: .08em; margin-left: 10px; padding: 3px 6px; border: 1px solid var(--line); border-radius: 4px; color: var(--muted); vertical-align: middle; }
 .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-bottom: 16px; }
-.tile { background: var(--map-panel); border: 1px solid var(--map-line); border-radius: 10px; padding: 14px 16px; }
+.tile { color: var(--map-fg); background: var(--map-panel); border: 1px solid var(--map-line); border-radius: 10px; padding: 14px 16px; }
 .tile .k { font-size: 13px; color: var(--map-muted); }
 .tile .v { font: 500 28px/1.2 var(--mono); margin-top: 4px; font-variant-numeric: tabular-nums; }
 .tile .s { font-size: 12px; color: var(--map-dim); margin-top: 2px; }
@@ -127,7 +127,7 @@ p { margin: 0; }
 .net.sel { border-color: #B197FC; background: #1E1B2C; }
 .side .foot { margin-top: auto; font-size: 13px; color: var(--map-muted); line-height: 1.5; border-top: 1px solid var(--map-line); padding-top: 10px; }
 .dashrow { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 16px; }
-.dpanel { background: var(--map-panel); border: 1px solid var(--map-line); border-radius: 12px; padding: 16px 18px; min-width: 0; display: grid; gap: 10px; align-content: start; }
+.dpanel { color: var(--map-fg); background: var(--map-panel); border: 1px solid var(--map-line); border-radius: 12px; padding: 16px 18px; min-width: 0; display: grid; gap: 10px; align-content: start; }
 .dpanel .h { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; }
 .dpanel .h b { font-weight: 800; font-size: 18px; }
 .dpanel .note { font-size: 12px; color: var(--map-dim); }
@@ -253,8 +253,7 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
 .about p { color: var(--muted); max-width: 80ch; }
 
 /* support */
-.support { padding-block: 64px 72px; display: grid; gap: 20px; }
-.support h2 { font-size: 32px; font-weight: 800; }
+.support { display: grid; gap: 20px; }
 .support .lead { color: var(--muted); max-width: 70ch; }
 .sup-grid { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 16px; }
 .needs { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: grid; gap: 10px; }
@@ -266,6 +265,20 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
 .county .w { color: var(--muted); font-size: 14px; }
 .county .p { grid-column: 2; grid-row: 1 / span 2; text-align: right; font: 400 13px/1.5 var(--mono); }
 .county .p em { font-style: normal; color: var(--signal); display: block; }
+.mcwrap { padding-block: 16px 8px; }
+.mcfold { border: 1px solid var(--line); border-radius: 12px; background: var(--panel); }
+.mcfold > summary { cursor: pointer; padding: 16px 18px; display: grid; gap: 2px; list-style: none; }
+.mcfold > summary::-webkit-details-marker { display: none; }
+.mcfold > summary .mc-t { font: 800 1.25rem/1.2 var(--display); }
+.mcfold > summary .mc-t::before { content: "\25B8"; display: inline-block; margin-right: 8px; transition: transform .15s; }
+.mcfold[open] > summary .mc-t::before { transform: rotate(90deg); }
+.mcfold > summary .mc-s { color: var(--muted); font-size: 14px; }
+.mcfold > summary:focus-visible { outline: 3px solid var(--signal); outline-offset: 2px; border-radius: 12px; }
+.mc-body { padding: 0 18px 18px; display: grid; gap: 16px; }
+.mc-body .tiles, .mc-body .dashrow { margin: 0; }
+.mc-body .yourcounty, .mc-body .support { padding: 0; }
+.mc-body h3 { font: 800 1.25rem/1.2 var(--display); }
+@media (prefers-reduced-motion: reduce) { .mcfold > summary .mc-t::before { transition: none; } }
 .path { padding-block: 36px 8px; display: grid; gap: 14px; }
 .yourcounty { padding-block: 8px 8px; display: grid; gap: 12px; }
 .ccard { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: grid; gap: 14px; }
@@ -433,21 +446,8 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
       </aside>
     </div>
 
-    <h2 class="rowh" id="now-h">Statewide right now</h2>
+    <h2 class="rowh" id="now-h">Right now</h2>
     <div class="tiles" id="tiles"></div>
-    <details class="dashfold"><summary>Quiet repeaters and interstate coverage</summary>
-    <div class="dashrow" id="dashRow">
-      <section class="dpanel" style="flex: 1 1 320px" aria-label="Quietest Indiana repeaters">
-        <div class="h"><b>Repeaters gone quiet</b><span class="tag live" id="healthDate">MAP FEED</span></div>
-        <div class="health" id="health"></div>
-        <div class="note">Indiana repeaters with the oldest last advert, from the official map feed. Owners: a fresh advert clears it.</div>
-      </section>
-      <section class="dpanel" style="flex: 1 1 100%" aria-label="Interstate coverage">
-        <div class="h"><b>Interstate coverage in Indiana</b><span class="note"><span class="dot" style="background:#FFA8A8"></span>Needs a repeater · <span class="dot" style="background:#FFD43B"></span>Repeater quiet 30+ days · <span class="dot" style="background:#8CE99A"></span>Covered · <span id="covDate">MeshCore Map, nightly</span></span></div>
-        <div class="cov" id="cov"></div>
-      </section>
-    </div>
-    </details>
   </div>
 </section>
 
@@ -461,13 +461,57 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
   </div>
 </section>
 
-<section id="yourcounty" class="wrap yourcounty" aria-labelledby="county-h">
-  <h2 id="county-h">Your county</h2>
+<section id="meshcore-section" class="wrap mcwrap" aria-label="MeshCore in Indiana">
+<details class="mcfold" id="meshcore-fold">
+<summary><span class="mc-t">MeshCore in Indiana</span><span class="mc-s">Repeater counts, your county, quiet repeaters, interstate coverage, and ways to help</span></summary>
+<div class="mc-body">
+<div class="tiles" id="mctiles"></div>
+<div class="dashrow" id="dashRow">
+      <section class="dpanel" style="flex: 1 1 320px" aria-label="Quietest Indiana repeaters">
+        <div class="h"><b>Repeaters gone quiet</b><span class="tag live" id="healthDate">MAP FEED</span></div>
+        <div class="health" id="health"></div>
+        <div class="note">Indiana repeaters with the oldest last advert, from the official map feed. Owners: a fresh advert clears it.</div>
+      </section>
+      <section class="dpanel" style="flex: 1 1 100%" aria-label="Interstate coverage">
+        <div class="h"><b>Interstate coverage in Indiana</b><span class="note"><span class="dot" style="background:#FFA8A8"></span>Needs a repeater · <span class="dot" style="background:#FFD43B"></span>Repeater quiet 30+ days · <span class="dot" style="background:#8CE99A"></span>Covered · <span id="covDate">MeshCore Map, nightly</span></span></div>
+        <div class="cov" id="cov"></div>
+      </section>
+    </div>
+<section id="yourcounty" class="yourcounty" aria-labelledby="county-h">
+  <h3 id="county-h">Your county</h3>
   <div class="ccard">
     <label>Pick it once; this device remembers it (nothing is sent anywhere).<select id="myCounty"><option value="">Choose a county</option></select></label>
     <div id="myCountyOut" class="cout" hidden></div>
   </div>
 </section>
+<section id="support" class="support" aria-labelledby="sup-h">
+  <h3 id="sup-h">Keep Indiana on the air</h3>
+  <p class="lead">Indiana Mesh lives on <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Discord</a>. The most useful help is a high site, a repeater, or your time.</p>
+  <div class="sup-grid">
+    <div class="needs">
+      <div class="h"><b>Counties with an active repeater</b><span id="needsDate">people per active repeater</span></div>
+      <div class="prog" id="prog"><div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="92" aria-valuenow="0" aria-label="Indiana counties with an active repeater"><i id="progFill"></i></div><p id="progText">Loading…</p></div>
+      <div class="h sub"><b>Where one more repeater would help the most people</b></div>
+      <div id="needs" class="needs-list"><div class="county"><b>Loading…</b></div></div>
+      <p style="font-size:13px;color:var(--muted)">People per active repeater (heard in the last 30 days), highest first. Repeaters from the official MeshCore Map; population from the Census Bureau. Updated nightly.</p>
+    </div>
+    <div class="ladder">
+      <h3>Ways to help, smallest first</h3>
+      <ol>
+        <li><b>Check in</b><span>Sundays and Thursdays, 7:00 PM US Eastern.</span><a href="meshnet/">#meshnet</a></li>
+        <li><b>Share the invite</b><span>An image and text for your own group.</span><a href="meshnet/#share-h">Get it</a></li>
+        <li><b>Run an observer</b><span>Puts your area on the live maps and the #meshnet log.</span><a href="live/#obs-h">How</a></li>
+        <li><b>Add a project</b><span>Something made or used in Indiana.</span><a href="projects/#add-h">How</a></li>
+        <li><b>Put up a repeater</b><span>Start with the settings below, then list it on the MeshCore Map.</span><a href="https://docs.meshcore.io/" target="_blank" rel="noopener">MeshCore docs</a></li>
+        <li><b>Offer a site</b><span>A roof, tower, or grain leg. One good site can cover several counties.</span><a href="https://github.com/mutiny19/hoop/issues/new?template=listing.yml" target="_blank" rel="noopener">Offer a site</a> <a href="resources/host-a-repeater-guide.pdf" target="_blank" rel="noopener">What hosting involves</a></li>
+      </ol>
+    </div>
+  </div>
+</section>
+</div>
+</details>
+</section>
+
 
 <section id="protocols" class="wrap settings" aria-labelledby="set-h">
   <div class="sec-head">
@@ -545,30 +589,6 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
   </div>
 </section>
 
-<section id="support" class="wrap support" aria-labelledby="sup-h">
-  <h2 id="sup-h">Keep Indiana on the air</h2>
-  <p class="lead">Indiana Mesh lives on <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Discord</a>. The most useful help is a high site, a repeater, or your time.</p>
-  <div class="sup-grid">
-    <div class="needs">
-      <div class="h"><b>Counties with an active repeater</b><span id="needsDate">people per active repeater</span></div>
-      <div class="prog" id="prog"><div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="92" aria-valuenow="0" aria-label="Indiana counties with an active repeater"><i id="progFill"></i></div><p id="progText">Loading…</p></div>
-      <div class="h sub"><b>Where one more repeater would help the most people</b></div>
-      <div id="needs" class="needs-list"><div class="county"><b>Loading…</b></div></div>
-      <p style="font-size:13px;color:var(--muted)">People per active repeater (heard in the last 30 days), highest first. Repeaters from the official MeshCore Map; population from the Census Bureau. Updated nightly.</p>
-    </div>
-    <div class="ladder">
-      <h3>Ways to help, smallest first</h3>
-      <ol>
-        <li><b>Check in</b><span>Sundays and Thursdays, 7:00 PM US Eastern.</span><a href="meshnet/">#meshnet</a></li>
-        <li><b>Share the invite</b><span>An image and text for your own group.</span><a href="meshnet/#share-h">Get it</a></li>
-        <li><b>Run an observer</b><span>Puts your area on the live maps and the #meshnet log.</span><a href="live/#obs-h">How</a></li>
-        <li><b>Add a project</b><span>Something made or used in Indiana.</span><a href="projects/#add-h">How</a></li>
-        <li><b>Put up a repeater</b><span>Start with the settings above, then list it on the MeshCore Map.</span><a href="https://docs.meshcore.io/" target="_blank" rel="noopener">MeshCore docs</a></li>
-        <li><b>Offer a site</b><span>A roof, tower, or grain leg. One good site can cover several counties.</span><a href="https://github.com/mutiny19/hoop/issues/new?template=listing.yml" target="_blank" rel="noopener">Offer a site</a> <a href="resources/host-a-repeater-guide.pdf" target="_blank" rel="noopener">What hosting involves</a></li>
-      </ol>
-    </div>
-  </div>
-</section>
 <section id="about" class="wrap about" aria-labelledby="about-h">
   <h2 id="about-h">About this site</h2>
   <p>HOOP is the Hoosier Off-Grid Open Playbook: plays to consider, not rules, kept open for anyone to improve. Nothing on it is concluded or complete, and where the projects and groups it links to differ from it, they win. An open-source mesh belongs to everyone who builds it; respecting that means collaboration, not ownership. It does not represent any network, collective, or organization. It exists to soften the onboarding of newcomers and the landing of advanced users, and then to point them on: the <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Indiana Mesh</a> Discord is where Indiana people talk, and groups like the Central Indiana Mesh Network and NEIMesh are regional communities with their own sites. None of them run or endorse this site. The site is a signpost, not a document repository: it keeps quick-glance settings and links, and points to the projects and groups that maintain each piece. Where an official source exists (a protocol's docs, a group's own site, an agency's page), that source is the authority and this site defers to it. It is informational only and not affiliated with the FCC, the ARRL, any protocol's developers, any agency, or any repeater owner. The soft waterfall and drifting nodes behind the map headline are drawn in the browser; they are decoration, not live traffic, and a nod to the background on <a href="https://rflab.io" target="_blank" rel="noopener">rflab.io</a>. Code and settings are open on <a href="https://github.com/mutiny19/hoop" target="_blank" rel="noopener">GitHub</a>; corrections are welcome by <a href="https://github.com/mutiny19/hoop/issues/new/choose" target="_blank" rel="noopener">issue</a> or on Discord.</p>
@@ -582,7 +602,7 @@ input[type="text"], input[type="number"], input[type="url"], input[type="datetim
 
 <script>(function(){try{if(window.matchMedia("(min-width: 861px)").matches)["reportFold","layerFold"].forEach(function(i){var d=document.getElementById(i);if(d)d.open=true;});}catch(e){}})();</script>
 <script src="assets/nets.js"></script>
-<script src="assets/home.js?v=20261107g"></script>
+<script src="assets/home.js?v=20261111a"></script>
 <script src="assets/chirps.js?v=20261025l"></script>
 <script src="assets/site.js?v=20261107d"></script>
 </body>
