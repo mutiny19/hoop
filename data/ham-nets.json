@@ -1,0 +1,1213 @@
+{
+ "source": "Indiana Ham Radio open data",
+ "source_url": "https://indianahamradio.com/nets/schedule/",
+ "data_url": "https://indianahamradio.com/data/nets.json",
+ "terms": "Published for reuse by its maintainers. Corrections to these nets go to them.",
+ "source_generated": "2026-11-09",
+ "fetched": "2026-11-11",
+ "note": "Times are US Eastern (Central-time nets are converted). Written by tools/update_ham_nets.py; do not edit by hand.",
+ "unscheduled": 54,
+ "weekly": [
+  {
+   "time": "18:30",
+   "name": "Sunday Evening DMR Net",
+   "freq": "TG 314987",
+   "access": "DMR",
+   "type": "Digital",
+   "county": "Randolph",
+   "link": "https://rcarc.net",
+   "day": "Sun"
+  },
+  {
+   "time": "19:00",
+   "name": "Randolph Amateur Radio Club Net",
+   "freq": "147.300",
+   "access": "PL 110.9",
+   "type": "Ham",
+   "county": "Randolph",
+   "link": "https://rcarc.net",
+   "day": "Sun"
+  },
+  {
+   "time": "19:00",
+   "name": "Richmond ARA Net",
+   "freq": "147.180",
+   "access": "",
+   "type": "Ham",
+   "county": "Wayne",
+   "link": "https://www.arrl.org/webroot/resources/nets/client/netdetail.html?mfind=511",
+   "day": "Sun"
+  },
+  {
+   "time": "20:00",
+   "name": "ECI 6 Meter Phone Net",
+   "freq": "50.140",
+   "access": "SSB",
+   "type": "Ham",
+   "county": "Delaware",
+   "link": "https://www.wb9hxg.net/p/area-nets.html",
+   "day": "Sun"
+  },
+  {
+   "time": "20:00",
+   "name": "Madison County StormNet Exercise",
+   "freq": "146.820",
+   "access": "PL 110.9",
+   "type": "Ham",
+   "county": "Madison",
+   "link": "http://andersonrepeater.club/",
+   "day": "Sun"
+  },
+  {
+   "time": "20:00",
+   "name": "Miami County ARC Sunday Night Ragchew",
+   "freq": "147.345",
+   "access": "PL 131.8",
+   "type": "Ham",
+   "county": "Miami",
+   "link": "http://k9zev.org/pages/nets-on-k9zev-repeater.php",
+   "day": "Sun"
+  },
+  {
+   "time": "20:00",
+   "name": "Ripley County Repeater Association Net",
+   "freq": "146.805 / 224.460",
+   "access": "",
+   "type": "Ham",
+   "county": "Ripley",
+   "link": "https://www.arrl.org/webroot/resources/nets/client/netdetail.html?mfind=2637",
+   "day": "Sun"
+  },
+  {
+   "time": "20:30",
+   "name": "Grant County ARC Net",
+   "freq": "146.790",
+   "access": "PL 141.3",
+   "type": "Ham",
+   "county": "Grant",
+   "link": "https://www.grantarc.net/weekly-net/",
+   "day": "Sun"
+  },
+  {
+   "time": "20:30",
+   "name": "Henry County ARC Net",
+   "freq": "147.390",
+   "access": "PL 127.3",
+   "type": "Ham",
+   "county": "Henry",
+   "link": "https://www.wb9hxg.net/p/area-nets.html",
+   "day": "Sun"
+  },
+  {
+   "time": "21:00",
+   "name": "Boonville 147.075 Sunday Net",
+   "freq": "147.075",
+   "access": "PL 88.5",
+   "type": "Ham",
+   "county": "Warrick",
+   "link": "http://www.w9og.net/repeaters",
+   "day": "Sun"
+  },
+  {
+   "time": "21:00",
+   "name": "Henry County Simplex Round Up",
+   "freq": "147.510",
+   "access": "Simplex",
+   "type": "Ham",
+   "county": "Henry",
+   "link": "https://www.wb9hxg.net/p/scheduled-nets-calendar.html",
+   "day": "Sun"
+  },
+  {
+   "time": "21:00",
+   "name": "Hoosier Hills Ham Club Sunday Net",
+   "freq": "146.730",
+   "access": "PL 107.2",
+   "type": "Ham",
+   "county": "Lawrence",
+   "link": "https://w9qyq.org/",
+   "day": "Sun"
+  },
+  {
+   "time": "21:00",
+   "name": "MAARC Net",
+   "freq": "146.730",
+   "access": "PL 127.3",
+   "type": "Ham",
+   "county": "Delaware",
+   "link": "https://www.wb9hxg.net/p/area-nets.html",
+   "day": "Sun"
+  },
+  {
+   "time": "21:00",
+   "name": "Wabash Valley Amateur Radio Association Net",
+   "freq": "146.685 / 146.595",
+   "access": "PL 151.4",
+   "type": "Ham",
+   "county": "Vigo",
+   "link": "https://www.w9uuu.org/nets.php",
+   "day": "Sun"
+  },
+  {
+   "time": "19:00",
+   "name": "Local net (Rochester, Fulton County)",
+   "freq": "442.700",
+   "access": "PL 131.8",
+   "type": "Ham",
+   "county": "Fulton",
+   "link": "http://w9vmw.org/Nets.html",
+   "day": "Mon"
+  },
+  {
+   "time": "19:00",
+   "name": "Rush County Net",
+   "freq": "147.000",
+   "access": "PL 127.3",
+   "type": "Ham",
+   "county": "Rush",
+   "link": "https://brvars.com/2015/02/426/",
+   "day": "Mon"
+  },
+  {
+   "time": "19:30",
+   "name": "Monroe County ARES Net",
+   "freq": "146.640",
+   "access": "PL 136.5",
+   "type": "Ham",
+   "county": "Monroe",
+   "link": "https://bloomingtonradio.club/index.php/schedule/nets/",
+   "day": "Mon"
+  },
+  {
+   "time": "19:30",
+   "name": "Patoka Valley Amateur Radio Club Net",
+   "freq": "147.195",
+   "access": "PL 107.2",
+   "type": "Ham",
+   "county": "Dubois",
+   "link": "https://patokavalleyarc.org/",
+   "day": "Mon"
+  },
+  {
+   "time": "19:30",
+   "name": "Salem Net",
+   "freq": "146.655",
+   "access": "PL 103.5",
+   "type": "Ham",
+   "county": "Washington",
+   "link": "https://www.clarkcountyarc.org/weekly_nets.php",
+   "day": "Mon"
+  },
+  {
+   "time": "20:00",
+   "name": "Crawford County ARES Net",
+   "freq": "147.015",
+   "access": "PL 103.5",
+   "type": "Ham",
+   "county": "Crawford",
+   "link": "https://www.arrl.org/webroot/resources/nets/client/netdetail.html?mfind=3318",
+   "day": "Mon"
+  },
+  {
+   "time": "20:00",
+   "name": "Indiana Crossroads Net",
+   "freq": "442.750",
+   "access": "DMR",
+   "type": "Digital",
+   "county": "Grant",
+   "link": "https://www.grantarc.net/wp-content/uploads/2023/01/Nets-for-Grant-County-and-Surrounding-Counties.pdf",
+   "day": "Mon"
+  },
+  {
+   "time": "20:00",
+   "name": "Miami County ARES/RACES Net",
+   "freq": "147.345",
+   "access": "PL 131.8",
+   "type": "Ham",
+   "county": "Miami",
+   "link": "http://k9zev.org/pages/nets-on-k9zev-repeater.php",
+   "day": "Mon"
+  },
+  {
+   "time": "20:00",
+   "name": "South Central Indiana Simplex Net",
+   "freq": "146.580",
+   "access": "Simplex",
+   "type": "Ham",
+   "county": "Monroe",
+   "link": "https://bloomingtonradio.club/index.php/schedule/nets/",
+   "day": "Mon"
+  },
+  {
+   "time": "20:00",
+   "name": "Tippecanoe County ARES Monday Night Training Net",
+   "freq": "145.370",
+   "access": "PL 131.8",
+   "type": "Ham",
+   "county": "Tippecanoe",
+   "link": "https://w9tca.com/radio-nets-2/",
+   "day": "Mon"
+  },
+  {
+   "time": "20:00",
+   "name": "Wabash County Amateur Radio Net",
+   "freq": "147.030",
+   "access": "PL 131.8",
+   "type": "Ham",
+   "county": "Wabash",
+   "link": "https://www.arrl.org/webroot/resources/nets/client/netdetail.html?mfind=3035",
+   "day": "Mon"
+  },
+  {
+   "time": "20:30",
+   "name": "EARS Wide Area Net",
+   "freq": "146.925 / 443.925 / 145.150",
+   "access": "",
+   "type": "Ham",
+   "county": "Knox",
+   "link": "https://www.arrl.org/webroot/resources/nets/client/netdetail.html?mfind=497",
+   "day": "Mon"
+  },
+  {
+   "time": "20:30",
+   "name": "Harrison County SKYWARN/ARES Net",
+   "freq": "146.820",
+   "access": "PL 103.5",
+   "type": "Ham",
+   "county": "Harrison",
+   "link": "https://www.arrl.org/webroot/resources/nets/client/netdetail.html?mfind=3296",
+   "day": "Mon"
+  },
+  {
+   "time": "20:30",
+   "name": "Lafayette Simplex Net",
+   "freq": "146.520",
+   "access": "Simplex",
+   "type": "Ham",
+   "county": "Tippecanoe",
+   "link": "https://brvars.com/area-radio-nets/",
+   "day": "Mon"
+  },
+  {
+   "time": "20:30",
+   "name": "Sullivan County ARES Net",
+   "freq": "146.775",
+   "access": "PL 136.5",
+   "type": "Ham",
+   "county": "Sullivan",
+   "link": "https://www.w9uuu.org/nets.php",
+   "day": "Mon"
+  },
+  {
+   "time": "20:30",
+   "name": "Talk Time Gathering",
+   "freq": "146.730",
+   "access": "",
+   "type": "Ham",
+   "county": "Lawrence",
+   "link": "https://w9qyq.org/",
+   "day": "Mon"
+  },
+  {
+   "time": "21:00",
+   "name": "Clay County ARES Net",
+   "freq": "145.420",
+   "access": "No tone",
+   "type": "Ham",
+   "county": "Clay",
+   "link": "https://www.claycountyares.org/repeater.html",
+   "day": "Mon"
+  },
+  {
+   "time": "21:00",
+   "name": "Dearborn County LVARC RACES/ARES Net",
+   "freq": "147.285",
+   "access": "",
+   "type": "Ham",
+   "county": "Dearborn",
+   "link": "https://www.arrl.org/webroot/resources/nets/client/netdetail.html?mfind=2753",
+   "day": "Mon"
+  },
+  {
+   "time": "21:00",
+   "name": "Dunreith Simplex Net",
+   "freq": "147.410",
+   "access": "Simplex",
+   "type": "Ham",
+   "county": "Henry",
+   "link": "https://brvars.com/area-radio-nets/",
+   "day": "Mon"
+  },
+  {
+   "time": "21:00",
+   "name": "Indiana District 1 Skywarn Monday Night Training Net",
+   "freq": "146.685 / 444.825",
+   "access": "PL 173.8",
+   "type": "Ham",
+   "county": "Porter",
+   "link": "https://www.wc9in.net/nets",
+   "day": "Mon"
+  },
+  {
+   "time": "18:30",
+   "name": "East Central Indiana Repeater Association Net",
+   "freq": "147.000",
+   "access": "PL 127.3",
+   "type": "Ham",
+   "county": "Rush",
+   "link": "https://www.arrl.org/webroot/resources/nets/client/netdetail.html?mfind=2707",
+   "day": "Tue"
+  },
+  {
+   "time": "19:00",
+   "name": "ARRL Indiana Section ARES DMR Net",
+   "freq": "TG 3118",
+   "access": "DMR",
+   "type": "Digital",
+   "county": "Statewide",
+   "link": "https://www.arrl.org/webroot/resources/nets/client/netdetail.html?mfind=3649",
+   "day": "Tue"
+  },
+  {
+   "time": "19:00",
+   "name": "Jay County Amateur Radio Club Net",
+   "freq": "145.210",
+   "access": "",
+   "type": "Ham",
+   "county": "Jay",
+   "link": "https://www.wb9hxg.net/p/area-nets.html",
+   "day": "Tue"
+  },
+  {
+   "time": "19:00",
+   "name": "Scott County EMA Net",
+   "freq": "146.610",
+   "access": "PL 103.5",
+   "type": "Ham",
+   "county": "Scott",
+   "link": "https://www.wr9g.net/links/nets.html",
+   "day": "Tue"
+  },
+  {
+   "time": "19:00",
+   "name": "St. Joseph County RACES Net",
+   "freq": "147.390",
+   "access": "PL 131.8",
+   "type": "Ham",
+   "county": "St. Joseph",
+   "day": "Tue"
+  },
+  {
+   "time": "19:30",
+   "name": "21 Repeater Group Net",
+   "freq": "147.150",
+   "access": "PL 97.4",
+   "type": "Ham",
+   "county": "Noble",
+   "link": "https://www.arrl.org/webroot/resources/nets/client/netdetail.html?mfind=523",
+   "day": "Tue"
+  },
+  {
+   "time": "19:30",
+   "name": "Hancock County Net",
+   "freq": "145.330 / 444.450",
+   "access": "PL 88.5",
+   "type": "Ham",
+   "county": "Hancock",
+   "link": "https://w9atg.org/club-repeaters/",
+   "day": "Tue"
+  },
+  {
+   "time": "19:30",
+   "name": "Jennings County Amateur Radio Association Net",
+   "freq": "145.250 / 442.975 / 443.025",
+   "access": "PL 103.5",
+   "type": "Ham",
+   "county": "Jennings",
+   "link": "https://www.jcara.club/",
+   "day": "Tue"
+  },
+  {
+   "time": "20:00",
+   "name": "Hams Serving Our Community Net",
+   "freq": "147.300",
+   "access": "PL 136.5",
+   "type": "Ham",
+   "county": "Brown",
+   "link": "https://carcnet.net/",
+   "day": "Tue"
+  },
+  {
+   "time": "20:00",
+   "name": "Ladies With a License Net",
+   "freq": "147.345",
+   "access": "PL 131.8",
+   "type": "Ham",
+   "county": "Miami",
+   "link": "http://k9zev.org/pages/nets-on-k9zev-repeater.php",
+   "day": "Tue"
+  },
+  {
+   "time": "20:00",
+   "name": "Parke/Vermillion County ARES Net",
+   "freq": "146.715",
+   "access": "",
+   "type": "Ham",
+   "county": "Parke",
+   "link": "https://www.w9uuu.org/nets.php",
+   "day": "Tue"
+  },
+  {
+   "time": "20:30",
+   "name": "Orange County Amateur Radio Club Net",
+   "freq": "147.045",
+   "access": "PL 103.5",
+   "type": "Ham",
+   "county": "Orange",
+   "link": "https://www.kb9ohy.org/repeaters",
+   "day": "Tue"
+  },
+  {
+   "time": "20:30",
+   "name": "South Central Area Net (Columbus)",
+   "freq": "146.790",
+   "access": "PL 103.5",
+   "type": "Ham",
+   "county": "Bartholomew",
+   "link": "https://carcnet.net/",
+   "day": "Tue"
+  },
+  {
+   "time": "21:00",
+   "name": "Absolute Tech Net (West Central Indiana link-up)",
+   "freq": "444.725 / 444.825 / 443.675",
+   "access": "PL 173.8",
+   "type": "Ham",
+   "county": "Tippecanoe",
+   "link": "https://www.wc9in.net/nets",
+   "day": "Tue"
+  },
+  {
+   "time": "21:00",
+   "name": "Allen County FM & DMR ARES Training Nets",
+   "freq": "146.940",
+   "access": "PL 141.3",
+   "type": "Ham",
+   "county": "Allen",
+   "link": "https://fwrc.info/2013/07/21/allen-county-ares-training-net/",
+   "day": "Tue"
+  },
+  {
+   "time": "21:00",
+   "name": "Greene/Sullivan County Emergency Services Net",
+   "freq": "145.390",
+   "access": "PL 118.8",
+   "type": "Ham",
+   "county": "Greene",
+   "day": "Tue"
+  },
+  {
+   "time": "21:00",
+   "name": "Lynn 220 Net",
+   "freq": "224.900",
+   "access": "",
+   "type": "Ham",
+   "county": "Randolph",
+   "link": "https://www.wb9hxg.net/p/area-nets.html",
+   "day": "Tue"
+  },
+  {
+   "time": "21:30",
+   "name": "Pike County Amateur Radio Club Net",
+   "freq": "145.450 / 147.000",
+   "access": "",
+   "type": "Ham",
+   "county": "Pike",
+   "link": "https://www.arrl.org/webroot/resources/nets/client/netdetail.html?mfind=510",
+   "day": "Tue"
+  },
+  {
+   "time": "19:00",
+   "name": "Local net (Flora, Carroll County)",
+   "freq": "444.650",
+   "access": "PL 131.8",
+   "type": "Ham",
+   "county": "Carroll",
+   "link": "http://w9vmw.org/Nets.html",
+   "day": "Wed"
+  },
+  {
+   "time": "19:00",
+   "name": "Michiana Amateur Radio Club Net",
+   "freq": "147.330",
+   "access": "PL 131.8",
+   "type": "Ham",
+   "county": "St. Joseph",
+   "link": "https://w9ab.org/",
+   "day": "Wed"
+  },
+  {
+   "time": "19:00",
+   "name": "NIARA ARES Training Net",
+   "freq": "147.015",
+   "access": "",
+   "type": "Ham",
+   "county": "DeKalb",
+   "link": "https://www.w9ou.org/",
+   "day": "Wed"
+  },
+  {
+   "time": "19:30",
+   "name": "Bartholomew County ARES Net",
+   "freq": "146.790",
+   "access": "PL 103.5",
+   "type": "Ham",
+   "county": "Bartholomew",
+   "link": "https://www.arrl.org/webroot/resources/nets/client/netdetail.html?mfind=3563",
+   "day": "Wed"
+  },
+  {
+   "time": "19:30",
+   "name": "Clark County Area 2 Meter Simplex Net",
+   "freq": "146.555",
+   "access": "Simplex",
+   "type": "Ham",
+   "county": "Clark",
+   "link": "https://www.clarkcountyarc.org/",
+   "day": "Wed"
+  },
+  {
+   "time": "19:30",
+   "name": "Owen County ARES Net",
+   "freq": "146.985 / 146.895",
+   "access": "PL 136.5",
+   "type": "Ham",
+   "county": "Owen",
+   "link": "https://www.arrl.org/webroot/resources/nets/client/netdetail.html?mfind=509",
+   "day": "Wed"
+  },
+  {
+   "time": "19:30",
+   "name": "Southern Indiana Amateur Radio Association (SIARA) Wednesday Net",
+   "freq": "146.640",
+   "access": "PL 136.5",
+   "type": "Ham",
+   "county": "Monroe",
+   "link": "https://k9mrt.com/calendar",
+   "day": "Wed"
+  },
+  {
+   "time": "20:00",
+   "name": "ECI 6 Meter Rag Chew",
+   "freq": "50.140",
+   "access": "SSB",
+   "type": "Ham",
+   "county": "Delaware",
+   "link": "https://www.wb9hxg.net/p/area-nets.html",
+   "day": "Wed"
+  },
+  {
+   "time": "20:00",
+   "name": "Fayette County Repeater Group Net",
+   "freq": "146.745",
+   "access": "",
+   "type": "Ham",
+   "county": "Fayette",
+   "link": "https://www.arrl.org/webroot/resources/nets/client/netdetail.html?mfind=2685",
+   "day": "Wed"
+  },
+  {
+   "time": "20:00",
+   "name": "Morgan County ARES Net",
+   "freq": "147.060",
+   "access": "PL 88.5",
+   "type": "Ham",
+   "county": "Morgan",
+   "link": "https://carcnet.net/",
+   "day": "Wed"
+  },
+  {
+   "time": "20:00",
+   "name": "Terre Haute Amateur Radio Club Net",
+   "freq": "147.150",
+   "access": "PL 88.5",
+   "type": "Ham",
+   "county": "Vigo",
+   "link": "https://www.w9uuu.org/nets.php",
+   "day": "Wed"
+  },
+  {
+   "time": "20:30",
+   "name": "Blackford ARC NET",
+   "freq": "146.655",
+   "access": "PL 141.3",
+   "type": "Ham",
+   "county": "Blackford",
+   "link": "https://blackfordarc.org",
+   "day": "Wed"
+  },
+  {
+   "time": "20:30",
+   "name": "Henry County ARC 70cm Net",
+   "freq": "441.400",
+   "access": "PL 141.3",
+   "type": "Ham",
+   "county": "Henry",
+   "link": "https://www.wb9hxg.net/p/area-nets.html",
+   "day": "Wed"
+  },
+  {
+   "time": "21:00",
+   "name": "Clark County Amateur Radio Club Net",
+   "freq": "146.850",
+   "access": "No tone",
+   "type": "Ham",
+   "county": "Clark",
+   "link": "https://www.clarkcountyarc.org/weekly_nets.php",
+   "day": "Wed"
+  },
+  {
+   "time": "21:00",
+   "name": "Connersville 2 Meter Net",
+   "freq": "146.685",
+   "access": "",
+   "type": "Ham",
+   "county": "Fayette",
+   "link": "https://www.wb9hxg.net/p/area-nets.html",
+   "day": "Wed"
+  },
+  {
+   "time": "21:00",
+   "name": "Tri-State Emergency Net",
+   "freq": "146.790",
+   "access": "PL 88.5",
+   "type": "Ham",
+   "county": "Vanderburgh",
+   "link": "http://www.w9og.net/",
+   "day": "Wed"
+  },
+  {
+   "time": "21:30",
+   "name": "Connersville 6 Meter Net",
+   "freq": "53.430",
+   "access": "PL 131.8",
+   "type": "Ham",
+   "county": "Fayette",
+   "link": "https://www.wb9hxg.net/p/area-nets.html",
+   "day": "Wed"
+  },
+  {
+   "time": "22:00",
+   "name": "Gibson Amateur Radio Society Net",
+   "freq": "145.410",
+   "access": "",
+   "type": "Ham",
+   "county": "Gibson",
+   "link": "https://www.arrl.org/webroot/resources/nets/client/netdetail.html?mfind=499",
+   "day": "Wed"
+  },
+  {
+   "time": "19:00",
+   "name": "Land of Lakes Amateur Radio Club ARES Net",
+   "freq": "147.210",
+   "access": "",
+   "type": "Ham",
+   "county": "Steuben",
+   "day": "Thu"
+  },
+  {
+   "time": "19:30",
+   "name": "6 Meter Experimental Net (IPL ARC)",
+   "freq": "52.700 / 51.700",
+   "access": "PL 136.5",
+   "type": "Ham",
+   "county": "Marion",
+   "link": "https://brvars.com/area-radio-nets/",
+   "day": "Thu"
+  },
+  {
+   "time": "19:30",
+   "name": "Brown County ARES Net",
+   "freq": "147.300",
+   "access": "PL 136.5",
+   "type": "Ham",
+   "county": "Brown",
+   "link": "https://www.arrl.org/webroot/resources/nets/client/netdetail.html?mfind=3633",
+   "day": "Thu"
+  },
+  {
+   "time": "19:30",
+   "name": "Clifty Amateur Radio Society Net",
+   "freq": "145.170",
+   "access": "PL 103.5",
+   "type": "Ham",
+   "county": "Jefferson",
+   "link": "https://w9efu.wordpress.com/events/",
+   "day": "Thu"
+  },
+  {
+   "time": "19:30",
+   "name": "Jackson County Amateur Radio Net",
+   "freq": "145.430",
+   "access": "PL 103.5",
+   "type": "Ham",
+   "county": "Jackson",
+   "link": "https://www.arrl.org/webroot/resources/nets/client/netdetail.html?mfind=503",
+   "day": "Thu"
+  },
+  {
+   "time": "19:30",
+   "name": "Marshall County ARES Net",
+   "freq": "146.670",
+   "access": "PL 131.8",
+   "type": "Ham",
+   "county": "Marshall",
+   "day": "Thu"
+  },
+  {
+   "time": "19:30",
+   "name": "Muncie Area Simplex Net",
+   "freq": "146.565",
+   "access": "Simplex",
+   "type": "Ham",
+   "county": "Delaware",
+   "link": "https://www.wb9hxg.net/p/area-nets.html",
+   "day": "Thu"
+  },
+  {
+   "time": "20:00",
+   "name": "Amateur Radio Association of Newton County Indiana (ARANCI) Net",
+   "freq": "145.330",
+   "access": "PL 131.8",
+   "type": "Ham",
+   "county": "Newton",
+   "link": "https://aranciradio.com/wp/about/home/",
+   "day": "Thu"
+  },
+  {
+   "time": "20:00",
+   "name": "Amateur Radio of Decatur County Net",
+   "freq": "146.955",
+   "access": "",
+   "type": "Ham",
+   "county": "Decatur",
+   "link": "https://n9lqp.org/files/script-weeklynet.pdf",
+   "day": "Thu"
+  },
+  {
+   "time": "20:00",
+   "name": "Bloomington Amateur Radio Club Thursday Net",
+   "freq": "146.640",
+   "access": "PL 136.5",
+   "type": "Ham",
+   "county": "Monroe",
+   "link": "https://www.arrl.org/webroot/resources/nets/client/netdetail.html?mfind=3644",
+   "day": "Thu"
+  },
+  {
+   "time": "20:00",
+   "name": "Daviess County Amateur Radio Club Net",
+   "freq": "147.315",
+   "access": "PL 107.2",
+   "type": "Ham",
+   "county": "Daviess",
+   "day": "Thu"
+  },
+  {
+   "time": "20:00",
+   "name": "Indiana Statewide Dstar Net",
+   "freq": "443.400",
+   "access": "D-STAR",
+   "type": "Digital",
+   "county": "Grant",
+   "link": "https://www.grantarc.net/wp-content/uploads/2023/01/Nets-for-Grant-County-and-Surrounding-Counties.pdf",
+   "day": "Thu"
+  },
+  {
+   "time": "20:00",
+   "name": "Ladies With a License Net",
+   "freq": "147.345",
+   "access": "PL 131.8",
+   "type": "Ham",
+   "county": "Miami",
+   "link": "http://k9zev.org/pages/nets-on-k9zev-repeater.php",
+   "day": "Thu"
+  },
+  {
+   "time": "20:00",
+   "name": "Old Post Amateur Radio Emergency Net",
+   "freq": "146.670",
+   "access": "",
+   "type": "Ham",
+   "county": "Knox",
+   "link": "https://www.arrl.org/webroot/resources/nets/client/netdetail.html?mfind=508",
+   "day": "Thu"
+  },
+  {
+   "time": "20:30",
+   "name": "147.075 Boonville Thursday Net",
+   "freq": "147.075",
+   "access": "PL 88.5",
+   "type": "Ham",
+   "county": "Warrick",
+   "link": "https://warrickauxcomm.org/wp-content/uploads/2020/10/WARRICK-ARES-RACES-Update-09_2020.pdf",
+   "day": "Thu"
+  },
+  {
+   "time": "20:30",
+   "name": "Cass County ARC ARES Net",
+   "freq": "147.180 / 145.230 / 146.550",
+   "access": "PL 173.8",
+   "type": "Ham",
+   "county": "Cass",
+   "link": "http://w9vmw.org/CCARC-ARES-Net.html",
+   "day": "Thu"
+  },
+  {
+   "time": "20:30",
+   "name": "Happy Valley 2 Meter SSB Net",
+   "freq": "144.220",
+   "access": "SSB",
+   "type": "Ham",
+   "county": "Delaware",
+   "link": "https://www.wb9hxg.net/p/area-nets.html",
+   "day": "Thu"
+  },
+  {
+   "time": "21:00",
+   "name": "Martin County Amateur Radio Club Net (Shoals)",
+   "freq": "145.210",
+   "access": "PL 107.2",
+   "type": "Ham",
+   "county": "Martin",
+   "link": "https://k9mrt.com/",
+   "day": "Thu"
+  },
+  {
+   "time": "21:00",
+   "name": "Muncie/Delaware County Skywarn Net",
+   "freq": "441.825",
+   "access": "PL 110.9",
+   "type": "Ham",
+   "county": "Delaware",
+   "link": "https://www.wb9hxg.net/p/area-nets.html",
+   "day": "Thu"
+  },
+  {
+   "time": "21:00",
+   "name": "Rushville Indiana Repeater Association Net",
+   "freq": "147.000",
+   "access": "PL 127.3",
+   "type": "Ham",
+   "county": "Rush",
+   "link": "http://rushvillerepeater.weebly.com/",
+   "day": "Thu"
+  },
+  {
+   "time": "21:15",
+   "name": "Martin County Amateur Radio Club Net (Loogootee)",
+   "freq": "147.285",
+   "access": "PL 107.2",
+   "type": "Ham",
+   "county": "Martin",
+   "link": "https://k9mrt.com/",
+   "day": "Thu"
+  },
+  {
+   "time": "19:00",
+   "name": "Jay County 2M USB",
+   "freq": "144.210",
+   "access": "",
+   "type": "Ham",
+   "county": "Jay",
+   "link": "https://sites.google.com/view/w9jca/",
+   "day": "Fri"
+  },
+  {
+   "time": "19:00",
+   "name": "Local net (Rochester, Fulton County)",
+   "freq": "146.805",
+   "access": "PL 131.8",
+   "type": "Ham",
+   "county": "Fulton",
+   "link": "http://w9vmw.org/Nets.html",
+   "day": "Fri"
+  },
+  {
+   "time": "19:30",
+   "name": "Simplex Fellowship Net (Columbus)",
+   "freq": "146.430",
+   "access": "Simplex",
+   "type": "Ham",
+   "county": "Bartholomew",
+   "link": "https://carcnet.net/",
+   "day": "Fri"
+  },
+  {
+   "time": "20:00",
+   "name": "Southern Indiana Amateur Radio Association (SIARA) Friday Net",
+   "freq": "146.640",
+   "access": "",
+   "type": "Ham",
+   "county": "Monroe",
+   "day": "Fri"
+  },
+  {
+   "time": "20:30",
+   "name": "Muncie AM Round Table",
+   "freq": "145.650",
+   "access": "AM",
+   "type": "Ham",
+   "county": "Delaware",
+   "link": "https://www.wb9hxg.net/p/area-nets.html",
+   "day": "Fri"
+  },
+  {
+   "time": "21:00",
+   "name": "HARC Social Net",
+   "freq": "145.330",
+   "access": "PL 88.5",
+   "type": "Ham",
+   "county": "Hancock",
+   "link": "https://w9atg.org/",
+   "day": "Fri"
+  },
+  {
+   "time": "08:30",
+   "name": "Wells County Amateur Radio Club Net",
+   "freq": "147.060",
+   "access": "PL 141.3",
+   "type": "Ham",
+   "county": "Wells",
+   "link": "https://wellscountyamateurradioclub.is-great.net/club-nets/",
+   "day": "Sat"
+  },
+  {
+   "time": "09:00",
+   "name": "Clark County ARES Net",
+   "freq": "146.850",
+   "access": "",
+   "type": "Ham",
+   "county": "Clark",
+   "link": "https://www.clarkcountyarc.org/weekly_nets.php",
+   "day": "Sat"
+  },
+  {
+   "time": "09:00",
+   "name": "Indy West ERC Net",
+   "freq": "145.130",
+   "access": "PL 88.5",
+   "type": "Ham",
+   "county": "Hendricks",
+   "link": "https://n9hc.org/service/",
+   "day": "Sat"
+  },
+  {
+   "time": "11:30",
+   "name": "Jay County Emergency Net",
+   "freq": "145.210",
+   "access": "PL 97.4",
+   "type": "Ham",
+   "county": "Jay",
+   "link": "https://www.wb9hxg.net/p/area-nets.html",
+   "day": "Sat"
+  },
+  {
+   "time": "20:00",
+   "name": "Huntington County Amateur Radio Society Net",
+   "freq": "146.685",
+   "access": "PL 141.3",
+   "type": "Ham",
+   "county": "Huntington",
+   "link": "https://www.grantarc.net/wp-content/uploads/2023/01/Nets-for-Grant-County-and-Surrounding-Counties.pdf",
+   "day": "Sat"
+  },
+  {
+   "time": "20:00",
+   "name": "Starke County Amateur Radio Club Net",
+   "freq": "145.410",
+   "access": "PL 131.8",
+   "type": "Ham",
+   "county": "Starke",
+   "link": "http://www.w9joz.org/2meternet.htm",
+   "day": "Sat"
+  },
+  {
+   "time": "20:30",
+   "name": "Muncie AM Round Table",
+   "freq": "145.650",
+   "access": "AM",
+   "type": "Ham",
+   "county": "Delaware",
+   "link": "https://www.wb9hxg.net/p/area-nets.html",
+   "day": "Sat"
+  }
+ ],
+ "other": [
+  {
+   "time": "22:00",
+   "name": "146.52 Daily Net",
+   "freq": "146.520",
+   "access": "",
+   "type": "Ham",
+   "county": "Hancock",
+   "link": "https://w9atg.org/",
+   "when": "Daily, 10:00 PM"
+  },
+  {
+   "time": "08:30",
+   "name": "Evansville Rag Chewers Net",
+   "freq": "146.580",
+   "access": "Simplex",
+   "type": "Ham",
+   "county": "Vanderburgh",
+   "link": "https://www.arrl.org/webroot/resources/nets/client/netdetail.html?mfind=498",
+   "when": "Weekdays, 8:30 AM"
+  },
+  {
+   "time": "12:00",
+   "name": "Harrison County Tornado Siren Testing Net",
+   "freq": "146.775",
+   "access": "PL 103.5",
+   "type": "Ham",
+   "county": "Harrison",
+   "link": "https://www.arrl.org/webroot/resources/nets/client/netdetail.html?mfind=3297",
+   "when": "1st Saturday of the month, 12:00 PM"
+  },
+  {
+   "time": "18:30",
+   "name": "IMO Traffic Net",
+   "freq": "146.880",
+   "access": "",
+   "type": "Ham",
+   "county": "Allen",
+   "link": "https://fwrc.info/2013/04/02/imo-traffic-net/",
+   "when": "Daily, 6:30 PM"
+  },
+  {
+   "time": "20:30",
+   "name": "Indiana ARES District 4 Net",
+   "freq": "444.725 / 444.825 / 443.675",
+   "access": "PL 173.8",
+   "type": "Ham",
+   "county": "Tippecanoe",
+   "link": "https://www.wc9in.net/nets",
+   "when": "3rd Monday of the month, 8:30 PM"
+  },
+  {
+   "time": "09:00",
+   "name": "Indiana Digital Traffic Net (IDTN)",
+   "freq": "3.576 / 7.080",
+   "access": "Digital",
+   "type": "Digital",
+   "county": "Statewide",
+   "link": "https://inarrl.org/index.php/traffic",
+   "when": "Monday–Friday, 9:00 AM"
+  },
+  {
+   "time": "08:00",
+   "name": "Indiana Section ARES/Emergency Net",
+   "freq": "3.910",
+   "access": "SSB",
+   "type": "HF",
+   "county": "Statewide",
+   "link": "https://www.arrl.org/webroot/resources/nets/client/netdetail.html?mfind=2491",
+   "when": "4th Sunday of the month, 8:00 AM"
+  },
+  {
+   "time": "19:00",
+   "name": "Indiana Slow CW Net (ICN)",
+   "freq": "3.535",
+   "access": "CW",
+   "type": "HF",
+   "county": "Statewide",
+   "when": "Daily, 7:00 PM"
+  },
+  {
+   "time": "08:00",
+   "name": "Muncie Area Wet Net",
+   "freq": "146.730",
+   "access": "PL 127.3",
+   "type": "Ham",
+   "county": "Delaware",
+   "link": "https://www.wb9hxg.net/p/area-nets.html",
+   "when": "Weekdays, 8:00 AM"
+  },
+  {
+   "time": "08:00",
+   "name": "Muncie Area Wet Net",
+   "freq": "146.730",
+   "access": "PL 127.3",
+   "type": "Ham",
+   "county": "Delaware",
+   "link": "https://www.wb9hxg.net/p/area-nets.html",
+   "when": "Weekends & holidays, 8:00 AM"
+  },
+  {
+   "time": "06:30",
+   "name": "South-East Indiana Wet Net",
+   "freq": "147.285",
+   "access": "",
+   "type": "Ham",
+   "county": "Dearborn",
+   "link": "https://www.arrl.org/webroot/resources/nets/client/netdetail.html?mfind=2752",
+   "when": "Daily, 6:30 AM"
+  },
+  {
+   "time": "19:00",
+   "name": "Tri-State Two Meter Net",
+   "freq": "147.015",
+   "access": "",
+   "type": "Ham",
+   "county": "DeKalb",
+   "link": "https://www.w9ou.org/",
+   "when": "Mon/Tue/Thu/Fri/Sat, 7:00 PM"
+  },
+  {
+   "time": "20:30",
+   "name": "Vigo County ARES Net",
+   "freq": "146.685",
+   "access": "PL 151.4",
+   "type": "Ham",
+   "county": "Vigo",
+   "link": "https://www.w9uuu.org/nets.php",
+   "when": "1st Sunday of the month, 8:30 PM"
+  },
+  {
+   "time": "20:00",
+   "name": "West Central Indiana Amateur Radio Sunday Night Net",
+   "freq": "444.725 / 444.825 / 443.675",
+   "access": "PL 173.8",
+   "type": "Ham",
+   "county": "Tippecanoe",
+   "link": "https://www.wc9in.net/repeaters",
+   "when": "1st & 3rd Sundays, 8:00 PM"
+  },
+  {
+   "time": "20:30",
+   "name": "Whitley County Monthly Simplex Net",
+   "freq": "146.550",
+   "access": "Simplex",
+   "type": "Ham",
+   "county": "Whitley",
+   "link": "https://www.arrl.org/webroot/resources/nets/client/netdetail.html?mfind=3346",
+   "when": "3rd Wednesday of the month, 8:30 PM"
+  },
+  {
+   "time": "21:30",
+   "name": "Winchester Ragchew",
+   "freq": "146.550",
+   "access": "Simplex",
+   "type": "Ham",
+   "county": "Randolph",
+   "link": "https://www.wb9hxg.net/p/area-nets.html",
+   "when": "Daily, 9:30 PM"
+  }
+ ],
+ "differs": {
+  "Indiana Traffic Net": "8:30 AM & 6:00 PM ET",
+  "Indiana Section CW Net (QIN)": "8:00 PM ET",
+  "Tipton County Net (K9TRC)": "7:00 PM",
+  "Indiana Statewide / AUXCOMM": "1st & 3rd Thursdays"
+ }
+}

@@ -1,0 +1,28 @@
+name: Weekly ham nets (Indiana Ham Radio open data)
+
+on:
+  schedule:
+    - cron: "41 9 * * 2"   # Tuesday, early morning in Indiana
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Read the open-data nets file (one request) and convert it to HOOP's format
+        run: python3 tools/update_ham_nets.py
+      - name: Commit if changed
+        run: |
+          if [ -z "$(git status --porcelain -- data/ham-nets.json)" ]; then
+            echo "No change"; exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add data/ham-nets.json
+          git commit -m "Weekly ham nets"
+          git pull --rebase origin main
+          git push

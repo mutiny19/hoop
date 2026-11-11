@@ -56,6 +56,8 @@ legend { font-weight: 700; padding: 0; margin-bottom: 4px; }
 select { font: 500 15px/1.2 var(--body); padding: 9px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); }
 .bar2 { display: flex; flex-wrap: wrap; gap: 12px 18px; align-items: center; }
 .tablewrap.sched { max-height: none; }
+.schedpick { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; margin-bottom: 10px; }
+.schedpick select { font: inherit; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--panel); color: var(--fg); min-height: 40px; }
 .sched td:last-child { white-space: nowrap; }
 .dayrow th { position: static; background: var(--bg); color: var(--fg); font: 700 .9rem/1.3 var(--display); letter-spacing: 0; text-transform: none; padding-top: 12px; border-top: 1px solid var(--line); }
 .nlinks { display: block; margin-top: 4px; font-size: 13px; color: var(--muted); }
@@ -157,7 +159,8 @@ ol.how { margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }
 
   <section aria-labelledby="nets-h" id="nets">
     <h2 id="nets-h" style="margin-bottom:10px">Every net, by day</h2>
-    <p class="note" style="margin:0 0 10px">Central Indiana, plus GMRS and mesh. For ham nets in all 92 counties, see <a href="https://indianahamradio.com/nets/schedule/" target="_blank" rel="noopener">Indiana Ham Radio's net schedule</a>.</p>
+    <p class="note" style="margin:0 0 10px">Statewide ham nets: <a href="https://indianahamradio.com/nets/schedule/" target="_blank" rel="noopener">Indiana Ham Radio's open data</a>; corrections for those go to them. The rest is HOOP's.</p>
+    <div class="schedpick"><select id="schedScope" aria-label="Which nets to show"><option value="all">All of Indiana</option><option value="hoop">HOOP's list only</option></select></div>
     <div class="tablewrap sched" tabindex="0" role="region" aria-label="Net schedule"><table><thead><tr><th>When</th><th>Net</th><th>Frequency</th><th>Tone or access</th><th>Type</th><th>Link</th></tr></thead><tbody id="sched"><tr><td colspan="6">Loading the schedule…</td></tr></tbody></table></div>
     <p class="note" id="schedNote">Times are US Eastern.</p>
   </section>
@@ -197,7 +200,7 @@ ol.how { margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }
   /* CHIRP rejects tones and codes that are not on its lists, so anything else falls back to its default and is noted in the comment */
   var TONES = [67.0, 69.3, 71.9, 74.4, 77.0, 79.7, 82.5, 85.4, 88.5, 91.5, 94.8, 97.4, 100.0, 103.5, 107.2, 110.9, 114.8, 118.8, 123.0, 127.3, 131.8, 136.5, 141.3, 146.2, 151.4, 156.7, 159.8, 162.2, 165.5, 167.9, 171.3, 173.8, 177.3, 179.9, 183.5, 186.2, 189.9, 192.8, 196.6, 199.5, 203.5, 206.5, 210.7, 218.1, 225.7, 229.1, 233.6, 241.8, 250.3, 254.1];
   var DCS = [23, 25, 26, 31, 32, 36, 43, 47, 51, 53, 54, 65, 71, 72, 73, 74, 114, 115, 116, 122, 125, 131, 132, 134, 143, 145, 152, 155, 156, 162, 165, 172, 174, 205, 212, 223, 225, 226, 243, 244, 245, 246, 251, 252, 255, 261, 263, 265, 266, 271, 274, 306, 311, 315, 325, 331, 332, 343, 346, 351, 356, 364, 365, 371, 411, 412, 413, 423, 431, 432, 445, 446, 452, 454, 455, 462, 464, 465, 466, 503, 506, 516, 523, 526, 532, 546, 565, 606, 612, 624, 627, 631, 632, 654, 662, 664, 703, 712, 723, 731, 732, 734, 743, 754];
-  var nets = null, nwr = null;
+  var nets = null, nwr = null, ham = null;
   var day = { Sun: "Sun", Mon: "Mon", Tue: "Tue", Wed: "Wed", Thu: "Thu", Fri: "Fri", Sat: "Sat" };
   function access(a) {
     var r = { tone: "", dcs: "", note: "" }; if (!a) return r;
@@ -296,24 +299,38 @@ ol.how { margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }
     var seen = {}, parts = (e.nets || []).filter(function (n) { if (!n.name || seen[n.name]) return false; seen[n.name] = 1; return true; }).map(function (n) { return linkHtml(n); });
     return parts.length ? '<span class="nlinks">Net links: ' + parts.join(" · ") + "</span>" : "";
   }
-  /* the full schedule: every net in data/nets.json, the same file the map's list and the notes above read */
+  /* The full schedule, one table: HOOP's own list (data/nets.json: central Indiana, GMRS, mesh, Zello) plus the ham nets it does not
+     have, from Indiana Ham Radio's open data (data/ham-nets.json, written weekly by tools/update_ham_nets.py). A net is never shown twice;
+     where the two sources disagree about one, HOOP's row says what the other lists. */
   function schedule() {
     var box = $("sched"); if (!box || !nets) return;
     var DAY = { Sun: "Sunday", Mon: "Monday", Tue: "Tuesday", Wed: "Wednesday", Thu: "Thursday", Fri: "Friday", Sat: "Saturday" };
-    var row = function (n, whenTxt) {
-      return "<tr><td class=\"mono\">" + esc(whenTxt) + "</td><td>" + esc(n.name) + (n.unverified ? " *" : "") + "</td><td class=\"mono\">" + esc(n.freq) + "</td><td>" + esc(n.access || "") + "</td><td>" + esc(n.type || "") + "</td><td>" + linkHtml(n, "Website") + "</td></tr>";
+    var all = !$("schedScope") || $("schedScope").value === "all", H = (all && ham) || {}, differs = (ham && ham.differs) || {};
+    var row = function (n, whenTxt, theirs) {
+      var name = esc(n.name) + (n.unverified ? " *" : "") +
+        (theirs && n.county ? '<span class="nlinks">' + esc(n.county === "Statewide" ? "Statewide" : n.county + " County") + "</span>" : "") +
+        (!theirs && differs[n.name] ? '<span class="nlinks">Indiana Ham Radio lists ' + esc(differs[n.name]) + "</span>" : "");
+      var link = theirs ? (n.link ? '<a href="' + esc(n.link) + '" target="_blank" rel="noopener">Website</a>' : "") : linkHtml(n, "Website");
+      return "<tr><td class=\"mono\">" + esc(whenTxt) + "</td><td>" + name + "</td><td class=\"mono\">" + esc(n.freq) + "</td><td>" + esc(n.access || "") + "</td><td>" + esc(n.type || "") + "</td><td>" + link + "</td></tr>";
     };
     var head = function (t) { return "<tr class=\"dayrow\"><th colspan=\"6\" scope=\"colgroup\">" + t + "</th></tr>"; };
-    var html = "";
+    var byTime = function (a, b) { return a.n.time < b.n.time ? -1 : a.n.time > b.n.time ? 1 : a.n.name < b.n.name ? -1 : 1; };
+    var html = "", mineN = 0, theirN = 0;
     Nets.DAYS.forEach(function (d) {
-      var list = (nets.weekly || []).filter(function (n) { return n.day === d; }).sort(function (a, b) { return a.time < b.time ? -1 : 1; });
-      if (list.length) html += head(DAY[d]) + list.map(function (n) { return row(n, Nets.timeLabel(n.time)); }).join("");
+      var list = (nets.weekly || []).filter(function (n) { return n.day === d; }).map(function (n) { return { n: n, t: 0 }; })
+        .concat((H.weekly || []).filter(function (n) { return n.day === d; }).map(function (n) { return { n: n, t: 1 }; })).sort(byTime);
+      if (list.length) html += head(DAY[d]) + list.map(function (x) { x.t ? theirN++ : mineN++; return row(x.n, Nets.timeLabel(x.n.time), x.t); }).join("");
     });
-    if ((nets.monthly || []).length) html += head("Certain weeks of the month") + nets.monthly.map(function (n) { return row(n, Nets.monthlyLabel(n) + " " + Nets.timeLabel(n.time)); }).join("");
-    if ((nets.daily || []).length) html += head("Daily") + nets.daily.map(function (n) { return row(n, "See its page"); }).join("");
+    var other = H.other || [], weeks = other.filter(function (n) { return /\d(st|nd|rd|th)\b/.test(n.when); }), rest = other.filter(function (n) { return weeks.indexOf(n) < 0; });
+    if ((nets.monthly || []).length || weeks.length) html += head("Certain weeks of the month") +
+      (nets.monthly || []).map(function (n) { mineN++; return row(n, Nets.monthlyLabel(n) + " " + Nets.timeLabel(n.time)); }).join("") +
+      weeks.map(function (n) { theirN++; return row(n, n.when, 1); }).join("");
+    if ((nets.daily || []).length || rest.length) html += head("Daily and weekdays") +
+      (nets.daily || []).map(function (n) { mineN++; return row(n, differs[n.name] ? "Daily" : "See its page"); }).join("") +
+      rest.map(function (n) { theirN++; return row(n, n.when, 1); }).join("");
     box.innerHTML = html;
-    var total = (nets.weekly || []).length + (nets.monthly || []).length + (nets.daily || []).length;
-    $("schedNote").textContent = total + " nets. Times are US Eastern. * listed but not yet confirmed on air.";
+    $("schedNote").textContent = (mineN + theirN) + " nets" + (theirN ? ": " + mineN + " on HOOP's list and " + theirN + " ham nets from Indiana Ham Radio (their data of " + (ham.source_generated || ham.fetched) + ")" : "") +
+      ". Times are US Eastern. * listed but not yet confirmed on air." + (theirN && ham.unscheduled ? " " + ham.unscheduled + " more have no set time (SKYWARN and similar) and are on their schedule." : "");
   }
   function draw() {
     var b = build();
@@ -325,13 +342,14 @@ ol.how { margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }
     return b;
   }
   document.querySelectorAll("input, select").forEach(function (i) { i.addEventListener("change", draw); });
+  $("schedScope").addEventListener("change", function () { try { schedule(); } catch (err) {} });
   $("dl").addEventListener("click", function () {
     var b = draw(), blob = new Blob([csv(b.rows)], { type: "text/csv" }), a = document.createElement("a");
     a.href = URL.createObjectURL(blob); a.download = "hoop-indiana-listen-only.csv"; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
   });
   window.HOOPchannels = { build: build, csv: csv };
-  Promise.all([fetch("../data/channels.json").then(function (r) { return r.json(); }).catch(function () { return null; }), fetch("../data/nets.json").then(function (r) { return r.json(); }).catch(function () { return null; }), fetch("../data/nwr-indiana.json").then(function (r) { return r.json(); }).catch(function () { return null; })]).then(function (x) {
-    CH = x[0]; nets = x[1]; nwr = x[2]; try { schedule(); } catch (err) { var sb = $("sched"); if (sb) sb.innerHTML = '<tr><td colspan="6">The schedule could not be drawn. Reload the page to try again.</td></tr>'; }
+  Promise.all([fetch("../data/channels.json").then(function (r) { return r.json(); }).catch(function () { return null; }), fetch("../data/nets.json").then(function (r) { return r.json(); }).catch(function () { return null; }), fetch("../data/nwr-indiana.json").then(function (r) { return r.json(); }).catch(function () { return null; }), fetch("../data/ham-nets.json").then(function (r) { return r.json(); }).catch(function () { return null; })]).then(function (x) {
+    CH = x[0]; nets = x[1]; nwr = x[2]; ham = x[3]; try { schedule(); } catch (err) { var sb = $("sched"); if (sb) sb.innerHTML = '<tr><td colspan="6">The schedule could not be drawn. Reload the page to try again.</td></tr>'; }
     if (CH) {
       $("groups").innerHTML = CH.groups.map(function (g) { return '<label><input type="checkbox" id="g-' + g.id + '"' + (g.default ? " checked" : "") + '> <span>' + esc(g.label) + (g.hint ? ' <small>(' + esc(g.hint) + ')</small>' : "") + '</span></label>'; }).join("");
       $("groups").querySelectorAll("input").forEach(function (i) { i.addEventListener("change", draw); });
