@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 100" width="64" height="100">
 <!-- HOOP mark: an antenna rising out of Indiana; its signal rings are hoops. -->
-<path d="M17.7 43.8 L22.0 44.9 L26.9 43.0 L30.6 43.0 L34.4 43.0 L38.1 43.0 L41.9 43.0 L45.6 43.0 L49.4 43.0 L53.2 43.0 L53.1 48.2 L53.1 53.5 L53.1 58.7 L53.1 64.0 L53.1 69.3 L53.0 74.5 L53.0 79.8 L52.0 84.2 L45.4 84.8 L44.8 88.0 L40.2 91.1 L37.6 95.0 L32.4 92.2 L27.2 95.6 L23.2 97.7 L16.7 96.1 L12.1 98.0 L10.8 96.3 L12.8 90.8 L16.7 85.6 L18.0 81.1 L17.6 76.3 L17.6 70.9 L17.6 65.5 L17.6 60.1 L17.6 54.6 L17.7 49.2Z" fill="#E8590C" stroke="#E8590C" stroke-width="2.5" stroke-linejoin="round"/>
-<path d="M21 32 A11 4 0 0 1 43 32" fill="none" stroke="#E8590C" stroke-width="4" stroke-linecap="round"/>
-<path d="M12 17 A20 6.5 0 0 1 52 17" fill="none" stroke="#5FD3F0" stroke-width="4.5" stroke-linecap="round"/>
-<rect x="29.25" y="5" width="5.5" height="41" rx="2.75" fill="#E8590C"/>
-<path d="M21 32 A11 4 0 0 0 43 32" fill="none" stroke="#E8590C" stroke-width="4" stroke-linecap="round"/>
-<path d="M12 17 A20 6.5 0 0 0 52 17" fill="none" stroke="#5FD3F0" stroke-width="4.5" stroke-linecap="round"/>
+<path d="M17.7 43.8 L22.0 44.9 L26.9 43.0 L30.6 43.0 L34.4 43.0 L38.1 43.0 L41.9 43.0 L45.6 43.0 L49.4 43.0 L53.2 43.0 L53.1 48.2 L53.1 53.5 L53.1 58.7 L53.1 64.0 L53.1 69.3 L53.0 74.5 L53.0 79.8 L52.0 84.2 L45.4 84.8 L44.8 88.0 L40.2 91.1 L37.6 95.0 L32.4 92.2 L27.2 95.6 L23.2 97.7 L16.7 96.1 L12.1 98.0 L10.8 96.3 L12.8 90.8 L16.7 85.6 L18.0 81.1 L17.6 76.3 L17.6 70.9 L17.6 65.5 L17.6 60.1 L17.6 54.6 L17.7 49.2Z" fill="#F2B500" stroke="#F2B500" stroke-width="2.5" stroke-linejoin="round"/>
+<path d="M21 32 A11 4 0 0 1 43 32" fill="none" stroke="#F2B500" stroke-width="4" stroke-linecap="round"/>
+<path d="M12 17 A20 6.5 0 0 1 52 17" fill="none" stroke="#A9C6F5" stroke-width="4.5" stroke-linecap="round"/>
+<rect x="29.25" y="5" width="5.5" height="41" rx="2.75" fill="#F2B500"/>
+<path d="M21 32 A11 4 0 0 0 43 32" fill="none" stroke="#F2B500" stroke-width="4" stroke-linecap="round"/>
+<path d="M12 17 A20 6.5 0 0 0 52 17" fill="none" stroke="#A9C6F5" stroke-width="4.5" stroke-linecap="round"/>
 </svg>

@@ -122,7 +122,7 @@
         for (var k = pulses.length - 1; k >= 0; k--) {
           var u = pulses[k]; u.t += dt * 0.8; if (u.t >= 1) { pulses.splice(k, 1); continue; }
           var x = u.a.x + (u.b.x - u.a.x) * u.t, y = u.a.y + (u.b.y - u.a.y) * u.t;
-          ctx.fillStyle = "#E8590C"; ctx.shadowColor = "#E8590C"; ctx.shadowBlur = 8; ctx.beginPath(); ctx.arc(x, y, 7.2, 0, Math.PI * 2); ctx.fill(); ctx.shadowBlur = 0;
+          ctx.fillStyle = "#F2B500"; ctx.shadowColor = "#F2B500"; ctx.shadowBlur = 8; ctx.beginPath(); ctx.arc(x, y, 7.2, 0, Math.PI * 2); ctx.fill(); ctx.shadowBlur = 0;
         }
       } else last = 0;
       if (!reduce) requestAnimationFrame(frame);

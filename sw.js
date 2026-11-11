@@ -1,7 +1,7 @@
 /* HOOP offline support. Pages and assets: show the saved copy at once and refresh it in the background.
    data/*.json: network first, saved copy when offline. Anything on another site (weather, maps) is left alone.
    Bump CACHE when the list below changes. */
-var CACHE = "hoop-v7";
+var CACHE = "hoop-v8";
 var PRECACHE = ["./", "meshcore/", "meshnet/", "emergency/", "live/", "projects/", "channels/",
   "assets/site.css", "assets/site.js", "assets/theme.js", "assets/home.js", "assets/nets.js", "assets/chirps.js",
   "assets/fonts/archivo.woff2", "assets/fonts/plex-mono-400.woff2", "assets/fonts/plex-mono-500.woff2",

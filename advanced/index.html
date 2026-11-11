@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<script src="../assets/theme.js?v=20261025a"></script>
+<script src="../assets/theme.js?v=20261111t"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <meta name="description" content="Advanced and theoretical: Indiana-specific material for MeshCore repeater owners, for consideration only. Three proposed region-tag structures, the open base commands, neighbours' tags, and observer brokers.">
 <title>Advanced and theoretical · HOOP</title>
-<link rel="icon" href="../assets/favicon.svg?v=20261111m" type="image/svg+xml">
+<link rel="icon" href="../assets/favicon.svg?v=20261111t" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="HOOP · Hoosier Off-Grid Open Playbook">
 <meta property="og:title" content="Advanced and theoretical">
@@ -18,7 +18,7 @@
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="../assets/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/site.css?v=20261111b">
+<link rel="stylesheet" href="../assets/site.css?v=20261111t">
 <style>
 /* Advanced: the region scope builder. Tool tokens mapped onto the site's; map tints per theme. */
 .sb { --ink: var(--fg); --accent: var(--signal); --accent-soft: var(--signal-soft); --code-ink: var(--code-fg);
@@ -27,7 +27,7 @@
   --ok:#2f7d4a; --warn:#a96a00; --crit:#b3261e;
   --d1:#dbe7e2;--d2:#e3e3d6;--d3:#dde0ea;--d4:#e7ded9;--d5:#d7e6ea;--d6:#e6e0e8;--d7:#dfe8d6;--d8:#ebe3d3;--d9:#d9e1e8;--d10:#e8e0dc;--d11:#e4e6dd;
   max-width: 1280px; margin: 0 auto; padding-inline: 24px; padding-block: 36px 48px; display: grid; gap: 20px; font-size: 15px; line-height: 1.5; }
-:root[data-theme="dark"] .sb { --county:#222C44; --county-out:#1A2238; --county-line:#080E1C; --sel:#e7ac2c; --sel-ink:#241800; --home:#ffcf6b;
+:root[data-theme="dark"] .sb { --county:#222C44; --county-out:#1A2238; --county-line:#0D1320; --sel:#e7ac2c; --sel-ink:#241800; --home:#ffcf6b;
   --ok:#6cc58a; --warn:#e3a640; --crit:#ff8a80;
   --d1:#22312c;--d2:#2b2d22;--d3:#252a36;--d4:#302824;--d5:#1f3135;--d6:#2e2732;--d7:#263222;--d8:#332c1f;--d9:#232c34;--d10:#312a26;--d11:#2a3027; }
 .sb-head { display: grid; gap: 10px; }
@@ -105,7 +105,7 @@
 @media (prefers-reduced-motion: no-preference) {.owners button.copy{ transition: background .15s, color .15s; }}
 .mode { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin: 22px 0 18px; }
 .mode-btn { font: 700 15px/1 var(--body); border: 2px solid var(--line); background: var(--panel); color: var(--fg); border-radius: 8px; padding: 12px 18px; min-height: 44px; cursor: pointer; }
-.mode-btn[aria-pressed="true"] { background: var(--beacon); border-color: var(--beacon); color: #0F1729; }
+.mode-btn[aria-pressed="true"] { background: var(--beacon); border-color: var(--beacon); color: #16223C; }
 .mode-help { flex: 1 1 320px; font-size: 14px; color: var(--muted); max-width: 70ch; }
 .abbr { display: grid; gap: 16px; margin-bottom: 36px; }
 .abbr h2 { font-size: 26px; font-weight: 800; }
@@ -130,7 +130,7 @@
 .abbr-mapbox .lbl:hover rect, .abbr-mapbox .lbl:focus-visible rect { stroke: var(--beacon); stroke-width: 2.4; }
 .abbr-mapbox .lbl:focus-visible { outline: none; }
 .abbr-mapbox .lbl.on rect { fill: var(--beacon); stroke: var(--beacon); }
-.abbr-mapbox .lbl.on text { fill: #0F1729; }
+.abbr-mapbox .lbl.on text { fill: #16223C; }
 .abbr-mapbox .city { font: 500 10px/1 var(--body); fill: var(--muted); pointer-events: none; text-anchor: middle; }
 .abbr .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px 20px; display: grid; gap: 10px; align-content: start; }
 .abbr .panel h3 { font-size: 18px; font-weight: 700; margin: 0; display: flex; align-items: center; gap: 10px; }
@@ -144,8 +144,8 @@
 .abbr .chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .abbr .chip { font: 500 14px/1 var(--mono); border: 2px solid var(--line); background: var(--bg); color: var(--fg); border-radius: 999px; padding: 10px 14px; min-height: 40px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
 .abbr .chip small { font: 400 12px/1 var(--body); color: var(--muted); }
-.abbr .chip[aria-pressed="true"] { background: var(--beacon); border-color: var(--beacon); color: #0F1729; }
-.abbr .chip[aria-pressed="true"] small { color: #0F1729; }
+.abbr .chip[aria-pressed="true"] { background: var(--beacon); border-color: var(--beacon); color: #16223C; }
+.abbr .chip[aria-pressed="true"] small { color: #16223C; }
 .abbr .chip.conv { border-style: dashed; }
 .abbr .abbr-actions { display: flex; flex-wrap: wrap; gap: 8px; }
 .abbr .chip.all { font-family: var(--body); font-weight: 700; }
@@ -182,8 +182,8 @@
 .sb-head .lead { font-size: 1.05rem; max-width: 74ch; }
 .sb-head .eyebrow { font: 600 .78rem/1 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--signal); }
 .sb-head a, .sb-foot a, .sb .sub a, .sb .tc-def a { color: var(--link); }
-.sb button.primary, .sb .seg button[aria-pressed=true], .sb button.add[aria-pressed=true] { color: #0F1729; }
-.site-nav .go { background: var(--beacon); color: #0F1729; font-weight: 700; padding: 11px 16px; border-radius: 6px; }
+.sb button.primary, .sb .seg button[aria-pressed=true], .sb button.add[aria-pressed=true] { color: #16223C; }
+.site-nav .go { background: var(--beacon); color: #16223C; font-weight: 700; padding: 11px 16px; border-radius: 6px; }
 @media (max-width: 600px) { .sb { padding-inline: 16px; } }
 .sb .clisteps code { background: transparent; padding: 0; color: inherit; }
 .sb .panel { grid-template-columns: minmax(0, 1fr); }
@@ -295,7 +295,7 @@
 </head>
 <body>
 <header class="site-head"><div class="bar">
-  <a class="brand" href="../"><img class="brand-mark" src="../assets/mark.svg?v=20261111m" alt="" width="32" height="50"><img class="brand-mark-sm" src="../assets/favicon.svg?v=20261111m" alt="" width="34" height="34"><span class="brand-text">HOOP<small>Hoosier Off-Grid Open Playbook</small></span></a>
+  <a class="brand" href="../"><img class="brand-mark" src="../assets/mark.svg?v=20261111t" alt="" width="32" height="50"><img class="brand-mark-sm" src="../assets/favicon.svg?v=20261111t" alt="" width="34" height="34"><span class="brand-text">HOOP<small>Hoosier Off-Grid Open Playbook</small></span></a>
   <nav class="site-nav" aria-label="Site">
     <button type="button" class="nav-menu" id="navMenu" aria-expanded="false" aria-controls="navMore"><span class="l-more">More</span><span class="l-menu">Menu</span></button>
     <span class="nav-more" id="navMore">
@@ -822,6 +822,6 @@ region save</pre>
 <script src="counties.js"></script>
 <script src="builder.js"></script>
 <script src="modes.js"></script>
-<script src="../assets/site.js?v=20261111b"></script>
+<script src="../assets/site.js?v=20261111t"></script>
 </body>
 </html>

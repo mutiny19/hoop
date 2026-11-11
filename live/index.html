@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<script src="../assets/theme.js?v=20261025a"></script>
+<script src="../assets/theme.js?v=20261111t"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Where live MeshCore traffic in Indiana shows up: Waev, OKI CoreScope, LetsMesh, MeshMapper, and the official MeshCore Map, plus how to run an observer.">
 <title>Watch Indiana MeshCore Traffic Live | HOOP</title>
-<link rel="icon" href="../assets/favicon.svg?v=20261111m" type="image/svg+xml">
+<link rel="icon" href="../assets/favicon.svg?v=20261111t" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="HOOP · Hoosier Off-Grid Open Playbook">
 <meta property="og:title" content="Watch the Indiana mesh live">
@@ -28,10 +28,10 @@
 <meta name="twitter:image:alt" content="HOOP: Hoosier Off-Grid Open Playbook">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "url": "https://mutiny19.github.io/hoop/live/", "name": "Watch Indiana MeshCore traffic live", "description": "Where live MeshCore traffic in Indiana shows up and how to run an observer.", "isPartOf": {"@id": "https://mutiny19.github.io/hoop/#website"}, "dateModified": "2026-10-25"}</script>
 <link rel="manifest" href="../manifest.webmanifest">
-<meta name="theme-color" content="#0F1729">
+<meta name="theme-color" content="#16223C">
 <link rel="apple-touch-icon" href="../assets/icon-192.png">
 <link rel="preload" href="../assets/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/site.css?v=20261111b">
+<link rel="stylesheet" href="../assets/site.css?v=20261111t">
 <style>
 /* Live: where to watch live traffic (the community networks observers already feed), then how to add an observer. */
 .wrap { max-width: 1100px; margin: 0 auto; padding-inline: 24px; padding-block: 36px 24px; display: grid; gap: 36px; }
@@ -40,7 +40,7 @@ h1 { font-size: clamp(2.2rem, 5.5vw, 3.4rem); font-weight: 800; }
 h2 { font-size: 1.7rem; font-weight: 800; }
 h3 { font-size: 1.3rem; font-weight: 700; }
 p { margin: 0; }
-.site-nav .go { background: var(--beacon); color: #0F1729; font-weight: 700; padding: 11px 16px; border-radius: 6px; }
+.site-nav .go { background: var(--beacon); color: #16223C; font-weight: 700; padding: 11px 16px; border-radius: 6px; }
 .eyebrow { font: 600 .78rem/1 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--signal); }
 .hero { display: grid; gap: 12px; }
 .lead { font-size: 1.1rem; color: var(--muted); max-width: 66ch; }
@@ -59,7 +59,7 @@ section { display: grid; gap: 14px; }
 .badge { justify-self: start; font: 600 .72rem/1 var(--body); letter-spacing: .08em; text-transform: uppercase; padding: 5px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
 .badge.live { border-color: var(--live); color: var(--live); }
 .btn { justify-self: start; font: 700 15px/1 var(--body); border-radius: 6px; padding: 13px 18px; text-decoration: none; display: inline-block; }
-.btn.primary { background: var(--beacon); color: #0F1729; }
+.btn.primary { background: var(--beacon); color: #16223C; }
 .btn.ghost { border: 2px solid var(--line); color: var(--fg); }
 .note { font-size: .9rem; color: var(--muted); }
 .steps { margin: 0; padding-left: 1.3em; display: grid; gap: 8px; }
@@ -68,7 +68,7 @@ section { display: grid; gap: 14px; }
 </head>
 <body>
 <header class="site-head"><div class="bar">
-  <a class="brand" href="../"><img class="brand-mark" src="../assets/mark.svg?v=20261111m" alt="" width="32" height="50"><img class="brand-mark-sm" src="../assets/favicon.svg?v=20261111m" alt="" width="34" height="34"><span class="brand-text">HOOP<small>Hoosier Off-Grid Open Playbook</small></span></a>
+  <a class="brand" href="../"><img class="brand-mark" src="../assets/mark.svg?v=20261111t" alt="" width="32" height="50"><img class="brand-mark-sm" src="../assets/favicon.svg?v=20261111t" alt="" width="34" height="34"><span class="brand-text">HOOP<small>Hoosier Off-Grid Open Playbook</small></span></a>
   <nav class="site-nav" aria-label="Site">
     <button type="button" class="nav-menu" id="navMenu" aria-expanded="false" aria-controls="navMore"><span class="l-more">More</span><span class="l-menu">Menu</span></button>
     <span class="nav-more" id="navMore">
@@ -174,6 +174,6 @@ fetch("../data/observers.json").then(function (r) { return r.json(); }).then(fun
   });
 }).catch(function () { document.getElementById("obsSum").textContent = "The observer counts aren't available right now."; });
 </script>
-<script src="../assets/site.js?v=20261111b"></script>
+<script src="../assets/site.js?v=20261111t"></script>
 </body>
 </html>

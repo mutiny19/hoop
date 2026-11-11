@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<script src="../assets/theme.js?v=20261025a"></script>
+<script src="../assets/theme.js?v=20261111t"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="#meshnet: a ten-minute MeshCore check-in net open to anyone on the mesh, Sundays and Thursdays at 7:00 PM. This site logs check-ins from Indiana and its border counties on a map.">
 <title>#meshnet: The Universal MeshCore Check-in Net | HOOP</title>
-<link rel="icon" href="../assets/favicon.svg?v=20261111m" type="image/svg+xml">
+<link rel="icon" href="../assets/favicon.svg?v=20261111t" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="HOOP · Hoosier Off-Grid Open Playbook">
 <meta property="og:title" content="#meshnet: the same check-in on every mesh, at the same time">
@@ -28,10 +28,10 @@
 <meta name="twitter:image:alt" content="HOOP: Hoosier Off-Grid Open Playbook">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "url": "https://mutiny19.github.io/hoop/meshnet/", "name": "#meshnet: the same check-in on every mesh, at the same time", "description": "A ten-minute MeshCore check-in net open to anyone on the mesh, Sundays and Thursdays at 7:00 PM, with check-ins from Indiana and its border counties on a map.", "isPartOf": {"@id": "https://mutiny19.github.io/hoop/#website"}, "dateModified": "2026-11-01"}</script>
 <link rel="manifest" href="../manifest.webmanifest">
-<meta name="theme-color" content="#0F1729">
+<meta name="theme-color" content="#16223C">
 <link rel="apple-touch-icon" href="../assets/icon-192.png">
 <link rel="preload" href="../assets/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/site.css?v=20261111b">
+<link rel="stylesheet" href="../assets/site.css?v=20261111t">
 <style>
 /* #meshnet: what the net is for, how to check in, and the automatic log of each net's check-ins. */
 .wrap { max-width: 1100px; margin: 0 auto; padding-inline: 24px; padding-block: 36px 48px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; }
@@ -39,7 +39,7 @@ h1, h2, h3 { font-family: var(--display); margin: 0; line-height: 1.08; text-wra
 h1 { font-size: clamp(2.2rem, 5.5vw, 3.4rem); font-weight: 800; }
 h2 { font-size: 1.7rem; font-weight: 800; }
 p { margin: 0; }
-.site-nav .go { background: var(--beacon); color: #0F1729; font-weight: 700; padding: 11px 16px; border-radius: 6px; }
+.site-nav .go { background: var(--beacon); color: #16223C; font-weight: 700; padding: 11px 16px; border-radius: 6px; }
 .eyebrow { font: 600 .78rem/1 var(--body); letter-spacing: .14em; text-transform: uppercase; color: var(--signal); }
 .hero { display: grid; gap: 14px; }
 .lead { font-size: 1.1rem; color: var(--muted); max-width: 64ch; }
@@ -69,7 +69,7 @@ section { display: grid; gap: 14px; }
 .spark { display: block; width: 100%; max-width: 420px; height: auto; }
 .spark text { font: 500 11px var(--mono); fill: var(--muted); }
 .sumline { font-weight: 600; }
-.zones li.you { border-color: var(--accent, #E8590C); }
+.zones li.you { border-color: var(--accent, #F2B500); }
 .why { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; font-size: 1.05rem; }
 .std { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px,100%), 1fr)); gap: 16px; }
 .std > div { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; display: grid; gap: 10px; align-content: start; min-width: 0; }
@@ -82,7 +82,7 @@ code.ex { font: 500 1rem/1 var(--mono); background: var(--panel); border: 1px so
 .addch { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 18px; margin-top: 10px; }
 .addch img { background: #fff; padding: 6px; border-radius: 8px; flex: none; }
 .addch .note { margin-top: 8px; max-width: 46ch; }
-.addch .btn { display: inline-block; font: 700 15px/1 var(--body); border-radius: 6px; padding: 13px 18px; text-decoration: none; background: var(--beacon); color: #0F1729; }
+.addch .btn { display: inline-block; font: 700 15px/1 var(--body); border-radius: 6px; padding: 13px 18px; text-decoration: none; background: var(--beacon); color: #16223C; }
 .share { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 14px 0; }
 .share figure { margin: 0; }
 .share img { display: block; width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--line); }
@@ -111,12 +111,12 @@ button.copy:hover { background: var(--link); color: var(--panel); }
 .fold.big[open] > summary::after { content: "\2212"; }
 .fold.big[open] > summary { margin-bottom: 12px; }
 .logbox { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 16px; align-items: start; }
-.mapbox { background: #080E1C; border: 1px solid #273352; border-radius: 12px; overflow: hidden; }
+.mapbox { background: #0D1320; border: 1px solid #283349; border-radius: 12px; overflow: hidden; }
 .mapbox svg { display: block; width: 100%; height: auto; }
 .side { display: grid; gap: 12px; min-width: 0; }
 .nets { display: flex; flex-wrap: wrap; gap: 6px; }
 .nets button { font: 600 13px/1 var(--mono); border: 1px solid var(--line); background: var(--panel); color: var(--fg); border-radius: 999px; padding: 8px 12px; min-height: 36px; cursor: pointer; }
-.nets button[aria-pressed="true"] { background: var(--beacon); border-color: var(--beacon); color: #0F1729; }
+.nets button[aria-pressed="true"] { background: var(--beacon); border-color: var(--beacon); color: #16223C; }
 .tally { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
 .tally div { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
 .tally b { display: block; font: 500 1.6rem/1.1 var(--mono); }
@@ -134,7 +134,7 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
 </head>
 <body>
 <header class="site-head"><div class="bar">
-  <a class="brand" href="../"><img class="brand-mark" src="../assets/mark.svg?v=20261111m" alt="" width="32" height="50"><img class="brand-mark-sm" src="../assets/favicon.svg?v=20261111m" alt="" width="34" height="34"><span class="brand-text">HOOP<small>Hoosier Off-Grid Open Playbook</small></span></a>
+  <a class="brand" href="../"><img class="brand-mark" src="../assets/mark.svg?v=20261111t" alt="" width="32" height="50"><img class="brand-mark-sm" src="../assets/favicon.svg?v=20261111t" alt="" width="34" height="34"><span class="brand-text">HOOP<small>Hoosier Off-Grid Open Playbook</small></span></a>
   <nav class="site-nav" aria-label="Site">
     <button type="button" class="nav-menu" id="navMenu" aria-expanded="false" aria-controls="navMore"><span class="l-more">More</span><span class="l-menu">Menu</span></button>
     <span class="nav-more" id="navMore">
@@ -196,15 +196,15 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
       <div class="mapbox">
         <svg id="netmap" viewBox="-245 -130 1150 1240" role="img" aria-labelledby="netmapTitle">
           <title id="netmapTitle">Map of Indiana with each check-in placed at the airport it named</title>
-          <g fill="#0C1324" stroke="#3A4766" stroke-width="1.5" aria-hidden="true">
+          <g fill="#111827" stroke="#3A4766" stroke-width="1.5" aria-hidden="true">
           <path d="M57 -170 L86 -85 L96 -35 L110 15 L109 602 L115 690 L96 770 L38 865 L10 965 L0 1065 L-60 1140 L-290 1140 L-290 -170 Z"/>
           <path d="M345 -170 L306 -85 L245 0 L630 0 L900 8 L940 8 L940 -170 Z"/>
           <path d="M630 0 L940 8 L940 790 L900 790 L843 777 L728 740 L690 665 L628 665 Z"/>
           <path d="M940 790 L900 790 L843 777 L728 740 L690 665 L628 665 L613 745 L517 757 L507 815 L440 870 L402 940 L326 890 L249 952 L191 990 L96 960 L29 995 L10 965 L0 1065 L-60 1140 L940 1140 Z"/>
           </g>
           <path d="M57 -170 L345 -170 L306 -85 L245 0 L173 35 L110 15 L96 -35 L86 -85 Z" fill="#0A2238" stroke="#3A4766" stroke-width="1.5" aria-hidden="true"/>
-          <path d="M110 15 L173 35 L245 0 L630 0 L628 665 L613 745 L517 757 L507 815 L440 870 L402 940 L326 890 L249 952 L191 990 L96 960 L29 995 L10 965 L38 865 L96 770 L115 690 L109 602 Z" fill="#111C33" stroke="#8290AB" stroke-width="2.5" aria-hidden="true"/>
-          <g fill="#4E5A75" font-family="IBM Plex Mono, monospace" font-size="18" letter-spacing="4" aria-hidden="true">
+          <path d="M110 15 L173 35 L245 0 L630 0 L628 665 L613 745 L517 757 L507 815 L440 870 L402 940 L326 890 L249 952 L191 990 L96 960 L29 995 L10 965 L38 865 L96 770 L115 690 L109 602 Z" fill="#17213A" stroke="#8290AB" stroke-width="2.5" aria-hidden="true"/>
+          <g fill="#4F5A70" font-family="IBM Plex Mono, monospace" font-size="18" letter-spacing="4" aria-hidden="true">
           <text x="-230" y="460">ILLINOIS</text><text x="560" y="-90">MICHIGAN</text><text x="760" y="330">OHIO</text><text x="560" y="1060">KENTUCKY</text>
           </g>
           <g id="pts"></g>
@@ -326,7 +326,7 @@ Channel link, your local time, and past check-ins (guidance only): https://mutin
 <span class="foot-links"><a href="../channels/">Channel lists</a> · <a href="../#report">Report</a> · <a href="../#support">Support</a> · <a href="https://github.com/mutiny19/hoop" target="_blank" rel="noopener">GitHub</a> · <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Join the Indiana Mesh Discord</a></span>
 </div></footer>
 
-<script src="../assets/site.js?v=20261111b"></script>
+<script src="../assets/site.js?v=20261111t"></script>
 <script>
 (function () {
   var P = function (lat, lon) { return [191.3 * lon + 16854, -250 * lat + 10440]; };   /* same projection as the home map */
@@ -345,8 +345,8 @@ Channel link, your local time, and past check-ins (guidance only): https://mutin
       var o = by[k], xy = P(o.c.lat, o.c.lon), r = 22 + 9 * Math.sqrt(o.n - 1);
       var g = document.createElementNS(NS, "g");
       var halo = document.createElementNS(NS, "circle"); halo.setAttribute("cx", xy[0]); halo.setAttribute("cy", xy[1]); halo.setAttribute("r", r + 16); halo.setAttribute("fill", "rgba(232,89,12,.22)");
-      var dot = document.createElementNS(NS, "circle"); dot.setAttribute("cx", xy[0]); dot.setAttribute("cy", xy[1]); dot.setAttribute("r", r); dot.setAttribute("fill", "#E8590C"); dot.setAttribute("stroke", "#FFD8BF"); dot.setAttribute("stroke-width", "4");
-      var t = document.createElementNS(NS, "text"); t.setAttribute("x", xy[0] + r + 12); t.setAttribute("y", xy[1] + 12); t.setAttribute("fill", "#F2F3F7"); t.setAttribute("font-family", "IBM Plex Mono, monospace"); t.setAttribute("font-size", "34"); t.setAttribute("font-weight", "500");
+      var dot = document.createElementNS(NS, "circle"); dot.setAttribute("cx", xy[0]); dot.setAttribute("cy", xy[1]); dot.setAttribute("r", r); dot.setAttribute("fill", "#F2B500"); dot.setAttribute("stroke", "#FFD8BF"); dot.setAttribute("stroke-width", "4");
+      var t = document.createElementNS(NS, "text"); t.setAttribute("x", xy[0] + r + 12); t.setAttribute("y", xy[1] + 12); t.setAttribute("fill", "#F4F2EC"); t.setAttribute("font-family", "IBM Plex Mono, monospace"); t.setAttribute("font-size", "34"); t.setAttribute("font-weight", "500");
       t.textContent = k + (o.n > 1 ? " ×" + o.n : "");
       var tt = document.createElementNS(NS, "title"); tt.textContent = o.c.place + " (" + k + "): " + o.n + " check-in" + (o.n > 1 ? "s" : "");
       g.appendChild(tt); g.appendChild(halo); g.appendChild(dot); g.appendChild(t); pts.appendChild(g);
@@ -358,8 +358,8 @@ Channel link, your local time, and past check-ins (guidance only): https://mutin
     var el = document.getElementById("spark"); if (!el || nets.length < 2) return;
     var v = nets.slice().reverse().map(function (n) { return n.checkins.length; }), max = Math.max.apply(null, v) || 1, W = 420, H = 64, step = W / (v.length - 1 || 1);
     var pts = v.map(function (n, i) { return (i * step).toFixed(1) + "," + (H - 14 - (H - 24) * n / max).toFixed(1); });
-    el.innerHTML = '<svg class="spark" viewBox="-8 -4 ' + (W + 16) + " " + (H + 4) + '" role="img" aria-label="Check-ins per net, oldest to newest: ' + v.join(", ") + '"><polyline points="' + pts.join(" ") + '" fill="none" stroke="#E8590C" stroke-width="2.5" stroke-linejoin="round"/>' +
-      v.map(function (n, i) { var xy = pts[i].split(","); return '<circle cx="' + xy[0] + '" cy="' + xy[1] + '" r="3.5" fill="#E8590C"/><text x="' + xy[0] + '" y="' + (+xy[1] - 8) + '" text-anchor="middle">' + n + "</text>"; }).join("") + "</svg>";
+    el.innerHTML = '<svg class="spark" viewBox="-8 -4 ' + (W + 16) + " " + (H + 4) + '" role="img" aria-label="Check-ins per net, oldest to newest: ' + v.join(", ") + '"><polyline points="' + pts.join(" ") + '" fill="none" stroke="#F2B500" stroke-width="2.5" stroke-linejoin="round"/>' +
+      v.map(function (n, i) { var xy = pts[i].split(","); return '<circle cx="' + xy[0] + '" cy="' + xy[1] + '" r="3.5" fill="#F2B500"/><text x="' + xy[0] + '" y="' + (+xy[1] - 8) + '" text-anchor="middle">' + n + "</text>"; }).join("") + "</svg>";
   }
   /* every airport heard so far, in the order each first appeared */
   function heardFrom(nets) {
@@ -392,7 +392,7 @@ Channel link, your local time, and past check-ins (guidance only): https://mutin
         "</td><td>" + esc(x.device) + "</td><td class=\"mono\">" + months(x.months) + "</td><td class=\"mono\">" + x.hops + "</td><td class=\"mono\">" + x.observers + "</td></tr>";
     }).join("");
     var wide = false; try { wide = window.matchMedia("(min-width: 821px)").matches; } catch (e) {}
-    detail.innerHTML = live + head + "<details class=\"fold\"" + (wide ? " open" : "") + "><summary>Show all " + c.length + " check-ins</summary><div class=\"tablewrap\" style=\"margin-top:12px\"><table><thead><tr><th>Time</th><th>Airport</th><th>Device</th><th>On mesh</th><th title=\"Repeater hops when first heard\">Hops</th><th title=\"How many observers heard it\">Heard by</th></tr></thead><tbody>" +
+    detail.innerHTML = live + head + "<details class=\"fold\"" + (wide ? " open" : "") + "><summary>Show all " + c.length + " check-ins</summary><div class=\"tablewrap\" style=\"margin-top:12px\" tabindex=\"0\" role=\"region\" aria-label=\"All check-ins\"><table><thead><tr><th>Time</th><th>Airport</th><th>Device</th><th>On mesh</th><th title=\"Repeater hops when first heard\">Hops</th><th title=\"How many observers heard it\">Heard by</th></tr></thead><tbody>" +
       rows + "</tbody></table></div><p class=\"note\" style=\"margin-top:8px\">Hops: repeaters between the sender and the first observer that heard it. Heard by: how many observers caught it.</p></details>";
   }
 

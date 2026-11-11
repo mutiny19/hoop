@@ -2,37 +2,31 @@
 @font-face { font-family: "Archivo"; font-style: normal; font-weight: 400 800; font-stretch: 100%; font-display: swap; src: url(fonts/archivo.woff2) format("woff2"); }
 @font-face { font-family: "IBM Plex Mono"; font-style: normal; font-weight: 400; font-display: swap; src: url(fonts/plex-mono-400.woff2) format("woff2"); }
 @font-face { font-family: "IBM Plex Mono"; font-style: normal; font-weight: 500; font-display: swap; src: url(fonts/plex-mono-500.woff2) format("woff2"); }
-/* HOOP: shared tokens, header and footer. Navy base, HOOP orange accent, cyan for links in the dark theme. */
+/* HOOP: shared tokens, header and footer. Deep navy and warm white, gold accent, soft blue for links in the dark theme. */
 :root {
-  --bg: #F2F3F7;
+  --bg: #F6F4EE;
   --panel: #FFFFFF;
-  --fg: #0F1729;
-  --muted: #4E5A75;
-  --line: #CFD4E0;
-  --ink: #0F1729;
-  --ink-fg: #F2F3F7;
-  --beacon: #E8590C;
-  --signal: #B5480A;
-  --signal-soft: #FCEBDF;
-  --link: #1F3F86;
+  --fg: #16223C;
+  --muted: #4F5A70;
+  --line: #D8D8D2;
+  --ink: #16223C;
+  --ink-fg: #F4F2EC;
+  --beacon: #F2B500;
+  --signal: #7A5800;
+  --signal-soft: #FFF3CC;
+  --link: #23478F;
   --live: #1F7A33;
-  --code-bg: #080E1C;
-  --code-fg: #F2F3F7;
+  --code-bg: #0D1320;
+  --code-fg: #F4F2EC;
   --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
   --body: "Archivo", "Helvetica Neue", Arial, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #080E1C; --panel: #0F1729; --fg: #F2F3F7; --muted: #9AA5BE; --line: #273352;
-    --ink: #080E1C; --ink-fg: #F2F3F7; --signal: #FF8A3D; --signal-soft: #2A1A0E;
-    --link: #5FD3F0; --live: #40C057; --code-bg: #050A14; --code-fg: #F2F3F7; color-scheme: dark;
-  }
-}
+/* Light is the default; dark applies only when a visitor picks it with the theme button (assets/theme.js). */
 :root[data-theme="dark"] {
-  --bg: #080E1C; --panel: #0F1729; --fg: #F2F3F7; --muted: #9AA5BE; --line: #273352;
-  --ink: #080E1C; --ink-fg: #F2F3F7; --signal: #FF8A3D; --signal-soft: #2A1A0E;
-  --link: #5FD3F0; --live: #40C057; --code-bg: #050A14; --code-fg: #F2F3F7; color-scheme: dark;
+    --bg: #0D1320; --panel: #151D2E; --fg: #EEF0F4; --muted: #A2ABBD; --line: #283349;
+    --ink: #0A0F19; --ink-fg: #EEF0F4; --signal: #FFCB3D; --signal-soft: #2A2208;
+    --link: #A9C6F5; --live: #40C057; --code-bg: #0A0F19; --code-fg: #F4F2EC; color-scheme: dark;
 }
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
@@ -67,7 +61,7 @@ code { font-family: var(--mono); font-size: .9em; }
 .site-foot .bar { max-width: 1200px; margin: 0 auto; padding: 20px 24px 32px; display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: .88rem; color: var(--muted); }
 
 /* Theme switch: dark is the default (set in each page's head); the sun shows in dark mode, the moon in light. */
-.theme-toggle { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 6px; border: 2px solid #4E5A75; background: transparent; color: var(--ink-fg); cursor: pointer; }
+.theme-toggle { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 6px; border: 2px solid #4F5A70; background: transparent; color: var(--ink-fg); cursor: pointer; }
 .theme-toggle:hover { border-color: var(--beacon); }
 .theme-toggle .i-moon { display: none; }
 :root[data-theme="light"] .theme-toggle .i-sun { display: none; }
@@ -86,7 +80,7 @@ code { font-family: var(--mono); font-size: .9em; }
 a[href^="http"]:where(:not(.btn, .card, .brand, .cta, .go, .layer, .links a, .site-nav a, .way a, .view a))::after { content: " \2197"; font-size: .85em; }
 
 /* Nav: Settings and #meshnet always show on wide screens; the rest sit behind More. On phones everything sits behind Menu. */
-.nav-menu { display: inline-flex; order: 2; font: 600 15px/1 var(--body); border: 2px solid #4E5A75; background: transparent; color: var(--ink-fg); border-radius: 6px; padding: 9px 14px; min-height: 40px; cursor: pointer; }
+.nav-menu { display: inline-flex; order: 2; font: 600 15px/1 var(--body); border: 2px solid #4F5A70; background: transparent; color: var(--ink-fg); border-radius: 6px; padding: 9px 14px; min-height: 40px; cursor: pointer; }
 .nav-menu[aria-expanded="true"] { border-color: var(--beacon); }
 .nav-menu .l-menu { display: none; }
 .nav-more { display: contents; }
@@ -107,7 +101,7 @@ a[href^="http"]:where(:not(.btn, .card, .brand, .cta, .go, .layer, .links a, .si
 .nextnet b { color: var(--signal); }
 .nextnet:hover, .nextnet:focus-visible { text-decoration: underline; }
 .rung { max-width: 1100px; margin: 0 auto; padding: 0 24px 40px; font-size: 15px; color: var(--muted); }
-.offbar { background: #FFD8A8; color: #0F1729; text-align: center; padding: 8px 16px; font: 600 13.5px/1.4 var(--body); }
+.offbar { background: #FFD8A8; color: #16223C; text-align: center; padding: 8px 16px; font: 600 13.5px/1.4 var(--body); }
 
 /* Printing (agencies forward PDFs): the article only, no chrome, links spelled out */
 @media print {

@@ -19,8 +19,8 @@
   /* ---------- MeshCore repeaters (nightly inventory) ---------- */
   fetch("data/meshcore-nodes.json", { cache: "no-cache" }).then(function (r) { return r.json(); }).then(function (d) {
     stats = d.stats || {};
-    var g = $("lyr-meshcore"), quiet = el("g", { fill: "none", stroke: "#E8590C", "stroke-opacity": "0.55", "stroke-width": "1.5" }, g),
-        live = el("g", { fill: "#E8590C", stroke: "#080E1C", "stroke-width": "1.5" }, g);
+    var g = $("lyr-meshcore"), quiet = el("g", { fill: "none", stroke: "#F2B500", "stroke-opacity": "0.55", "stroke-width": "1.5" }, g),
+        live = el("g", { fill: "#F2B500", stroke: "#0D1320", "stroke-width": "1.5" }, g);
     d.repeaters.forEach(function (r) {
       var xy = P(r.lat, r.lon), fresh = (Date.now() - Date.parse(r.seen)) < 30 * 86400000;
       var c = el("circle", { cx: xy[0].toFixed(1), cy: xy[1].toFixed(1), r: fresh ? 4 : 3.5 }, fresh ? live : quiet);
@@ -31,7 +31,7 @@
     $("pillSub").textContent = "heard in the last 30 days · map feed " + date;
     var stale = Date.now() - Date.parse(d.generated) > 3 * 86400000;   // the nightly job should never be this far behind
     $("srcbadge").textContent = "REPEATERS: MAP.MESHCORE.IO, " + date + (stale ? " (STALE: NIGHTLY UPDATE HAS STOPPED)" : "") + " · ALERTS: NWS, LIVE";
-    if (stale) { $("srcbadge").style.background = "#FFA8A8"; $("srcbadge").innerHTML += ' · <a href="https://github.com/mutiny19/hoop/actions" target="_blank" rel="noopener" style="color:#0F1729">check the nightly job</a>'; }
+    if (stale) { $("srcbadge").style.background = "#FFA8A8"; $("srcbadge").innerHTML += ' · <a href="https://github.com/mutiny19/hoop/actions" target="_blank" rel="noopener" style="color:#16223C">check the nightly job</a>'; }
     $("healthDate").textContent = "MAP FEED " + date;
     var quietest = d.repeaters.filter(function (r) { return r.in; }).sort(function (a, b) { return a.seen < b.seen ? -1 : 1; }).slice(0, 6);
     $("health").innerHTML = quietest.map(function (r) {
@@ -50,7 +50,7 @@
   var ALERTS_URL = "https://api.weather.gov/alerts/active?area=IN,IL,OH,KY,MI";
   var COLORS = [[/tornado/i, "#FF6B6B", "#2A1414", "#FFA8A8"], [/severe thunderstorm/i, "#FFA94D", "#2A1E10", "#FFC078"],
                 [/flood/i, "#40C057", "#12241A", "#8CE99A"], [/winter|ice|snow|blizzard|freeze|frost|chill/i, "#74C0FC", "#10202C", "#A5D8FF"],
-                [/.*/, "#FCC419", "#29240F", "#FFE066"]];
+                [/.*/, "#B197FC", "#1D1830", "#D0BFFF"]];
   var colorFor = function (ev) { for (var i = 0; i < COLORS.length; i++) if (COLORS[i][0].test(ev)) return COLORS[i]; };
   var rank = function (e) { return /warning/i.test(e) ? 0 : /watch/i.test(e) ? 1 : 2; };
   /* Most watches and advisories cover zones and carry no polygon of their own: draw those zones from data/nws-zones.json
@@ -144,14 +144,14 @@
     var n = o.net;
     if (n.scope === "statewide") {
       /* a net that is everywhere on the mesh: light up the whole state */
-      var live0 = o.start <= new Date(), col0 = "#E8590C";
+      var live0 = o.start <= new Date(), col0 = "#F2B500";
       var st = el("path", { d: "M110 15 L173 35 L245 0 L630 0 L628 665 L613 745 L517 757 L507 815 L440 870 L402 940 L326 890 L249 952 L191 990 L96 960 L29 995 L10 965 L38 865 L96 770 L115 690 L109 602 Z", fill: col0, "fill-opacity": "0.14", stroke: col0, "stroke-width": "4", "stroke-dasharray": live0 ? "none" : "14 10" }, g);
       if (live0) st.setAttribute("class", "pulse");
       var lines = [n.name + "  ·  " + n.freq + (n.minutes ? "  ·  " + n.minutes + " min" : ""), "Open to anyone on the mesh · stress test of the mesh", "Check in with: " + (n.checkin || ""), "Postponed if weather or another emergency is on the mesh"];
       var w0 = Math.max.apply(null, lines.map(function (t, i) { return t.length * (i ? 9.6 : 10.5); })) + 24, lx0 = 890 - w0, ly0 = -45;
-      el("rect", { x: lx0, y: ly0, width: w0, height: 98, rx: 8, fill: "#080E1C", stroke: col0, "stroke-width": "1.5" }, g);
+      el("rect", { x: lx0, y: ly0, width: w0, height: 98, rx: 8, fill: "#0D1320", stroke: col0, "stroke-width": "1.5" }, g);
       lines.forEach(function (t, i) {
-        var tx = el("text", { x: lx0 + 12, y: ly0 + 21 + i * 22, fill: i ? "#B8C2D8" : "#F2F3F7", "font-family": i ? "IBM Plex Mono, monospace" : "Archivo, sans-serif", "font-size": i ? "15" : "18", "font-weight": i ? "400" : "700" }, g); tx.textContent = t;
+        var tx = el("text", { x: lx0 + 12, y: ly0 + 21 + i * 22, fill: i ? "#B4BDD0" : "#F4F2EC", "font-family": i ? "IBM Plex Mono, monospace" : "Archivo, sans-serif", "font-size": i ? "15" : "18", "font-weight": i ? "400" : "700" }, g); tx.textContent = t;
       });
       return;
     }
@@ -159,14 +159,14 @@
     var xy = P(s.lat, s.lon), r = mi * 3.61, live = o.start <= new Date(), col = n.type === "GMRS" ? "#FFFFFF" : "#B197FC";
     var c = el("circle", { cx: xy[0].toFixed(1), cy: xy[1].toFixed(1), r: r.toFixed(1), fill: col, "fill-opacity": "0.07", stroke: col, "stroke-width": "3", "stroke-dasharray": live ? "none" : "12 8" }, g);
     if (live) c.setAttribute("class", "pulse");
-    el("path", { d: "M" + xy[0] + " " + (xy[1] - 11) + "l10 18h-20z", fill: col, stroke: "#080E1C", "stroke-width": "2" }, g);
+    el("path", { d: "M" + xy[0] + " " + (xy[1] - 11) + "l10 18h-20z", fill: col, stroke: "#0D1320", "stroke-width": "2" }, g);
     var l1 = n.name, l2 = s.name + " · " + n.freq + " · ~" + mi + " mi rough reach";
     var w = Math.max(l1.length * 10.5, l2.length * 9.6) + 24, ly = xy[1] - r - 62;
     if (ly < -125) ly = xy[1] + r + 12;
     var lx = Math.min(Math.max(xy[0] - w / 2, -240), 900 - w);
-    el("rect", { x: lx, y: ly, width: w, height: 52, rx: 8, fill: "#080E1C", stroke: col, "stroke-width": "1.5" }, g);
-    var t1 = el("text", { x: lx + 12, y: ly + 21, fill: "#F2F3F7", "font-family": "Archivo, sans-serif", "font-size": "18", "font-weight": "700" }, g); t1.textContent = l1;
-    var t2 = el("text", { x: lx + 12, y: ly + 42, fill: "#B8C2D8", "font-family": "IBM Plex Mono, monospace", "font-size": "15" }, g); t2.textContent = l2;
+    el("rect", { x: lx, y: ly, width: w, height: 52, rx: 8, fill: "#0D1320", stroke: col, "stroke-width": "1.5" }, g);
+    var t1 = el("text", { x: lx + 12, y: ly + 21, fill: "#F4F2EC", "font-family": "Archivo, sans-serif", "font-size": "18", "font-weight": "700" }, g); t1.textContent = l1;
+    var t2 = el("text", { x: lx + 12, y: ly + 42, fill: "#B4BDD0", "font-family": "IBM Plex Mono, monospace", "font-size": "15" }, g); t2.textContent = l2;
   }
   function pickNet(key) {
     netSel = netSel === key ? null : key;
@@ -191,7 +191,7 @@
       var n = o.net, st, color;
       if (o.start <= now) { st = "● ON AIR"; color = "#FF6B6B"; }
       else if (o.start - now <= 3600000) { var s = Math.round((o.start - now) / 1000); st = "T-" + Math.floor(s / 60) + ":" + pad(s % 60); color = "#FFD43B"; }
-      else { st = Nets.whenLabel(o.start); color = "#B8C2D8"; }
+      else { st = Nets.whenLabel(o.start); color = "#B4BDD0"; }
       var key = n.name + "|" + o.start.toISOString(), pick = !!n.site || n.scope === "statewide";
       return '<div class="net' + (pick ? " pick" : "") + (key === netSel ? " sel" : "") + '"' +
         (pick ? ' role="button" tabindex="0" aria-pressed="' + (key === netSel) + '" data-key="' + esc(key) + '" title="' + (n.scope === "statewide" ? esc(n.note || "Open to all across Indiana") : "Show the repeater and its rough reach on the map") + '"' : ' title="No single repeater (network, app, HF or simplex)"') +
@@ -208,12 +208,12 @@
   /* ---------- dashboard ---------- */
   function renderTiles() {
     var T = [
-      ["Indiana repeaters, heard 30 d", stats.in_repeaters_30d, "of " + (stats.in_repeaters || "?") + " on the map", "#F2F3F7"],
-      ["Neighbor-state repeaters", stats.neighbor_repeaters_30d, "heard in 30 days, on this map", "#F2F3F7"],
-      ["Indiana companions, 30 d", stats.in_companions_30d, "count only, never plotted", "#F2F3F7"],
-      ["Active NWS alerts", alertCount, "Indiana, live", alertCount ? "#FFA94D" : "#F2F3F7"],
-      ["Nets on air", netsOnAir, "plus starting within 1 h: " + (netsSoon == null ? "…" : netsSoon), netsOnAir ? "#FF6B6B" : "#F2F3F7"],
-      ["Last #meshnet check-ins", lastNet ? lastNet.n : null, lastNet ? "net of " + lastNet.date : "from the log", "#F2F3F7"]
+      ["Indiana repeaters, heard 30 d", stats.in_repeaters_30d, "of " + (stats.in_repeaters || "?") + " on the map", "#F4F2EC"],
+      ["Neighbor-state repeaters", stats.neighbor_repeaters_30d, "heard in 30 days, on this map", "#F4F2EC"],
+      ["Indiana companions, 30 d", stats.in_companions_30d, "count only, never plotted", "#F4F2EC"],
+      ["Active NWS alerts", alertCount, "Indiana, live", alertCount ? "#FFA94D" : "#F4F2EC"],
+      ["Nets on air", netsOnAir, "plus starting within 1 h: " + (netsSoon == null ? "…" : netsSoon), netsOnAir ? "#FF6B6B" : "#F4F2EC"],
+      ["Last #meshnet check-ins", lastNet ? lastNet.n : null, lastNet ? "net of " + lastNet.date : "from the log", "#F4F2EC"]
     ];
     function html(rows) {
       return rows.map(function (t) {

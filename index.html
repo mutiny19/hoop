@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<script src="assets/theme.js?v=20261025a"></script>
+<script src="assets/theme.js?v=20261111t"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Indiana off-grid comms on one map: MeshCore repeaters, live NWS alerts, radio nets, and starting settings for MeshCore, Meshtastic, GMRS, ham, and Reticulum.">
 <title>HOOP: Indiana Off-Grid Comms, MeshCore Map, Nets, and Settings</title>
-<link rel="icon" href="assets/favicon.svg?v=20261111m" type="image/svg+xml">
+<link rel="icon" href="assets/favicon.svg?v=20261111t" type="image/svg+xml">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="HOOP · Hoosier Off-Grid Open Playbook">
 <meta property="og:title" content="HOOP · Hoosier Off-Grid Open Playbook">
@@ -28,15 +28,15 @@
 <meta name="twitter:image:alt" content="HOOP: Hoosier Off-Grid Open Playbook">
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://mutiny19.github.io/hoop/#website", "url": "https://mutiny19.github.io/hoop/", "name": "HOOP", "alternateName": "Hoosier Off-Grid Open Playbook", "description": "Off-grid communications in Indiana: MeshCore, Meshtastic, GMRS, ham radio, and Reticulum. Represents no network or organization.", "inLanguage": "en-US"}, {"@type": "WebPage", "@id": "https://mutiny19.github.io/hoop/#webpage", "url": "https://mutiny19.github.io/hoop/", "name": "HOOP: Indiana Off-Grid Comms, MeshCore Map, Nets, and Settings", "isPartOf": {"@id": "https://mutiny19.github.io/hoop/#website"}, "about": {"@type": "Place", "name": "Indiana", "address": {"@type": "PostalAddress", "addressRegion": "IN", "addressCountry": "US"}}, "dateModified": "2026-10-25"}]}</script>
 <link rel="manifest" href="manifest.webmanifest">
-<meta name="theme-color" content="#0F1729">
+<meta name="theme-color" content="#16223C">
 <link rel="apple-touch-icon" href="assets/icon-192.png">
 <link rel="preload" href="assets/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preconnect" href="https://api.weather.gov" crossorigin>
-<link rel="stylesheet" href="assets/site.css?v=20261111b">
+<link rel="stylesheet" href="assets/site.css?v=20261111t">
 <style>
 /* Home: dark map band (map + alerts, dashboard view), then settings accordion, report, support. Built from the
    front-page design (design/front-page.dc.html); simulated parts replaced by live feeds or empty states. */
-:root { --map-bg: #0F1729; --map-panel: #080E1C; --map-line: #273352; --map-fg: #F2F3F7; --map-muted: #B8C2D8; --map-dim: #8290AB; }
+:root { --map-bg: #16223C; --map-panel: #0D1320; --map-line: #283349; --map-fg: #F4F2EC; --map-muted: #B4BDD0; --map-dim: #8290AB; }
 .wrap { max-width: 1200px; margin: 0 auto; padding-inline: 24px; }
 h1, h2, h3 { font-family: var(--display); margin: 0; line-height: 1.05; text-wrap: balance; }
 p { margin: 0; }
@@ -44,7 +44,7 @@ p { margin: 0; }
 .btn { font: 600 15px/1 var(--body); border: 0; border-radius: 6px; padding: 13px 18px; min-height: 44px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
 
 /* header CTA */
-.site-nav .go { background: var(--beacon); color: #0F1729; font-weight: 700; padding: 11px 16px; border-radius: 6px; }
+.site-nav .go { background: var(--beacon); color: #16223C; font-weight: 700; padding: 11px 16px; border-radius: 6px; }
 
 
 /* map band */
@@ -68,17 +68,16 @@ p { margin: 0; }
 .band h1 { font-size: clamp(30px, 4.4vw, 40px); font-weight: 800; }
 .band .sub { margin-top: 8px; color: var(--map-muted); font-size: 17px; }
 .onair { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 14px; font: 400 14.5px/1.3 var(--body); }
-.onair .pill { font-family: var(--mono); }
-.onair .pill { background: var(--map-fg); color: #0F1729; padding: 6px 10px; border-radius: 4px; font-weight: 500; }
+.onair .pill { background: var(--map-fg); color: #16223C; padding: 6px 10px; border-radius: 4px; font-weight: 500; }
 .onair span { color: var(--map-muted); }
-.onair a { color: #FFC078; }
+.onair a { color: #FFD566; }
 .layers { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
-.layer { font: 600 14px/1 var(--body); border-radius: 999px; padding: 10px 16px; min-height: 44px; cursor: pointer; background: transparent; color: var(--map-fg); border: 2px solid #4E5A75; }
-.layer[aria-pressed="true"] { background: var(--beacon); color: #0F1729; border-color: var(--beacon); }
+.layer { font: 600 14px/1 var(--body); border-radius: 999px; padding: 10px 16px; min-height: 44px; cursor: pointer; background: transparent; color: var(--map-fg); border: 2px solid #4F5A70; }
+.layer[aria-pressed="true"] { background: var(--beacon); color: #16223C; border-color: var(--beacon); }
 .layer[disabled] { cursor: not-allowed; color: #6E7F78; border-style: dashed; }
 .layer small { font: 500 11px/1 var(--mono); margin-left: 6px; }
 .rowh { font: 800 20px/1.2 var(--display); margin: 20px 0 10px; }
-.layerfold > summary { display: none; list-style: none; cursor: pointer; font: 600 14px/1 var(--body); border: 2px solid #4E5A75; border-radius: 999px; padding: 10px 16px; min-height: 44px; align-items: center; width: max-content; color: var(--map-fg); }
+.layerfold > summary { display: none; list-style: none; cursor: pointer; font: 600 14px/1 var(--body); border: 2px solid #4F5A70; border-radius: 999px; padding: 10px 16px; min-height: 44px; align-items: center; width: max-content; color: var(--map-fg); }
 .layerfold > summary::-webkit-details-marker { display: none; }
 .layerfold[open] > .layers { margin-top: 10px; }
 @media (max-width: 860px) { .layerfold > summary { display: inline-flex; } }
@@ -94,30 +93,31 @@ p { margin: 0; }
 .mapgrid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 330px); gap: 16px; align-items: stretch; }
 .mapbox { min-width: 0; position: relative; background: var(--map-panel); border: 1px solid var(--map-line); border-radius: 12px; overflow: hidden; }
 .mapbox svg { display: block; width: 100%; height: auto; aspect-ratio: 1150 / 1240; }
-.srcbadge { position: absolute; top: 12px; left: 12px; right: 12px; z-index: 2; justify-self: start; display: inline-block; max-width: max-content; background: #FFD43B; color: #0F1729; font: 500 12px/1.4 var(--mono); letter-spacing: .5px; padding: 6px 10px; border-radius: 4px; }
-.legend { position: absolute; left: 12px; bottom: 12px; right: 12px; max-width: max-content; background: rgba(241,243,241,0.95); color: #0F1729; border-radius: 8px; padding: 10px 12px; font-size: 12px; line-height: 1.7; }
-.legend b { font-weight: 800; }
-.side-toggle { display: none; width: 100%; font: 600 15px/1 var(--body); border: 2px solid #4E5A75; background: transparent; color: var(--map-fg); border-radius: 8px; padding: 12px 16px; min-height: 44px; cursor: pointer; }
+.srcbadge { position: absolute; top: 12px; left: 12px; right: 12px; z-index: 2; justify-self: start; display: inline-block; max-width: max-content; background: #FFD43B; color: #16223C; font: 500 12px/1.4 var(--mono); letter-spacing: .5px; padding: 6px 10px; border-radius: 4px; }
+/* The legend sits under the map, never on it, so it cannot cover any part of the state. */
+.legend { background: var(--map-bg); color: var(--map-muted); border-top: 1px solid var(--map-line); padding: 10px 14px; font-size: 12.5px; line-height: 1.7; }
+.legend a { color: #FFD566; }
+.side-toggle { display: none; width: 100%; font: 600 15px/1 var(--body); border: 2px solid #4F5A70; background: transparent; color: var(--map-fg); border-radius: 8px; padding: 12px 16px; min-height: 44px; cursor: pointer; }
 .side-toggle[aria-expanded="true"] { border-color: var(--beacon); }
 .side { height: 0; min-height: 100%; overflow-y: auto; background: var(--map-panel); border: 1px solid var(--map-line); border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
 .side .h { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 8px; }
 .side .h:first-child { margin-top: 0; }
 .side .h b { font-weight: 800; font-size: 18px; }
 .tag { font: 500 11px/1 var(--mono); padding: 3px 6px; border-radius: 3px; }
-.tag.live { background: #1F7A33; color: #F2F3F7; }
-.tag.soon { border: 1px dashed #4E5A75; color: var(--map-muted); }
+.tag.live { background: #1F7A33; color: #F4F2EC; }
+.tag.soon { border: 1px dashed #4F5A70; color: var(--map-muted); }
 .alert { border-radius: 8px; padding: 12px 14px; border: 1px solid; }
 .alert .t { font-weight: 800; }
 .alert .a { font-size: 14px; margin-top: 4px; }
-.alert .w { font: 400 12px/1.4 var(--mono); color: var(--map-muted); margin-top: 4px; }
-.empty { background: #111C33; border: 1px solid var(--map-line); border-radius: 8px; padding: 12px 14px; font-size: 14px; color: var(--map-muted); }
-.empty a, .side a, .dpanel a { color: #FFC078; }
+.alert .w { font: 400 12.5px/1.4 var(--body); color: var(--map-muted); margin-top: 4px; }
+.empty { background: #17213A; border: 1px solid var(--map-line); border-radius: 8px; padding: 12px 14px; font-size: 14px; color: var(--map-muted); }
+.empty a, .side a, .dpanel a { color: #FFD566; }
 .prop { background: #0F2328; border: 1px solid #3BC9DB; border-radius: 8px; padding: 10px 12px; display: grid; gap: 6px; font-size: 14px; }
 .prop .r { display: flex; justify-content: space-between; gap: 8px; }
 .prop .r span:last-child { font-family: var(--mono); color: #66D9E8; text-align: right; }
 .prop .n { font-size: 12px; color: var(--map-dim); }
 .netlist { display: grid; gap: 8px; }
-.net { display: block; background: #111C33; border: 1px solid var(--map-line); border-radius: 8px; padding: 10px 12px; }
+.net { display: block; background: #17213A; border: 1px solid var(--map-line); border-radius: 8px; padding: 10px 12px; }
 .net .hd { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
 .net b { display: block; font-size: 14px; font-weight: 600; }
 .net small { display: block; margin-top: 2px; font: 400 12px/1.4 var(--mono); color: var(--map-muted); }
@@ -135,10 +135,10 @@ p { margin: 0; }
 .cov .road { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 10px; align-items: start; }
 .cov .road > span { font: 500 13px/1.8 var(--mono); color: var(--map-muted); }
 .cov .cty { display: flex; flex-wrap: wrap; gap: 4px; }
-.cov .cty span { font-size: 12px; padding: 3px 7px; border-radius: 4px; color: #0F1729; }
+.cov .cty span { font-size: 12px; padding: 3px 7px; border-radius: 4px; color: #16223C; }
 .c-ok { background: #8CE99A; } .c-quiet { background: #FFD43B; } .c-need { background: #FFA8A8; }
 .health { display: grid; gap: 6px; }
-.health div { display: flex; justify-content: space-between; gap: 10px; font-size: 14px; border-top: 1px solid #1A2440; padding-top: 6px; }
+.health div { display: flex; justify-content: space-between; gap: 10px; font-size: 14px; border-top: 1px solid #222E4A; padding-top: 6px; }
 .health span:last-child { font-family: var(--mono); color: var(--map-muted); white-space: nowrap; }
 .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 8px; vertical-align: middle; }
 
@@ -161,31 +161,31 @@ p { margin: 0; }
 .proto > button { width: 100%; display: grid; grid-template-columns: minmax(130px, 200px) minmax(0, 1fr) auto; gap: 6px 16px; align-items: center; text-align: left; background: transparent; color: var(--fg); border: 0; padding: 18px 20px; cursor: pointer; font: inherit; min-height: 64px; }
 .proto .nm { font: 800 20px/1.1 var(--display); }
 /* MeshCore: a faint beacon tint. */
-.proto-meshcore { background: #FFF8F2; border-color: #F2C7A4; }
-.proto-meshcore .nm { color: #B5480A; }
-.proto-meshcore .card-set { background: #FBF1E8; }
+.proto-meshcore { background: #FFFBEA; border-color: #E8CF7A; }
+.proto-meshcore .nm { color: #7A5800; }
+.proto-meshcore .card-set { background: #FFF8E1; }
 .proto-meshtastic .nm, .proto-meshtastic .tl { color: var(--muted); }
 .proto-meshtastic .nm { font-weight: 700; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .proto-meshcore { background: #1E1913; border-color: #6B3A17; }
-  :root:not([data-theme="light"]) .proto-meshcore .nm { color: #FF8A3D; } :root:not([data-theme="light"]) .proto-meshcore .card-set { background: #17130E; } }
-:root[data-theme="dark"] .proto-meshcore { background: #1E1913; border-color: #6B3A17; }
-:root[data-theme="dark"] .proto-meshcore .nm { color: #FF8A3D; } :root[data-theme="dark"] .proto-meshcore .card-set { background: #17130E; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .proto-meshcore { background: #1C1A10; border-color: #6B5310; }
+  :root:not([data-theme="light"]) .proto-meshcore .nm { color: #FFCB3D; } :root:not([data-theme="light"]) .proto-meshcore .card-set { background: #1A1608; } }
+:root[data-theme="dark"] .proto-meshcore { background: #1C1A10; border-color: #6B5310; }
+:root[data-theme="dark"] .proto-meshcore .nm { color: #FFCB3D; } :root[data-theme="dark"] .proto-meshcore .card-set { background: #1A1608; }
 .proto .tl { color: var(--muted); }
-.proto .tl small { display: block; font: 400 13px/1.4 var(--mono); margin-top: 2px; }
+.proto .tl small { display: block; font: 500 13px/1.4 var(--body); margin-top: 2px; }
 .proto .chev { font: 500 24px/1 var(--mono); color: var(--muted); }
 .proto .body { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 16px; padding: 0 20px 20px; }
 /* "New here?" at the top of the expanded MeshCore card */
 .proto .intro { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; background: var(--bg); border-left: 4px solid var(--beacon); border-radius: 0 10px 10px 0; padding: 14px 18px; }
 .proto .intro b { display: block; font: 800 17px/1.2 var(--display); margin-bottom: 4px; }
 .proto .intro p { color: var(--muted); max-width: 70ch; font-size: 15px; }
-.proto .intro .btn { background: var(--beacon); color: #0F1729; font-weight: 700; white-space: nowrap; }
-.proto-meshcore .intro { background: #FBF1E8; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .proto-meshcore .intro { background: #17130E; } }
-:root[data-theme="dark"] .proto-meshcore .intro { background: #17130E; }
+.proto .intro .btn { background: var(--beacon); color: #16223C; font-weight: 700; white-space: nowrap; }
+.proto-meshcore .intro { background: #FFF8E1; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .proto-meshcore .intro { background: #1A1608; } }
+:root[data-theme="dark"] .proto-meshcore .intro { background: #1A1608; }
 .card-set { background: var(--bg); border-radius: 10px; padding: 16px; display: grid; gap: 10px; align-content: start; }
 .card-set .top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
 .card-set .top b { font-weight: 700; }
-.card-set .top span { font: 400 12px/1.4 var(--mono); color: var(--muted); }
+.card-set .top span { font: 400 12.5px/1.4 var(--body); color: var(--muted); }
 .rows { display: grid; }
 .rows > div { display: grid; grid-template-columns: minmax(120px, 190px) minmax(0, 1fr); gap: 12px; padding: 7px 0; border-top: 1px solid var(--line); font-size: 15px; }
 .rows > div > span:first-child { color: var(--muted); }
@@ -234,8 +234,8 @@ p { margin: 0; }
 .doors-h { font: 800 18px/1.2 var(--display); margin: 18px 0 10px; }
 .band .pcard { background: var(--map-panel); border-color: var(--map-line); color: var(--map-fg); padding: 14px 16px; gap: 4px; }
 .band .pcard span { color: var(--map-muted); }
-.band .pcard em { color: #FFC078; }
-.band .pcard:hover, .band .pcard:focus-visible, .band .pcard.mine { border-color: #FFC078; box-shadow: none; }
+.band .pcard em { color: #FFD566; }
+.band .pcard:hover, .band .pcard:focus-visible, .band .pcard.mine { border-color: #FFD566; box-shadow: none; }
 .band .paths { margin-bottom: 6px; }
 .about { padding-block: 32px 64px; }
 .about h2 { font-size: 24px; font-weight: 800; margin-bottom: 10px; }
@@ -248,11 +248,11 @@ p { margin: 0; }
 .needs { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: grid; gap: 10px; }
 .needs .h { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; }
 .needs .h b { font-weight: 800; font-size: 18px; }
-.needs .h span { font: 400 12px/1.4 var(--mono); color: var(--muted); }
+.needs .h span { font: 400 12.5px/1.4 var(--body); color: var(--muted); }
 .county { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; border-top: 1px solid var(--line); padding-top: 10px; }
 .county b { font-weight: 700; }
 .county .w { color: var(--muted); font-size: 14px; }
-.county .p { grid-column: 2; grid-row: 1 / span 2; text-align: right; font: 400 13px/1.5 var(--mono); }
+.county .p { grid-column: 2; grid-row: 1 / span 2; text-align: right; font: 400 13.5px/1.5 var(--body); }
 .county .p em { font-style: normal; color: var(--signal); display: block; }
 .intro-band .wrap { padding-block: 28px 18px; }
 .intro-band .hero { padding-bottom: 0; }
@@ -267,7 +267,7 @@ p { margin: 0; }
   .rows > div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
   .proto .body { padding-inline: 14px; }
 }
-.startlink { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 16px; background: var(--beacon); color: #0F1729; border-radius: 10px; padding: 14px 16px; text-decoration: none; font-weight: 700; }
+.startlink { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 16px; background: var(--beacon); color: #16223C; border-radius: 10px; padding: 14px 16px; text-decoration: none; font-weight: 700; }
 .startlink small { font-weight: 500; }
 .proto a.startlink::after { content: none; }
 .startlink:hover, .startlink:focus-visible { outline: 3px solid var(--fg); outline-offset: 2px; }
@@ -298,7 +298,7 @@ p { margin: 0; }
 .pcard.mine { border-color: var(--signal); box-shadow: inset 0 0 0 1px var(--signal); }
 .prog { display: grid; gap: 6px; }
 .prog .bar { height: 14px; border-radius: 999px; background: var(--line); overflow: hidden; }
-.prog .bar i { display: block; height: 100%; width: 0; background: var(--signal); border-radius: 999px; }
+.prog .bar i { display: block; height: 100%; width: 0; background: var(--beacon); border-radius: 999px; }
 .prog p { font-size: 14px; }
 .needs .h.sub { margin-top: 6px; }
 .ladder { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: grid; gap: 10px; align-content: start; }
@@ -311,16 +311,15 @@ p { margin: 0; }
 .ladder li a + a { margin-top: 2px; }
 .ways { display: grid; gap: 12px; align-content: start; }
 .way { background: var(--ink); color: var(--ink-fg); border-radius: 12px; padding: 18px; display: grid; gap: 8px; }
-.way p { color: #B8C2D8; font-size: 15px; }
+.way p { color: #B4BDD0; font-size: 15px; }
 .way a.btn { justify-self: start; }
-.way a.mini { justify-self: start; background: transparent; border-color: #4E5A75; color: #F2F3F7; }
+.way a.mini { justify-self: start; background: transparent; border-color: #4F5A70; color: #F4F2EC; }
 .way a.mini:hover { border-color: var(--beacon); }
 .way.alt { background: var(--panel); color: var(--fg); border: 1px dashed var(--line); }
 .way.alt p { color: var(--muted); }
 
 @media (max-width: 860px) { .bg-chirps { opacity: .28; } .bg-mesh { opacity: .6; }
   /* Phones: the legend sits under the map instead of over it, and the source badge stays out of the way. */
-  .legend { position: static; max-width: none; margin: 0; border-radius: 0; font-size: 12px; line-height: 1.6; }
   .side-toggle { display: block; }
   .side[hidden] { display: none; }
   .proto .intro .btn { width: 100%; justify-content: center; }
@@ -343,7 +342,7 @@ p { margin: 0; }
 </head>
 <body>
 <header class="site-head" id="top"><div class="bar">
-  <a class="brand" href="./"><img class="brand-mark" src="assets/mark.svg?v=20261111m" alt="" width="32" height="50"><img class="brand-mark-sm" src="assets/favicon.svg?v=20261111m" alt="" width="34" height="34"><span class="brand-text">HOOP<small>Hoosier Off-Grid Open Playbook</small></span></a>
+  <a class="brand" href="./"><img class="brand-mark" src="assets/mark.svg?v=20261111t" alt="" width="32" height="50"><img class="brand-mark-sm" src="assets/favicon.svg?v=20261111t" alt="" width="34" height="34"><span class="brand-text">HOOP<small>Hoosier Off-Grid Open Playbook</small></span></a>
   <nav class="site-nav" aria-label="Site">
     <button type="button" class="nav-menu" id="navMenu" aria-expanded="false" aria-controls="navMore"><span class="l-more">More</span><span class="l-menu">Menu</span></button>
     <span class="nav-more" id="navMore">
@@ -459,18 +458,18 @@ p { margin: 0; }
         <div class="srcbadge" id="srcbadge">REPEATERS: MAP.MESHCORE.IO · ALERTS: NWS, LIVE</div>
         <svg id="mapsvg" viewBox="-245 -130 1150 1240" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="mapTitle">
           <title id="mapTitle">Map of Indiana and neighboring states showing MeshCore repeaters and active National Weather Service alerts</title>
-          <g fill="#0C1324" stroke="#3A4766" stroke-width="1.5" aria-hidden="true">
+          <g fill="#111827" stroke="#3A4766" stroke-width="1.5" aria-hidden="true">
           <path d="M57 -170 L86 -85 L96 -35 L110 15 L109 602 L115 690 L96 770 L38 865 L10 965 L0 1065 L-60 1140 L-290 1140 L-290 -170 Z"/>
           <path d="M345 -170 L306 -85 L245 0 L630 0 L900 8 L940 8 L940 -170 Z"/>
           <path d="M630 0 L940 8 L940 790 L900 790 L843 777 L728 740 L690 665 L628 665 Z"/>
           <path d="M940 790 L900 790 L843 777 L728 740 L690 665 L628 665 L613 745 L517 757 L507 815 L440 870 L402 940 L326 890 L249 952 L191 990 L96 960 L29 995 L10 965 L0 1065 L-60 1140 L940 1140 Z"/>
           </g>
           <path d="M57 -170 L345 -170 L306 -85 L245 0 L173 35 L110 15 L96 -35 L86 -85 Z" fill="#0A2238" stroke="#3A4766" stroke-width="1.5" aria-hidden="true"/>
-          <g stroke="#1A2440" stroke-width="1" aria-hidden="true">
+          <g stroke="#222E4A" stroke-width="1" aria-hidden="true">
           <path d="M-290 125H940M-290 375H940M-290 625H940M-290 875H940M-90 -170V1140M100 -170V1140M290 -170V1140M480 -170V1140M700 -170V1140"/>
           </g>
-          <path d="M110 15 L173 35 L245 0 L630 0 L628 665 L613 745 L517 757 L507 815 L440 870 L402 940 L326 890 L249 952 L191 990 L96 960 L29 995 L10 965 L38 865 L96 770 L115 690 L109 602 Z" fill="#111C33" stroke="#8290AB" stroke-width="2.5"/>
-          <g fill="#4E5A75" font-family="IBM Plex Mono, monospace" font-size="18" letter-spacing="4" aria-hidden="true">
+          <path d="M110 15 L173 35 L245 0 L630 0 L628 665 L613 745 L517 757 L507 815 L440 870 L402 940 L326 890 L249 952 L191 990 L96 960 L29 995 L10 965 L38 865 L96 770 L115 690 L109 602 Z" fill="#17213A" stroke="#8290AB" stroke-width="2.5"/>
+          <g fill="#4F5A70" font-family="IBM Plex Mono, monospace" font-size="18" letter-spacing="4" aria-hidden="true">
           <text x="-230" y="460">ILLINOIS</text>
           <text x="560" y="-90">MICHIGAN</text>
           <text x="760" y="330">OHIO</text>
@@ -499,10 +498,8 @@ p { margin: 0; }
           <g id="lyr-nets"></g>
         </svg>
         <div class="legend">
-          <div><b>Legend</b></div>
-          <div><span style="color:#E8590C">●</span> MeshCore repeater, heard in 30 days · <span style="color:#E8590C">○</span> quiet 30+ days · owner-registered on the <a href="https://map.meshcore.io" target="_blank" rel="noopener" style="color:#1F3F86">MeshCore Map</a></div>
-          <div><span style="color:#E03131">▭</span> Tornado · <span style="color:#E8590C">▭</span> Severe T-storm · <span style="color:#2F9E44">▭</span> Flood · <span style="color:#1C7ED6">▭</span> Winter · <span style="color:#C99A06">▭</span> Other</div>
-          <div>Outlined: storm-based warning · soft fill: counties or zones under a watch or advisory</div>
+          <div><span style="color:#F2B500">●</span> MeshCore repeater, heard in 30 days · <span style="color:#F2B500">○</span> quiet 30+ days · owner-registered on the <a href="https://map.meshcore.io" target="_blank" rel="noopener">MeshCore Map</a></div>
+          <div><span style="color:#FF6B6B">▭</span> Tornado · <span style="color:#FFA94D">▭</span> Severe T-storm · <span style="color:#40C057">▭</span> Flood · <span style="color:#74C0FC">▭</span> Winter · <span style="color:#B197FC">▭</span> Other · outlined: storm-based warning · soft fill: watch or advisory</div>
         </div>
       </div>
 
@@ -513,10 +510,10 @@ p { margin: 0; }
         <div class="h"><b>Nets</b><span class="tag live">SCHEDULE</span></div>
         <div id="netlist" class="netlist"><div class="empty">Loading the net schedule…</div></div>
         <div style="font-size:13px;color:var(--map-muted)">Tap a net to see its repeater and rough reach on the map · <a href="meshnet/">#meshnet check-ins</a> · <a href="channels/">Channel lists and the printable net card</a> · <a href="https://github.com/mutiny19/hoop/issues/new?template=other.yml&amp;title=%5Bnet%5D%20" target="_blank" rel="noopener">Add or fix a net</a></div>
-        <div class="h"><b>Propagation</b><span class="tag live">LIVE</span></div>
+        <div class="h"><b>Propagation</b><span class="tag soon">LINK</span></div>
         <div class="prop">
           <div class="r"><span>Tropo ducting</span><span><a href="https://www.dxinfocentre.com/tropo.html" target="_blank" rel="noopener">Hepburn forecast</a></span></div>
-          <div class="n">Tropo: Hepburn index maps.</div>
+          <div class="n">Opens the Hepburn tropo maps on their own site. Not drawn on this map.</div>
         </div>
         <div class="foot"><span id="alertsTime">Checking the National Weather Service…</span><br>The list is Indiana's active NWS alerts; the map also shows neighboring states. Always follow official warnings.</div>
       </aside>
@@ -554,8 +551,8 @@ p { margin: 0; }
 
 <script>(function(){try{if(window.matchMedia("(min-width: 861px)").matches)["reportFold","layerFold"].forEach(function(i){var d=document.getElementById(i);if(d)d.open=true;});}catch(e){}})();</script>
 <script src="assets/nets.js"></script>
-<script src="assets/home.js?v=20261111f"></script>
-<script src="assets/chirps.js?v=20261025l"></script>
-<script src="assets/site.js?v=20261111b"></script>
+<script src="assets/home.js?v=20261111t"></script>
+<script src="assets/chirps.js?v=20261111t"></script>
+<script src="assets/site.js?v=20261111t"></script>
 </body>
 </html>
