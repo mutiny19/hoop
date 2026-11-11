@@ -87,6 +87,6 @@ produce `region def us|* us-in|* ind` after clicking `ind` in Simplest mode.
 
 ## Publishing
 
-GitHub Pages serves `main` from the repo root. Push only from a clone whose history is clean of
+GitHub Pages serves `main` from the repo root, published by `.github/workflows/pages.yml` (Settings > Pages > Source must be "GitHub Actions"; a newer push replaces an unfinished older run, and each run is capped at 10 minutes so one stuck run cannot block the site). Push only from a clone whose history is clean of
 personal information. Never force-push over the nightly workflow's commits; `git pull --rebase`
 first.
