@@ -258,6 +258,15 @@
   {
    "day": "Thu",
    "time": "19:00",
+   "name": "West Lafayette 650 GMRS Round Table",
+   "freq": "462.650",
+   "access": "DCS 664",
+   "type": "GMRS",
+   "site": "westlafayette"
+  },
+  {
+   "day": "Thu",
+   "time": "19:00",
    "name": "#meshnet",
    "freq": "MeshCore + Meshtastic",
    "access": "#meshnet",
@@ -423,6 +432,11 @@
    "name": "Franklin",
    "lat": 39.481,
    "lon": -86.055
+  },
+  "westlafayette": {
+   "name": "West Lafayette",
+   "lat": 40.426,
+   "lon": -86.908
   },
   "michigantown": {
    "name": "Michigantown",

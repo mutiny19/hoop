@@ -252,18 +252,26 @@ ol.how { margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }
       if (!inBand(e.f)) return;
       var key = e.f.toFixed(4) + "|" + e.m + "|" + (e.tone || "") + (e.dcs || "") + "|" + e.n; if (seen[key]) return; seen[key] = 1; out.push(e);
     });
-    /* a net's day and time goes in the comment of the repeater it meets on; a net on a frequency nothing else carries gets its own row */
-    var byF = netsByFreq(), covered = {};
+    /* A net's day and time goes in the comment of the repeater it meets on. Frequencies are shared, so the tone or code must match too:
+       a net with a tone goes only on the repeater with that tone, and a simplex net goes on the plain channel, never on a repeater.
+       A net that fits no row gets a row of its own. */
+    var byF = netsByFreq();
     out.forEach(function (e) {
-      var k = e.f.toFixed(4), hit = byF[k]; if (!hit) return;
-      covered[k] = 1;
-      if (REPS[e.g] || e.g === "call") { e.c += ". Nets: " + hit.map(function (h) { return h.t; }).join("; "); e.nets = hit.map(function (h) { return h.n; }); }
+      var hit = byF[e.f.toFixed(4)]; if (!hit) return;
+      var rep = !!REPS[e.g], mine = hit.filter(function (h) {
+        var a = access(h.n.access), simplex = /simplex/i.test(h.n.access || "");
+        if (rep) return !simplex && ((a.tone || a.dcs) ? a.tone === e.tone && a.dcs === e.dcs : true);
+        return e.g === "call" || simplex;
+      });
+      if (!mine.length) return;
+      mine.forEach(function (h) { h.used = 1; });
+      e.c += ". Nets: " + mine.map(function (h) { return h.t; }).join("; "); e.nets = mine.map(function (h) { return h.n; });
     });
     if (repOn) Object.keys(byF).forEach(function (k) {
-      if (covered[k]) return;
+      var left = byF[k].filter(function (h) { return !h.used; }); if (!left.length) return;
       var f = parseFloat(k); if (!inBand(f)) return;
-      var h = byF[k][0], a = access(h.n.access);
-      out.push({ n: h.n.name || ("SKY " + h.n.id), f: f, m: "FM", c: byF[k].map(function (x) { return x.t; }).join("; ") + (h.n.access ? ", " + h.n.access : ""), tone: a.tone, dcs: a.dcs, g: "net", nets: byF[k].map(function (x) { return x.n; }) });
+      var h = left[0], a = access(h.n.access);
+      out.push({ n: h.n.name || ("SKY " + h.n.id), f: f, m: "FM", c: left.map(function (x) { return x.t + (x.n.access ? ", " + x.n.access : ""); }).join("; "), tone: a.tone, dcs: a.dcs, g: "net", nets: left.map(function (x) { return x.n; }) });
     });
     var cap = +$("cap").value, over = Math.max(0, out.length - cap);
     return { rows: out.slice(0, cap), over: over, total: out.length };
