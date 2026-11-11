@@ -1,4 +1,4 @@
-/* Net schedule helpers shared by the home page and nets/. Reads data/nets.json; all times are Indiana (Eastern). */
+/* Net schedule helpers shared by the home page and the Channel lists page (its full schedule). Reads data/nets.json; all times are Indiana (Eastern). */
 (function (global) {
   "use strict";
   var TZ = "America/Indiana/Indianapolis";
@@ -45,5 +45,15 @@
     var ord = { 1: "1st", 2: "2nd", 3: "3rd", 4: "4th", 5: "5th" };
     return n.weeks.map(function (w) { return ord[w]; }).join(" & ") + " " + n.day;
   }
-  global.Nets = { TZ: TZ, DAYS: DAYS, occurrences: occurrences, timeLabel: timeLabel, whenLabel: whenLabel, load: load, monthlyLabel: monthlyLabel };
+  /* A net's own page (data/nets.json "link"), or the prefilled issue that asks for one. base is "" on the home page and "../" on the others. */
+  function addLinkUrl(n) {
+    return "https://github.com/mutiny19/hoop/issues/new?template=channel-listing.yml&title=" + encodeURIComponent("[channels] Link for " + n.name) +
+      "&what=" + encodeURIComponent("Add a link or website to a listing") + "&name=" + encodeURIComponent(n.name) + "&freq=" + encodeURIComponent(n.freq || "");
+  }
+  function linkOf(n, base) {
+    if (!n.link) return { has: false, ext: true, href: addLinkUrl(n) };
+    var ext = /^https?:/.test(n.link);
+    return { has: true, ext: ext, href: ext ? n.link : (base || "") + n.link };
+  }
+  global.Nets = { TZ: TZ, DAYS: DAYS, occurrences: occurrences, timeLabel: timeLabel, whenLabel: whenLabel, load: load, monthlyLabel: monthlyLabel, linkOf: linkOf };
 })(window);

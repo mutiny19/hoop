@@ -187,11 +187,10 @@
     var next = occ.filter(function (o) { return o.start > now; });
     var shown = live.concat(next).slice(0, 4);
     var focusKey = document.activeElement && document.activeElement.closest && document.activeElement.closest("#netlist") ? document.activeElement.dataset.key : null;
-    /* each net's own page when data/nets.json has one ("link"); otherwise a prefilled issue so its operators can add it */
+    /* each net's own page, or a prefilled issue so its operators can add one (Nets.linkOf is the one place this is decided) */
     function netLink(n) {
-      if (n.link) { var ext = /^https?:/.test(n.link); return '<a class="nlink" href="' + esc(n.link) + '"' + (ext ? ' target="_blank" rel="noopener"' : "") + ">" + (ext ? "Net's website" : "About this net") + "</a>"; }
-      return '<a class="nlink add" href="https://github.com/mutiny19/hoop/issues/new?template=channel-listing.yml&title=' + encodeURIComponent("[channels] Link for " + n.name) +
-        "&what=" + encodeURIComponent("Add a link or website to a listing") + "&name=" + encodeURIComponent(n.name) + "&freq=" + encodeURIComponent(n.freq) + '" target="_blank" rel="noopener">No link yet: add one</a>';
+      var l = Nets.linkOf(n, ""), x = l.ext ? ' target="_blank" rel="noopener"' : "";
+      return '<a class="nlink' + (l.has ? "" : " add") + '" href="' + esc(l.href) + '"' + x + ">" + (!l.has ? "No link yet: add one" : l.ext ? "Net's website" : "About this net") + "</a>";
     }
     $("netlist").innerHTML = shown.map(function (o) {
       var n = o.net, st, color;
