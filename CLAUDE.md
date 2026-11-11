@@ -71,7 +71,7 @@ before `builder.js` and `modes.js`.
 - Say each thing once on the site, and link to that place from anywhere else: settings in the protocol cards
   on the home page, observer setup in the Live page's "Help fill the live views" (`live/#obs-h`), #meshnet details on
   `meshnet/`. It is a small site; a second description is just a second thing to keep in sync.
-- Nets: `data/nets.json`. Suggested settings: `data/settings/*.json`.
+- Nets: `data/nets.json`. An optional `link` on a net is its own public page (a club or net website, never a personal page); the home page shows it under the net, and shows a prefilled "add one" issue link when there is none. Suggested settings: `data/settings/*.json`.
 - #meshnet times live in several places: `data/nets.json` (the schedule shown on the map) and the constants at the top of `tools/meshnet_log.py` plus the crons in `meshnet.yml`, plus the time-zone script at the bottom of `meshnet/index.html` (`at7`), plus the share images `assets/meshnet-invite*.png` and the text invite in the page's "Share the invite" section. Change them together.
 - After changing `assets/home.js`, `assets/chirps.js`, `assets/theme.js`, or `assets/site.js`, bump the `?v=` on their script tags on every page that loads them; GitHub Pages and browsers cache them hard.
 

@@ -2,7 +2,7 @@
  "source": "Community net card, Indianapolis metro (resources/indy-metro-net-card.pdf), October 2026. Suggest a change on GitHub.",
  "timezone": "America/Indiana/Indianapolis",
  "default_minutes": 30,
- "note": "Times are US Eastern. unverified = listed but not yet confirmed on air.",
+ "note": "Times are US Eastern. unverified = listed but not yet confirmed on air. link = the net's own public page (a club or net website, never a personal page); nets without one show an \"Add a link\" prompt.",
  "weekly": [
   {
    "day": "Sun",
@@ -37,7 +37,7 @@
    "freq": "MeshCore + Meshtastic",
    "access": "#meshnet",
    "type": "Mesh",
-   "scope": "statewide",
+   "scope": "statewide", "link": "meshnet/",
    "checkin": "airport, device, months (KUMP, Heltec V3, 4 months)",
    "note": "Ten-minute check-in net on the #meshnet channel. How to check in, and each net's check-ins, are on the #meshnet page. Postponed if there is severe weather or emergency traffic.",
    "minutes": 10,
@@ -262,7 +262,7 @@
    "freq": "MeshCore + Meshtastic",
    "access": "#meshnet",
    "type": "Mesh",
-   "scope": "statewide",
+   "scope": "statewide", "link": "meshnet/",
    "checkin": "airport, device, months (KUMP, Heltec V3, 4 months)",
    "note": "Ten-minute check-in net on the #meshnet channel. How to check in, and each net's check-ins, are on the #meshnet page. Postponed if there is severe weather or emergency traffic.",
    "minutes": 10,

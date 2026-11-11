@@ -187,6 +187,12 @@
     var next = occ.filter(function (o) { return o.start > now; });
     var shown = live.concat(next).slice(0, 4);
     var focusKey = document.activeElement && document.activeElement.closest && document.activeElement.closest("#netlist") ? document.activeElement.dataset.key : null;
+    /* each net's own page when data/nets.json has one ("link"); otherwise a prefilled issue so its operators can add it */
+    function netLink(n) {
+      if (n.link) { var ext = /^https?:/.test(n.link); return '<a class="nlink" href="' + esc(n.link) + '"' + (ext ? ' target="_blank" rel="noopener"' : "") + ">" + (ext ? "Net's website" : "About this net") + "</a>"; }
+      return '<a class="nlink add" href="https://github.com/mutiny19/hoop/issues/new?template=channel-listing.yml&title=' + encodeURIComponent("[channels] Link for " + n.name) +
+        "&what=" + encodeURIComponent("Add a link or website to a listing") + "&name=" + encodeURIComponent(n.name) + "&freq=" + encodeURIComponent(n.freq) + '" target="_blank" rel="noopener">No link yet: add one</a>';
+    }
     $("netlist").innerHTML = shown.map(function (o) {
       var n = o.net, st, color;
       if (o.start <= now) { st = "● ON AIR"; color = "#FF6B6B"; }
@@ -196,7 +202,7 @@
       return '<div class="net' + (pick ? " pick" : "") + (key === netSel ? " sel" : "") + '"' +
         (pick ? ' role="button" tabindex="0" aria-pressed="' + (key === netSel) + '" data-key="' + esc(key) + '" title="' + (n.scope === "statewide" ? esc(n.note || "Open to all across Indiana") : "Show the repeater and its rough reach on the map") + '"' : ' title="No single repeater (network, app, HF or simplex)"') +
         "><div class=\"hd\"><b>" + esc(n.name) + (n.unverified ? " *" : "") + "</b><span class=\"st\" style=\"color:" + color + "\">" + st + "</span></div><small>" + esc((n.freq.indexOf(n.type) >= 0 ? "" : n.type + " · ") + n.freq + " · " + n.access + (n.minutes ? " · " + n.minutes + " min" : "")) + (n.checkin ? "<br>Check in: " + esc(n.checkin) : "") + (n.brief ? "<br>" + esc(n.brief) : "") +
-        '</small></div>';
+        '</small></div>' + netLink(n);
     }).join("") || '<div class="empty">No nets on the schedule this week.</div>';
     if (focusKey) { var f = $("netlist").querySelector('[data-key="' + focusKey.replace(/"/g, '\\"') + '"]'); if (f) f.focus(); }
     netShown = {}; shown.forEach(function (o) { netShown[o.net.name + "|" + o.start.toISOString()] = o; });
