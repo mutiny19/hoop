@@ -89,6 +89,17 @@ def github_meta(owner, repo):
     }, None
 
 
+def site_alive(url):
+    """True, False (the page is gone: 404 or 410), or None (could not tell; many sites refuse automated requests)."""
+    try:
+        status, _ = get(url, token=False)
+        return status < 400
+    except urllib.error.HTTPError as e:
+        return False if e.code in (404, 410) else None
+    except Exception:
+        return None
+
+
 def printables_alive(url):
     """True, False (gone), or None (could not tell: Printables may refuse automated requests)."""
     try:
@@ -191,7 +202,13 @@ def refresh():
     keep = []
     for p in d["projects"]:
         gh = GH.match(p["url"])
-        if gh:
+        if p.get("kind") == "site":               # a website a maintainer added by hand: only check that it still answers
+            alive = site_alive(p["url"])
+            if alive is False:
+                p["missing"] = p.get("missing", 0) + 1
+            elif alive:
+                p.pop("missing", None)
+        elif gh:
             meta, why = github_meta(gh.group(1), gh.group(2))
             if meta:
                 p.update({k: v for k, v in meta.items() if not k.startswith("_")})

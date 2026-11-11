@@ -100,6 +100,18 @@
    "archived": false
   },
   {
+   "url": "https://indianahamradio.com/",
+   "kind": "site",
+   "name": "Indiana Ham Radio",
+   "title": "Indiana Ham Radio",
+   "description": "A free, statewide directory of amateur radio in Indiana: clubs, repeaters, nets, license-exam sessions, hamfests, and resources for getting licensed.",
+   "license": null,
+   "archived": false,
+   "category": "Ham and GMRS tools",
+   "indiana": "made",
+   "added": "2026-11-11"
+  },
+  {
    "url": "https://github.com/OKI-Mesh/CoreScope",
    "category": "Maps and monitoring",
    "indiana": "used",

@@ -142,13 +142,13 @@ section { display: grid; gap: 14px; }
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   function month(d) { if (!d) return ""; var t = new Date(d + "T12:00:00"); return isNaN(t) ? "" : t.toLocaleDateString("en-US", { month: "short", year: "numeric" }); }
   function name(p) { if (p.title) return p.title; if (p.name) return p.name; var m = /github\.com\/[^\/]+\/([^\/?#]+)/.exec(p.url); return m ? m[1] : p.url; }
-  function host(u) { return /printables\.com/.test(u) ? "Printables" : "GitHub"; }
+  function host(p) { return p.kind === "site" ? "Website" : /printables\.com/.test(p.url) ? "Printables" : "GitHub"; }
   function card(p) {
     var meta = [];
     meta.push('<span class="tag' + (p.indiana === "made" ? " made" : "") + '">' + (p.indiana === "made" ? "Made in Indiana" : "Used in Indiana") + "</span>");
     if (p.archived) meta.push('<span class="tag old">Archived</span>');
     if (p.added && (Date.now() - Date.parse(p.added)) < 7 * 864e5) meta.unshift('<span class="tag new">New this week</span>');
-    meta.push("<span>" + host(p.url) + "</span>");
+    meta.push("<span>" + host(p) + "</span>");
     if (p.license) meta.push("<span>" + esc(p.license) + "</span>");
     if (p.updated) meta.push("<span>Updated " + esc(month(p.updated)) + "</span>");
     return '<article class="card"><h3><a href="' + esc(p.url) + '" target="_blank" rel="noopener">' + esc(name(p)) + "</a></h3>" +
