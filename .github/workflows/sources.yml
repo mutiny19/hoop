@@ -1,0 +1,41 @@
+name: Weekly source watch
+
+# Checks the outside pages this site links to instead of copying (see data/sources.json), records when each was checked and
+# last seen to change, and keeps ONE open issue listing changes from the last 30 days. The issue clears itself.
+on:
+  schedule:
+    - cron: "17 14 * * 3"   # Wednesdays
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check the sources
+        run: python3 tools/watch_sources.py
+      - name: Save the check dates
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          if ! git diff --quiet -- data/sources.json; then
+            git add data/sources.json
+            git commit -m "Weekly source watch"
+            git pull --rebase origin main
+            git push
+          fi
+      - name: Open, update or close the changed-sources issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create source-changed --color FAB005 --description "An outside page this site links to has changed" --force >/dev/null
+          num=$(gh issue list --label source-changed --state open --json number --jq '.[0].number')
+          if [ -f sources-report.md ]; then
+            if [ -n "$num" ]; then gh issue edit "$num" --body-file sources-report.md; else gh issue create --title "Outside sources changed" --label source-changed --body-file sources-report.md; fi
+          elif [ -n "$num" ]; then
+            gh issue close "$num" --comment "Nothing has changed in the last 30 days."
+          fi

@@ -117,6 +117,8 @@ tr:last-child td { border-bottom: 0; }
 .radio span { font: 600 .7rem/1 var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
 .radio b { font: 700 1.25rem/1.1 var(--display); font-variant-numeric: tabular-nums; }
 .warn { color: var(--signal); font-weight: 600; }
+.srcs[hidden] { display: none; }
+.srcs { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: .85rem; color: var(--muted); }
 .hear { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
 .hear .panel p { font-size: .93rem; color: var(--muted); }
 .owner-intro { color: var(--muted); max-width: 64ch; }
@@ -195,7 +197,7 @@ details.depth[open] { padding-bottom: 18px; }
       </div></div>
       <div class="step" id="s2"><div>
         <h3>Install Companion firmware</h3>
-<p class="note"><abbr title="The firmware for a radio you carry and control from your phone. The other kind, Repeater, is for fixed boxes on rooftops that relay for everyone.">What's "Companion"?</abbr> It means a radio you carry and control from your phone. Rooftop relay boxes run the other kind, Repeater; you don't need one to start.</p>
+<p class="note">"Companion" means a radio you carry and control from your phone; rooftop relay boxes run the other kind, Repeater, and you don't need one to start. More in <em>Words you'll see</em>, below.</p>
         <p>Open the <a href="https://flasher.meshcore.io/" target="_blank" rel="noopener">MeshCore flasher</a> in Chrome or Edge on a computer, plug the radio in by USB, pick your device and choose the <strong>Companion (Bluetooth)</strong> firmware.</p>
       </div></div>
       <div class="step" id="s3"><div>
@@ -212,7 +214,7 @@ details.depth[open] { padding-bottom: 18px; }
           <div><span>Coding rate</span><b id="pc">CR5</b></div>
         </div>
         <p class="warn">New radios often ship on the European 869 MHz setting. Always check this step.</p>
-        <p>Then set <strong>Path hash size</strong> to <strong id="ph">2 bytes</strong>. In the app it lives under the Optimise screen on recent versions, or Experimental settings on older ones. It needs firmware 1.14 or newer on your radio; Indiana's repeaters already run 2-byte or newer, so this is just about getting your own device caught up.</p>
+        <p>Then set <strong>Path hash size</strong> to <strong id="ph">2 bytes</strong> (the Optimise screen, or Experimental settings on older app versions). It needs firmware 1.14 or newer.</p>
         <p class="note">Why these numbers: <a href="https://docs.meshcore.io/faq/#23-q-what-frequencies-are-supported-by-meshcore" target="_blank" rel="noopener">supported frequencies</a> in the MeshCore FAQ; path hash size is explained in the <a href="https://blog.meshcore.io/2026/03/06/path-diagnostics-improvements" target="_blank" rel="noopener">MeshCore 1.14 release notes</a>.</p>
       </div></div>
       <div class="step" id="s5"><div>
@@ -239,32 +241,18 @@ details.depth[open] { padding-bottom: 18px; }
 <li><strong>Channel</strong><span>A group chat. Public is built in; hashtag channels like <code>#test</code> are open to anyone who adds the name.</span></li>
 <li><strong>Preset</strong><span>The radio settings (frequency, bandwidth, SF, CR) everyone in a region shares. Radios on different presets can't hear each other.</span></li>
 <li><strong>Region / scope</strong><span>Optional tags repeater owners set so some traffic stays local. Rarely used; ask your local group whether they use them before setting one.</span></li>
-<li><strong>Path hash size</strong><span>How many bytes identify each hop in a message's path. 2 bytes names hops more accurately; Indiana's repeaters already run 2-byte or newer, it just needs firmware 1.14 or newer on your own radio.</span></li>
+<li><strong>Path hash size</strong><span>How many bytes identify each hop in a message's path. 2 bytes names hops more accurately, and Indiana's repeaters already run 2-byte or newer.</span></li>
 <li><strong>Heard repeats</strong><span>The app's sign that a repeater picked up your message.</span></li>
 </ul>
 </details>
-<section aria-labelledby="hear-h">
-    <h2 id="hear-h">Hear everything around you</h2>
-    <div class="hear">
-      <div class="panel"><h3>Regions: rare, so ask</h3>
-        <p>Most people leave region and default scope unset; unscoped messages go out to everyone, and you still receive everything that reaches you. If the people near you do use regions on their repeaters or companions, match them. If a channel gets too busy, muting or leaving it is simpler than scoping it.</p></div>
-      <div class="panel"><h3>Join the channels people use</h3>
-        <p>Public is there from the start. Add hashtag channels like <code>#test</code>, <code>#hamradio</code> or <code>#wardriving</code>. In <code>#porchlight</code>, people share the names of channels worth joining.</p></div>
-      <div class="panel"><h3>Get some height</h3>
-        <p>A window or a higher shelf helps more than anything else. Your radio only needs to reach one repeater; the repeaters do the rest.</p></div>
-    </div>
-    <div class="panel border-box">
-      <div>
-        <h3>Near a state line?</h3>
-        <p>Nothing extra to set. Ohio, Kentucky, Michigan, and Illinois use the same radio settings as Indiana, so you hear repeaters on both sides.</p>
-      </div>
-      <ul>
-        <li>Unscoped messages are what people across the line hear, and what their replies ride back on.</li>
-        <li>Join the group on the other side too: their channels and people are part of your local mesh.</li>
-        <li>A scoped message stops at the first repeater without its tag. Unscoped is what crosses borders.</li>
-      </ul>
-    </div>
-  </section>
+<details class="depth" id="hear">
+<summary>Hear more: channels, regions, and state lines</summary>
+<ul class="depth-list">
+<li><strong>Channels</strong><span>Public is built in. The channels Indiana uses are listed in the <a href="../#protocols">MeshCore settings on the home page</a>; tap one to copy its name. In <code>#porchlight</code>, people share channels worth joining.</span></li>
+<li><strong>Regions: rare, so ask</strong><span>Most people leave region and default scope unset. Unscoped messages go out to everyone, and you still receive everything that reaches you. If the people near you use regions, match them; if a channel gets too busy, muting it is simpler than scoping it.</span></li>
+<li><strong>Near a state line?</strong><span>Nothing extra to set: Ohio, Kentucky, Michigan, and Illinois use the same radio settings as Indiana, so you hear repeaters on both sides. Unscoped messages are what cross the line, because a scoped message stops at the first repeater without its tag. Join the group on the other side too.</span></li>
+</ul>
+</details>
 
   <section aria-labelledby="nb-h">
     <h2 id="nb-h">Find people near you</h2>
@@ -296,9 +284,10 @@ details.depth[open] { padding-bottom: 18px; }
   </section>
 
   <footer>
-    <span>Region names are as each group published them, checked Oct 2026.</span>
+    <span>Region names are as each group published them. <span id="srcLine">Each source below is checked weekly.</span></span>
     <span>Where a topic has an official home, this page links to it instead of repeating it: <a href="https://docs.meshcore.io/faq/" target="_blank" rel="noopener">MeshCore FAQ</a>, <a href="https://docs.meshcore.io/cli_commands/" target="_blank" rel="noopener">CLI commands</a>, <a href="https://flasher.meshcore.io/" target="_blank" rel="noopener">flasher</a>, and each group's own site.</span>
   </footer>
+  <ul class="srcs" id="srcList" aria-label="Sources this page relies on"></ul>
 </main>
 
 <footer class="site-foot"><div class="bar">
@@ -319,5 +308,21 @@ var d = (c.config && c.config.suggested_radio_settings && c.config.suggested_rad
 </script>
 <script>document.getElementById("printStart").addEventListener("click",function(){window.print()});</script>
 <script src="../assets/site.js?v=20261107d"></script>
+<script>
+/* Each outside source this page relies on, with when it was last checked and last seen to change (data/sources.json, weekly). */
+(function () {
+  var ul = document.getElementById("srcList"); if (!ul) return;
+  var esc = function (t) { return String(t).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); };
+  fetch("../data/sources.json").then(function (r) { return r.json(); }).then(function (d) {
+    var rows = (d.sources || []).filter(function (x) { return (x.used_on || []).indexOf("meshcore/") > -1 && x.checked; });
+    if (!rows.length) { ul.hidden = true; return; }
+    var latest = rows.reduce(function (a, x) { return x.checked > a ? x.checked : a; }, "");
+    document.getElementById("srcLine").textContent = "Sources checked " + latest + ".";
+    ul.innerHTML = rows.map(function (x) {
+      return '<li><a href="' + esc(x.url) + '" target="_blank" rel="noopener">' + esc(x.label) + "</a>" + (x.changed ? ", changed " + esc(x.changed) : ", no changes seen") + "</li>";
+    }).join("");
+  }).catch(function () { ul.hidden = true; });
+})();
+</script>
 </body>
 </html>

@@ -1,0 +1,166 @@
+{
+ "about": "Outside pages this site links to instead of copying. People edit id, label, url, strict, and used_on. tools/watch_sources.py (weekly, sources.yml) writes checked, changed, fails, and fp.",
+ "sources": [
+  {
+   "id": "mc-docs",
+   "label": "MeshCore docs",
+   "url": "https://docs.meshcore.io/",
+   "strict": true,
+   "used_on": [
+    "index.html",
+    "meshcore/"
+   ]
+  },
+  {
+   "id": "mc-faq",
+   "label": "MeshCore FAQ",
+   "url": "https://docs.meshcore.io/faq/",
+   "strict": true,
+   "used_on": [
+    "meshcore/"
+   ]
+  },
+  {
+   "id": "mc-cli",
+   "label": "MeshCore CLI commands",
+   "url": "https://docs.meshcore.io/cli_commands/",
+   "strict": true,
+   "used_on": [
+    "index.html",
+    "meshcore/"
+   ]
+  },
+  {
+   "id": "mc-114",
+   "label": "MeshCore 1.14 release notes",
+   "url": "https://blog.meshcore.io/2026/03/06/path-diagnostics-improvements",
+   "strict": true,
+   "used_on": [
+    "meshcore/"
+   ]
+  },
+  {
+   "id": "mc-flasher",
+   "label": "MeshCore web flasher",
+   "url": "https://flasher.meshcore.io/",
+   "used_on": [
+    "meshcore/"
+   ]
+  },
+  {
+   "id": "g-nei",
+   "label": "NEIMesh",
+   "url": "https://neimesh.net",
+   "used_on": [
+    "meshcore/"
+   ]
+  },
+  {
+   "id": "g-ci",
+   "label": "Central Indiana Mesh Network",
+   "url": "https://www.cimesh.net",
+   "used_on": [
+    "meshcore/"
+   ]
+  },
+  {
+   "id": "g-btown",
+   "label": "Btown Mesh",
+   "url": "https://btownmesh.org",
+   "used_on": [
+    "meshcore/"
+   ]
+  },
+  {
+   "id": "g-oki",
+   "label": "OKI Mesh",
+   "url": "https://okimesh.org",
+   "used_on": [
+    "meshcore/"
+   ]
+  },
+  {
+   "id": "g-mich",
+   "label": "MichMesh",
+   "url": "https://michmesh.com",
+   "used_on": [
+    "meshcore/"
+   ]
+  },
+  {
+   "id": "g-chi",
+   "label": "Chicagoland Mesh",
+   "url": "https://chicagolandmesh.org",
+   "used_on": [
+    "meshcore/"
+   ]
+  },
+  {
+   "id": "g-nwo",
+   "label": "NWO Mesh",
+   "url": "https://nwomesh.com",
+   "used_on": [
+    "meshcore/"
+   ]
+  },
+  {
+   "id": "g-neo",
+   "label": "NEO Mesh",
+   "url": "https://neome.sh",
+   "used_on": [
+    "meshcore/"
+   ]
+  },
+  {
+   "id": "g-nash",
+   "label": "NashMesh",
+   "url": "https://nashme.sh",
+   "used_on": [
+    "meshcore/"
+   ]
+  },
+  {
+   "id": "g-tenn",
+   "label": "TennMesh",
+   "url": "https://tennmesh.carrd.co",
+   "used_on": [
+    "meshcore/"
+   ]
+  },
+  {
+   "id": "fcc-gmrs",
+   "label": "FCC: GMRS",
+   "url": "https://www.fcc.gov/general/general-mobile-radio-service-gmrs",
+   "strict": true,
+   "used_on": [
+    "channels/"
+   ]
+  },
+  {
+   "id": "fcc-frs",
+   "label": "FCC: FRS",
+   "url": "https://www.fcc.gov/general/family-radio-service-frs",
+   "strict": true,
+   "used_on": [
+    "channels/"
+   ]
+  },
+  {
+   "id": "fcc-murs",
+   "label": "FCC: MURS",
+   "url": "https://www.fcc.gov/general/multi-use-radio-service-murs",
+   "strict": true,
+   "used_on": [
+    "channels/"
+   ]
+  },
+  {
+   "id": "arrl-band",
+   "label": "ARRL band plan",
+   "url": "https://www.arrl.org/band-plan",
+   "used_on": [
+    "channels/"
+   ]
+  }
+ ]
+}
