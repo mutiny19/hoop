@@ -210,9 +210,9 @@
     drawNet(netSel ? netShown[netSel] : null);
     renderNets();
   }
-  $("netlist").addEventListener("click", function (e) { var it = e.target.closest(".net.pick"); if (it) pickNet(it.dataset.key); });
+  $("netlist").addEventListener("click", function (e) { var it = e.target.closest(".netb"); if (it) pickNet(it.dataset.key); });
   $("netlist").addEventListener("keydown", function (e) {
-    var it = e.target.closest(".net.pick"); if (it && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); pickNet(it.dataset.key); }
+    var it = e.target.closest(".netb"); if (it && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); pickNet(it.dataset.key); }
   });
   /* HOOP's own list plus the statewide ham nets from Indiana Ham Radio's open data (data/ham-nets.json); if that file is missing the list is HOOP's alone */
   Promise.all([Nets.load("data/nets.json"), Nets.load("data/ham-nets.json").catch(function () { return null; })]).then(function (x) {
@@ -246,10 +246,10 @@
       else { st = Nets.whenLabel(o.start); color = "#B4BDD0"; }
       var place = placeOf(n), key = n.name + "|" + o.start.toISOString(), pick = !!place || n.scope === "statewide";
       var where = n.county && n.county !== "Statewide" ? n.county + " Co" : n.site && netData.sites[n.site] && netData.sites[n.site].county ? netData.sites[n.site].county + " Co" : n.county === "Statewide" ? "Statewide" : "";
-      return '<div class="net' + (pick ? " pick" : "") + (key === netSel ? " sel" : "") + '"' +
-        (pick ? ' role="button" tabindex="0" aria-pressed="' + (key === netSel) + '" data-key="' + esc(key) + '" title="' + (n.scope === "statewide" ? esc(n.note || "Open to all across Indiana") : place && place.rough ? "Show a rough reach circle from the middle of the county" : "Show the repeater and its rough reach on the map") + '"' : ' title="No single repeater (network, app, HF or simplex)"') +
-        "><div class=\"hd\"><b>" + esc(n.name) + (n.unverified ? " *" : "") + "</b><span class=\"st\" style=\"color:" + color + "\">" + st + "</span></div><small>" + esc((n.freq.indexOf(n.type) >= 0 ? "" : n.type + " · ") + n.freq + (n.access ? " · " + n.access : "") + (where ? " · " + where : "") + (n.minutes ? " · " + n.minutes + " min" : "")) + (n.checkin ? "<br>Check in: " + esc(n.checkin) : "") + (n.brief ? "<br>" + esc(n.brief) : "") +
-        '</small></div>' + netLink(n);
+      return '<div class="net' + (pick ? " pick" : "") + (key === netSel ? " sel" : "") + '"' + (pick ? "" : ' title="No single repeater (network, app, HF or simplex)"') + ">" +
+        (pick ? '<div class="netb" role="button" tabindex="0" aria-pressed="' + (key === netSel) + '" data-key="' + esc(key) + '" title="' + (n.scope === "statewide" ? esc(n.note || "Open to all across Indiana") : place && place.rough ? "Show a rough reach circle from the middle of the county" : "Show the repeater and its rough reach on the map") + '">' : "<div>") +
+        "<div class=\"hd\"><b>" + esc(n.name) + (n.unverified ? " *" : "") + "</b><span class=\"st\" style=\"color:" + color + "\">" + st + "</span></div><small>" + esc((n.freq.indexOf(n.type) >= 0 ? "" : n.type + " · ") + n.freq + (n.access ? " · " + n.access : "") + (where ? " · " + where : "") + (n.minutes ? " · " + n.minutes + " min" : "")) + (n.checkin ? "<br>Check in: " + esc(n.checkin) : "") + (n.brief ? "<br>" + esc(n.brief) : "") +
+        '</small></div>' + netLink(n) + "</div>";
     }).join("") || '<div class="empty">No nets on the schedule this week.</div>';
     if (focusKey) { var f = $("netlist").querySelector('[data-key="' + focusKey.replace(/"/g, '\\"') + '"]'); if (f) f.focus(); }
     netShown = {}; shown.forEach(function (o) { netShown[o.net.name + "|" + o.start.toISOString()] = o; });
