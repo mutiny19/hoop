@@ -30,7 +30,7 @@ official docs and to each group's own pages, and only publishes Indiana-specific
 
 | Path | What |
 |---|---|
-| `index.html` + `assets/home.js` | Home: map band (repeaters, NWS alerts, nets, Kp), dashboard, settings accordion, report form |
+| `index.html` + `assets/home.js` | Home, in this order: headline, the radio system cards (`#protocols`; each open card leads with a link to the official guide, then the quick-glance Indiana settings; the MeshCore card also holds the Indiana extras `#mcExtras`: repeater counts, your county, and ways to help, parked in `#mcHold` while the card is closed), the map band (repeaters, NWS alerts, nets, Kp), "Report or ask" (site fixes go to GitHub issues, everything else to the Indiana Mesh Discord; no forms on the site), and About |
 | `meshcore/index.html` | Start page: first radio to first message, nearby groups table. Keep it simple and close to the official docs |
 | `advanced/index.html` | **Hidden for now**: unlinked from every page and marked noindex, kept in the repo. Three proposed region structures, open base commands, neighbors' tags, observer brokers. Do not link to it from the main pages until the community wants it back |
 | `picker/index.html` | **Hidden**: unlinked from every page, noindex, disallowed in robots.txt, not in the sitemap. A single self-contained page: pick counties, cultural regions, or neighboring states and get the repeater region CLI for the cultural region + county proposal. Carries its own copy of the county outlines and region tables; it does not load `advanced/*.js`. A proposal, and says so |

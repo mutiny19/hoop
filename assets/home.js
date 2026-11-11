@@ -287,15 +287,6 @@
     }).catch(function () {});
   }
 
-  /* ---------- "Where do you fit?": remember the choice on this device and lead with it next time ---------- */
-  (function () {
-    var box = $("paths"); if (!box) return;
-    var cards = [].slice.call(box.querySelectorAll(".pcard"));
-    cards.forEach(function (c) { c.addEventListener("click", function () { try { localStorage.setItem("hoop-path", c.getAttribute("data-path")); } catch (e) {} }); });
-    var mine = null; try { mine = localStorage.getItem("hoop-path"); } catch (e) {}
-    var first = cards.filter(function (c) { return c.getAttribute("data-path") === mine; })[0];
-    if (first) { box.insertBefore(first, box.firstChild); first.classList.add("mine"); first.querySelector("em").innerHTML = "Continue <i aria-hidden=\"true\">→</i>"; }
-  })();
 
   /* ---------- settings accordion ---------- */
   var PROTOS = [
@@ -307,7 +298,7 @@
       note: "National calling frequencies. Local practice comes from Indiana clubs.",
       rows: [["2 m simplex calling", "146.520 MHz"], ["70 cm simplex calling", "446.000 MHz"], ["Repeater coordination", "Indiana Repeater Council"], ["Emergency service", "ARES, ARRL Indiana Section"]],
       links: [["ARRL: getting licensed", "arrl.org", "https://www.arrl.org/getting-licensed"], ["Find an Indiana club", "ARRL club search", "https://www.arrl.org/find-a-club"], ["ARRL Indiana Section", "arrl.org", "https://www.arrl.org/sections/view/indiana"], ["Repeater directory", "RepeaterBook", "https://www.repeaterbook.com"]] },
-    { id: "meshcore", name: "MeshCore",
+    { id: "meshcore", name: "MeshCore", then: 'Then Indiana\'s short version: <a href="meshcore/">five steps to a first message</a>.',
       tagline: "Texts that hop repeater to repeater with no carrier, no account, no bill. The repeaters are the network.", meta: "No license · Text · 915 MHz", status: "Radio: official MeshCore {PN} preset · reviewed 2026-10-25",
       views: {
         companion: {
@@ -404,20 +395,22 @@
   var NETCARD = '<div class="net-card-box"> <div class="nc-body"> <h3>Channel lists &amp; the printable net card</h3> <p>Download a listen-only channel file for CHIRP (repeaters, GMRS, MURS, weather, and more), and find the printable Indianapolis metro net card, all on one page.</p> <a class="btn ghost" href="channels/">Open Channel lists</a> </div> </div>';
   function renderAcc() {
     clips = [];
+    var X = $("mcExtras"); if (X) $("mcHold").appendChild(X);   // park the MeshCore extras so the redraw keeps them and their state
     $("acc").innerHTML = PROTOS.map(function (p) {
       var o = !!open[p.id];
       var card = p.netcard ? NETCARD : "";
       var intro = p.intro ? '<div class="intro"><div><b>' + esc(p.intro[0]) + "</b><p>" + esc(p.intro[1]) + '</p></div><a class="btn" href="' + p.intro[3] + '">' + esc(p.intro[2]) + "</a></div>" : "";
-      var body = !o ? "" : '<div class="body" id="pb-' + p.id + '">' + intro + card + settingsCard(p) +
-        '<div class="links">' + p.links.map(function (l) {
+      var st = p.links[0], start = '<a class="startlink" href="' + st[2] + '" target="_blank" rel="noopener"><span>Start with the official guide</span><small>' + esc(st[0]) + " · " + esc(st[1]) + ' <span aria-hidden="true">↗</span></small></a>' +
+        (p.then ? '<p class="thenlink">' + p.then + "</p>" : "");
+      var body = !o ? "" : '<div class="body" id="pb-' + p.id + '">' + start + intro + card + settingsCard(p) +
+        '<div class="links">' + p.links.slice(1).map(function (l) {
           var ext = /^https?:/.test(l[2]);
           return '<a href="' + l[2] + '"' + (ext ? ' target="_blank" rel="noopener"' : "") + "><span><b>" + esc(l[0]) + "</b><small>" + esc(l[1]) + "</small></span><span aria-hidden=\"true\">" + (ext ? "↗" : "→") + "</span></a>";
         }).join("") + "</div></div>";
       return '<div class="proto proto-' + p.id + '"><button type="button" aria-expanded="' + o + '" aria-controls="pb-' + p.id + '" data-p="' + p.id + '"><span class="nm">' + p.name +
-        '</span><span class="tl">' + esc(p.tagline) + "<small>" + esc(p.meta) + '</small></span><span class="chev" aria-hidden="true">' + (o ? "−" : "+") + "</span></button>" + body + "</div>";
+        '</span><span class="tl"><span class="tg">' + esc(p.tagline) + "</span><small>" + esc(p.meta) + '</small></span><span class="chev" aria-hidden="true">' + (o ? "−" : "+") + "</span></button>" + body + "</div>";
     }).join("");
-    var all = PROTOS.every(function (p) { return open[p.id]; });
-    $("toggleAll").textContent = all ? "Collapse all" : "Expand all";
+    if (X && open.meshcore) $("pb-meshcore").appendChild(X);
   }
   $("acc").addEventListener("click", function (e) {
     var b = e.target.closest("button");
@@ -431,12 +424,13 @@
       catch (err) { done("Copy failed"); }
     }
   });
-  $("toggleAll").addEventListener("click", function () {
-    var all = PROTOS.every(function (p) { return open[p.id]; });
-    PROTOS.forEach(function (p) { open[p.id] = !all; });
-    renderAcc();
-  });
-  renderAcc();
+  /* a link to something inside the MeshCore extras (#support, #yourcounty) opens the MeshCore card; site.js then opens the fold */
+  function openForHash() {
+    var el = null; try { el = location.hash.length > 1 && document.getElementById(decodeURIComponent(location.hash.slice(1))); } catch (e) {}
+    if (el && $("mcExtras").contains(el) && !open.meshcore) { open.meshcore = true; renderAcc(); }
+  }
+  window.addEventListener("hashchange", openForHash);
+  renderAcc(); openForHash();
 
   /* the 92 counties, for "Your county" */
   var COUNTIES = ["Adams", "Allen", "Bartholomew", "Benton", "Blackford", "Boone", "Brown", "Carroll", "Cass", "Clark", "Clay", "Clinton", "Crawford", "Daviess", "Dearborn", "Decatur", "DeKalb", "Delaware", "Dubois", "Elkhart", "Fayette", "Floyd", "Fountain", "Franklin", "Fulton", "Gibson", "Grant", "Greene", "Hamilton", "Hancock", "Harrison", "Hendricks", "Henry", "Howard", "Huntington", "Jackson", "Jasper", "Jay", "Jefferson", "Jennings", "Johnson", "Knox", "Kosciusko", "LaGrange", "Lake", "LaPorte", "Lawrence", "Madison", "Marion", "Marshall", "Martin", "Miami", "Monroe", "Montgomery", "Morgan", "Newton", "Noble", "Ohio", "Orange", "Owen", "Parke", "Perry", "Pike", "Porter", "Posey", "Pulaski", "Putnam", "Randolph", "Ripley", "Rush", "St. Joseph", "Scott", "Shelby", "Spencer", "Starke", "Steuben", "Sullivan", "Switzerland", "Tippecanoe", "Tipton", "Union", "Vanderburgh", "Vermillion", "Vigo", "Wabash", "Warren", "Warrick", "Washington", "Wayne", "Wells", "White", "Whitley"];
