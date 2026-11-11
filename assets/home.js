@@ -305,11 +305,6 @@
     var mine = null; try { mine = localStorage.getItem("hoop-path"); } catch (e) {}
     var first = cards.filter(function (c) { return c.getAttribute("data-path") === mine; })[0];
     if (first) { box.insertBefore(first, box.firstChild); first.classList.add("mine"); first.querySelector("em").innerHTML = "Continue <i aria-hidden=\"true\">→</i>"; }
-    var nn = $("pathNet");
-    function tick() { if (!window.HOOP || !HOOP.net || !nn) return; var nx = HOOP.net.next(), ms = nx - Date.now(); if (ms <= 0) { nn.textContent = "On now, until 7:10 PM US Eastern. Check in."; return; }
-      var m = Math.round(ms / 6e4), d = Math.floor(m / 1440), hh = Math.floor(m % 1440 / 60), left = d ? d + " d " + hh + " h" : hh ? hh + " h " + (m % 60) + " min" : (m % 60) + " min";
-      nn.textContent = "Next #meshnet: " + new Intl.DateTimeFormat("en-US", { timeZone: HOOP.net.tz, weekday: "long" }).format(nx) + " 7:00 PM US Eastern, in " + left + "."; }
-    window.addEventListener("load", tick); setInterval(tick, 30000);   // site.js loads after this file
   })();
 
   /* ---------- settings accordion ---------- */
@@ -323,7 +318,6 @@
       rows: [["2 m simplex calling", "146.520 MHz"], ["70 cm simplex calling", "446.000 MHz"], ["Repeater coordination", "Indiana Repeater Council"], ["Emergency service", "ARES, ARRL Indiana Section"]],
       links: [["ARRL: getting licensed", "arrl.org", "https://www.arrl.org/getting-licensed"], ["Find an Indiana club", "ARRL club search", "https://www.arrl.org/find-a-club"], ["ARRL Indiana Section", "arrl.org", "https://www.arrl.org/sections/view/indiana"], ["Repeater directory", "RepeaterBook", "https://www.repeaterbook.com"]] },
     { id: "meshcore", name: "MeshCore",
-      intro: ["New here?", "The mesh is small radios that pass short text messages to each other with no cell service or internet. Volunteers run relay boxes on rooftops so messages travel across the state. You can be texting on it this weekend for about $30, with no license.", "Start here: five steps", "meshcore/"],
       tagline: "Texts that hop repeater to repeater with no carrier, no account, no bill. The repeaters are the network.", meta: "No license · Text · 915 MHz", status: "Radio: official MeshCore {PN} preset · reviewed 2026-10-25",
       views: {
         companion: {
@@ -413,7 +407,7 @@
       }).join("") + "</div>" : "";
     var src = v && v.copyAll ? v : p.copyAll ? p : null, lbl = (src && src.copyAllLabel) || "Copy all repeater CLI";
     var all = src ? '<button type="button" class="btn copy" data-clip="' + clip(fillP(src.copyAll)) + '" data-label="' + lbl + '">' + lbl + '</button><div class="note">' + esc(src.copyAllNote) + "</div>" : "";
-    return '<div class="card-set"><div class="top"><b>A starting point</b><span>' + esc(fillP(p.status)) + "</span></div>" + seg +
+    return '<div class="card-set"><div class="top"><b>Quick-glance settings</b><span>' + esc(fillP(p.status)) + "</span></div>" + seg +
       '<div class="rows">' + body + "</div>" + all + alts + '<div class="note">' + esc(note) + "</div></div>";
   }
   /* A link to the Channel lists page (which also carries the printable net card), shown at the top of the expanded GMRS and Ham cards. */
@@ -454,57 +448,8 @@
   });
   renderAcc();
 
-  /* ---------- report: tabs + prefilled GitHub issue ---------- */
+  /* the 92 counties, for "Your county" */
   var COUNTIES = ["Adams", "Allen", "Bartholomew", "Benton", "Blackford", "Boone", "Brown", "Carroll", "Cass", "Clark", "Clay", "Clinton", "Crawford", "Daviess", "Dearborn", "Decatur", "DeKalb", "Delaware", "Dubois", "Elkhart", "Fayette", "Floyd", "Fountain", "Franklin", "Fulton", "Gibson", "Grant", "Greene", "Hamilton", "Hancock", "Harrison", "Hendricks", "Henry", "Howard", "Huntington", "Jackson", "Jasper", "Jay", "Jefferson", "Jennings", "Johnson", "Knox", "Kosciusko", "LaGrange", "Lake", "LaPorte", "Lawrence", "Madison", "Marion", "Marshall", "Martin", "Miami", "Monroe", "Montgomery", "Morgan", "Newton", "Noble", "Ohio", "Orange", "Owen", "Parke", "Perry", "Pike", "Porter", "Posey", "Pulaski", "Putnam", "Randolph", "Ripley", "Rush", "St. Joseph", "Scott", "Shelby", "Spencer", "Starke", "Steuben", "Sullivan", "Switzerland", "Tippecanoe", "Tipton", "Union", "Vanderburgh", "Vermillion", "Vigo", "Wabash", "Warren", "Warrick", "Washington", "Wayne", "Wells", "White", "Whitley"];
-  $("county").insertAdjacentHTML("beforeend", COUNTIES.map(function (c) { return "<option>" + c + "</option>"; }).join(""));
-  var tabs = ["use", "outage"];
-  function pick(id) {
-    tabs.forEach(function (t) {
-      $("tab-" + t).setAttribute("aria-selected", String(t === id));
-      $("f-" + t).hidden = t !== id;
-    });
-    $("thanks").hidden = true;
-  }
-  tabs.forEach(function (t) { $("tab-" + t).addEventListener("click", function () { pick(t); }); });
-  document.querySelectorAll("a[data-tab]").forEach(function (a) { a.addEventListener("click", function () {
-    pick(a.dataset.tab); var fold = $("reportFold"); if (fold) fold.open = true;
-    if (a.dataset["else"]) { var c = document.querySelector('#f-use input[value="Something else"]'); if (c) { c.checked = true; showElse(); } }
-  }); });
-  function showElse() { var c = document.querySelector('#f-use input[value="Something else"]'); $("elseFields").hidden = !(c && c.checked); }
-  document.querySelectorAll('#f-use input[name="proto"]').forEach(function (c) { c.addEventListener("change", showElse); });
-  var TITLES = { use: "[count] ", outage: "[outage] " };
-  var LABELS = { use: "count", outage: "outage" };
-  document.querySelectorAll("form[data-kind]").forEach(function (f) {
-    f.addEventListener("submit", function (e) {
-      e.preventDefault();
-      var kind = f.dataset.kind, fd = new FormData(f), lines = [], title;
-      if (kind === "use") {
-        var protos = fd.getAll("proto");
-        if (!protos.length) { alertBox(f, "Pick at least one."); return; }
-        title = TITLES.use + protos.join(", ") + " in " + fd.get("county") + " County";
-        lines.push("**Uses:** " + protos.join(", "), "**County:** " + fd.get("county"), "**Role:** " + fd.get("role"), "**Radios or nodes:** " + fd.get("count"));
-        if (fd.get("else_name")) lines.push("**Other protocol or project:** " + fd.get("else_name"));
-        if (fd.get("else_site")) lines.push("**Its site:** " + fd.get("else_site"));
-      } else {
-        title = TITLES[kind] + (fd.get("name") || "");
-        fd.forEach(function (v, k) { if (v) lines.push("**" + k + ":** " + v); });
-      }
-      lines.push("", "_Sent from the HOOP report form._");
-      var url = "https://github.com/mutiny19/hoop/issues/new?labels=" + encodeURIComponent("report," + LABELS[kind]) +
-        "&title=" + encodeURIComponent(title) + "&body=" + encodeURIComponent(lines.join("\n"));
-      window.open(url, "_blank", "noopener");
-      $("thanksLink").href = url;
-      f.hidden = true; $("thanks").hidden = false;
-    });
-  });
-  function alertBox(f, msg) {
-    var s = f.querySelector(".submit small"); s.textContent = msg; s.style.color = "var(--signal)";
-  }
-  $("again").addEventListener("click", function () {
-    var cur = tabs.filter(function (t) { return $("tab-" + t).getAttribute("aria-selected") === "true"; })[0];
-    document.querySelectorAll("form[data-kind]").forEach(function (f) { f.reset(); });
-    pick(cur);
-  });
   /* ---------- "Your county": the choice stays in this browser; the numbers come from the nightly files ---------- */
   (function () {
     var sel = $("myCounty"), out = $("myCountyOut"); if (!sel) return;
