@@ -9,7 +9,14 @@
    "used_on": [
     "index.html",
     "meshcore/"
-   ]
+   ],
+   "fails": 0,
+   "checked": "2026-11-11",
+   "fp": {
+    "hash": "7625e166804d53939a81",
+    "words": 44,
+    "sim": "c2e5cd883dc581c8"
+   }
   },
   {
    "id": "mc-faq",
@@ -18,7 +25,14 @@
    "strict": true,
    "used_on": [
     "meshcore/"
-   ]
+   ],
+   "fails": 0,
+   "checked": "2026-11-11",
+   "fp": {
+    "hash": "c2a423a9f9cb0a177360",
+    "words": 6881,
+    "sim": "b8326d7fcf458d9a"
+   }
   },
   {
    "id": "mc-cli",
@@ -28,7 +42,14 @@
    "used_on": [
     "index.html",
     "meshcore/"
-   ]
+   ],
+   "fails": 0,
+   "checked": "2026-11-11",
+   "fp": {
+    "hash": "c7eae59264dbb9224bb1",
+    "words": 3187,
+    "sim": "0ef663694b7dc65c"
+   }
   },
   {
    "id": "mc-114",
@@ -37,7 +58,14 @@
    "strict": true,
    "used_on": [
     "meshcore/"
-   ]
+   ],
+   "fails": 0,
+   "checked": "2026-11-11",
+   "fp": {
+    "hash": "152b317c0acb6b831ff9",
+    "words": 746,
+    "sim": "b8766d444f5c8ed8"
+   }
   },
   {
    "id": "mc-flasher",
@@ -45,7 +73,14 @@
    "url": "https://flasher.meshcore.io/",
    "used_on": [
     "meshcore/"
-   ]
+   ],
+   "fails": 0,
+   "checked": "2026-11-11",
+   "fp": {
+    "hash": "023c7121cad15dd79989",
+    "words": 93,
+    "sim": "ac9e4fbf47400999"
+   }
   },
   {
    "id": "g-nei",
@@ -53,7 +88,14 @@
    "url": "https://neimesh.net",
    "used_on": [
     "meshcore/"
-   ]
+   ],
+   "fails": 0,
+   "checked": "2026-11-11",
+   "fp": {
+    "hash": "7dc00bce930f497a5e04",
+    "words": 343,
+    "sim": "eee6db2ddd7400d8"
+   }
   },
   {
    "id": "g-ci",
@@ -61,7 +103,14 @@
    "url": "https://www.cimesh.net",
    "used_on": [
     "meshcore/"
-   ]
+   ],
+   "fails": 0,
+   "checked": "2026-11-11",
+   "fp": {
+    "hash": "8df308964fc7bb1c4c62",
+    "words": 457,
+    "sim": "b816253bc745899b"
+   }
   },
   {
    "id": "g-btown",
@@ -69,7 +118,14 @@
    "url": "https://btownmesh.org",
    "used_on": [
     "meshcore/"
-   ]
+   ],
+   "fails": 0,
+   "checked": "2026-11-11",
+   "fp": {
+    "hash": "5940961bf3a207339369",
+    "words": 389,
+    "sim": "a801453ffcd1ca9a"
+   }
   },
   {
    "id": "g-oki",
@@ -77,7 +133,14 @@
    "url": "https://okimesh.org",
    "used_on": [
     "meshcore/"
-   ]
+   ],
+   "fails": 0,
+   "checked": "2026-11-11",
+   "fp": {
+    "hash": "1c2ab03180c35dee2d8b",
+    "words": 261,
+    "sim": "b20525399720c95f"
+   }
   },
   {
    "id": "g-mich",
@@ -85,7 +148,14 @@
    "url": "https://michmesh.com",
    "used_on": [
     "meshcore/"
-   ]
+   ],
+   "fails": 0,
+   "checked": "2026-11-11",
+   "fp": {
+    "hash": "9e774f8508b62bb762f1",
+    "words": 386,
+    "sim": "3045ad3fc7b48b5e"
+   }
   },
   {
    "id": "g-chi",
@@ -93,7 +163,14 @@
    "url": "https://chicagolandmesh.org",
    "used_on": [
     "meshcore/"
-   ]
+   ],
+   "fails": 0,
+   "checked": "2026-11-11",
+   "fp": {
+    "hash": "6aab61bc3e8c02f9a949",
+    "words": 116,
+    "sim": "30752d5bc328c05b"
+   }
   },
   {
    "id": "g-nwo",
@@ -101,7 +178,14 @@
    "url": "https://nwomesh.com",
    "used_on": [
     "meshcore/"
-   ]
+   ],
+   "fails": 0,
+   "checked": "2026-11-11",
+   "fp": {
+    "hash": "9d0fa23503057c4d56fd",
+    "words": 150,
+    "sim": "8201093787b0ab5e"
+   }
   },
   {
    "id": "g-neo",
@@ -109,7 +193,14 @@
    "url": "https://neome.sh",
    "used_on": [
     "meshcore/"
-   ]
+   ],
+   "fails": 0,
+   "checked": "2026-11-11",
+   "fp": {
+    "hash": "2d4c4e4f224705e6dc77",
+    "words": 51,
+    "sim": "f154071d973b905b"
+   }
   },
   {
    "id": "g-nash",
@@ -117,7 +208,14 @@
    "url": "https://nashme.sh",
    "used_on": [
     "meshcore/"
-   ]
+   ],
+   "fails": 0,
+   "checked": "2026-11-11",
+   "fp": {
+    "hash": "fe2f63c98305e3edfb99",
+    "words": 142,
+    "sim": "f2032d370374855f"
+   }
   },
   {
    "id": "g-tenn",
@@ -125,7 +223,14 @@
    "url": "https://tennmesh.carrd.co",
    "used_on": [
     "meshcore/"
-   ]
+   ],
+   "fails": 0,
+   "checked": "2026-11-11",
+   "fp": {
+    "hash": "d4a1dc195f3c50659dca",
+    "words": 222,
+    "sim": "b2054d37451dc698"
+   }
   },
   {
    "id": "fcc-gmrs",
@@ -134,7 +239,8 @@
    "strict": true,
    "used_on": [
     "channels/"
-   ]
+   ],
+   "fails": 1
   },
   {
    "id": "fcc-frs",
@@ -143,7 +249,8 @@
    "strict": true,
    "used_on": [
     "channels/"
-   ]
+   ],
+   "fails": 1
   },
   {
    "id": "fcc-murs",
@@ -152,7 +259,8 @@
    "strict": true,
    "used_on": [
     "channels/"
-   ]
+   ],
+   "fails": 1
   },
   {
    "id": "arrl-band",
@@ -160,7 +268,15 @@
    "url": "https://www.arrl.org/band-plan",
    "used_on": [
     "channels/"
-   ]
+   ],
+   "fails": 0,
+   "checked": "2026-11-11",
+   "fp": {
+    "hash": "273219069d332857ae9d",
+    "words": 2276,
+    "sim": "889f0d79958bcf1c"
+   }
   }
- ]
+ ],
+ "checked": "2026-11-11"
 }
