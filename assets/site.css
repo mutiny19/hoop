@@ -30,6 +30,7 @@
 }
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
+[id] { scroll-margin-top: 12px; }
 html, body { margin: 0; }
 body { background: var(--bg); color: var(--fg); font: 400 16px/1.55 var(--body); }
 a { color: var(--link); text-underline-offset: 2px; }

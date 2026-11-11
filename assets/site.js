@@ -137,3 +137,18 @@ document.querySelectorAll("button.copy[data-copy]").forEach(function (btn) {
   }
   openFold(); window.addEventListener("hashchange", openFold);
 })();
+
+/* A link to an #id: pages fill in tables and bars after they load, which pushes the target down the page.
+   Keep the target in view until the page settles, unless the visitor has started moving around on their own. */
+(function () {
+  if (location.hash.length < 2) return;
+  var moved = false, stop = function () { moved = true; };
+  ["wheel", "touchstart", "keydown", "mousedown"].forEach(function (ev) { window.addEventListener(ev, stop, { once: true, passive: true }); });
+  function fix() {
+    if (moved) return;
+    var el = null; try { el = document.getElementById(decodeURIComponent(location.hash.slice(1))); } catch (e) {}
+    if (el && Math.abs(el.getBoundingClientRect().top) > 24) el.scrollIntoView();
+  }
+  window.addEventListener("load", fix);
+  [250, 700, 1500, 2600, 4000].forEach(function (t) { setTimeout(fix, t); });
+})();
