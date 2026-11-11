@@ -105,6 +105,34 @@
       $("alerts").innerHTML = '<div class="empty">Couldn\'t reach the National Weather Service. Check <a href="https://www.weather.gov/" target="_blank" rel="noopener">weather.gov</a>.</div>';
     });
   }
+  /* Where to read an alert in full: the Weather Service's own page of active statements for one zone and county the alert covers.
+     (An alert has no readable page of its own; its "web" field is only weather.gov.) Zone alerts name their zones; a storm-based
+     warning names counties, so its zone is the one its outline starts in. Falls back to weather.gov when neither can be worked out. */
+  var ZONES = {};
+  zonesFile.then(function (z) { ZONES = z || {}; });
+  function inRing(pt, ring) {
+    var x = pt[0], y = pt[1], inside = false;
+    for (var i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+      var a = ring[i], b = ring[j];
+      if ((a[1] > y) !== (b[1] > y) && x < (b[0] - a[0]) * (y - a[1]) / (b[1] - a[1]) + a[0]) inside = !inside;
+    }
+    return inside;
+  }
+  function zoneAt(pt) {
+    for (var id in ZONES) if (id.indexOf("INZ") === 0 && ZONES[id].some(function (poly) { return inRing(pt, poly[0]); })) return id;
+    return null;
+  }
+  function alertUrl(f) {
+    var g = f.properties.geocode || {}, ugc = (g.UGC || []).filter(function (u) { return u.indexOf("IN") === 0; });
+    var zone = ugc.filter(function (u) { return u.charAt(2) === "Z"; })[0], county = ugc.filter(function (u) { return u.charAt(2) === "C"; })[0];
+    var same = (g.SAME || []).filter(function (s) { return s.indexOf("018") === 0; })[0];
+    if (!county && same) county = "INC" + same.slice(3);
+    if (!zone && f.geometry) {
+      var c = f.geometry.coordinates, ring = f.geometry.type === "Polygon" ? c[0] : f.geometry.type === "MultiPolygon" ? c[0][0] : null;
+      if (ring) for (var i = 0; i < ring.length && !zone; i++) zone = zoneAt(ring[i]);
+    }
+    return zone && county ? "https://forecast.weather.gov/showsigwx.php?warnzone=" + zone + "&warncounty=" + county : "https://www.weather.gov/";
+  }
   function renderAlertList(feats) {
     alertCount = feats.length;
     var box = $("alerts");
@@ -117,7 +145,7 @@
         var areas = p.areaDesc.split("; ");
         return '<div class="alert" style="background:' + c[2] + ";border-color:" + c[1] + '"><div class="t" style="color:' + c[3] + '">' + esc(p.event) +
           '</div><div class="a">' + esc(areas.slice(0, 4).join(", ") + (areas.length > 4 ? "…" : "")) +
-          '</div><div class="w">' + (t ? "until " + esc(t) : "") + "</div></div>";
+          '</div><div class="w">' + (t ? "until " + esc(t) : "") + '</div><a class="alink" href="' + alertUrl(f) + '" target="_blank" rel="noopener">Read it on weather.gov</a></div>';
       }).join("") + (feats.length > 6 ? '<div class="empty">' + (feats.length - 6) + ' more at <a href="https://www.weather.gov/" target="_blank" rel="noopener">weather.gov</a></div>' : "");
     }
     $("alertsTime").textContent = "Checked " + new Date().toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }) + " · refreshes every 3 min";
