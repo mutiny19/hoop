@@ -223,13 +223,15 @@ p { margin: 0; }
 .reportlite { padding-block: 40px 16px; display: grid; gap: 12px; }
 .reportlite h2 { font-size: 24px; font-weight: 800; }
 .reportlite p { color: var(--muted); max-width: 70ch; }
-.rtwo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.rtwo { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.rtwo .chan { font: 500 .95em var(--mono); display: inline; }
+.rmore { font-size: 14px; }
 .rtwo > div { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: grid; gap: 8px; align-content: start; }
 .rtwo b { font: 700 1.1rem/1.2 var(--display); }
 .rtwo p { font-size: 15px; }
-.rbtn { justify-self: start; display: inline-flex; align-items: center; min-height: 44px; padding: 10px 16px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--fg); font-weight: 700; text-decoration: none; }
+.rbtn { justify-self: start; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 10px 16px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--fg); font-weight: 700; text-decoration: none; }
 .rbtn:hover, .rbtn:focus-visible { border-color: var(--signal); }
-@media (max-width: 700px) { .rtwo { grid-template-columns: 1fr; } }
+@media (max-width: 900px) { .rtwo { grid-template-columns: 1fr; } }
 .ethos { margin-top: 10px; }
 .ethos > summary { cursor: pointer; font-weight: 600; }
 .ethos p { margin-top: 8px; }
@@ -536,7 +538,8 @@ p { margin: 0; }
   <h2 id="rep-h">Report or ask</h2>
   <div class="rtwo">
     <div><b>Something on this site is wrong or missing</b><p>A setting, repeater, net, link, or project. No addresses or personal details, please.</p><a class="rbtn" href="https://github.com/mutiny19/hoop/issues/new/choose" target="_blank" rel="noopener">Open a GitHub issue</a></div>
-    <div><b>Everything else</b><p>Questions, outages, meetups, and help on the air. No GitHub account? Post site fixes here too.</p><a class="rbtn" href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Ask on the Indiana Mesh Discord</a></div>
+    <div><b>Everything else</b><p>Questions, outages, and help on the air. No GitHub account? Post site fixes here too.</p><a class="rbtn" href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Ask on the Indiana Mesh Discord</a></div>
+    <div><b>Events and meetups</b><p>Classes, meetups, and tower days live on the Discord. Post yours in <b class="chan">#event-discussions</b> and ask others to share it.</p><a class="rbtn" href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Open the Indiana Mesh Discord</a><a class="rmore" href="https://support.discord.com/hc/en-us/articles/4409494125719-Scheduled-Events" target="_blank" rel="noopener">Discord's guide to adding an event</a></div>
   </div>
 </section>
 
