@@ -415,61 +415,73 @@
  "sites": {
   "indianapolis": {
    "name": "Indianapolis",
+   "county": "Marion",
    "lat": 39.768,
    "lon": -86.158
   },
   "noblesville": {
    "name": "Noblesville",
+   "county": "Hamilton",
    "lat": 40.046,
    "lon": -86.009
   },
   "hortonville": {
    "name": "Hortonville (Hamilton Co)",
+   "county": "Hamilton",
    "lat": 40.1,
    "lon": -86.1
   },
   "franklin": {
    "name": "Franklin",
+   "county": "Johnson",
    "lat": 39.481,
    "lon": -86.055
   },
   "westlafayette": {
    "name": "West Lafayette",
+   "county": "Tippecanoe",
    "lat": 40.426,
    "lon": -86.908
   },
   "michigantown": {
    "name": "Michigantown",
+   "county": "Clinton",
    "lat": 40.326,
    "lon": -86.393
   },
   "anderson": {
    "name": "Anderson",
+   "county": "Madison",
    "lat": 40.105,
    "lon": -85.68
   },
   "shelbyville": {
    "name": "Shelbyville",
+   "county": "Shelby",
    "lat": 39.521,
    "lon": -85.777
   },
   "tipton": {
    "name": "Tipton",
+   "county": "Tipton",
    "lat": 40.282,
    "lon": -86.041
   },
   "greenfield": {
    "name": "Greenfield",
+   "county": "Hancock",
    "lat": 39.785,
    "lon": -85.769
   },
   "danville": {
    "name": "Danville",
+   "county": "Hendricks",
    "lat": 39.761,
    "lon": -86.526
   },
   "greenwood": {
    "name": "Greenwood",
+   "county": "Johnson",
    "lat": 39.614,
    "lon": -86.107
   }

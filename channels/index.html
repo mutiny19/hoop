@@ -308,11 +308,12 @@ ol.how { margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }
     var all = !$("schedScope") || $("schedScope").value === "all", H = (all && ham) || {}, differs = (ham && ham.differs) || {};
     var row = function (n, whenTxt, theirs) {
       var name = esc(n.name) + (n.unverified ? " *" : "") +
-        (theirs && n.county ? '<span class="nlinks">' + esc(n.county === "Statewide" ? "Statewide" : n.county + " County") + "</span>" : "") +
+        (county(n) ? '<span class="nlinks">' + esc(county(n) === "Statewide" ? "Statewide" : county(n) + " County") + "</span>" : "") +
         (!theirs && differs[n.name] ? '<span class="nlinks">Indiana Ham Radio lists ' + esc(differs[n.name]) + "</span>" : "");
       var link = theirs ? (n.link ? '<a href="' + esc(n.link) + '" target="_blank" rel="noopener">Website</a>' : "") : linkHtml(n, "Website");
       return "<tr><td class=\"mono\">" + esc(whenTxt) + "</td><td>" + name + "</td><td class=\"mono\">" + esc(n.freq) + "</td><td>" + esc(n.access || "") + "</td><td>" + esc(n.type || "") + "</td><td>" + link + "</td></tr>";
     };
+    var county = function (n) { return n.county || (n.site && nets.sites && nets.sites[n.site] && nets.sites[n.site].county) || (n.scope === "statewide" ? "Statewide" : ""); };
     var head = function (t) { return "<tr class=\"dayrow\"><th colspan=\"6\" scope=\"colgroup\">" + t + "</th></tr>"; };
     var byTime = function (a, b) { return a.n.time < b.n.time ? -1 : a.n.time > b.n.time ? 1 : a.n.name < b.n.name ? -1 : 1; };
     var html = "", mineN = 0, theirN = 0;

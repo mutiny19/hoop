@@ -136,7 +136,14 @@
   /* Click a net: draw its repeater (town-level) and a dashed circle of typical reach for its band. */
   function bandOf(freq) {
     var f = parseFloat(freq);
-    return f >= 144 && f <= 148 ? "2m" : f >= 420 && f <= 450 ? "70cm" : f >= 462 && f <= 468 ? "GMRS" : null;
+    return f >= 144 && f <= 148 ? "2m" : f >= 420 && f <= 450 ? "70cm" : f >= 462 && f <= 468 ? "GMRS" : f >= 50 && f <= 54 ? "6m" : null;
+  }
+  var centers = {};
+  function placeOf(n) {
+    var s = n.site && netData.sites[n.site];
+    if (s) return { lat: s.lat, lon: s.lon, label: s.name, rough: false };
+    var c = n.county && centers[n.county];
+    return c && bandOf(n.freq) ? { lat: c[0], lon: c[1], label: n.county + " County", rough: true } : null;
   }
   function drawNet(o) {
     var g = $("lyr-nets"); g.textContent = "";
@@ -155,12 +162,14 @@
       });
       return;
     }
-    var s = netData.sites[n.site], band = bandOf(n.freq), mi = (netData.reach_miles || {})[band] || 25;
+    var s = placeOf(n); if (!s) return;
+    var band = bandOf(n.freq), mi = (netData.reach_miles || {})[band] || 25;
     var xy = P(s.lat, s.lon), r = mi * 3.61, live = o.start <= new Date(), col = n.type === "GMRS" ? "#FFFFFF" : "#B197FC";
-    var c = el("circle", { cx: xy[0].toFixed(1), cy: xy[1].toFixed(1), r: r.toFixed(1), fill: col, "fill-opacity": "0.07", stroke: col, "stroke-width": "3", "stroke-dasharray": live ? "none" : "12 8" }, g);
+    /* a county-middle circle is dotted: the repeater is somewhere in the county, not necessarily here */
+    var c = el("circle", { cx: xy[0].toFixed(1), cy: xy[1].toFixed(1), r: r.toFixed(1), fill: col, "fill-opacity": "0.07", stroke: col, "stroke-width": "3", "stroke-dasharray": s.rough ? "3 9" : live ? "none" : "12 8" }, g);
     if (live) c.setAttribute("class", "pulse");
     el("path", { d: "M" + xy[0] + " " + (xy[1] - 11) + "l10 18h-20z", fill: col, stroke: "#0D1320", "stroke-width": "2" }, g);
-    var l1 = n.name, l2 = s.name + " · " + n.freq + " · ~" + mi + " mi rough reach";
+    var l1 = n.name, l2 = s.label + (s.rough ? " (site not known)" : "") + " · " + n.freq + " · ~" + mi + " mi rough reach";
     var w = Math.max(l1.length * 10.5, l2.length * 9.6) + 24, ly = xy[1] - r - 62;
     if (ly < -125) ly = xy[1] + r + 12;
     var lx = Math.min(Math.max(xy[0] - w / 2, -240), 900 - w);
@@ -177,7 +186,15 @@
   $("netlist").addEventListener("keydown", function (e) {
     var it = e.target.closest(".net.pick"); if (it && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); pickNet(it.dataset.key); }
   });
-  Nets.load("data/nets.json").then(function (d) { netData = d; renderNets(); setInterval(renderNets, 1000); })
+  /* HOOP's own list plus the statewide ham nets from Indiana Ham Radio's open data (data/ham-nets.json); if that file is missing the list is HOOP's alone */
+  Promise.all([Nets.load("data/nets.json"), Nets.load("data/ham-nets.json").catch(function () { return null; })]).then(function (x) {
+    var d = x[0], ham = x[1];
+    if (ham) {
+      centers = ham.centers || {};
+      d = Object.assign({}, d, { weekly: (d.weekly || []).concat((ham.weekly || []).map(function (n) { return Object.assign({ theirs: 1 }, n); })) });
+    }
+    netData = d; renderNets(); setInterval(renderNets, 1000);
+  })
     .catch(function () { $("netlist").innerHTML = '<div class="empty">Net schedule unavailable right now.</div>'; });
   function renderNets() {
     var now = new Date(), len = (netData.default_minutes || 30) * 60000;
@@ -185,11 +202,12 @@
     var pad = function (n) { return String(n).padStart(2, "0"); };
     var live = occ.filter(function (o) { return o.start <= now && now - o.start < (o.net.minutes ? o.net.minutes * 60000 : len); });
     var next = occ.filter(function (o) { return o.start > now; });
-    var shown = live.concat(next).slice(0, 4);
+    var shown = live.concat(next).slice(0, 6);
     var focusKey = document.activeElement && document.activeElement.closest && document.activeElement.closest("#netlist") ? document.activeElement.dataset.key : null;
     /* each net's own page, or a prefilled issue so its operators can add one (Nets.linkOf is the one place this is decided) */
     function netLink(n) {
       if (!Nets.linkOf) return "";   // an older saved copy of nets.js: the list still shows, without the link line
+      if (n.theirs) return n.link ? '<a class="nlink" href="' + esc(n.link) + '" target="_blank" rel="noopener">Net\'s website</a>' : "";   // their nets: corrections go to them, so no "add one"
       var l = Nets.linkOf(n, ""), x = l.ext ? ' target="_blank" rel="noopener"' : "";
       return '<a class="nlink' + (l.has ? "" : " add") + '" href="' + esc(l.href) + '"' + x + ">" + (!l.has ? "No link yet: add one" : l.ext ? "Net's website" : "About this net") + "</a>";
     }
@@ -198,10 +216,11 @@
       if (o.start <= now) { st = "● ON AIR"; color = "#FF6B6B"; }
       else if (o.start - now <= 3600000) { var s = Math.round((o.start - now) / 1000); st = "T-" + Math.floor(s / 60) + ":" + pad(s % 60); color = "#FFD43B"; }
       else { st = Nets.whenLabel(o.start); color = "#B4BDD0"; }
-      var key = n.name + "|" + o.start.toISOString(), pick = !!n.site || n.scope === "statewide";
+      var place = placeOf(n), key = n.name + "|" + o.start.toISOString(), pick = !!place || n.scope === "statewide";
+      var where = n.county && n.county !== "Statewide" ? n.county + " Co" : n.site && netData.sites[n.site] && netData.sites[n.site].county ? netData.sites[n.site].county + " Co" : n.county === "Statewide" ? "Statewide" : "";
       return '<div class="net' + (pick ? " pick" : "") + (key === netSel ? " sel" : "") + '"' +
-        (pick ? ' role="button" tabindex="0" aria-pressed="' + (key === netSel) + '" data-key="' + esc(key) + '" title="' + (n.scope === "statewide" ? esc(n.note || "Open to all across Indiana") : "Show the repeater and its rough reach on the map") + '"' : ' title="No single repeater (network, app, HF or simplex)"') +
-        "><div class=\"hd\"><b>" + esc(n.name) + (n.unverified ? " *" : "") + "</b><span class=\"st\" style=\"color:" + color + "\">" + st + "</span></div><small>" + esc((n.freq.indexOf(n.type) >= 0 ? "" : n.type + " · ") + n.freq + " · " + n.access + (n.minutes ? " · " + n.minutes + " min" : "")) + (n.checkin ? "<br>Check in: " + esc(n.checkin) : "") + (n.brief ? "<br>" + esc(n.brief) : "") +
+        (pick ? ' role="button" tabindex="0" aria-pressed="' + (key === netSel) + '" data-key="' + esc(key) + '" title="' + (n.scope === "statewide" ? esc(n.note || "Open to all across Indiana") : place && place.rough ? "Show a rough reach circle from the middle of the county" : "Show the repeater and its rough reach on the map") + '"' : ' title="No single repeater (network, app, HF or simplex)"') +
+        "><div class=\"hd\"><b>" + esc(n.name) + (n.unverified ? " *" : "") + "</b><span class=\"st\" style=\"color:" + color + "\">" + st + "</span></div><small>" + esc((n.freq.indexOf(n.type) >= 0 ? "" : n.type + " · ") + n.freq + (n.access ? " · " + n.access : "") + (where ? " · " + where : "") + (n.minutes ? " · " + n.minutes + " min" : "")) + (n.checkin ? "<br>Check in: " + esc(n.checkin) : "") + (n.brief ? "<br>" + esc(n.brief) : "") +
         '</small></div>' + netLink(n);
     }).join("") || '<div class="empty">No nets on the schedule this week.</div>';
     if (focusKey) { var f = $("netlist").querySelector('[data-key="' + focusKey.replace(/"/g, '\\"') + '"]'); if (f) f.focus(); }

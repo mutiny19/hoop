@@ -124,6 +124,24 @@ def same_net(a, b):
     return bool(wa & wb)
 
 
+def county_centers(names):
+    """Middle of each named county (area-weighted, from the Census outlines in data/in-counties.json) -> {county: [lat, lon]}."""
+    C = json.loads((DATA / "in-counties.json").read_text())["counties"]
+    out = {}
+    for name in sorted(names):
+        rings = (C.get(name) or {}).get("rings") or []
+        if not rings:
+            continue
+        ring = max(rings, key=len)
+        a = cx = cy = 0.0
+        for (x0, y0), (x1, y1) in zip(ring, ring[1:]):
+            k = x0 * y1 - x1 * y0
+            a += k; cx += (x0 + x1) * k; cy += (y0 + y1) * k
+        if a:
+            out[name] = [round(cy / (3 * a), 3), round(cx / (3 * a), 3)]
+    return out
+
+
 def hoop_index():
     """HOOP's own nets as (weekday or 'daily', first MHz) -> net, so a net is never listed twice."""
     d = json.loads((DATA / "nets.json").read_text())
@@ -219,10 +237,13 @@ def main():
         "weekly": nets,
         "other": other,
         "differs": differs,
+        "centers_note": "The middle of each county, for a rough reach circle on the map when a net's repeater site is not known.",
+        "centers": county_centers({n["county"] for n in nets + other if n.get("county") and n["county"] != "Statewide"}
+                                  | {v.get("county") for v in json.loads((DATA / "nets.json").read_text()).get("sites", {}).values() if v.get("county")}),
     }
     path = DATA / "ham-nets.json"
     old = json.loads(path.read_text()) if path.exists() else {}
-    same = all(old.get(k) == out[k] for k in ("weekly", "other", "differs", "unscheduled", "source_generated"))
+    same = all(old.get(k) == out[k] for k in ("weekly", "other", "differs", "unscheduled", "source_generated", "centers"))
     if same:
         print("No change (%d weekly, %d other)." % (len(nets), len(other))); return 0
     path.write_text(json.dumps(out, indent=1, ensure_ascii=False) + "\n")
