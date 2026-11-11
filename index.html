@@ -221,9 +221,13 @@ p { margin: 0; }
 .reportlite { padding-block: 40px 16px; display: grid; gap: 12px; }
 .reportlite h2 { font-size: 24px; font-weight: 800; }
 .reportlite p { color: var(--muted); max-width: 70ch; }
-.rlinks { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
-.rlinks a { display: inline-flex; align-items: center; min-height: 44px; padding: 10px 16px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--fg); font-weight: 600; text-decoration: none; }
-.rlinks a:hover, .rlinks a:focus-visible { border-color: var(--signal); }
+.rtwo { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.rtwo > div { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: grid; gap: 8px; align-content: start; }
+.rtwo b { font: 700 1.1rem/1.2 var(--display); }
+.rtwo p { font-size: 15px; }
+.rbtn { justify-self: start; display: inline-flex; align-items: center; min-height: 44px; padding: 10px 16px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--fg); font-weight: 700; text-decoration: none; }
+.rbtn:hover, .rbtn:focus-visible { border-color: var(--signal); }
+@media (max-width: 700px) { .rtwo { grid-template-columns: 1fr; } }
 .ethos { margin-top: 10px; }
 .ethos > summary { cursor: pointer; font-weight: 600; }
 .ethos p { margin-top: 8px; }
@@ -511,15 +515,11 @@ p { margin: 0; }
 </section>
 
 <section id="report" class="wrap reportlite" aria-labelledby="rep-h">
-  <h2 id="rep-h">Report</h2>
-  <p>Reports are GitHub issues: a person reads each one, in the open. No addresses or personal details, please.</p>
-  <ul class="rlinks">
-    <li><a href="https://github.com/mutiny19/hoop/issues/new?template=report-use.yml" target="_blank" rel="noopener">Count what you use</a></li>
-    <li><a href="https://github.com/mutiny19/hoop/issues/new?template=report-outage.yml" target="_blank" rel="noopener">Report an outage</a></li>
-    <li><a href="https://github.com/mutiny19/hoop/issues/new?template=channel-listing.yml" target="_blank" rel="noopener">Add or fix a repeater or net</a></li>
-    <li><a href="https://github.com/mutiny19/hoop/issues/new/choose" target="_blank" rel="noopener">Anything else</a></li>
-  </ul>
-  <p>No GitHub account? Post it in the <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Indiana Mesh Discord</a> and someone will file it.</p>
+  <h2 id="rep-h">Report or ask</h2>
+  <div class="rtwo">
+    <div><b>Something on this site is wrong or missing</b><p>A setting, repeater, net, link, or project. No addresses or personal details, please.</p><a class="rbtn" href="https://github.com/mutiny19/hoop/issues/new/choose" target="_blank" rel="noopener">Open a GitHub issue</a></div>
+    <div><b>Everything else</b><p>Questions, outages, meetups, and help on the air. No GitHub account? Post site fixes here too.</p><a class="rbtn" href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Ask on the Indiana Mesh Discord</a></div>
+  </div>
 </section>
 
 <section id="about" class="wrap about" aria-labelledby="about-h">
@@ -531,13 +531,13 @@ p { margin: 0; }
 
 <footer class="site-foot"><div class="bar">
   <span>HOOP, the Hoosier Off-Grid Open Playbook. <a href="https://github.com/mutiny19/hoop" target="_blank" rel="noopener">Source</a> · <a href="https://github.com/mutiny19/hoop/issues/new/choose" target="_blank" rel="noopener">Open an issue</a></span>
-<span class="foot-links"><a href="channels/">Channel lists</a> · <a href="#report">Report</a> · <a href="#support">Support</a> · <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Join the Indiana Mesh Discord</a></span>
+<span class="foot-links"><a href="channels/">Channel lists</a> · <a href="#report">Report or ask</a> · <a href="#support">Support</a> · <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Join the Indiana Mesh Discord</a></span>
 </div></footer>
 
 <script>(function(){try{if(window.matchMedia("(min-width: 861px)").matches)["reportFold","layerFold"].forEach(function(i){var d=document.getElementById(i);if(d)d.open=true;});}catch(e){}})();</script>
 <script src="assets/nets.js"></script>
-<script src="assets/home.js?v=20261111b"></script>
+<script src="assets/home.js?v=20261111c"></script>
 <script src="assets/chirps.js?v=20261025l"></script>
-<script src="assets/site.js?v=20261107d"></script>
+<script src="assets/site.js?v=20261111b"></script>
 </body>
 </html>

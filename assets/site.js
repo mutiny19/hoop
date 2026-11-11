@@ -126,3 +126,14 @@ document.querySelectorAll("button.copy[data-copy]").forEach(function (btn) {
     bar.appendChild(s);
   }).catch(function () {});
 })();
+
+/* A link to an id inside a closed <details> (for example ../#support or #mirror) opens every fold around it first. */
+(function () {
+  function openFold() {
+    var el = null; try { el = location.hash.length > 1 && document.getElementById(decodeURIComponent(location.hash.slice(1))); } catch (e) {}
+    var d = el && el.closest("details"); if (!d) return;
+    while (d) { d.open = true; d = d.parentElement && d.parentElement.closest("details"); }
+    el.scrollIntoView();
+  }
+  openFold(); window.addEventListener("hashchange", openFold);
+})();

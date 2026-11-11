@@ -225,16 +225,6 @@
   }
   renderTiles();
 
-  /* a link to #support (or any id inside the MeshCore fold) opens the fold first */
-  function openFold() {
-    var el = location.hash.length > 1 && document.getElementById(decodeURIComponent(location.hash.slice(1)));
-    var d = el && el.closest("details");
-    if (!d) return;
-    while (d) { d.open = true; d = d.parentElement && d.parentElement.closest("details"); }
-    el.scrollIntoView();
-  }
-  openFold(); window.addEventListener("hashchange", openFold);
-
   /* ---------- phones: side panel behind a toggle ---------- */
   (function () {
     var t = $("sideToggle"), panel = $("sidePanel"), mq = window.matchMedia("(max-width: 860px)");

@@ -187,6 +187,7 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
     </ol>
     <p class="note">Chat on <span class="mono">#meshnet</span> before, during, and after the net is welcome. Only 6:57 to 7:13 PM is logged, and those minutes are the time to load the mesh.</p>
     <p class="spread"><b>Help it grow.</b> Invite others the usual ways: tell a neighbor, mention it in your local group's chat or Discord, announce it on your local ham or GMRS net, or <a href="#share-h">share the invite</a>. Every new check-in shows how far the mesh reaches.</p>
+    <p class="hold"><b>If there is severe weather or any emergency on the mesh, the net is postponed.</b> Emergency traffic always comes first.</p>
     </section>
 
   <section aria-labelledby="log-h">
@@ -220,19 +221,19 @@ td.mono { font-family: var(--mono); white-space: nowrap; }
   </section>
 
   <section aria-labelledby="why-h">
-    <h2 id="why-h">Why check in</h2>
+    <details class="fold big"><summary><h2 id="why-h">Why check in</h2></summary>
     <ul class="why">
       <li>Test your radio and your settings.</li>
       <li>See who your messages reach, and who reaches you.</li>
       <li>Practice, so it's routine when the mesh is needed.</li>
       <li>Meet the people on the mesh near you, and in the next region over.</li>
     </ul>
-    <p class="hold"><b>If there is severe weather or any emergency on the mesh, the net is postponed.</b> Emergency traffic always comes first.</p>
+    </details>
   </section>
 
 
   <section aria-labelledby="share-h">
-    <h2 id="share-h">Share the invite</h2>
+    <details class="fold big"><summary><h2 id="share-h">Share the invite</h2></summary>
     <p>Post it to your ham, GMRS, off-grid, or mesh groups, your club's email list, or anywhere else people will see it. The image and the text each stand on their own, so use either or both.</p>
     <div class="share">
       <figure><a href="../assets/meshnet-invite.png" download="meshnet-invite.png"><img src="../assets/meshnet-invite.png" alt="#meshnet invite: Sundays and Thursdays, 7:00 to 7:10 PM US Eastern, with times for other North American zones and UTC, on the #meshnet MeshCore hashtag channel. Start with your closest small airfield code; send at least five times from each radio." width="1080" height="1350" loading="lazy"></a><figcaption><a href="../assets/meshnet-invite.png" download="meshnet-invite.png">Download</a> · North American time zones</figcaption></figure>
@@ -263,6 +264,7 @@ If there is severe weather or any emergency on the mesh, the net is postponed. E
 
 Channel link, your local time, and past check-ins (guidance only): https://mutiny19.github.io/hoop/meshnet/</pre>
     </div>
+    </details>
   </section>
 
   <section aria-labelledby="fix-h">
@@ -277,7 +279,7 @@ Channel link, your local time, and past check-ins (guidance only): https://mutin
   </section>
 
   <section aria-labelledby="mirror-h" id="mirror">
-    <h2 id="mirror-h">Mirror it in your area</h2>
+    <details class="fold big"><summary><h2 id="mirror-h">Mirror it in your area</h2></summary>
     <p class="lead">#meshnet works because it is the same everywhere. No one owns it. Any mesh group, club, collective, or organization is welcome to run it, announce it under its own name, and make it its own.</p>
     <div class="std">
       <div>
@@ -313,6 +315,7 @@ Channel link, your local time, and past check-ins (guidance only): https://mutin
     <h3 id="regions-h">Regions running #meshnet</h3>
     <ul class="regions" id="regions" aria-labelledby="regions-h"><li>Loading the list…</li></ul>
     <p class="note">Running it for your area? <a href="https://github.com/mutiny19/hoop/issues/new?template=meshnet-region.yml" target="_blank" rel="noopener">List your region</a> with a public page or invite link. Use your group's name, never a person's.</p>
+    </details>
   </section>
 
 <p class="rung">Next rung: <a href="../#support">all the ways to help, smallest first</a>.</p>
@@ -323,7 +326,7 @@ Channel link, your local time, and past check-ins (guidance only): https://mutin
 <span class="foot-links"><a href="../channels/">Channel lists</a> · <a href="../#report">Report</a> · <a href="../#support">Support</a> · <a href="https://github.com/mutiny19/hoop" target="_blank" rel="noopener">GitHub</a> · <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Join the Indiana Mesh Discord</a></span>
 </div></footer>
 
-<script src="../assets/site.js?v=20261107d"></script>
+<script src="../assets/site.js?v=20261111b"></script>
 <script>
 (function () {
   var P = function (lat, lon) { return [191.3 * lon + 16854, -250 * lat + 10440]; };   /* same projection as the home map */
