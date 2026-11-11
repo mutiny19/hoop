@@ -398,7 +398,7 @@
       '<div class="rows">' + body + "</div>" + all + alts + '<div class="note">' + esc(note) + "</div></div>";
   }
   /* A link to the Channel lists page (which also carries the printable net card), shown at the top of the expanded GMRS and Ham cards. */
-  var NETCARD = '<div class="net-card-box"> <div class="nc-body"> <h3>Channel lists &amp; the printable net card</h3> <p>Download a listen-only channel file for CHIRP (repeaters, GMRS, MURS, weather, and more), and find the printable Indianapolis metro net card, all on one page.</p> <a class="btn ghost" href="channels/">Open Channel lists</a> </div> </div>';
+  var NETCARD = '<div class="net-card-box"> <div class="nc-body"> <h3>Channel lists, the net schedule, and the printable card</h3> <p>Download a listen-only channel file for CHIRP (repeaters, GMRS, MURS, weather, and more), and find the printable Indianapolis metro net card, all on one page.</p> <a class="btn ghost" href="channels/">Open Channels and nets</a> </div> </div>';
   function renderAcc() {
     clips = [];
     var X = $("mcExtras"); if (X) $("mcHold").appendChild(X);   // park the MeshCore extras so the redraw keeps them and their state
