@@ -1,7 +1,8 @@
-/* HOOP offline support. Pages and assets: show the saved copy at once and refresh it in the background.
+/* HOOP offline support. Pages: the current version when online, the saved copy when offline or slow.
+   Scripts, styles, fonts and images: the saved copy at once, refreshed in the background.
    data/*.json: network first, saved copy when offline. Anything on another site (weather, maps) is left alone.
-   Bump CACHE when the list below changes. */
-var CACHE = "hoop-v8";
+   Bump CACHE when the list below changes, and whenever a script or stylesheet changes. */
+var CACHE = "hoop-v9";
 var PRECACHE = ["./", "meshcore/", "meshnet/", "emergency/", "live/", "projects/", "channels/",
   "assets/site.css", "assets/site.js", "assets/theme.js", "assets/home.js", "assets/nets.js", "assets/chirps.js",
   "assets/fonts/archivo.woff2", "assets/fonts/plex-mono-400.woff2", "assets/fonts/plex-mono-500.woff2",
@@ -24,10 +25,18 @@ self.addEventListener("fetch", function (e) {
   e.respondWith(caches.open(CACHE).then(function (c) {
     var save = function (res) { if (res && res.ok) c.put(key, res.clone()); return res; };
     if (isData) return fetch(r).then(save).catch(function () { return c.match(key); });
-    return c.match(r, { ignoreSearch: true }).then(function (hit) {
-      var net = fetch(r).then(save).catch(function () { return hit; });
-      if (hit) { e.waitUntil(net); return hit; }
-      return net;
+    /* Pages: check for the current version first, and show the saved copy only when there is no answer within 3 seconds or no network. */
+    if (r.mode === "navigate") {
+      var fresh = fetch(r).then(save);
+      var slow = new Promise(function (ok) { setTimeout(ok, 3000); }).then(function () { return c.match(r, { ignoreSearch: true }); });
+      return Promise.race([fresh, slow.then(function (hit) { return hit || fresh; })]).catch(function () { return c.match(r, { ignoreSearch: true }); });
+    }
+    /* An exact match first, so a new ?v= on a script or stylesheet is fetched fresh and never answered with the older saved file.
+       The saved copy under any other ?v= is only a fallback for when the network fails. */
+    return c.match(r).then(function (hit) {
+      var net = fetch(r).then(save);
+      if (hit) { e.waitUntil(net.catch(function () {})); return hit; }
+      return net.catch(function () { return c.match(r, { ignoreSearch: true }); });
     });
   }));
 });

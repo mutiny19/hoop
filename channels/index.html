@@ -279,6 +279,7 @@ ol.how { margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }
   }
   /* under a row's notes: each net's own page, or a prefilled issue to add it (shown on the page only, never in the CSV) */
   function linkHtml(n, label) {
+    if (!Nets.linkOf) return label ? "" : esc(n.name);   // an older saved copy of nets.js: show the schedule without links instead of nothing
     var l = Nets.linkOf(n, "../"), x = l.ext ? ' target="_blank" rel="noopener"' : "";
     return l.has ? '<a href="' + esc(l.href) + '"' + x + ">" + esc(label || n.name) + "</a>" : (label ? "" : esc(n.name) + " (") + '<a href="' + esc(l.href) + '"' + x + ">add a link</a>" + (label ? "" : ")");
   }
@@ -321,7 +322,7 @@ ol.how { margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }
   });
   window.HOOPchannels = { build: build, csv: csv };
   Promise.all([fetch("../data/channels.json").then(function (r) { return r.json(); }).catch(function () { return null; }), fetch("../data/nets.json").then(function (r) { return r.json(); }).catch(function () { return null; }), fetch("../data/nwr-indiana.json").then(function (r) { return r.json(); }).catch(function () { return null; })]).then(function (x) {
-    CH = x[0]; nets = x[1]; nwr = x[2]; schedule();
+    CH = x[0]; nets = x[1]; nwr = x[2]; try { schedule(); } catch (err) { var sb = $("sched"); if (sb) sb.innerHTML = '<tr><td colspan="6">The schedule could not be drawn. Reload the page to try again.</td></tr>'; }
     if (CH) {
       $("groups").innerHTML = CH.groups.map(function (g) { return '<label><input type="checkbox" id="g-' + g.id + '"' + (g.default ? " checked" : "") + '> <span>' + esc(g.label) + (g.hint ? ' <small>(' + esc(g.hint) + ')</small>' : "") + '</span></label>'; }).join("");
       $("groups").querySelectorAll("input").forEach(function (i) { i.addEventListener("change", draw); });

@@ -189,6 +189,7 @@
     var focusKey = document.activeElement && document.activeElement.closest && document.activeElement.closest("#netlist") ? document.activeElement.dataset.key : null;
     /* each net's own page, or a prefilled issue so its operators can add one (Nets.linkOf is the one place this is decided) */
     function netLink(n) {
+      if (!Nets.linkOf) return "";   // an older saved copy of nets.js: the list still shows, without the link line
       var l = Nets.linkOf(n, ""), x = l.ext ? ' target="_blank" rel="noopener"' : "";
       return '<a class="nlink' + (l.has ? "" : " add") + '" href="' + esc(l.href) + '"' + x + ">" + (!l.has ? "No link yet: add one" : l.ext ? "Net's website" : "About this net") + "</a>";
     }
