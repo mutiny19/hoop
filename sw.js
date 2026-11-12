@@ -2,7 +2,7 @@
    Scripts, styles, fonts and images: the saved copy at once, refreshed in the background.
    data/*.json: network first, saved copy when offline. Anything on another site (weather, maps) is left alone.
    Bump CACHE when the list below changes, and whenever a script or stylesheet changes. */
-var CACHE = "hoop-v21";
+var CACHE = "hoop-v22";
 var PRECACHE = ["./", "meshcore/", "meshnet/", "emergency/", "live/", "projects/", "channels/",
   "assets/site.css", "assets/site.js", "assets/theme.js", "assets/home.js", "assets/nets.js", "assets/chirps.js",
   "assets/fonts/archivo.woff2", "assets/fonts/plex-mono-400.woff2", "assets/fonts/plex-mono-500.woff2",

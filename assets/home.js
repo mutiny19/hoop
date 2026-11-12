@@ -33,11 +33,12 @@
     $("srcbadge").textContent = "REPEATERS: MAP.MESHCORE.IO, " + date + (stale ? " (STALE: NIGHTLY UPDATE HAS STOPPED)" : "") + " · ALERTS: NWS, LIVE";
     if (stale) { $("srcbadge").style.background = "#FFA8A8"; $("srcbadge").innerHTML += ' · <a href="https://github.com/mutiny19/hoop/actions" target="_blank" rel="noopener" style="color:#16223C">check the nightly job</a>'; }
     $("healthDate").textContent = "MAP FEED " + date;
-    var quietest = d.repeaters.filter(function (r) { return r.in; }).sort(function (a, b) { return a.seen < b.seen ? -1 : 1; }).slice(0, 6);
-    $("health").innerHTML = quietest.map(function (r) {
+    /* newest first: "added" is the day the official map first listed the repeater */
+    var newest = d.repeaters.filter(function (r) { return r.in && r.added && Date.now() - Date.parse(r.seen) < 30 * 86400000; })   /* heard lately too: the map sometimes lists an old advert as a new entry */.sort(function (a, b) { return a.added < b.added ? 1 : a.added > b.added ? -1 : 0; }).slice(0, 6);
+    $("health").innerHTML = newest.map(function (r) {
       var days = (Date.now() - Date.parse(r.seen)) / 86400000, c = days < 2 ? "#40C057" : days < 30 ? "#FAB005" : "#FA5252";
-      return '<div><span><span class="dot" style="background:' + c + '"></span>' + esc(r.name || "(no name)") + "</span><span>seen " + ago(r.seen) + " ago</span></div>";
-    }).join("");
+      return '<div><span><span class="dot" style="background:' + c + '"></span>' + esc(r.name || "(no name)") + (r.county ? ' <small style="color:var(--map-muted)">' + esc(r.county) + " Co</small>" : "") + "</span><span>added " + ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][+r.added.slice(5, 7) - 1] + " " + +r.added.slice(8, 10) + "</span></div>";
+    }).join("") || '<div class="empty">The list fills in after tonight\'s update.</div>';
     renderCoverage(d);
     renderTiles();
     HOOP.repeaters = d.repeaters; HOOP.counties = d.counties; HOOP.project = P; window.dispatchEvent(new Event("hoop:repeaters"));

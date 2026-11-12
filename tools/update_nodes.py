@@ -85,6 +85,9 @@ def main():
         if n.get("type") == 2:
             repeaters.append({"name": (n.get("adv_name") or "").strip()[:40], "lat": round(lat, 4), "lon": round(lon, 4),
                               "seen": seen.strftime("%Y-%m-%dT%H:%MZ"), "in": indiana})
+            added = str(n.get("inserted_date") or "")[:10]   # the day the official map first listed it
+            if indiana and len(added) == 10:
+                repeaters[-1]["added"] = added
         elif n.get("type") == 1 and indiana and age <= 30:
             companions_in += 1
     repeaters.sort(key=lambda r: (not r["in"], r["seen"]), reverse=False)
