@@ -264,7 +264,6 @@
     var T = [
       ["Indiana repeaters, heard 30 d", stats.in_repeaters_30d, "of " + (stats.in_repeaters || "?") + " on the map", "#F4F2EC"],
       ["Neighbor-state repeaters", stats.neighbor_repeaters_30d, "heard in 30 days, on this map", "#F4F2EC"],
-      ["Indiana companions, 30 d", stats.in_companions_30d, "count only, never plotted", "#F4F2EC"],
       ["Active NWS alerts", alertCount, "Indiana, live", alertCount ? "#FFA94D" : "#F4F2EC"],
       ["Nets on air", netsOnAir, "plus starting within 1 h: " + (netsSoon == null ? "…" : netsSoon), netsOnAir ? "#FF6B6B" : "#F4F2EC"],
       ["Last #meshnet check-ins", lastNet ? lastNet.n : null, lastNet ? "net of " + lastNet.date : "from the log", "#F4F2EC"]
@@ -274,8 +273,8 @@
         return '<div class="tile"><div class="k">' + t[0] + '</div><div class="v" style="color:' + t[3] + '">' + (t[1] == null ? "…" : esc(t[1])) + '</div><div class="s">' + t[2] + "</div></div>";
       }).join("");
     }
-    $("tiles").innerHTML = html([T[3], T[4]]);            // alerts and nets: not MeshCore-only, stay on the map
-    $("mctiles").innerHTML = html([T[0], T[1], T[2], T[5]]);
+    $("tiles").innerHTML = html([T[2], T[3]]);            // alerts and nets: not MeshCore-only, stay on the map
+    $("mctiles").innerHTML = html([T[0], T[1], T[4]]);
   }
   renderTiles();
 

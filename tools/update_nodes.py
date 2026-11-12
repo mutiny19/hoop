@@ -69,7 +69,7 @@ def load(path=None):
 def main():
     nodes = load(sys.argv[1] if len(sys.argv) > 1 else None)
     now = datetime.datetime.now(datetime.timezone.utc)
-    repeaters, companions_in = [], 0
+    repeaters = []
     for n in nodes:
         lat, lon = n.get("adv_lat"), n.get("adv_lon")
         if not lat or not lon or not (LAT_MIN <= lat <= LAT_MAX and LON_MIN <= lon <= LON_MAX):
@@ -88,8 +88,6 @@ def main():
             added = str(n.get("inserted_date") or "")[:10]   # the day the official map first listed it
             if indiana and len(added) == 10:
                 repeaters[-1]["added"] = added
-        elif n.get("type") == 1 and indiana and age <= 30:
-            companions_in += 1
     repeaters.sort(key=lambda r: (not r["in"], r["seen"]), reverse=False)
     ind = [r for r in repeaters if r["in"]]
     counties = json.loads(COUNTIES.read_text())["counties"] if COUNTIES.exists() else {}
@@ -109,7 +107,6 @@ def main():
         "in_repeaters": len(ind),
         "in_repeaters_30d": sum(recent(r, 30) for r in ind),
         "neighbor_repeaters_30d": sum(recent(r, 30) for r in repeaters if not r["in"]),
-        "in_companions_30d": companions_in,
     }
     stats["in_counties_with_active"] = sum(1 for v in per_county.values() if v[1])
     out = {"generated": now.strftime("%Y-%m-%dT%H:%MZ"), "source": FEED,
