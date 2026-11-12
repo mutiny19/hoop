@@ -217,7 +217,8 @@
    "freq": "146.700",
    "access": "PL 88.5",
    "type": "Ham",
-   "site": "indianapolis"
+   "site": "indianapolis",
+   "link": "https://www.mcinares.org/"
   },
   {
    "day": "Wed",
