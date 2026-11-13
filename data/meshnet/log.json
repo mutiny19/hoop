@@ -7,6 +7,19 @@
  "about": "One check-in per radio heard by community observers between 6:57 and 7:13 PM US Eastern on net nights. No names, callsigns or message text are stored.",
  "nets": [
   {
+   "date": "2026-11-12",
+   "day": "Thu",
+   "start": "2026-11-12T18:57:00-05:00",
+   "end": "2026-11-12T19:12:59-05:00",
+   "logged": "2026-11-13T03:28:27Z",
+   "messages": 0,
+   "sources": [
+    "https://map.okimesh.org",
+    "https://corescope.chicagolandmesh.org"
+   ],
+   "checkins": []
+  },
+  {
    "date": "2026-11-08",
    "day": "Sun",
    "start": "2026-11-08T18:57:00-05:00",
