@@ -94,7 +94,7 @@ p { margin: 0; }
 .mapgrid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 330px); gap: 16px; align-items: stretch; }
 .mapbox { min-width: 0; position: relative; background: var(--map-panel); border: 1px solid var(--map-line); border-radius: 12px; overflow: hidden; }
 .mapbox svg { display: block; width: 100%; height: auto; aspect-ratio: 1150 / 1240; }
-.srcbadge { position: absolute; top: 12px; left: 12px; right: 12px; z-index: 2; justify-self: start; display: inline-block; max-width: max-content; background: #FFD43B; color: #16223C; font: 500 12px/1.4 var(--mono); letter-spacing: .5px; padding: 6px 10px; border-radius: 4px; }
+.srcbadge { background: #FFD43B; color: #16223C; font: 500 12px/1.4 var(--mono); letter-spacing: .5px; padding: 6px 12px; }   /* a strip above the map, never on it */
 /* The legend sits under the map, never on it, so it cannot cover any part of the state. */
 .legend { background: var(--map-bg); color: var(--map-muted); border-top: 1px solid var(--map-line); padding: 10px 14px; font-size: 12.5px; line-height: 1.7; }
 .legend a { color: #FFD566; }
@@ -330,7 +330,7 @@ p { margin: 0; }
   .side-toggle { display: block; }
   .side[hidden] { display: none; }
   .proto .intro .btn { width: 100%; justify-content: center; }
-  .srcbadge { top: 8px; left: 8px; right: auto; font-size: 10px; padding: 4px 7px; letter-spacing: 0; }
+  .srcbadge { font-size: 10.5px; letter-spacing: 0; }
   .paths { grid-template-columns: 1fr; }
   .sup-grid, .proto .body, .alts > div { grid-template-columns: minmax(0, 1fr); }
   .proto .body > * { min-width: 0; }
