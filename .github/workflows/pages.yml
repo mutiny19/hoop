@@ -7,6 +7,21 @@ name: Publish site
 on:
   push:
     branches: [main]
+  # The data workflows commit with GitHub's own token, and GitHub does not start a "push" run for those commits.
+  # So publish again whenever one of them finishes; without this, nightly data reaches the repo but never the site.
+  workflow_run:
+    workflows:
+      - "Nightly MeshCore inventory"
+      - "#meshnet check-in log"
+      - "What's new line"
+      - "Weekly ham nets (Indiana Ham Radio open data)"
+      - "Weekly observer counts"
+      - "Weekly NWS zone outlines"
+      - "Weekly source watch"
+      - "Monthly NOAA Weather Radio list"
+      - "Projects catalogue"
+      - "Yearly county reference data"
+    types: [completed]
   workflow_dispatch:
 
 permissions:
@@ -28,6 +43,8 @@ jobs:
       url: ${{ steps.deploy.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .
