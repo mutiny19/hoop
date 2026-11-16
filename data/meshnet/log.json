@@ -7,6 +7,164 @@
  "about": "One check-in per radio heard by community observers between 6:57 and 7:13 PM US Eastern on net nights. No names, callsigns or message text are stored.",
  "nets": [
   {
+   "date": "2026-11-15",
+   "day": "Sun",
+   "start": "2026-11-15T18:57:00-05:00",
+   "end": "2026-11-15T19:12:59-05:00",
+   "logged": "2026-11-16T00:24:48Z",
+   "messages": 72,
+   "sources": [
+    "https://map.okimesh.org",
+    "https://corescope.chicagolandmesh.org"
+   ],
+   "checkins": [
+    {
+     "time": "19:00",
+     "code": "KHFY",
+     "place": "Indy South Greenwood Airport",
+     "city": "Indianapolis",
+     "state": "IN",
+     "lat": 39.6284,
+     "lon": -86.0879,
+     "device": "Heltec T114",
+     "months": 12.0,
+     "hops": 0,
+     "observers": 1,
+     "regions": [
+      "IND"
+     ]
+    },
+    {
+     "time": "19:00",
+     "code": "KUMP",
+     "place": "Indianapolis Metropolitan Airport",
+     "city": "Indianapolis",
+     "state": "IN",
+     "lat": 39.9352,
+     "lon": -86.045,
+     "device": "L1 Pro",
+     "months": 2.0,
+     "hops": 3,
+     "observers": 6,
+     "regions": [
+      "IND"
+     ]
+    },
+    {
+     "time": "19:00",
+     "code": "KUMP",
+     "place": "Indianapolis Metropolitan Airport",
+     "city": "Indianapolis",
+     "state": "IN",
+     "lat": 39.9352,
+     "lon": -86.045,
+     "device": "L1 E-ink",
+     "months": 4.0,
+     "hops": 1,
+     "observers": 6,
+     "regions": [
+      "IND"
+     ]
+    },
+    {
+     "time": "19:01",
+     "code": "KUMP",
+     "place": "Indianapolis Metropolitan Airport",
+     "city": "Indianapolis",
+     "state": "IN",
+     "lat": 39.9352,
+     "lon": -86.045,
+     "device": "SEEED tracker pro L2 -5 mo",
+     "months": null,
+     "hops": 0,
+     "observers": 6,
+     "regions": [
+      "IND"
+     ]
+    },
+    {
+     "time": "19:01",
+     "code": "KHFY",
+     "place": "Indy South Greenwood Airport",
+     "city": "Indianapolis",
+     "state": "IN",
+     "lat": 39.6284,
+     "lon": -86.0879,
+     "device": "Heltec T096",
+     "months": 6.0,
+     "hops": 3,
+     "observers": 1,
+     "regions": [
+      "IND"
+     ]
+    },
+    {
+     "time": "19:01",
+     "code": "KUMP",
+     "place": "Indianapolis Metropolitan Airport",
+     "city": "Indianapolis",
+     "state": "IN",
+     "lat": 39.9352,
+     "lon": -86.045,
+     "device": "Seed L1",
+     "months": 12.0,
+     "hops": 0,
+     "observers": 8,
+     "regions": [
+      "IND"
+     ]
+    },
+    {
+     "time": "19:02",
+     "code": "KLAF",
+     "place": "Purdue University Airport",
+     "city": "West Lafayette",
+     "state": "IN",
+     "lat": 40.4129,
+     "lon": -86.9394,
+     "device": "SenseCAP T1000-E",
+     "months": 0.5,
+     "hops": 3,
+     "observers": 2,
+     "regions": [
+      "LAF"
+     ]
+    },
+    {
+     "time": "19:04",
+     "code": "KUMP",
+     "place": "Indianapolis Metropolitan Airport",
+     "city": "Indianapolis",
+     "state": "IN",
+     "lat": 39.9352,
+     "lon": -86.045,
+     "device": "tdeck",
+     "months": 12.0,
+     "hops": 0,
+     "observers": 8,
+     "regions": [
+      "IND"
+     ]
+    },
+    {
+     "time": "19:05",
+     "code": "KUMP",
+     "place": "Indianapolis Metropolitan Airport",
+     "city": "Indianapolis",
+     "state": "IN",
+     "lat": 39.9352,
+     "lon": -86.045,
+     "device": "tdeck plus",
+     "months": 4.0,
+     "hops": 2,
+     "observers": 9,
+     "regions": [
+      "IND"
+     ]
+    }
+   ]
+  },
+  {
    "date": "2026-11-12",
    "day": "Thu",
    "start": "2026-11-12T18:57:00-05:00",
