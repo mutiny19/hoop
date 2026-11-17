@@ -5,7 +5,7 @@
   100,
   250,
   500,
-  2000
+  1000
  ],
  "groups": [
   {
@@ -71,14 +71,14 @@
      ]
     },
     {
-     "id": "ic7300",
+     "id": "sbitx",
      "icon": "base",
-     "name": "Icom IC-7300MK2",
-     "what": "A desk radio for the HF bands, the ones that reach across the country. Needs a General licence, a power supply, and an antenna.",
-     "price": 1500,
-     "url": "https://www.dxengineering.com/part/icom/ic-7300mk2/8690947",
-     "seller": "DX Engineering",
-     "from": 2000
+     "name": "HF Signals sBitx v3",
+     "what": "An open-source desk radio for the HF bands, the ones that reach across the country, with a Raspberry Pi inside. Needs a General licence, an 11.1 V battery or supply, and an antenna.",
+     "price": 399,
+     "url": "https://www.hfsignals.com/index.php/sbitx-v3/",
+     "seller": "HF Signals",
+     "from": 1000
     }
    ]
   },
