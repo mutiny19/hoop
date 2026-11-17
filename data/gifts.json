@@ -1,6 +1,6 @@
 {
  "checked": "2026-11-17",
- "note": "One example per kind of gear, not a ranking. Prices are what each seller listed on the checked date, before shipping and tax, and are only used to work out which column a kit fits in. Edit by hand; re-check prices before each gift season.",
+ "note": "One example per kind of gear, not a ranking. Prices are what each seller listed on the checked date, before shipping and tax, and are only used for the kit total shown under each budget; a kit may run a little over its heading. Edit by hand; re-check prices before each gift season.",
  "tiers": [
   100,
   250,
@@ -106,7 +106,7 @@
      "price": 110,
      "url": "https://www.radioddity.com/products/radioddity-db20g",
      "seller": "Radioddity",
-     "from": 500
+     "from": 2000
     }
    ]
   },
@@ -157,14 +157,24 @@
    "licence": "",
    "items": [
     {
-     "id": "pinecil",
+     "id": "t80",
      "icon": "iron",
-     "name": "Pinecil V2 soldering iron",
-     "what": "A pen-size iron that runs from a USB-C charger (not included).",
-     "price": 26,
-     "url": "https://pine64.com/product/pinecil-smart-mini-portable-soldering-iron/",
-     "seller": "Pine64",
+     "name": "Alientek T80 soldering iron",
+     "what": "A pen-size iron that runs from a USB-C charger.",
+     "price": 55,
+     "url": "https://www.amazon.com/dp/B0D75Y55KS",
+     "seller": "Amazon",
      "from": 250
+    },
+    {
+     "id": "soleil",
+     "icon": "driver",
+     "name": "Soleilwear precision electric screwdriver",
+     "what": "A small rechargeable driver with a set of bits for opening radios and cases.",
+     "price": 37,
+     "url": "https://www.amazon.com/dp/B0FF9VMVQT",
+     "seller": "Amazon",
+     "from": 500
     }
    ]
   }

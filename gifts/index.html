@@ -61,7 +61,7 @@ td.y { color: var(--live); font-size: 1.3rem; font-weight: 700; }
 td.n { color: var(--line); }
 tfoot td { font: 600 .95rem/1.2 var(--mono); border-bottom: 0; }
 tfoot td.item { font-family: var(--body); color: var(--muted); font-weight: 400; }
-@media (max-width: 640px) { table { min-width: 0; table-layout: fixed; } th.item, td.item { width: auto; } thead th:not(.item) { width: 42px; font-size: .72rem; padding-inline: 0; } tfoot td:last-child { padding-right: 6px; } thead th small { display: none; } tfoot td { font-size: .64rem; padding-inline: 0; } td.y { font-size: 1.05rem; } .it { grid-template-columns: minmax(0, 1fr); } .it svg { display: none; } th, td { padding: 10px 4px; } th.item, td.item { padding-left: 10px; } }
+@media (max-width: 640px) { table { min-width: 0; table-layout: fixed; } th.item, td.item { width: auto; } thead th:not(.item) { width: 42px; font-size: .72rem; padding-inline: 0; } tfoot td:last-child { padding-right: 6px; } thead th small { font-size: .62rem; } tfoot td { font-size: .64rem; padding-inline: 0; } td.y { font-size: 1.05rem; } .it { grid-template-columns: minmax(0, 1fr); } .it svg { display: none; } th, td { padding: 10px 4px; } th.item, td.item { padding-left: 10px; } }
 </style>
 </head>
 <body>
@@ -88,7 +88,7 @@ tfoot td.item { font-family: var(--body); color: var(--muted); font-weight: 400;
   <div class="hero">
     <span class="eyebrow">Gift guide</span>
     <h1>Starter kits by budget</h1>
-    <p class="lead">Buying for someone curious about off-grid radio? Pick a budget column. A check means that item is in a kit that fits under it.</p>
+    <p class="lead">Buying for someone curious about off-grid radio? Pick a budget column. A check means that item is in that kit. Under each budget is what its kit actually costs, before shipping and tax.</p>
   </div>
 
   <div class="tablewrap" tabindex="0" role="region" aria-label="Gift kits by budget">
@@ -115,6 +115,7 @@ tfoot td.item { font-family: var(--body); color: var(--muted); font-weight: 400;
     base: '<rect x="3" y="9" width="26" height="15" rx="2"/><path d="M6 12h10v6H6z"/><circle cx="22" cy="16" r="3.5"/><path d="M6 21h3M11 21h3M7 24v2M25 24v2"/>',
     ant: '<path d="M16 28V5M12 28h8M11 9a7 7 0 0 1 10 0M8 6a11 11 0 0 1 16 0"/>',
     mobile: '<rect x="3" y="11" width="26" height="11" rx="2"/><path d="M6 14h9v5H6z"/><circle cx="23" cy="16.5" r="2.5"/><path d="M18 14h1M18 19h1M9 22v3"/>',
+    driver: '<path d="M6 26l4-4M10 22l9-9 3 3-9 9zM19 13l3-3 3 3-3 3M24 9l3-3"/>',
     usb: '<path d="M5 12h14v8H5zM19 14h5v4h-5zM24 16h4M8 15h3M8 17h5"/>',
     iron: '<path d="M4 28l9-9M13 19l8-8 3 3-8 8zM21 11l5-5M26 6l1.5-1.5"/>'
   };
@@ -122,17 +123,17 @@ tfoot td.item { font-family: var(--body); color: var(--muted); font-weight: 400;
   function usd(n) { return "$" + n.toLocaleString("en-US"); }
   fetch("../data/gifts.json").then(function (r) { return r.json(); }).then(function (d) {
     var T = d.tiers, sums = T.map(function () { return 0; });
-    var head = '<thead><tr><th class="item" scope="col">Gear</th>' + T.map(function (t) { return '<th scope="col">' + usd(t) + "<small>and under</small></th>"; }).join("") + "</tr></thead>";
+    d.groups.forEach(function (g) { g.items.forEach(function (it) { T.forEach(function (t, i) { if (it.from <= t) sums[i] += it.price; }); }); });
+    var head = '<thead><tr><th class="item" scope="col">Gear</th>' + T.map(function (t, i) { return '<th scope="col">' + usd(t) + "<small>kit: " + usd(sums[i]) + "</small></th>"; }).join("") + "</tr></thead>";
     var body = d.groups.map(function (g) {
       var lic = g.licence ? "<span>" + esc(g.licence) + (g.licenceUrl ? ' <a href="' + esc(g.licenceUrl) + '" target="_blank" rel="noopener">' + esc(g.licenceLabel) + "</a>" : "") + "</span>" : "";
       return '<tr class="grp"><th scope="colgroup" colspan="' + (T.length + 1) + '">' + esc(g.name) + lic + "</th></tr>" + g.items.map(function (it) {
         var more = (it.more || []).map(function (m) { return '<a href="' + esc(m[1]) + '" target="_blank" rel="noopener">' + esc(m[0]) + "</a>"; }).join("");
         return '<tr><th class="item" scope="row"><div class="it"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (ICON[it.icon] || "") + "</svg><div><b>" + esc(it.name) + "</b><p>" + esc(it.what) + '</p><div class="lk"><a href="' + esc(it.url) + '" target="_blank" rel="noopener">Listing at ' + esc(it.seller) + "</a>" + more + "</div></div></div></th>" +
-          T.map(function (t, i) { var on = it.from <= t; if (on) sums[i] += it.price; return on ? '<td class="y"><span aria-hidden="true">✓</span><span class="sr-only">In the ' + usd(t) + " kit</span></td>" : '<td class="n"><span aria-hidden="true">·</span><span class="sr-only">Not in the ' + usd(t) + " kit</span></td>"; }).join("") + "</tr>";
+          T.map(function (t, i) { var on = it.from <= t; return on ? '<td class="y"><span aria-hidden="true">✓</span><span class="sr-only">In the ' + usd(t) + " kit</span></td>" : '<td class="n"><span aria-hidden="true">·</span><span class="sr-only">Not in the ' + usd(t) + " kit</span></td>"; }).join("") + "</tr>";
       }).join("");
     }).join("");
-    var foot = '<tfoot><tr><td class="item">About what each kit costs, before shipping and tax</td>' + sums.map(function (s) { return "<td>" + usd(s) + "</td>"; }).join("") + "</tr></tfoot>";
-    document.getElementById("gifts").innerHTML = '<caption class="sr-only">Gear by budget</caption>' + head + "<tbody>" + body + "</tbody>" + foot;
+    document.getElementById("gifts").innerHTML = '<caption class="sr-only">Gear by budget</caption>' + head + "<tbody>" + body + "</tbody>";
     document.getElementById("giftNote").insertAdjacentText("beforeend", " Prices were checked on " + d.checked + " and will drift.");
   }).catch(function () { document.getElementById("gifts").innerHTML = "<tbody><tr><td>The list isn't available right now.</td></tr></tbody>"; });
 })();
