@@ -3,8 +3,8 @@
  "source_url": "https://indianahamradio.com/nets/schedule/",
  "data_url": "https://indianahamradio.com/data/nets.json",
  "terms": "Published for reuse by its maintainers. Corrections to these nets go to them.",
- "source_generated": "2026-11-09",
- "fetched": "2026-11-11",
+ "source_generated": "2026-11-16",
+ "fetched": "2026-11-17",
  "note": "Times are US Eastern (Central-time nets are converted). Written by tools/update_ham_nets.py; do not edit by hand.",
  "unscheduled": 54,
  "weekly": [
@@ -106,6 +106,16 @@
    "type": "Ham",
    "county": "Warrick",
    "link": "http://www.w9og.net/repeaters",
+   "day": "Sun"
+  },
+  {
+   "time": "21:00",
+   "name": "Central Indiana Amateur Radio Association (CIARA) Net",
+   "freq": "145.170 / 443.550",
+   "access": "PL 77.0",
+   "type": "Ham",
+   "county": "Hamilton",
+   "link": "https://n9eoc.org/",
    "day": "Sun"
   },
   {
@@ -1122,6 +1132,16 @@
    "type": "HF",
    "county": "Statewide",
    "when": "Daily, 7:00 PM"
+  },
+  {
+   "time": "21:00",
+   "name": "Late Night Net",
+   "freq": "443.950",
+   "access": "PL 77.0",
+   "type": "Ham",
+   "county": "Hamilton",
+   "link": "https://www.pigletradio.org/nets/late-night-net",
+   "when": "1st Monday, 9:00 PM"
   },
   {
    "time": "08:00",
