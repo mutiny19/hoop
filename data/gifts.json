@@ -41,12 +41,12 @@
    "licenceLabel": "ARRL: getting licensed",
    "items": [
     {
-     "id": "5rmini",
+     "id": "mini5",
      "icon": "ht",
-     "name": "Baofeng UV-5R Mini",
-     "what": "A first handheld for 2 m and 70 cm. Charges over USB-C and also hears airband and weather radio.",
-     "price": 50,
-     "url": "https://www.baofengradio.com/products/5r-mini",
+     "name": "Baofeng MINI-5 (two radios)",
+     "what": "A pair of first handhelds for 2 m and 70 cm. They charge over USB-C and also hear airband and weather radio.",
+     "price": 53,
+     "url": "https://www.baofengradio.com/products/mini-5-ham",
      "seller": "Baofeng",
      "from": 100
     },
