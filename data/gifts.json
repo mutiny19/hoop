@@ -1,0 +1,25 @@
+{
+ "checked": "2026-11-17",
+ "note": "One example per kind of gear, not a ranking. Prices are what each seller listed on the checked date, before shipping and tax, and are only used to work out which column a kit fits in. Edit by hand; re-check prices before each gift season.",
+ "tiers": [100, 250, 500, 2000],
+ "groups": [
+  {"name": "Mesh radios (MeshCore or Meshtastic)", "licence": "No licence needed.", "items": [
+   {"id": "tdeck", "icon": "deck", "name": "LilyGO T-Deck Plus", "what": "Screen and keyboard in one: messages with no phone. Needs firmware put on it first.", "price": 61, "url": "https://lilygo.cc/en-us/collections/lilygo-with-meshcore", "seller": "LilyGO", "from": 250},
+   {"id": "t096", "icon": "board", "name": "Heltec Mesh Node T096", "what": "A small board for a home repeater, or a companion paired to a phone. No case or battery in the box.", "price": 39, "url": "https://store.rokland.com/collections/heltec-products/products/heltec-mesh-node-t096-nrf52840-gps-lora-node-meshtastic-meshcore-and-lorawan", "seller": "Rokland", "from": 100}
+  ]},
+  {"name": "Ham radio", "licence": "Listening is open to anyone. Transmitting needs an amateur licence.", "licenceUrl": "https://www.arrl.org/getting-licensed", "licenceLabel": "ARRL: getting licensed", "items": [
+   {"id": "5rmini", "icon": "ht", "name": "Baofeng UV-5R Mini", "what": "A first handheld for 2 m and 70 cm. Charges over USB-C and also hears airband and weather radio.", "price": 50, "url": "https://www.baofengradio.com/products/5r-mini", "seller": "Baofeng", "from": 100},
+   {"id": "dm1701", "icon": "ht", "name": "Baofeng DM-1701", "what": "A DMR handheld that can run open firmware. Needs a DMR ID and a programmed channel list.", "price": 75, "url": "https://www.baofengradio.com/products/dm-1701", "seller": "Baofeng", "from": 500, "more": [["OpenGD77 radios", "https://www.opengd77.org/viewtopic.php?p=26"], ["RadioFoundry radios", "https://radiofoundry.org/radios/"]]},
+   {"id": "ic7300", "icon": "base", "name": "Icom IC-7300MK2", "what": "A desk radio for the HF bands, the ones that reach across the country. Needs a General licence, a power supply, and an antenna.", "price": 1500, "url": "https://www.dxengineering.com/part/icom/ic-7300mk2/8690947", "seller": "DX Engineering", "from": 2000}
+  ]},
+  {"name": "GMRS", "licence": "One FCC licence, no test, covers a household.", "licenceUrl": "https://www.fcc.gov/wireless/bureau-divisions/mobility-division/general-mobile-radio-service-gmrs", "licenceLabel": "FCC: GMRS", "items": [
+   {"id": "5gplus", "icon": "ht", "name": "Baofeng UV-5G Plus", "what": "A handheld already set to the GMRS channels.", "price": 40, "url": "https://www.baofengradio.com/products/uv-5g-plus", "seller": "Baofeng", "from": 250}
+  ]},
+  {"name": "Listen only", "licence": "No licence needed.", "items": [
+   {"id": "rtlsdr", "icon": "usb", "name": "RTL-SDR Blog V4L with antenna kit", "what": "A USB receiver that turns a computer into a scanner for most of what is on the air.", "price": 48, "url": "https://www.rtl-sdr.com/buy-rtl-sdr-dvb-t-dongles/", "seller": "RTL-SDR Blog", "from": 500}
+  ]},
+  {"name": "Bench tools", "licence": "", "items": [
+   {"id": "pinecil", "icon": "iron", "name": "Pinecil V2 soldering iron", "what": "A pen-size iron that runs from a USB-C charger (not included).", "price": 26, "url": "https://pine64.com/product/pinecil-smart-mini-portable-soldering-iron/", "seller": "Pine64", "from": 250}
+  ]}
+ ]
+}

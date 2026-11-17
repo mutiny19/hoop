@@ -26,6 +26,7 @@ BUDGETS = {
     "live/index.html": 460,
     "channels/index.html": 650,
     "projects/index.html": 430,
+    "gifts/index.html": 220,
     "emergency/index.html": None,   # a long-form article, on purpose
     "advanced/index.html": None,    # hidden: unlinked and noindex
     "picker/index.html": None,      # hidden: unlinked and noindex
