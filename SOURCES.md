@@ -33,7 +33,7 @@ Feeds fetched by the scheduled jobs or by a visitor's browser. The README says h
 - [Find an Indiana club](https://www.arrl.org/find-a-club)
 - [Discord](https://discord.gg/2uwyceSF37)
 - [Add your repeater to the map](https://docs.meshcore.io/faq/#512-q-how-do-i-add-a-node-to-the-meshcore-map)
-- [MeshCore docs](https://docs.meshcore.io/)
+- [Official docs and FAQ](https://docs.meshcore.io/)
 - [Hepburn tropo maps](https://www.dxinfocentre.com/tropo.html)
 - [The rules](https://www.ecfr.gov/current/title-47/chapter-I/subchapter-D/part-95/subpart-E)
 - [FCC: GMRS and licensing](https://www.fcc.gov/general-mobile-radio-service-gmrs)
