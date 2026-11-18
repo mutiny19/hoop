@@ -487,8 +487,8 @@ p { margin: 0; }
           <text x="560" y="1060">KENTUCKY</text>
           </g>
           <text x="140" y="-120" fill="#3B6A85" font-family="IBM Plex Mono, monospace" font-size="14" font-style="italic">Lake Michigan</text>
-          <defs><filter id="tropoBlur" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="55"/></filter></defs>
-          <g id="lyr-tropo" filter="url(#tropoBlur)" style="display:none" aria-hidden="true"></g>
+          <defs><pattern id="tropoHatch" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0V14" stroke="#E8EEFA" stroke-width="3.5" stroke-opacity="0.55"/></pattern></defs>
+          <g id="lyr-tropo" style="display:none"></g>
           <g id="lyr-weather"></g>
           <g id="lyr-meshcore"></g>
           <g fill="#DDE3E0" font-family="Archivo, sans-serif" font-size="15" font-weight="600">
@@ -566,7 +566,7 @@ p { margin: 0; }
 
 <script>(function(){try{if(window.matchMedia("(min-width: 861px)").matches)["reportFold","layerFold"].forEach(function(i){var d=document.getElementById(i);if(d)d.open=true;});}catch(e){}})();</script>
 <script src="assets/nets.js?v=20261111w"></script>
-<script src="assets/home.js?v=20261118a"></script>
+<script src="assets/home.js?v=20261118b"></script>
 <script src="assets/chirps.js?v=20261111t"></script>
 <script src="assets/site.js?v=20261112c"></script>
 </body>

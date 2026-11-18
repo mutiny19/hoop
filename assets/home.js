@@ -309,13 +309,13 @@
      points over the map). For each point: radio refractivity N at each height, then the steepest drop in N per km in the
      lowest 1.5 km. Past -79 N/km signals bend further than usual; past -157 N/km they are trapped, which is ducting.
      An estimate of conditions, not a report of contacts; the Hepburn maps linked beside the map are the reference. */
-  var TROPO = { lons: [-89.4, -88.4, -87.4, -86.4, -85.4, -84.4, -83.4], lats: [37.3, 38.014, 38.729, 39.443, 40.157, 40.871, 41.586, 42.3], hpa: [1000, 975, 950, 925, 900, 850], drawn: false };
+  var TROPO = { lons: [-89.25, -88.75, -88.25, -87.75, -87.25, -86.75, -86.25, -85.75, -85.25, -84.75, -84.25, -83.75, -83.25], lats: [37.5, 38, 38.5, 39, 39.5, 40, 40.5, 41, 41.5, 42], hpa: [1000, 975, 950, 925, 900, 850], drawn: false };
   function tropoNote(html) {
     $("srcTropo").hidden = !html; $("srcTropo").innerHTML = html || "";
     var lg = $("lgdTropo");
     if (!lg) { lg = document.createElement("div"); lg.id = "lgdTropo"; document.querySelector(".legend").appendChild(lg); }
     lg.hidden = !html;
-    lg.innerHTML = '<span style="color:#C9D3E6">▒</span> Ducting estimate: pale haze where signals should carry further than usual, brighter where they may be trapped in a duct · worked out here from NOAA model air data by <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> · an estimate, not a report of contacts';
+    lg.innerHTML = 'Ducting estimate · <span style="color:#C9D3E6">▨</span> striped: extended range, VHF and UHF signals reach somewhat past their usual limit · <span style="color:#E8EEFA">■</span> solid: ducting likely, signals can carry far beyond the horizon, sometimes hundreds of miles · worked out here from NOAA model air data by <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>; an estimate, not a report of contacts';
   }
   function refract(tC, rh, hPa) { var T = tC + 273.15, e = rh / 100 * 6.112 * Math.exp(17.62 * tC / (243.12 + tC)); return 77.6 / T * (hPa + 4810 * e / T); }
   function tropo(on, btn) {
@@ -329,7 +329,7 @@
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(function (d) {
         if (!Array.isArray(d) || d.length !== pts.length) throw new Error("shape");
-        var g = $("lyr-tropo"), frag = document.createDocumentFragment(), w = 191.3, h = 250 * (TROPO.lats[1] - TROPO.lats[0]), worst = 0, n = 0;
+        var g = $("lyr-tropo"), frag = document.createDocumentFragment(), w = 191.3 * (TROPO.lons[1] - TROPO.lons[0]), h = 250 * (TROPO.lats[1] - TROPO.lats[0]), worst = 0, n = 0, IN = { Northern: [0, 0], Central: [0, 0], Southern: [0, 0] };
         d.forEach(function (loc, i) {
           var hr = loc.hourly, ground = loc.elevation || 0, lev = [[ground + 2, refract(hr.temperature_2m[0], hr.relative_humidity_2m[0], hr.surface_pressure[0])]];
           TROPO.hpa.forEach(function (l) {
@@ -340,13 +340,17 @@
           var steep = 0;
           for (var k = 1; k < lev.length; k++) { var dz = lev[k][0] - lev[k - 1][0]; if (dz >= 50) steep = Math.min(steep, (lev[k][1] - lev[k - 1][1]) / dz * 1000); }
           if (!isFinite(steep) || steep > -79) return;
-          var duct = steep <= -157, op = duct ? 0.5 : 0.13 + 0.17 * Math.min(1, (-steep - 79) / 78), xy = P(pts[i][0], pts[i][1]);
-          el("rect", { x: (xy[0] - w / 2).toFixed(0), y: (xy[1] - h / 2).toFixed(0), width: w.toFixed(0), height: h.toFixed(0), fill: "#E8EEFA", "fill-opacity": op.toFixed(2) }, frag);
+          var duct = steep <= -157, xy = P(pts[i][0], pts[i][1]);
+          var r = el("rect", { x: (xy[0] - w / 2).toFixed(0), y: (xy[1] - h / 2).toFixed(0), width: w.toFixed(0), height: h.toFixed(0), fill: duct ? "#E8EEFA" : "url(#tropoHatch)", "fill-opacity": duct ? "0.5" : "1" }, frag);
+          el("title", {}, r).textContent = duct ? "Ducting likely: signals can carry far beyond the horizon" : "Extended range: signals reach somewhat past their usual limit";
+          if (pts[i][1] > -88.1 && pts[i][1] < -84.8 && pts[i][0] > 37.8 && pts[i][0] < 41.8) IN[pts[i][0] > 40.6 ? "Northern" : pts[i][0] > 39.2 ? "Central" : "Southern"][duct ? 0 : 1]++;
           n++; if (duct) worst++;
         });
         g.textContent = ""; g.appendChild(frag); TROPO.drawn = true;
         var when = new Date(d[0].hourly.time[0] + "Z").toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
-        TROPO.note = "DUCTING ESTIMATE: NOAA MODEL VIA OPEN-METEO, " + when.toUpperCase() + " · " + (worst ? "DUCTING LIKELY IN PARTS OF THE MAP" : n ? "EXTENDED RANGE IN PARTS OF THE MAP, NO DUCTING" : "NOTHING UNUSUAL RIGHT NOW");
+        var parts = Object.keys(IN), ducts = parts.filter(function (k) { return IN[k][0]; }), ext = parts.filter(function (k) { return !IN[k][0] && IN[k][1]; });
+        var read = (ducts.length ? "DUCTING LIKELY: " + ducts.join(", ") + " INDIANA" : "") + (ducts.length && ext.length ? " · " : "") + (ext.length ? "EXTENDED RANGE: " + ext.join(", ") + " INDIANA" : "");
+        TROPO.note = "DUCTING ESTIMATE, " + when.toUpperCase() + " (NOAA MODEL VIA OPEN-METEO) · " + (read ? read.toUpperCase() : worst || n ? "NOTHING UNUSUAL OVER INDIANA; SEE THE MAP FOR NEIGHBORING STATES" : "NOTHING UNUSUAL RIGHT NOW");
         if (btn.getAttribute("aria-pressed") === "true") tropoNote(TROPO.note);
       })
       .catch(function () {
