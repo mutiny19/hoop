@@ -154,6 +154,18 @@
    "archived": false,
    "added": "2026-11-17",
    "image": "assets/projects/corescope.webp"
+  },
+  {
+   "url": "https://github.com/Bgilsing/fwamesh",
+   "category": "Maps and monitoring",
+   "indiana": "made",
+   "title": "FWA Mesh",
+   "name": "fwamesh",
+   "description": "The deployment behind fwamesh.net: a live map, packet analyzer and MQTT observer feed for the Fort Wayne, Indiana MeshCore LoRa mesh.",
+   "license": "MIT",
+   "updated": "2026-11-18",
+   "archived": false,
+   "added": "2026-11-18"
   }
  ]
 }
