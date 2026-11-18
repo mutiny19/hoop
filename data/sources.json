@@ -11,7 +11,7 @@
     "meshcore/"
    ],
    "fails": 0,
-   "checked": "2026-11-11",
+   "checked": "2026-11-18",
    "fp": {
     "hash": "7625e166804d53939a81",
     "words": 44,
@@ -27,7 +27,7 @@
     "meshcore/"
    ],
    "fails": 0,
-   "checked": "2026-11-11",
+   "checked": "2026-11-18",
    "fp": {
     "hash": "c2a423a9f9cb0a177360",
     "words": 6881,
@@ -44,7 +44,7 @@
     "meshcore/"
    ],
    "fails": 0,
-   "checked": "2026-11-11",
+   "checked": "2026-11-18",
    "fp": {
     "hash": "c7eae59264dbb9224bb1",
     "words": 3187,
@@ -59,7 +59,7 @@
     "meshcore/"
    ],
    "fails": 0,
-   "checked": "2026-11-11",
+   "checked": "2026-11-18",
    "fp": {
     "hash": "023c7121cad15dd79989",
     "words": 93,
@@ -74,7 +74,7 @@
     "meshcore/"
    ],
    "fails": 0,
-   "checked": "2026-11-11",
+   "checked": "2026-11-18",
    "fp": {
     "hash": "8df308964fc7bb1c4c62",
     "words": 457,
@@ -89,12 +89,13 @@
     "meshcore/"
    ],
    "fails": 0,
-   "checked": "2026-11-11",
+   "checked": "2026-11-18",
    "fp": {
-    "hash": "5940961bf3a207339369",
-    "words": 389,
-    "sim": "a801453ffcd1ca9a"
-   }
+    "hash": "258f85bf227217b0eda8",
+    "words": 336,
+    "sim": "a211453789cbce9a"
+   },
+   "changed": "2026-11-18"
   },
   {
    "id": "g-oki",
@@ -104,7 +105,7 @@
     "meshcore/"
    ],
    "fails": 0,
-   "checked": "2026-11-11",
+   "checked": "2026-11-18",
    "fp": {
     "hash": "1c2ab03180c35dee2d8b",
     "words": 261,
@@ -119,7 +120,7 @@
     "meshcore/"
    ],
    "fails": 0,
-   "checked": "2026-11-11",
+   "checked": "2026-11-18",
    "fp": {
     "hash": "9e774f8508b62bb762f1",
     "words": 386,
@@ -134,7 +135,7 @@
     "meshcore/"
    ],
    "fails": 0,
-   "checked": "2026-11-11",
+   "checked": "2026-11-18",
    "fp": {
     "hash": "6aab61bc3e8c02f9a949",
     "words": 116,
@@ -149,12 +150,13 @@
     "meshcore/"
    ],
    "fails": 0,
-   "checked": "2026-11-11",
+   "checked": "2026-11-18",
    "fp": {
-    "hash": "9d0fa23503057c4d56fd",
-    "words": 150,
-    "sim": "8201093787b0ab5e"
-   }
+    "hash": "1fb0a6b6a84a67d55568",
+    "words": 259,
+    "sim": "d335253d9729955f"
+   },
+   "changed": "2026-11-18"
   },
   {
    "id": "g-neo",
@@ -164,7 +166,7 @@
     "meshcore/"
    ],
    "fails": 0,
-   "checked": "2026-11-11",
+   "checked": "2026-11-18",
    "fp": {
     "hash": "2d4c4e4f224705e6dc77",
     "words": 51,
@@ -179,7 +181,7 @@
     "meshcore/"
    ],
    "fails": 0,
-   "checked": "2026-11-11",
+   "checked": "2026-11-18",
    "fp": {
     "hash": "fe2f63c98305e3edfb99",
     "words": 142,
@@ -194,7 +196,7 @@
     "meshcore/"
    ],
    "fails": 0,
-   "checked": "2026-11-11",
+   "checked": "2026-11-18",
    "fp": {
     "hash": "d4a1dc195f3c50659dca",
     "words": 222,
@@ -209,7 +211,7 @@
    "used_on": [
     "channels/"
    ],
-   "fails": 1
+   "fails": 2
   },
   {
    "id": "fcc-frs",
@@ -219,7 +221,7 @@
    "used_on": [
     "channels/"
    ],
-   "fails": 1
+   "fails": 2
   },
   {
    "id": "fcc-murs",
@@ -229,7 +231,7 @@
    "used_on": [
     "channels/"
    ],
-   "fails": 1
+   "fails": 2
   },
   {
    "id": "arrl-band",
@@ -239,7 +241,7 @@
     "channels/"
    ],
    "fails": 0,
-   "checked": "2026-11-11",
+   "checked": "2026-11-18",
    "fp": {
     "hash": "273219069d332857ae9d",
     "words": 2276,
@@ -252,8 +254,15 @@
    "url": "https://neimesh.net",
    "used_on": [
     "meshcore/"
-   ]
+   ],
+   "fails": 0,
+   "checked": "2026-11-18",
+   "fp": {
+    "hash": "9fe6075136cad79d017d",
+    "words": 352,
+    "sim": "ece6db2ddd7400d8"
+   }
   }
  ],
- "checked": "2026-11-11"
+ "checked": "2026-11-18"
 }
