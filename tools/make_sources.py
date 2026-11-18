@@ -118,6 +118,7 @@ def item(u, label):
 
 
 def md(label):
+    label = re.sub(r"\s*\(?\b[AKNW][A-Z]?\d[A-Z]{1,3}\b\)?", "", label).strip() or label    # club callsigns stay in the data, not here
     return label.replace("[", "(").replace("]", ")").replace("|", "/")
 
 

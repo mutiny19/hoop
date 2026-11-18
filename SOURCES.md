@@ -177,13 +177,13 @@ Links the pages draw from data, such as each net's own site and each project.
 - [Indiana Statewide / AUXCOMM](https://www.in.gov/dhs/emergency-management-and-preparedness/eoc-operations/communications-and-dispatch/radio-amateur-civil-emergency-service)
 - [IN Section ARES HF Net](https://inarrl.org/index.php/emcomm/indiana-section-ares-hf-net)
 - [Indiana Traffic Net](https://inarrl.org/index.php/traffic)
-- [Tipton County Net (K9TRC)](https://www.k9trc.org/)
+- [Tipton County Net](https://www.k9trc.org/)
 - [Marion County ARES](https://www.mcinares.org/)
 - [Johnson ARES / Mid-State ARC](https://www.midstatehams.org/)
 - [Hamilton Co ARES / CIARA](https://n9eoc.org/)
-- [Hancock County (W9ATG)](https://www.w9atg.org/)
-- [Newsline bulletin (W9IRA)](https://www.w9ira.org/)
-- [Madison Co ARC (W9VCF)](https://www.w9vcf.org/)
+- [Hancock County](https://www.w9atg.org/)
+- [Newsline bulletin](https://www.w9ira.org/)
+- [Madison Co ARC](https://www.w9vcf.org/)
 
 ### Projects (`data/projects.json`)
 
