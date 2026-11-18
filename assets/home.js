@@ -315,7 +315,13 @@
     var lg = $("lgdTropo");
     if (!lg) { lg = document.createElement("div"); lg.id = "lgdTropo"; document.querySelector(".legend").appendChild(lg); }
     lg.hidden = !html;
-    lg.innerHTML = 'Ducting estimate · <span style="color:#C9D3E6">▨</span> striped: extended range, VHF and UHF signals reach somewhat past their usual limit · <span style="color:#E8EEFA">■</span> solid: ducting likely, signals can carry far beyond the horizon, sometimes hundreds of miles · worked out here from NOAA model air data by <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>; an estimate, not a report of contacts';
+    lg.innerHTML = 'Ducting estimate · <span style="color:#4DABF7">■</span><span style="color:#51CF66">■</span> blue to green: extended range · <span style="color:#FFE066">■</span> yellow: ducting likely · <span style="color:#FF922B">■</span><span style="color:#FA5252">■</span> orange to red: strong ducting, signals can carry hundreds of miles · worked out here from NOAA model air data by <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>; an estimate, not a report of contacts';
+  }
+  /* the ramp hams know from tropo forecast maps: cool colors for a little lift, warm for a duct. N-units per km -> color */
+  var RAMP = [[-79, [77, 171, 247]], [-115, [81, 207, 102]], [-157, [255, 224, 102]], [-210, [255, 146, 43]], [-280, [250, 82, 82]]];
+  function rampColor(v) {
+    if (v >= RAMP[0][0]) return RAMP[0][1]; if (v <= RAMP[4][0]) return RAMP[4][1];
+    for (var k = 1; k < RAMP.length; k++) if (v >= RAMP[k][0]) { var a = RAMP[k - 1], b = RAMP[k], f = (a[0] - v) / (a[0] - b[0]); return a[1].map(function (c, n) { return Math.round(c + (b[1][n] - c) * f); }); }
   }
   function refract(tC, rh, hPa) { var T = tC + 273.15, e = rh / 100 * 6.112 * Math.exp(17.62 * tC / (243.12 + tC)); return 77.6 / T * (hPa + 4810 * e / T); }
   function tropo(on, btn) {
@@ -341,7 +347,7 @@
           for (var k = 1; k < lev.length; k++) { var dz = lev[k][0] - lev[k - 1][0]; if (dz >= 50) steep = Math.min(steep, (lev[k][1] - lev[k - 1][1]) / dz * 1000); }
           if (!isFinite(steep) || steep > -79) return;
           var duct = steep <= -157, xy = P(pts[i][0], pts[i][1]);
-          var r = el("rect", { x: (xy[0] - w / 2).toFixed(0), y: (xy[1] - h / 2).toFixed(0), width: w.toFixed(0), height: h.toFixed(0), fill: duct ? "#E8EEFA" : "url(#tropoHatch)", "fill-opacity": duct ? "0.5" : "1" }, frag);
+          var r = el("rect", { x: (xy[0] - w / 2).toFixed(0), y: (xy[1] - h / 2).toFixed(0), width: w.toFixed(0), height: h.toFixed(0), fill: "rgb(" + rampColor(steep).join(",") + ")", "fill-opacity": duct ? "0.8" : "0.6" }, frag);
           el("title", {}, r).textContent = duct ? "Ducting likely: signals can carry far beyond the horizon" : "Extended range: signals reach somewhat past their usual limit";
           if (pts[i][1] > -88.1 && pts[i][1] < -84.8 && pts[i][0] > 37.8 && pts[i][0] < 41.8) IN[pts[i][0] > 40.6 ? "Northern" : pts[i][0] > 39.2 ? "Central" : "Southern"][duct ? 0 : 1]++;
           n++; if (duct) worst++;
