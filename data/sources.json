@@ -52,22 +52,6 @@
    }
   },
   {
-   "id": "mc-114",
-   "label": "MeshCore 1.14 release notes",
-   "url": "https://blog.meshcore.io/2026/03/06/path-diagnostics-improvements",
-   "strict": true,
-   "used_on": [
-    "meshcore/"
-   ],
-   "fails": 0,
-   "checked": "2026-11-11",
-   "fp": {
-    "hash": "152b317c0acb6b831ff9",
-    "words": 746,
-    "sim": "b8766d444f5c8ed8"
-   }
-  },
-  {
    "id": "mc-flasher",
    "label": "MeshCore web flasher",
    "url": "https://flasher.meshcore.io/",

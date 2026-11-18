@@ -164,11 +164,11 @@ details.depth[open] { padding-bottom: 18px; }
   <nav class="site-nav" aria-label="Site">
     <button type="button" class="nav-menu" id="navMenu" aria-expanded="false" aria-controls="navMore"><span class="l-more">More</span><span class="l-menu">Menu</span></button>
     <span class="nav-more" id="navMore">
-      <a class="main" href="../#protocols">Settings</a>
+      <a class="main" href="../channels/">Channels and nets</a>
       <a class="main" href="../meshnet/">#meshnet</a>
       <a href="../#map">Map</a>
       <a href="../live/">Live</a>
-      <a href="../channels/">Channels and nets</a>
+      <a href="../#protocols">Settings</a>
       <a href="../projects/">Projects</a>
       <a href="../emergency/">For agencies</a>
     </span>
@@ -183,7 +183,7 @@ details.depth[open] { padding-bottom: 18px; }
   <header>
     <span class="eyebrow">MeshCore · Indiana · Start here</span>
     <h1>Get on the Indiana mesh</h1>
-    <p class="lead">From a new radio to your first message in five steps. Leave regions alone for now; most Indiana traffic is unscoped.</p>
+    <p class="lead">Five steps from a new radio to your first message. Each one links to MeshCore's own instructions; this page only adds what is particular to Indiana.</p>
     <nav class="progress" aria-label="The five steps"><a href="#s1"><b>1</b> Radio</a><a href="#s2"><b>2</b> Firmware</a><a href="#s3"><b>3</b> App</a><a href="#s4"><b>4</b> Settings</a><a href="#s5"><b>5</b> Hello</a></nav>
   </header>
 
@@ -192,22 +192,20 @@ details.depth[open] { padding-bottom: 18px; }
     <div class="start">
       <div class="step" id="s1"><div>
         <h3>Get a radio</h3>
-        <p><strong>Not sure? Get a SenseCAP T1000-E</strong> (US 915 MHz version, roughly $40). It's a credit-card-sized tracker with its own battery and antenna, nothing to assemble, and it's on the <a href="https://flasher.meshcore.io/" target="_blank" rel="noopener">MeshCore flasher</a> list.</p>
-        <p class="alt">Other good picks: a <strong>Heltec V3 or V4</strong> board (roughly $20 to $30, more flexible; you'll want a case and a small battery), or any other device on the flasher list. Buy the US 915 MHz version.</p>
-<p class="note">Not sure? Ask in the <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Indiana Mesh Discord</a> before you order; someone will tell you what they'd buy today. The MeshCore FAQ has more on <a href="https://docs.meshcore.io/faq/#12-q-what-do-you-need-to-start-using-meshcore" target="_blank" rel="noopener">what you need to start</a>.</p>
+        <p>Any device on the <a href="https://flasher.meshcore.io/" target="_blank" rel="noopener">MeshCore flasher</a> list, in the <strong>US 915 MHz</strong> version. The MeshCore FAQ covers <a href="https://docs.meshcore.io/faq/#12-q-what-do-you-need-to-start-using-meshcore" target="_blank" rel="noopener">what you need to start</a>.</p>
+        <p class="note">Not sure which? The <a href="../gifts/">gift guide</a> has a few examples, or ask in the <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Indiana Mesh Discord</a> what people would buy today.</p>
       </div></div>
       <div class="step" id="s2"><div>
         <h3>Install Companion firmware</h3>
-<p class="note">"Companion" means a radio you carry and control from your phone; rooftop relay boxes run the other kind, Repeater, and you don't need one to start. More in <em>Words you'll see</em>, below.</p>
-        <p>Open the <a href="https://flasher.meshcore.io/" target="_blank" rel="noopener">MeshCore flasher</a> in Chrome or Edge on a computer, plug the radio in by USB, pick your device and choose the <strong>Companion (Bluetooth)</strong> firmware.</p>
+        <p>Open the <a href="https://flasher.meshcore.io/" target="_blank" rel="noopener">MeshCore flasher</a> and choose <strong>Companion</strong>, the kind you carry and run from your phone.</p>
       </div></div>
       <div class="step" id="s3"><div>
         <h3>Install the app and pair</h3>
-        <p>Get the MeshCore app for <a href="https://apps.apple.com/nz/app/meshcore/id6742354151" target="_blank" rel="noopener">iPhone</a>, <a href="https://play.google.com/store/apps/details?id=com.liamcottle.meshcore.android" target="_blank" rel="noopener">Android</a> or the <a href="https://app.meshcore.nz/" target="_blank" rel="noopener">web</a>. Connect to your radio over Bluetooth and give yourself a name.</p>
+        <p>Get the MeshCore app for <a href="https://apps.apple.com/nz/app/meshcore/id6742354151" target="_blank" rel="noopener">iPhone</a>, <a href="https://play.google.com/store/apps/details?id=com.liamcottle.meshcore.android" target="_blank" rel="noopener">Android</a>, or the <a href="https://app.meshcore.nz/" target="_blank" rel="noopener">web</a>, and connect to your radio.</p>
       </div></div>
       <div class="step" id="s4"><div>
-        <h3>Set the US radio settings</h3>
-        <p>In the radio settings pick the <strong id="pn">USA</strong> preset. It must match these, or you'll hear nothing:</p>
+        <h3>Match Indiana's radio settings</h3>
+        <p>Pick the <strong id="pn">USA</strong> preset. It must match these, or you'll hear nothing:</p>
         <div class="radio">
           <div><span>Frequency</span><b id="pf">910.525 MHz</b></div>
           <div><span>Bandwidth</span><b id="pb">62.5 kHz</b></div>
@@ -215,43 +213,33 @@ details.depth[open] { padding-bottom: 18px; }
           <div><span>Coding rate</span><b id="pc">CR5</b></div>
         </div>
         <p class="warn">New radios often ship on the European 869 MHz setting. Always check this step.</p>
-        <p>Then set <strong>Path hash size</strong> to <strong id="ph">2 bytes</strong> (the Optimise screen, or Experimental settings on older app versions). It needs firmware 1.14 or newer.</p>
-        <p class="note">Why these numbers: <a href="https://docs.meshcore.io/faq/#23-q-what-frequencies-are-supported-by-meshcore" target="_blank" rel="noopener">supported frequencies</a> in the MeshCore FAQ; path hash size is explained in the <a href="https://blog.meshcore.io/2026/03/06/path-diagnostics-improvements" target="_blank" rel="noopener">MeshCore 1.14 release notes</a>.</p>
+        <p>Then set <strong>Path hash size</strong> to <strong id="ph">2 bytes</strong>, which is what Indiana's repeaters run. The MeshCore FAQ shows <a href="https://docs.meshcore.io/faq/#393-q-how-do-i-change-my-companions-path-hash-size" target="_blank" rel="noopener">how to change it</a>.</p>
       </div></div>
       <div class="step" id="s5"><div>
         <h3>Say hello</h3>
-        <ul>
-          <li>Send a <strong>flood advert</strong> (the app's "announce me to everyone" button) so nearby people and repeaters learn about you.</li>
-          <li>Post in <strong>Public</strong>, or join <code>#test</code> and send a test message.</li>
-          <li>Seeing "heard repeats" after you send means a repeater picked you up.</li>
-        </ul>
-        <p class="note"><strong>What to expect:</strong> your radio only has to reach one repeater, not the whole state; the repeaters do the rest. If you hear nothing, the fix is almost always height and a nearby repeater, not a different radio. Recheck step 4, put the radio in a window or upstairs, then ask in the <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Indiana Mesh Discord</a> where the nearest repeater is.</p>
+        <p>Send an <a href="https://docs.meshcore.io/faq/#24-q-what-is-an-advert-in-meshcore" target="_blank" rel="noopener">advert</a> so nearby repeaters learn about you, then post in <strong>Public</strong> or <code>#test</code>.</p>
+        <p class="note"><strong>Hear nothing?</strong> The fix is almost always height and a nearby repeater, not a different radio. Recheck step 4, put the radio in a window or upstairs, then ask in the <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Indiana Mesh Discord</a> where the nearest repeater is.</p>
       </div></div>
     </div>
     <p class="note">Tip: add this page to your phone's home screen (Share, then Add to Home Screen) and it opens with no signal. <button type="button" class="btn ghost noprint" id="printStart">Print these five steps</button></p>
   </section>
 
   <details class="depth" id="glossary">
-<summary>Words you'll see, in plain English</summary>
+<summary>Words this site uses</summary>
 <ul class="depth-list">
-<li><strong>Companion</strong><span>A radio you carry and control from your phone over Bluetooth.</span></li>
+<li><strong>Companion</strong><span>A radio you carry and control from your phone.</span></li>
 <li><strong>Repeater</strong><span>A fixed radio, usually on a roof or tower, that relays everyone's messages. Volunteers run them.</span></li>
-<li><strong>Room server</strong><span>A fixed radio that also stores recent messages so you catch up when you come back into range.</span></li>
 <li><strong>Observer</strong><span>A radio connected to the internet that uploads what it hears, so the live maps show real activity.</span></li>
-<li><strong>Flood advert</strong><span>A hello sent to everyone in range, so people and repeaters add you to their lists.</span></li>
-<li><strong>Channel</strong><span>A group chat. Public is built in; hashtag channels like <code>#test</code> are open to anyone who adds the name.</span></li>
-<li><strong>Preset</strong><span>The radio settings (frequency, bandwidth, SF, CR) everyone in a region shares. Radios on different presets can't hear each other.</span></li>
-<li><strong>Region / scope</strong><span>Optional tags repeater owners set so some traffic stays local. Rarely used; ask your local group whether they use them before setting one.</span></li>
-<li><strong>Path hash size</strong><span>How many bytes identify each hop in a message's path. 2 bytes names hops more accurately, and Indiana's repeaters already run 2-byte or newer.</span></li>
-<li><strong>Heard repeats</strong><span>The app's sign that a repeater picked up your message.</span></li>
+<li><strong>Region / scope</strong><span>Optional tags repeater owners set so some traffic stays local. Rare in Indiana; ask your local group before setting one.</span></li>
 </ul>
+<p class="note">Everything else is in the <a href="https://docs.meshcore.io/faq/" target="_blank" rel="noopener">MeshCore FAQ</a>.</p>
 </details>
 <details class="depth" id="hear">
-<summary>Hear more: channels, regions, and state lines</summary>
+<summary>Channels, regions, and state lines</summary>
 <ul class="depth-list">
-<li><strong>Channels</strong><span>Public is built in. The channels Indiana uses are listed in the <a href="../#protocols">MeshCore settings on the home page</a>; tap one to copy its name. In <code>#porchlight</code>, people share channels worth joining.</span></li>
-<li><strong>Regions: rare, so ask</strong><span>Most people leave region and default scope unset. Unscoped messages go out to everyone, and you still receive everything that reaches you. If the people near you use regions, match them; if a channel gets too busy, muting it is simpler than scoping it.</span></li>
-<li><strong>Near a state line?</strong><span>Nothing extra to set: Ohio, Kentucky, Michigan, and Illinois use the same radio settings as Indiana, so you hear repeaters on both sides. Unscoped messages are what cross the line, because a scoped message stops at the first repeater without its tag. Join the group on the other side too.</span></li>
+<li><strong>Channels</strong><span>The channels Indiana uses are in the <a href="../#protocols">MeshCore settings on the home page</a>; tap one to copy its name.</span></li>
+<li><strong>Regions</strong><span>Most people here leave region and scope unset. If the people near you use them, match theirs.</span></li>
+<li><strong>Near a state line?</strong><span>Nothing extra to set: Ohio, Kentucky, Michigan, and Illinois use the same radio settings, so you hear repeaters on both sides. Join the group on the other side too.</span></li>
 </ul>
 </details>
 

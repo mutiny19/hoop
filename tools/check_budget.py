@@ -21,7 +21,7 @@ ROOT = Path(__file__).resolve().parent.parent
 # page -> most words visible on load. None = exempt, with the reason.
 BUDGETS = {
     "index.html": 500,
-    "meshcore/index.html": 900,
+    "meshcore/index.html": 730,
     "meshnet/index.html": 750,
     "live/index.html": 460,
     "channels/index.html": 650,

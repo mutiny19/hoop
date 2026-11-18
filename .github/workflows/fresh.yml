@@ -1,0 +1,35 @@
+name: Weekly stale-data check
+
+on:
+  schedule:
+    - cron: "37 14 * * 3"   # Wednesdays, mid-morning in Indiana
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  fresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check each data file's date
+        id: check
+        run: |
+          set +e
+          python3 tools/check_fresh.py > stale.txt
+          echo "status=$?" >> "$GITHUB_OUTPUT"
+          cat stale.txt
+      - name: Open, update or close the stale-data issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create stale-data --color FAB005 --description "A scheduled job has stopped writing its data file" --force >/dev/null
+          num=$(gh issue list --label stale-data --state open --json number --jq '.[0].number')
+          if [ "${{ steps.check.outputs.status }}" != "0" ]; then
+            body=$(printf "These data files are older than their schedule allows, so the job that writes each one has probably stopped. Open the Actions tab, find the workflow named below, and read its last run.\n\n%s\n" "$(cat stale.txt)")
+            if [ -n "$num" ]; then gh issue edit "$num" --body "$body"; else gh issue create --title "Stale data: a scheduled job has stopped" --label stale-data --body "$body"; fi
+          elif [ -n "$num" ]; then
+            gh issue close "$num" --comment "Every data file is current again."
+          fi
