@@ -28,7 +28,7 @@ Search and replace these strings. Each one is plain text; nothing is generated.
 | `https://discord.gg/2uwyceSF37` | about thirty links across the pages, issue templates, and docs (`grep -rl "discord.gg" .` lists the files) | your community's invite, or remove the link |
 | `Indiana Mesh` | the Discord community the site points people to, and the author name this repo's own commits use (see `CLAUDE.md`) | your community |
 | `hoop-v` in `sw.js`, and the `ioc-theme` and `hoop-tropo` keys | the offline cache name and two saved settings | any names of your own |
-| `assets/mark.svg`, `assets/favicon.svg`, `assets/icon-*.png`, `assets/social.png` | logo, tab icon, app icons, social image | your own |
+| `assets/mark.svg`, `assets/favicon.svg`, `assets/icon-*.png`, `assets/social.png` | logo, tab icon, app icons, link-preview picture (`node tools/social_image.js` redraws it from the logo; then bump its `?v=` on every page) | your own |
 
 `grep -rn "Indiana" --include=*.html .` lists the prose that still mentions the state. Most of it
 is on the home page, the start page, and the #meshnet page.
