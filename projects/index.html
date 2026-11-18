@@ -58,7 +58,17 @@ section { display: grid; gap: 14px; }
 .cathead a { font-size: .9rem; }
 .tag.new { border-color: var(--signal); color: var(--signal); font-weight: 700; }
 .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 14px; }
-.card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: grid; gap: 8px; align-content: start; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 8px 14px; align-content: start; }
+.card > p, .card > .meta { grid-column: 1 / -1; }
+.card h3 { align-self: center; }
+/* One picture slot per card, all the same size: the project's own logo or photo, or a plain icon for its category.
+   Gray until the card is pointed at or focused, so no card outshouts another; in color where there is no hover (touch). */
+.thumb { width: 64px; height: 64px; border-radius: 12px; border: 1px solid var(--line); background: var(--bg); overflow: hidden; display: grid; place-items: center; color: var(--muted); }
+.thumb img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(1); opacity: .85; transition: filter .25s ease, opacity .25s ease; }
+.thumb svg { width: 34px; height: 34px; }
+.card:hover .thumb img, .card:focus-within .thumb img { filter: none; opacity: 1; }
+@media (hover: none) { .thumb img { filter: none; opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .thumb img { transition: none; } }
 .card h3 a { color: inherit; text-decoration: none; word-break: break-word; }
 .card h3 a:hover { text-decoration: underline; }
 .card p { color: var(--muted); font-size: .95rem; }
@@ -142,6 +152,14 @@ section { display: grid; gap: 14px; }
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   function month(d) { if (!d) return ""; var t = new Date(d + "T12:00:00"); return isNaN(t) ? "" : t.toLocaleDateString("en-US", { month: "short", year: "numeric" }); }
   function name(p) { if (p.title) return p.title; if (p.name) return p.name; var m = /github\.com\/[^\/]+\/([^\/?#]+)/.exec(p.url); return m ? m[1] : p.url; }
+  var ICON = {
+    "Mesh firmware": '<rect x="9" y="9" width="14" height="14" rx="2"/><path d="M13 13h6v6h-6zM12 9V5M16 9V5M20 9V5M12 27v-4M16 27v-4M20 27v-4M9 12H5M9 16H5M9 20H5M27 12h-4M27 16h-4M27 20h-4"/>',
+    "Mesh apps and tools": '<rect x="10" y="4" width="12" height="24" rx="2.5"/><path d="M14 8h4M15 24h2"/>',
+    "Enclosures and 3D prints": '<path d="M16 4l11 6v12l-11 6-11-6V10zM5 10l11 6 11-6M16 16v12"/>',
+    "Ham and GMRS tools": '<path d="M11 11h9a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1h-9a1 1 0 0 1-1-1V12a1 1 0 0 1 1-1zM12 11V3M13 15h5v4h-5zM13 23h5"/>',
+    "Maps and monitoring": '<path d="M4 8l8-3 8 3 8-3v19l-8 3-8-3-8 3zM12 5v19M20 8v19"/>',
+    "Other": '<circle cx="16" cy="16" r="3"/><path d="M9.5 9.5a9 9 0 0 0 0 13M22.5 9.5a9 9 0 0 1 0 13"/>'
+  };
   function host(p) { return /makerworld\.com/.test(p.url) ? "MakerWorld" : p.kind === "site" ? "Website" : /printables\.com/.test(p.url) ? "Printables" : "GitHub"; }
   function card(p) {
     var meta = [];
@@ -151,7 +169,9 @@ section { display: grid; gap: 14px; }
     meta.push("<span>" + host(p) + "</span>");
     if (p.license) meta.push("<span>" + esc(p.license) + "</span>");
     if (p.updated) meta.push("<span>Updated " + esc(month(p.updated)) + "</span>");
-    return '<article class="card"><h3><a href="' + esc(p.url) + '" target="_blank" rel="noopener">' + esc(name(p)) + "</a></h3>" +
+    var pic = p.image ? '<img src="../' + esc(p.image) + '" alt="" width="64" height="64" loading="lazy" decoding="async">'
+      : '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (ICON[p.category] || ICON.Other) + "</svg>";
+    return '<article class="card"><span class="thumb">' + pic + '</span><h3><a href="' + esc(p.url) + '" target="_blank" rel="noopener">' + esc(name(p)) + "</a></h3>" +
       (p.description ? "<p>" + esc(p.description) + "</p>" : "") + '<div class="meta">' + meta.join("") + "</div></article>";
   }
   function render() {

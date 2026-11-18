@@ -1,5 +1,5 @@
 {
- "about": "Off-grid communications projects made or used in Indiana. Submitted through the 'Add a project' issue form; name, description, license, and last update come from each project's own page and are refreshed weekly by tools/projects.py. Listing is not endorsement.",
+ "about": "Off-grid communications projects made or used in Indiana. Submitted through the 'Add a project' issue form; name, description, license, and last update come from each project's own page and are refreshed weekly by tools/projects.py. Listing is not endorsement. An optional image is the project's own logo or a maker's photo, kept as a small file in assets/projects/; never a personal account's avatar.",
  "categories": [
   "Mesh firmware",
   "Mesh apps and tools",
@@ -17,7 +17,8 @@
    "description": "A new lightweight, hybrid routing mesh protocol for packet radios",
    "license": "MIT",
    "updated": "2026-11-16",
-   "archived": false
+   "archived": false,
+   "image": "assets/projects/meshcore.webp"
   },
   {
    "url": "https://github.com/meshtastic/firmware",
@@ -40,7 +41,8 @@
    "title": "Offband",
    "category": "Mesh firmware",
    "indiana": "used",
-   "added": "2026-11-07"
+   "added": "2026-11-07",
+   "image": "assets/projects/offband.webp"
   },
   {
    "url": "https://github.com/slack-space/meshage-community",
@@ -74,7 +76,8 @@
    "title": "Offband MeshCore",
    "category": "Mesh apps and tools",
    "indiana": "used",
-   "added": "2026-11-07"
+   "added": "2026-11-07",
+   "image": "assets/projects/offband.webp"
   },
   {
    "url": "https://github.com/mutiny19/porchlight-openhop-plugin",
@@ -109,7 +112,8 @@
    "archived": false,
    "category": "Ham and GMRS tools",
    "indiana": "made",
-   "added": "2026-11-11"
+   "added": "2026-11-11",
+   "image": "assets/projects/indiana-ham-radio.webp"
   },
   {
    "url": "https://github.com/OKI-Mesh/CoreScope",
@@ -131,7 +135,8 @@
    "archived": false,
    "category": "Enclosures and 3D prints",
    "indiana": "made",
-   "added": "2026-11-17"
+   "added": "2026-11-17",
+   "image": "assets/projects/birdhouse-drz.webp"
   }
  ]
 }
