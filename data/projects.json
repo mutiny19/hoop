@@ -89,7 +89,8 @@
    "category": "Mesh apps and tools",
    "indiana": "made",
    "added": "2026-11-06",
-   "title": "Porchlight"
+   "title": "Porchlight",
+   "image": "assets/projects/porchlight.webp"
   },
   {
    "url": "https://github.com/kk7ds/chirp",
@@ -100,7 +101,8 @@
    "description": "Official git repo for the CHIRP project",
    "license": "GPL-3.0",
    "updated": "2026-11-17",
-   "archived": false
+   "archived": false,
+   "image": "assets/projects/chirp.webp"
   },
   {
    "url": "https://indianahamradio.com/",
@@ -123,7 +125,8 @@
    "description": "MeshCore mesh network analyzer — live packet visualization, VCR replay, channel decryption, node health, analytics",
    "license": "GPL-3.0",
    "updated": "2026-11-16",
-   "archived": false
+   "archived": false,
+   "image": "assets/projects/corescope.webp"
   },
   {
    "url": "https://makerworld.com/en/models/3635220-birdhouse-drz",
