@@ -95,6 +95,7 @@ p { margin: 0; }
 .mapbox { min-width: 0; position: relative; background: var(--map-panel); border: 1px solid var(--map-line); border-radius: 12px; overflow: hidden; }
 .mapbox svg { display: block; width: 100%; height: auto; aspect-ratio: 1150 / 1240; }
 .srcbadge { background: #FFD43B; color: #16223C; font: 500 12px/1.4 var(--mono); letter-spacing: .5px; padding: 6px 12px; }   /* a strip above the map, never on it */
+.srcbadge.tropo { background: #E7ECF5; }
 /* The legend sits under the map, never on it, so it cannot cover any part of the state. */
 .legend { background: var(--map-bg); color: var(--map-muted); border-top: 1px solid var(--map-line); padding: 10px 14px; font-size: 12.5px; line-height: 1.7; }
 .legend a { color: #FFD566; }
@@ -458,12 +459,14 @@ p { margin: 0; }
       <button type="button" class="layer" data-layer="meshcore" aria-pressed="true">✓ MeshCore repeaters</button>
       <button type="button" class="layer" data-layer="weather" aria-pressed="true">✓ Weather alerts</button>
       <button type="button" class="layer" data-layer="nets" aria-pressed="true">✓ Nets</button>
+      <button type="button" class="layer" data-layer="tropo" aria-pressed="false">Ducting estimate</button>
     </div>
     </details>
 
     <div class="mapgrid">
       <div class="mapbox">
         <div class="srcbadge" id="srcbadge">REPEATERS: MAP.MESHCORE.IO · ALERTS: NWS, LIVE</div>
+        <div class="srcbadge tropo" id="srcTropo" hidden></div>
         <svg id="mapsvg" viewBox="-245 -130 1150 1240" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="mapTitle">
           <title id="mapTitle">Map of Indiana and neighboring states showing MeshCore repeaters and active National Weather Service alerts</title>
           <g fill="#111827" stroke="#3A4766" stroke-width="1.5" aria-hidden="true">
@@ -484,6 +487,8 @@ p { margin: 0; }
           <text x="560" y="1060">KENTUCKY</text>
           </g>
           <text x="140" y="-120" fill="#3B6A85" font-family="IBM Plex Mono, monospace" font-size="14" font-style="italic">Lake Michigan</text>
+          <defs><filter id="tropoBlur" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="55"/></filter></defs>
+          <g id="lyr-tropo" filter="url(#tropoBlur)" style="display:none" aria-hidden="true"></g>
           <g id="lyr-weather"></g>
           <g id="lyr-meshcore"></g>
           <g fill="#DDE3E0" font-family="Archivo, sans-serif" font-size="15" font-weight="600">
@@ -561,7 +566,7 @@ p { margin: 0; }
 
 <script>(function(){try{if(window.matchMedia("(min-width: 861px)").matches)["reportFold","layerFold"].forEach(function(i){var d=document.getElementById(i);if(d)d.open=true;});}catch(e){}})();</script>
 <script src="assets/nets.js?v=20261111w"></script>
-<script src="assets/home.js?v=20261112h"></script>
+<script src="assets/home.js?v=20261118a"></script>
 <script src="assets/chirps.js?v=20261111t"></script>
 <script src="assets/site.js?v=20261112c"></script>
 </body>

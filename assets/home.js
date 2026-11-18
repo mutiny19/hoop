@@ -300,8 +300,60 @@
       b.setAttribute("aria-pressed", String(on));
       b.textContent = (on ? "✓ " : "") + b.textContent.replace(/^✓ /, "");
       $("lyr-" + id).style.display = on ? "" : "none";
+      if (id === "tropo") tropo(on, b);
     });
   });
+
+  /* ---------- ducting estimate: loaded only when its layer is switched on ----------
+     NOAA model air temperature and humidity at the surface and six heights, from Open-Meteo (one request for a grid of
+     points over the map). For each point: radio refractivity N at each height, then the steepest drop in N per km in the
+     lowest 1.5 km. Past -79 N/km signals bend further than usual; past -157 N/km they are trapped, which is ducting.
+     An estimate of conditions, not a report of contacts; the Hepburn maps linked beside the map are the reference. */
+  var TROPO = { lons: [-89.4, -88.4, -87.4, -86.4, -85.4, -84.4, -83.4], lats: [37.3, 38.014, 38.729, 39.443, 40.157, 40.871, 41.586, 42.3], hpa: [1000, 975, 950, 925, 900, 850], drawn: false };
+  function tropoNote(html) {
+    $("srcTropo").hidden = !html; $("srcTropo").innerHTML = html || "";
+    var lg = $("lgdTropo");
+    if (!lg) { lg = document.createElement("div"); lg.id = "lgdTropo"; document.querySelector(".legend").appendChild(lg); }
+    lg.hidden = !html;
+    lg.innerHTML = '<span style="color:#C9D3E6">▒</span> Ducting estimate: pale haze where signals should carry further than usual, brighter where they may be trapped in a duct · worked out here from NOAA model air data by <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> · an estimate, not a report of contacts';
+  }
+  function refract(tC, rh, hPa) { var T = tC + 273.15, e = rh / 100 * 6.112 * Math.exp(17.62 * tC / (243.12 + tC)); return 77.6 / T * (hPa + 4810 * e / T); }
+  function tropo(on, btn) {
+    if (!on) { tropoNote(""); return; }
+    if (TROPO.drawn) { tropoNote(TROPO.note); return; }
+    tropoNote("DUCTING ESTIMATE: LOADING…");
+    var pts = []; TROPO.lats.forEach(function (la) { TROPO.lons.forEach(function (lo) { pts.push([la, lo]); }); });
+    var vars = ["temperature_2m", "relative_humidity_2m", "surface_pressure"];
+    TROPO.hpa.forEach(function (l) { vars.push("temperature_" + l + "hPa", "relative_humidity_" + l + "hPa", "geopotential_height_" + l + "hPa"); });
+    fetch("https://api.open-meteo.com/v1/forecast?latitude=" + pts.map(function (p) { return p[0]; }).join(",") + "&longitude=" + pts.map(function (p) { return p[1]; }).join(",") + "&hourly=" + vars.join(",") + "&forecast_hours=1&timezone=GMT")
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (d) {
+        if (!Array.isArray(d) || d.length !== pts.length) throw new Error("shape");
+        var g = $("lyr-tropo"), frag = document.createDocumentFragment(), w = 191.3, h = 250 * (TROPO.lats[1] - TROPO.lats[0]), worst = 0, n = 0;
+        d.forEach(function (loc, i) {
+          var hr = loc.hourly, ground = loc.elevation || 0, lev = [[ground + 2, refract(hr.temperature_2m[0], hr.relative_humidity_2m[0], hr.surface_pressure[0])]];
+          TROPO.hpa.forEach(function (l) {
+            var z = hr["geopotential_height_" + l + "hPa"][0], t = hr["temperature_" + l + "hPa"][0], rh = hr["relative_humidity_" + l + "hPa"][0];
+            if (z == null || t == null || rh == null || z < ground + 50) return;      // a pressure level under the ground is not real air
+            lev.push([z, refract(t, rh, l)]);
+          });
+          var steep = 0;
+          for (var k = 1; k < lev.length; k++) { var dz = lev[k][0] - lev[k - 1][0]; if (dz >= 50) steep = Math.min(steep, (lev[k][1] - lev[k - 1][1]) / dz * 1000); }
+          if (!isFinite(steep) || steep > -79) return;
+          var duct = steep <= -157, op = duct ? 0.5 : 0.13 + 0.17 * Math.min(1, (-steep - 79) / 78), xy = P(pts[i][0], pts[i][1]);
+          el("rect", { x: (xy[0] - w / 2).toFixed(0), y: (xy[1] - h / 2).toFixed(0), width: w.toFixed(0), height: h.toFixed(0), fill: "#E8EEFA", "fill-opacity": op.toFixed(2) }, frag);
+          n++; if (duct) worst++;
+        });
+        g.textContent = ""; g.appendChild(frag); TROPO.drawn = true;
+        var when = new Date(d[0].hourly.time[0] + "Z").toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+        TROPO.note = "DUCTING ESTIMATE: NOAA MODEL VIA OPEN-METEO, " + when.toUpperCase() + " · " + (worst ? "DUCTING LIKELY IN PARTS OF THE MAP" : n ? "EXTENDED RANGE IN PARTS OF THE MAP, NO DUCTING" : "NOTHING UNUSUAL RIGHT NOW");
+        if (btn.getAttribute("aria-pressed") === "true") tropoNote(TROPO.note);
+      })
+      .catch(function () {
+        tropoNote("DUCTING ESTIMATE: NOT AVAILABLE RIGHT NOW");
+        btn.setAttribute("aria-pressed", "false"); btn.textContent = btn.textContent.replace(/^✓ /, ""); $("lyr-tropo").style.display = "none";
+      });
+  }
 
   /* ---------- interstate coverage + where repeaters are needed: nightly from the MeshCore Map and Census data ---------- */
   var ROADS = [["I-64", ["Posey", "Vanderburgh", "Gibson", "Warrick", "Spencer", "Dubois", "Perry", "Crawford", "Harrison", "Floyd"]], ["I-65", ["Lake", "Jasper", "Newton", "White", "Tippecanoe", "Clinton", "Boone", "Marion", "Hendricks", "Shelby", "Johnson", "Bartholomew", "Jackson", "Scott", "Clark"]], ["I-69", ["Steuben", "DeKalb", "Allen", "Huntington", "Wells", "Grant", "Delaware", "Madison", "Hamilton", "Marion", "Monroe", "Greene", "Daviess", "Pike", "Gibson", "Warrick", "Vanderburgh"]], ["I-70", ["Vigo", "Clay", "Putnam", "Hendricks", "Morgan", "Marion", "Hancock", "Henry", "Wayne"]], ["I-74", ["Vermillion", "Fountain", "Montgomery", "Hendricks", "Boone", "Marion", "Shelby", "Decatur", "Rush", "Ripley", "Franklin", "Dearborn"]], ["I-80/90", ["Lake", "Porter", "LaPorte", "St. Joseph", "Elkhart", "LaGrange", "Steuben"]], ["I-94", ["Lake", "Porter", "LaPorte"]]];   // Indiana counties each interstate passes through (geography)
