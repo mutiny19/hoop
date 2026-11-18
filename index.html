@@ -283,6 +283,7 @@ p { margin: 0; }
 .xfold { border: 1px solid var(--line); border-radius: 10px; background: var(--bg); }
 .xfold > summary { cursor: pointer; font-weight: 700; padding: 14px 16px; min-height: 44px; }
 .xfold > summary:focus-visible { outline: 3px solid var(--signal); outline-offset: 2px; border-radius: 10px; }
+.xh { margin: 0; font: 700 1rem/1.3 var(--body); padding: 14px 16px 10px; }   /* always-open blocks in the MeshCore card */
 .xbody { padding: 0 16px 16px; display: grid; gap: 14px; }
 .xbody .tiles, .xbody .dashrow { margin: 0; }
 .xbody .yourcounty, .xbody .support { padding: 0; }
@@ -390,7 +391,7 @@ p { margin: 0; }
   <div class="acc" id="acc"></div>
 <div id="mcHold" hidden>
 <div id="mcExtras" class="mc-extras">
-<details class="xfold"><summary>Indiana right now</summary>
+<div class="xfold xopen"><h3 class="xh">Indiana right now</h3>
 <div class="xbody">
 <div class="tiles" id="mctiles"></div>
 <div class="dashrow" id="dashRow">
@@ -404,8 +405,8 @@ p { margin: 0; }
         <div class="cov" id="cov"></div>
       </section>
     </div>
-</div></details>
-<details class="xfold"><summary>Your county</summary>
+</div></div>
+<div class="xfold xopen"><h3 class="xh">Your county</h3>
 <div class="xbody">
 <section id="yourcounty" class="yourcounty" aria-label="Your county">
   <div class="ccard">
@@ -413,7 +414,7 @@ p { margin: 0; }
     <div id="myCountyOut" class="cout" hidden></div>
   </div>
 </section>
-</div></details>
+</div></div>
 <details class="xfold"><summary>Keep Indiana on the air: ways to help</summary>
 <div class="xbody">
 <section id="support" class="support" aria-label="Keep Indiana on the air">
