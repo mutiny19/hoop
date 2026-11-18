@@ -1,0 +1,54 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face { font-family: Archivo; src: url(FONTS/archivo.woff2) format("woff2"); font-weight: 100 900; }
+@font-face { font-family: Plex; src: url(FONTS/plex-mono-500.woff2) format("woff2"); font-weight: 500; }
+* { box-sizing: border-box; margin: 0; }
+body { width: 1080px; height: 1350px; background: #0D1320; color: #F6F4EE; font-family: Archivo, sans-serif; position: relative; overflow: hidden; }
+.bar { height: 14px; background: #F2B500; position: relative; z-index: 3; }
+.glow { position: absolute; inset: 0 0 auto 0; height: 430px; background: radial-gradient(900px 420px at 78% 0%, rgba(35,71,143,.75), rgba(13,19,32,0) 70%), linear-gradient(#16223C, #0D1320); z-index: 0; }
+.rings { position: absolute; right: -150px; top: -190px; width: 640px; height: 640px; z-index: 0; opacity: .7; }
+.mark { position: absolute; right: 84px; top: 44px; width: 109px; height: 170px; z-index: 1; }
+main { position: relative; z-index: 2; padding: 76px 72px 0; }
+.eyebrow { font-weight: 800; font-size: 31px; letter-spacing: .13em; color: #F2B500; }
+h1 { font-size: 122px; font-weight: 900; line-height: 1.02; letter-spacing: -.02em; margin-top: 4px; }
+ul { list-style: none; padding: 0; margin-top: 12px; font-size: 30px; line-height: 1.38; color: #D6DCEA; }
+li::before { content: ""; display: inline-block; width: 13px; height: 13px; border-radius: 50%; background: #F2B500; margin-right: 15px; transform: translateY(-3px); }
+li b { color: #fff; font-weight: 800; }
+.row { display: grid; grid-template-columns: 178px 1fr; border-top: 2px solid #2B3852; padding: 14px 0 20px; margin-top: 20px; }
+.row + .row { margin-top: 0; }
+.k { font-weight: 800; font-size: 29px; letter-spacing: .13em; color: #F2B500; padding-top: 22px; }
+.k small { display: block; font-weight: 600; font-size: 27px; letter-spacing: 0; color: #F6F4EE; line-height: 1.22; margin-top: 12px; }
+.big { font-size: 45px; font-weight: 800; color: #fff; }
+.v p { font-size: 28px; color: #C5CDDE; line-height: 1.32; margin-top: 6px; }
+.v p .u { color: #F2B500; font-weight: 600; }
+.code { display: inline-block; background: #F6F4EE; color: #16223C; font: 500 40px/1 Plex, monospace; padding: 14px 18px; border-radius: 8px; }
+.v p.l { font-size: 33px; color: #D6DCEA; line-height: 1.3; margin-top: 12px; }
+.v p.l b { color: #fff; font-weight: 800; }
+.foot { border-top: 2px solid #2B3852; margin-top: 0; padding-top: 16px; font-size: 30px; line-height: 1.26; color: #D6DCEA; }
+.foot p { margin-bottom: 11px; }
+.foot b { color: #fff; font-weight: 700; }
+.foot .warn b { color: #F2B500; }
+.foot .own { font-size: 33px; }
+.url { font: 500 38px/1 Plex, monospace; color: #F2B500; white-space: nowrap; }
+.url small { font: 500 26px/1 Archivo, sans-serif; color: #C5CDDE; margin-left: 10px; }
+</style></head><body>
+<div class="bar"></div><div class="glow"></div>
+<svg class="rings" viewBox="0 0 640 640" fill="none" stroke="#A9C6F5" stroke-width="2"><circle cx="320" cy="320" r="7" fill="#F2B500" stroke="none"/><circle cx="320" cy="320" r="60" opacity=".6"/><circle cx="320" cy="320" r="120" opacity=".5"/><circle cx="320" cy="320" r="200" opacity=".35"/><circle cx="320" cy="320" r="285" opacity=".2"/></svg>
+<main>
+  <div class="eyebrow">TEN MINUTES · EVERYONE AT ONCE</div>
+  <h1>#meshnet</h1>
+  <ul>
+    <li><b>Ten tight minutes</b> load the mesh like an emergency would.</li>
+    <li><b>Spread-out posts</b> rarely collide, so they test little.</li>
+    <li><b>One shared time</b> tests the links between neighboring meshes.</li>
+    <li><b>Find</b> dead spots, weak repeaters, and neighbors on the air.</li>
+  </ul>
+  <div class="row"><div class="k">WHEN<small>Sundays<br>and<br>Thursdays</small></div><div class="v"><div class="big">7:00 to 7:10 PM US Eastern</div>WHENLINES</div></div>
+  <div class="row"><div class="k">WHERE</div><div class="v"><div class="big">#meshnet</div><p style="font-size:32px">MeshCore hashtag channel, all lowercase</p></div></div>
+  <div class="row"><div class="k">POST</div><div class="v"><span class="code">KUMP, Heltec V3, 4 months</span><p class="l">Start with your closest small airfield code, KXXX. Send <b>at least 5 times from each radio</b>. Reply with a mention or “heard”.</p></div></div>
+  <div class="foot">
+    <p><b>Welcome, new meshheads.</b> Advanced meshers, land here.</p>
+    <p class="warn"><b>If there is severe weather or any emergency on the mesh, the net is postponed.</b> <span style="color:#fff;font-weight:600">Emergency traffic always comes first.</span></p>
+    <p class="own"><b>No one owns #meshnet or the idea.</b> Make it your own, but keep the same time so we all test together.</p>
+    <div class="url">mutiny19.github.io/hoop/meshnet<small>Guidance only</small></div>
+  </div>
+</main></body></html>
