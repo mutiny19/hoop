@@ -300,7 +300,7 @@
       b.setAttribute("aria-pressed", String(on));
       b.textContent = (on ? "✓ " : "") + b.textContent.replace(/^✓ /, "");
       $("lyr-" + id).style.display = on ? "" : "none";
-      if (id === "tropo") tropo(on, b);
+      if (id === "tropo") { tropo(on, b); try { localStorage.setItem("hoop-tropo", on ? "on" : "off"); } catch (e) {} }
     });
   });
 
@@ -309,6 +309,17 @@
      points over the map). For each point: radio refractivity N at each height, then the steepest drop in N per km in the
      lowest 1.5 km. Past -79 N/km signals bend further than usual; past -157 N/km they are trapped, which is ducting.
      An estimate of conditions, not a report of contacts; the Hepburn maps linked beside the map are the reference. */
+  /* On by default. It loads when the map first scrolls into view, so a visit that never reaches the map asks Open-Meteo
+     for nothing; a visitor who switches it off stays switched off on this device. */
+  (function () {
+    var btn = document.querySelector('.layer[data-layer="tropo"]'), off = false;
+    try { off = localStorage.getItem("hoop-tropo") === "off"; } catch (e) {}
+    if (off) { btn.setAttribute("aria-pressed", "false"); btn.textContent = btn.textContent.replace(/^✓ /, ""); $("lyr-tropo").style.display = "none"; return; }
+    var go = function () { if (btn.getAttribute("aria-pressed") === "true") tropo(true, btn); };
+    if (!("IntersectionObserver" in window)) { setTimeout(go, 1500); return; }
+    var io = new IntersectionObserver(function (es) { if (es.some(function (e) { return e.isIntersecting; })) { io.disconnect(); go(); } }, { rootMargin: "300px" });
+    io.observe($("mapsvg"));
+  })();
   var TROPO = { lons: [-89.25, -88.75, -88.25, -87.75, -87.25, -86.75, -86.25, -85.75, -85.25, -84.75, -84.25, -83.75, -83.25], lats: [37.5, 38, 38.5, 39, 39.5, 40, 40.5, 41, 41.5, 42], hpa: [1000, 975, 950, 925, 900, 850], drawn: false };
   function tropoNote(html) {
     $("srcTropo").hidden = !html; $("srcTropo").innerHTML = html || "";
