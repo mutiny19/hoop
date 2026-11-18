@@ -245,6 +245,14 @@
     "words": 2276,
     "sim": "889f0d79958bcf1c"
    }
+  },
+  {
+   "id": "g-nei",
+   "label": "NEIMesh",
+   "url": "https://neimesh.net",
+   "used_on": [
+    "meshcore/"
+   ]
   }
  ],
  "checked": "2026-11-11"
