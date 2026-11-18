@@ -9,16 +9,6 @@
  "unscheduled": 54,
  "weekly": [
   {
-   "time": "17:00",
-   "name": "Indiana Section ARES HF Net",
-   "freq": "3.900 / 7.280",
-   "access": "LSB",
-   "type": "HF",
-   "county": "Statewide",
-   "link": "https://inarrl.org/index.php/traffic",
-   "day": "Sun"
-  },
-  {
    "time": "18:30",
    "name": "Sunday Evening DMR Net",
    "freq": "TG 314987",
@@ -26,16 +16,6 @@
    "type": "Digital",
    "county": "Randolph",
    "link": "https://rcarc.net",
-   "day": "Sun"
-  },
-  {
-   "time": "19:00",
-   "name": "Mid-State Amateur Radio Club Net",
-   "freq": "146.835",
-   "access": "PL 151.4",
-   "type": "Ham",
-   "county": "Johnson",
-   "link": "https://midstatehams.org/marc-repeaters/",
    "day": "Sun"
   },
   {
@@ -66,16 +46,6 @@
    "type": "Ham",
    "county": "Delaware",
    "link": "https://www.wb9hxg.net/p/area-nets.html",
-   "day": "Sun"
-  },
-  {
-   "time": "20:00",
-   "name": "Hamilton County ARES Net",
-   "freq": "145.170 / 443.550",
-   "access": "PL 77.0",
-   "type": "Ham",
-   "county": "Hamilton",
-   "link": "https://hcinares.org/",
    "day": "Sun"
   },
   {
@@ -125,16 +95,6 @@
    "access": "PL 127.3",
    "type": "Ham",
    "county": "Henry",
-   "link": "https://www.wb9hxg.net/p/area-nets.html",
-   "day": "Sun"
-  },
-  {
-   "time": "21:00",
-   "name": "Anderson ARES/RACES Net",
-   "freq": "444.675",
-   "access": "PL 110.9",
-   "type": "Ham",
-   "county": "Madison",
    "link": "https://www.wb9hxg.net/p/area-nets.html",
    "day": "Sun"
   },
@@ -219,26 +179,6 @@
    "day": "Mon"
   },
   {
-   "time": "19:00",
-   "name": "Tipton County Amateur Radio Club Net",
-   "freq": "443.125",
-   "access": "",
-   "type": "Ham",
-   "county": "Tipton",
-   "link": "https://www.k9trc.org/",
-   "day": "Mon"
-  },
-  {
-   "time": "19:30",
-   "name": "BRVARS/ARES Net",
-   "freq": "145.480",
-   "access": "PL 88.5",
-   "type": "Ham",
-   "county": "Shelby",
-   "link": "https://brvars.com/emcomm/monday-night-net-script/",
-   "day": "Mon"
-  },
-  {
    "time": "19:30",
    "name": "Monroe County ARES Net",
    "freq": "146.640",
@@ -276,16 +216,6 @@
    "type": "Ham",
    "county": "Crawford",
    "link": "https://www.arrl.org/webroot/resources/nets/client/netdetail.html?mfind=3318",
-   "day": "Mon"
-  },
-  {
-   "time": "20:00",
-   "name": "Crossroads DMR Net",
-   "freq": "TG 31189",
-   "access": "DMR",
-   "type": "Digital",
-   "county": "Statewide",
-   "link": "https://www.wb9hxg.net/p/area-nets.html",
    "day": "Mon"
   },
   {
@@ -499,16 +429,6 @@
   },
   {
    "time": "19:30",
-   "name": "Hendricks County ARES Net",
-   "freq": "145.130",
-   "access": "PL 88.5",
-   "type": "Ham",
-   "county": "Hendricks",
-   "link": "https://n9hc.org/service/",
-   "day": "Tue"
-  },
-  {
-   "time": "19:30",
    "name": "Jennings County Amateur Radio Association Net",
    "freq": "145.250 / 442.975 / 443.025",
    "access": "PL 103.5",
@@ -525,26 +445,6 @@
    "type": "Ham",
    "county": "Brown",
    "link": "https://carcnet.net/",
-   "day": "Tue"
-  },
-  {
-   "time": "20:00",
-   "name": "Indiana Statewide DMR Information Net",
-   "freq": "TG 3118",
-   "access": "DMR",
-   "type": "Digital",
-   "county": "Statewide",
-   "link": "https://wiki.brandmeister.network/index.php/TalkGroup/3118",
-   "day": "Tue"
-  },
-  {
-   "time": "20:00",
-   "name": "Indiana Statewide DMR Information Net",
-   "freq": "TG 3118",
-   "access": "DMR",
-   "type": "Digital",
-   "county": "Shelby",
-   "link": "https://brvars.com/2015/02/426/",
    "day": "Tue"
   },
   {
@@ -688,16 +588,6 @@
   },
   {
    "time": "19:30",
-   "name": "Marion County ARES Net",
-   "freq": "146.700",
-   "access": "PL 88.5",
-   "type": "Ham",
-   "county": "Marion",
-   "link": "http://www.mcinares.org/",
-   "day": "Wed"
-  },
-  {
-   "time": "19:30",
    "name": "Owen County ARES Net",
    "freq": "146.985 / 146.895",
    "access": "PL 136.5",
@@ -734,16 +624,6 @@
    "type": "Ham",
    "county": "Fayette",
    "link": "https://www.arrl.org/webroot/resources/nets/client/netdetail.html?mfind=2685",
-   "day": "Wed"
-  },
-  {
-   "time": "20:00",
-   "name": "Madison County Amateur Radio Club Net",
-   "freq": "145.390 / 28.465",
-   "access": "PL 151.4",
-   "type": "Ham",
-   "county": "Madison",
-   "link": "http://andersonrepeater.club/",
    "day": "Wed"
   },
   {
@@ -945,16 +825,6 @@
   },
   {
    "time": "20:00",
-   "name": "Indiana Statewide D-STAR Net",
-   "freq": "REF024 B",
-   "access": "D-STAR",
-   "type": "Digital",
-   "county": "Statewide",
-   "link": "https://www.grantarc.net/wp-content/uploads/2023/01/State-Area-Nets.pdf",
-   "day": "Thu"
-  },
-  {
-   "time": "20:00",
    "name": "Indiana Statewide Dstar Net",
    "freq": "443.400",
    "access": "D-STAR",
@@ -981,16 +851,6 @@
    "type": "Ham",
    "county": "Knox",
    "link": "https://www.arrl.org/webroot/resources/nets/client/netdetail.html?mfind=508",
-   "day": "Thu"
-  },
-  {
-   "time": "20:00",
-   "name": "Who Knows What Net",
-   "freq": "443.950",
-   "access": "PL 77.0",
-   "type": "Ham",
-   "county": "Hamilton",
-   "link": "https://www.pigletradio.org/nets/who-knows-what-net",
    "day": "Thu"
   },
   {
@@ -1191,16 +1051,6 @@
    "county": "Delaware",
    "link": "https://www.wb9hxg.net/p/area-nets.html",
    "day": "Sat"
-  },
-  {
-   "time": "21:00",
-   "name": "WVARA HF Net",
-   "freq": "3.679",
-   "access": "SSB",
-   "type": "HF",
-   "county": "Vigo",
-   "link": "https://www.w9uuu.org/home.php",
-   "day": "Sat"
   }
  ],
  "other": [
@@ -1233,26 +1083,6 @@
    "county": "Harrison",
    "link": "https://www.arrl.org/webroot/resources/nets/client/netdetail.html?mfind=3297",
    "when": "1st Saturday of the month, 12:00 PM"
-  },
-  {
-   "time": "19:30",
-   "name": "IDHS AUXCOMM HF Net",
-   "freq": "7.250 / 3.920",
-   "access": "SSB",
-   "type": "HF",
-   "county": "Statewide",
-   "link": "https://www.wc9in.net/nets",
-   "when": "1st & 3rd Thursdays, 7:30 PM"
-  },
-  {
-   "time": "20:00",
-   "name": "IDHS AUXCOMM Net",
-   "freq": "147.210",
-   "access": "PL 88.5",
-   "type": "Ham",
-   "county": "Marion",
-   "link": "https://www.wc9in.net/nets",
-   "when": "1st & 3rd Thursdays, 8:00 PM"
   },
   {
    "time": "18:30",
@@ -1295,16 +1125,6 @@
    "when": "4th Sunday of the month, 8:00 AM"
   },
   {
-   "time": "20:00",
-   "name": "Indiana Section CW Net (QIN)",
-   "freq": "3.535",
-   "access": "CW",
-   "type": "HF",
-   "county": "Statewide",
-   "link": "https://inarrl.org/index.php/traffic",
-   "when": "Daily, 8:00 PM"
-  },
-  {
    "time": "19:00",
    "name": "Indiana Slow CW Net (ICN)",
    "freq": "3.535",
@@ -1312,16 +1132,6 @@
    "type": "HF",
    "county": "Statewide",
    "when": "Daily, 7:00 PM"
-  },
-  {
-   "time": "18:00",
-   "name": "Indiana Traffic Net (ITN)",
-   "freq": "3.910 / 3.912",
-   "access": "LSB",
-   "type": "HF",
-   "county": "Statewide",
-   "link": "https://inarrl.org/index.php/traffic",
-   "when": "Daily, 8:30 AM & 6:00 PM ET"
   },
   {
    "time": "21:00",
@@ -1414,7 +1224,12 @@
    "when": "Daily, 9:30 PM"
   }
  ],
- "differs": {},
+ "differs": {
+  "Indiana Traffic Net": "8:30 AM & 6:00 PM ET",
+  "Indiana Section CW Net (QIN)": "8:00 PM ET",
+  "Tipton County Net (K9TRC)": "7:00 PM",
+  "Indiana Statewide / AUXCOMM": "1st & 3rd Thursdays"
+ },
  "centers_note": "The middle of each county, for a rough reach circle on the map when a net's repeater site is not known.",
  "centers": {
   "Allen": [
