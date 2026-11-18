@@ -26,7 +26,7 @@
 <meta name="twitter:description" content="Indiana off-grid comms on one map: MeshCore repeaters, live NWS alerts, radio nets, and starting settings for MeshCore, Meshtastic, GMRS, ham, and Reticulum.">
 <meta name="twitter:image" content="https://mutiny19.github.io/hoop/assets/social.png?v=2">
 <meta name="twitter:image:alt" content="HOOP: Hoosier Off-Grid Open Playbook">
-<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://mutiny19.github.io/hoop/#website", "url": "https://mutiny19.github.io/hoop/", "name": "HOOP", "alternateName": "Hoosier Off-Grid Open Playbook", "description": "Off-grid communications in Indiana: MeshCore, Meshtastic, GMRS, ham radio, and Reticulum. Represents no network or organization.", "inLanguage": "en-US"}, {"@type": "WebPage", "@id": "https://mutiny19.github.io/hoop/#webpage", "url": "https://mutiny19.github.io/hoop/", "name": "HOOP: Indiana Off-Grid Comms, MeshCore Map, Nets, and Settings", "isPartOf": {"@id": "https://mutiny19.github.io/hoop/#website"}, "about": {"@type": "Place", "name": "Indiana", "address": {"@type": "PostalAddress", "addressRegion": "IN", "addressCountry": "US"}}, "dateModified": "2026-10-25"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebSite", "@id": "https://mutiny19.github.io/hoop/#website", "url": "https://mutiny19.github.io/hoop/", "name": "HOOP", "alternateName": "Hoosier Off-Grid Open Playbook", "description": "Off-grid communications in Indiana: MeshCore, Meshtastic, GMRS, ham radio, and Reticulum. Represents no network or organization.", "inLanguage": "en-US"}, {"@type": "WebPage", "@id": "https://mutiny19.github.io/hoop/#webpage", "url": "https://mutiny19.github.io/hoop/", "name": "HOOP: Indiana Off-Grid Comms, MeshCore Map, Nets, and Settings", "isPartOf": {"@id": "https://mutiny19.github.io/hoop/#website"}, "about": {"@type": "Place", "name": "Indiana", "address": {"@type": "PostalAddress", "addressRegion": "IN", "addressCountry": "US"}}}]}</script>
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#16223C">
 <link rel="apple-touch-icon" href="assets/icon-192.png">
@@ -163,6 +163,7 @@ p { margin: 0; }
 .proto .net-card-box { grid-column: 1 / -1; margin-bottom: 0; background: var(--bg); }
 .ghost { background: transparent; color: var(--fg); border: 2px solid var(--line); }
 .acc { display: grid; gap: 10px; }
+.accfb { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; }
 .proto { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
 .proto > button { width: 100%; display: grid; grid-template-columns: minmax(130px, 200px) minmax(0, 1fr) auto; gap: 6px 16px; align-items: center; text-align: left; background: transparent; color: var(--fg); border: 0; padding: 18px 20px; cursor: pointer; font: inherit; min-height: 64px; }
 .proto .nm { font: 800 20px/1.1 var(--display); }
@@ -388,7 +389,13 @@ p { margin: 0; }
   <div class="sec-head">
     <div><h2 id="set-h">Pick a radio system</h2><p>Each card starts with the official guide, then shows what Indiana uses. Radios only hear others on the same settings, so check with your neighbors.</p></div>
   </div>
-  <div class="acc" id="acc"></div>
+  <div class="acc" id="acc"><ul class="accfb" data-fallback>
+<li><b>GMRS</b>: $35 license, no exam, voice. <a href="https://www.fcc.gov/general-mobile-radio-service-gmrs">FCC: GMRS and licensing</a></li>
+<li><b>Ham radio</b>: FCC exam, voice and data. <a href="https://www.arrl.org/getting-licensed">ARRL: getting licensed</a></li>
+<li><b>MeshCore</b>: no license, text, 915 MHz. <a href="https://docs.meshcore.io/">Official docs and FAQ</a>, then <a href="meshcore/">five steps to a first message in Indiana</a></li>
+<li><b>Meshtastic</b>: no license, text, 915 MHz. <a href="https://meshtastic.org">Official site and docs</a></li>
+<li><b>Reticulum</b>: advanced, text and files over any link. <a href="https://reticulum.network">Official site and manual</a></li>
+</ul></div>
 <div id="mcHold" hidden>
 <div id="mcExtras" class="mc-extras">
 <div class="xfold xopen"><h3 class="xh">Indiana right now</h3>

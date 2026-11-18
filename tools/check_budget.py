@@ -5,6 +5,8 @@ Counts the words a visitor sees when a page first loads, from the static HTML:
 text inside a closed <details> (other than its <summary>), inside [hidden], and
 inside <script>/<style>/<template>/<pre> is not counted. Text that scripts add
 later (tables, cards, lists) is not counted either, so budgets are for prose.
+A [data-fallback] block (plain text for readers without scripts, which the page's
+script replaces at once) is not counted: keep those to names and links.
 
 A page over its budget fails. Fix it by cutting, folding, or linking to the
 source that maintains the detail; raise a budget only on purpose, in this file.
@@ -48,7 +50,7 @@ class Counter(HTMLParser):
         if tag in VOID:
             return
         a = dict(attrs)
-        hide = tag in SKIP or "hidden" in a
+        hide = tag in SKIP or "hidden" in a or "data-fallback" in a   # data-fallback: plain text a script replaces as the page loads
         if tag == "details" and "open" not in a:
             hide = "details"                      # children hidden, except the summary
         if tag == "summary" and self.stack and self.stack[-1][1] == "details":
