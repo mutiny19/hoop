@@ -438,7 +438,7 @@
             ["Path hash size", "2 bytes. This is the one Indiana convention on top of the preset; the MeshCore FAQ shows how to change it"],
             ["Region / scope", "Rarely used; ask your local group before setting one"],
             ["Channels", "Public is built in. Add:", null, ["#porchlight", "#emergency", "#meshcore", "#skywarn", "#weather", "#wx", "#test"]],
-            ["Regional channels", "One per metro, named by its airport code; #nwi covers Northwest Indiana, which has no major airport of its own:", null, ["#ind", "#fwa", "#sbn", "#evv", "#laf", "#bmg", "#huf", "#mie", "#nwi", "#sdf", "#cvg"]],
+            ["Area channels", "Channels people report using, by area. Most are named for the nearest airport; #nei is NEIMesh's for northeast Indiana, and #nwi is northwest Indiana. Your local group's own list wins:", null, ["#ind", "#nei", "#sbn", "#evv", "#laf", "#bmg", "#huf", "#mie", "#nwi", "#sdf", "#cvg"]],
             ["First thing to send", "A flood advert, so people and repeaters learn about you"]
           ]
         },

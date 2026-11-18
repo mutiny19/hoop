@@ -67,21 +67,6 @@
    }
   },
   {
-   "id": "g-nei",
-   "label": "NEIMesh",
-   "url": "https://neimesh.net",
-   "used_on": [
-    "meshcore/"
-   ],
-   "fails": 0,
-   "checked": "2026-11-11",
-   "fp": {
-    "hash": "7dc00bce930f497a5e04",
-    "words": 343,
-    "sim": "eee6db2ddd7400d8"
-   }
-  },
-  {
    "id": "g-ci",
    "label": "Central Indiana Mesh Network",
    "url": "https://www.cimesh.net",
