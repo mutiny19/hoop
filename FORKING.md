@@ -7,7 +7,7 @@ same-structure fork of another US state; the maps are the only part that takes r
 ## 1. Fork and publish
 
 1. Fork the repo (or download it and push to a fresh repo).
-2. Settings → Pages → Deploy from branch `main`, folder `/ (root)`.
+2. Settings → Pages → Source → **GitHub Actions**. The "Publish site" workflow (`.github/workflows/pages.yml`) then publishes on every push and after each scheduled data job.
 3. Settings → Actions → General → Workflow permissions → **Read and write**, so the nightly
    inventory can commit.
 4. Open the site. Everything works before you change a word, it just says Indiana.

@@ -1,5 +1,5 @@
 name: Settings change
-description: Propose a change to the settings listed on the site.
+description: A setting shown on the site no longer matches its source, or what people in Indiana use.
 title: "[settings] <protocol>: <what changes>"
 labels: ["settings"]
 body:
