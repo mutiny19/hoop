@@ -44,6 +44,8 @@ HOOP gathers the settings people in Indiana use and the nets, maps, and projects
 
 If a scheduled job stops, a weekly check opens an issue, and the map's source strip says when the repeater data is stale.
 
+[SOURCES.md](SOURCES.md) lists every feed and every outside page the site points to, rebuilt from the site itself after each change. [data/README.md](data/README.md) describes each data file for anyone who wants to build on them.
+
 ## Run it locally
 
 It is a static site with no build step. Serve the folder:

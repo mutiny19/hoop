@@ -2,7 +2,6 @@
   "protocol": "meshcore",
   "status": "work-in-progress",
   "updated": "2026-10-15",
-  "approved_by": null,
   "radio": {
     "preset": "USA",
     "frequency_mhz": 910.525,
