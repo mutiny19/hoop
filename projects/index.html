@@ -78,6 +78,13 @@ section { display: grid; gap: 14px; }
 .tag.old { border-color: var(--line); color: var(--muted); font-style: italic; }
 .how { margin: 0; padding-left: 1.3em; display: grid; gap: 10px; }
 .how b { color: var(--fg); }
+.vibe { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; }
+.vibe > summary { cursor: pointer; font-weight: 700; padding: 14px 16px; min-height: 44px; }
+.vibe > summary:focus-visible { outline: 3px solid var(--signal); outline-offset: 2px; border-radius: 12px; }
+.vibe .head { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 0 16px 10px; color: var(--muted); font-size: .92rem; }
+.vibe button.copy { flex: none; font: 600 .82rem/1 var(--body); background: transparent; color: var(--link); border: 1px solid var(--link); border-radius: 999px; padding: 7px 12px; cursor: pointer; }
+.vibe button.copy:hover { background: var(--link); color: var(--panel); }
+.vibe pre { margin: 0; padding: 14px 16px; border-top: 1px solid var(--line); white-space: pre-wrap; word-break: break-word; font: .88rem/1.5 var(--mono); max-height: 24rem; overflow: auto; }
 .empty { color: var(--muted); }
 #list { display: grid; gap: 28px; }
 </style>
@@ -129,11 +136,43 @@ section { display: grid; gap: 14px; }
     <h2 id="add-h">How to add a project</h2>
     <ol class="how">
       <li><b>Check it fits.</b> An off-grid communications project (mesh, ham, GMRS, LoRa, or anything that helps people talk without the grid), made in Indiana or used here. It has to be a public GitHub repository or a Printables model page.</li>
-      <li><b>Open the form.</b> Click <a href="https://github.com/mutiny19/hoop/issues/new?template=project.yml" target="_blank" rel="noopener">Add a project</a>. You'll need a free GitHub account; GitHub asks you to sign in first.</li>
+      <li><b>Open the form.</b> Click <a href="https://github.com/mutiny19/hoop/issues/new?template=project.yml" target="_blank" rel="noopener">Add a project</a>. You'll need a free GitHub account.</li>
       <li><b>Fill in four things:</b> the link, a category, whether it's made in Indiana or used here, and a name to show (needed for Printables; optional for GitHub when the repo name isn't how people know the project). Then click <b>Create</b>.</li>
       <li><b>Wait about a minute.</b> An automatic check replies on your issue. If something needs fixing, it says what; edit the issue (the ··· menu, then Edit) and it checks again.</li>
       <li><b>A maintainer approves it.</b> Once approved, the project shows up here within a few minutes, and the issue closes on its own.</li>
     </ol>
+    <details class="vibe">
+      <summary>Working with an AI assistant? Copy this prompt</summary>
+      <div class="head"><span>Paste it into your assistant; it walks you through the steps above.</span><button class="copy" type="button" data-copy="vibe-text">Copy</button></div>
+      <pre id="vibe-text">I made something for off-grid radio in Indiana and want it listed on HOOP, the Hoosier Off-Grid Open Playbook: https://mutiny19.github.io/hoop/projects/
+
+Help me get it ready and submitted. Go one step at a time, and ask me for anything you need.
+
+1. Ask me for the link. HOOP lists public GitHub repositories and Printables models. If my project lives somewhere else, tell me to describe it at https://github.com/mutiny19/hoop/issues/new?template=other.yml and stop there.
+
+2. Check that it fits. It should help people communicate without the grid (mesh, ham, GMRS, LoRa, or similar) and be made in Indiana or used here. If it does not fit, say so plainly.
+
+3. Make the project read well. HOOP shows the project's own words, not anything I type into the form.
+   - GitHub: the card shows the repository's "About" description. Help me write one plain sentence, under 200 characters, that says what it does and who it is for. Remind me to paste it into the About box on the repository page.
+   - Check that the repository has a README that says what the project is and how to use it, and a license file. If either is missing, help me write it.
+   - Optional: a square logo file in the repository (logo.svg or logo.png) gives the card a picture.
+   - Printables: the card shows the name I give in the form, so help me pick a clear one.
+
+4. Keep personal details out. HOOP never shows user names, callsigns, e-mail addresses, or home locations. Point out anything like that in my description or README that I may not want on a public list.
+
+5. Help me choose these, using the exact wording:
+   - Category: Mesh firmware, Mesh apps and tools, Enclosures and 3D prints, Ham and GMRS tools, Maps and monitoring, or Other
+   - Indiana connection: Made in Indiana, or Used in Indiana
+   - Name to show: required for Printables; optional for GitHub, when the repository name is not how people know the project
+
+6. Give me a link that opens the form with my project filled in. Use this pattern and URL-encode my values:
+   https://github.com/mutiny19/hoop/issues/new?template=project.yml&amp;title=%5Bproject%5D%20MY-PROJECT-NAME&amp;link=MY-PROJECT-LINK
+   Then list the category, Indiana connection, and name to show for me to pick in the form.
+
+7. Tell me what happens next: I need a free GitHub account, I press Create myself, an automatic check replies on the issue within about a minute, and a maintainer approves it before it appears on the site. Listing is not endorsement.
+
+Do not submit anything for me, and do not invent details about my project. If you are unsure, ask.</pre>
+    </details>
     <p class="note">The card shows the project's name and its own GitHub description, never a user name. To improve how a GitHub project reads here, edit the description in the repo's About box; the site picks it up the next week. To fix or remove a listing, <a href="https://github.com/mutiny19/hoop/issues/new?template=other.yml&amp;title=%5Bproject%5D%20" target="_blank" rel="noopener">open an issue</a>. A project whose page disappears is dropped automatically after two weekly checks.</p>
   </section>
 </main>
