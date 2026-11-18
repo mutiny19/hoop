@@ -312,11 +312,10 @@ p { margin: 0; }
 .needs .h.sub { margin-top: 6px; }
 .ladder { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: grid; gap: 10px; align-content: start; }
 .ladder h3 { font: 800 18px/1.2 var(--display); }
-.ladder ol { margin: 0; padding: 0; list-style: none; counter-reset: rung; display: grid; gap: 10px; }
-.ladder li { counter-increment: rung; display: grid; grid-template-columns: 28px 1fr; column-gap: 10px; row-gap: 2px; font-size: 15px; }
-.ladder li::before { content: counter(rung); grid-row: 1 / span 3; font: 700 1.3rem/1.1 var(--display); color: var(--signal); }
+.ladder ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+.ladder li { display: grid; row-gap: 2px; font-size: 15px; }
 .ladder li span { color: var(--muted); }
-.ladder li a { justify-self: start; grid-column: 2; }
+.ladder li a { justify-self: start; }
 .ladder li a + a { margin-top: 2px; }
 .ways { display: grid; gap: 12px; align-content: start; }
 .way { background: var(--ink); color: var(--ink-fg); border-radius: 12px; padding: 18px; display: grid; gap: 8px; }
@@ -377,7 +376,7 @@ p { margin: 0; }
     <div class="band-top">
       <div id="hero">
         <h1>Off-grid Indiana, on one map</h1>
-        <p class="sub">Text and talk without cell service. Pick a system to start, or see who is on the air on the map below.</p>
+        <p class="sub"><strong>A signpost for Indiana off-grid radio. Not an authority.</strong> Pick a system, or see who is on the air below.</p>
       </div>
     </div>
     </div>
@@ -402,7 +401,7 @@ p { margin: 0; }
         <div class="note">The Indiana repeaters most recently added to the official map and heard in the last 30 days.</div>
       </section>
       <section class="dpanel" style="flex: 1 1 100%" aria-label="Interstate coverage">
-        <div class="h"><b>Interstate coverage in Indiana</b><span class="note"><span class="dot" style="background:#FFA8A8"></span>Needs a repeater · <span class="dot" style="background:#FFD43B"></span>Repeater quiet 30+ days · <span class="dot" style="background:#8CE99A"></span>Covered · <span id="covDate">MeshCore Map, nightly</span></span></div>
+        <div class="h"><b>Interstate coverage in Indiana</b><span class="note"><span class="dot" style="background:#FFA8A8"></span>No repeater heard · <span class="dot" style="background:#FFD43B"></span>Repeater quiet 30+ days · <span class="dot" style="background:#8CE99A"></span>Covered · <span id="covDate">MeshCore Map, nightly</span></span></div>
         <div class="cov" id="cov"></div>
       </section>
     </div>
@@ -416,28 +415,27 @@ p { margin: 0; }
   </div>
 </section>
 </div></div>
-<details class="xfold"><summary>Keep Indiana on the air: ways to help</summary>
+<details class="xfold"><summary>Ways people contribute</summary>
 <div class="xbody">
-<section id="support" class="support" aria-label="Keep Indiana on the air">
-  <p class="lead">Indiana Mesh lives on <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Discord</a>. The most useful help is a high site, a repeater, or your time.</p>
+<section id="support" class="support" aria-label="Ways people contribute">
+  <p class="lead">Indiana Mesh lives on <a href="https://discord.gg/2uwyceSF37" target="_blank" rel="noopener">Discord</a>. Some run observers, some put up repeaters, some share the link. All of it helps.</p>
   <div class="sup-grid">
     <div class="needs">
       <div class="h"><b>Counties with an active repeater</b><span id="needsDate">people per active repeater</span></div>
       <div class="prog" id="prog"><div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="92" aria-valuenow="0" aria-label="Indiana counties with an active repeater"><i id="progFill"></i></div><p id="progText">Loading…</p></div>
-      <div class="h sub"><b>Where one more repeater would help the most people</b></div>
+      <div class="h sub"><b>People per active repeater, by county</b></div>
       <div id="needs" class="needs-list"><div class="county"><b>Loading…</b></div></div>
-      <p style="font-size:13px;color:var(--muted)">People per active repeater (heard in the last 30 days), highest first. Repeaters from the official MeshCore Map; population from the Census Bureau. Updated nightly.</p>
+      <p style="font-size:13px;color:var(--muted)">Highest first; repeaters heard in the last 30 days. From the official MeshCore Map and the Census Bureau, nightly.</p>
     </div>
     <div class="ladder">
-      <h3>Ways to help, smallest first</h3>
-      <ol>
-        <li><b>Check in</b><span>Sundays and Thursdays, 7:00 PM US Eastern.</span><a href="meshnet/">#meshnet</a></li>
-        <li><b>Share the invite</b><span>An image and text for your own group.</span><a href="meshnet/#share-h">Get it</a></li>
-        <li><b>Run an observer</b><span>Puts your area on the live maps and the #meshnet log.</span><a href="live/#obs-h">How</a></li>
-        <li><b>Add a project</b><span>Something made or used in Indiana.</span><a href="projects/#add-h">How</a></li>
-        <li><b>Put up a repeater</b><span>Start with the settings below, then list it on the MeshCore Map.</span><a href="https://docs.meshcore.io/" target="_blank" rel="noopener">MeshCore docs</a></li>
-        <li><b>Offer a site</b><span>A roof, tower, or grain leg. One good site can cover several counties.</span><a href="https://github.com/mutiny19/hoop/issues/new?template=listing.yml" target="_blank" rel="noopener">Offer a site</a> <a href="resources/host-a-repeater-guide.pdf" target="_blank" rel="noopener">What hosting involves</a></li>
-      </ol>
+      <h3>Things people do, in no order</h3>
+      <ul>
+        <li><b>Sharing the invite</b><span>An image and text to pass on.</span><a href="meshnet/#share-h">Get it</a></li>
+        <li><b>Running an observer</b><span>Puts an area on the live maps and the #meshnet log.</span><a href="live/#obs-h">How</a></li>
+        <li><b>Adding a project</b><span>Something made or used in Indiana.</span><a href="projects/#add">How</a></li>
+        <li><b>Putting up a repeater</b><span>Then listed on the MeshCore Map.</span><a href="https://docs.meshcore.io/" target="_blank" rel="noopener">MeshCore docs</a></li>
+        <li><b>Offering a site</b><span>A roof, tower, or grain leg. One good site can cover several counties.</span><a href="https://github.com/mutiny19/hoop/issues/new?template=listing.yml" target="_blank" rel="noopener">Offer a site</a> <a href="resources/host-a-repeater-guide.pdf" target="_blank" rel="noopener">What hosting involves</a></li>
+      </ul>
     </div>
   </div>
 </section>
@@ -446,7 +444,7 @@ p { margin: 0; }
 </div>
   <div class="sec-foot">
     <span>Running something else in Indiana? <a href="https://github.com/mutiny19/hoop/issues/new?template=other.yml" target="_blank" rel="noopener">Suggest a system</a></span>
-    <span>Settings change by proposal on GitHub · <a href="https://github.com/mutiny19/hoop/commits/main/data/settings" target="_blank" rel="noopener">Changelog</a></span>
+    <span>Each preset is its maker's own; this page follows it. · <a href="https://github.com/mutiny19/hoop/commits/main/data/settings" target="_blank" rel="noopener">History of this page</a></span>
   </div>
 </section>
 
@@ -566,7 +564,7 @@ p { margin: 0; }
 
 <script>(function(){try{if(window.matchMedia("(min-width: 861px)").matches)["reportFold","layerFold"].forEach(function(i){var d=document.getElementById(i);if(d)d.open=true;});}catch(e){}})();</script>
 <script src="assets/nets.js?v=20261111w"></script>
-<script src="assets/home.js?v=20261118d"></script>
+<script src="assets/home.js?v=20261118e"></script>
 <script src="assets/chirps.js?v=20261111t"></script>
 <script src="assets/site.js?v=20261112c"></script>
 </body>

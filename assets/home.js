@@ -376,10 +376,10 @@
       });
   }
 
-  /* ---------- interstate coverage + where repeaters are needed: nightly from the MeshCore Map and Census data ---------- */
+  /* ---------- interstate coverage + people per active repeater: nightly from the MeshCore Map and Census data ---------- */
   var ROADS = [["I-64", ["Posey", "Vanderburgh", "Gibson", "Warrick", "Spencer", "Dubois", "Perry", "Crawford", "Harrison", "Floyd"]], ["I-65", ["Lake", "Jasper", "Newton", "White", "Tippecanoe", "Clinton", "Boone", "Marion", "Hendricks", "Shelby", "Johnson", "Bartholomew", "Jackson", "Scott", "Clark"]], ["I-69", ["Steuben", "DeKalb", "Allen", "Huntington", "Wells", "Grant", "Delaware", "Madison", "Hamilton", "Marion", "Monroe", "Greene", "Daviess", "Pike", "Gibson", "Warrick", "Vanderburgh"]], ["I-70", ["Vigo", "Clay", "Putnam", "Hendricks", "Morgan", "Marion", "Hancock", "Henry", "Wayne"]], ["I-74", ["Vermillion", "Fountain", "Montgomery", "Hendricks", "Boone", "Marion", "Shelby", "Decatur", "Rush", "Ripley", "Franklin", "Dearborn"]], ["I-80/90", ["Lake", "Porter", "LaPorte", "St. Joseph", "Elkhart", "LaGrange", "Steuben"]], ["I-94", ["Lake", "Porter", "LaPorte"]]];   // Indiana counties each interstate passes through (geography)
   function renderCoverage(d) {
-    var C = d.counties || {}, cls = function (c) { var v = C[c]; return !v || !v[0] ? ["c-need", "needs a repeater"] : v[1] ? ["c-ok", "covered"] : ["c-quiet", "repeater quiet 30+ days"]; };
+    var C = d.counties || {}, cls = function (c) { var v = C[c]; return !v || !v[0] ? ["c-need", "no repeater heard"] : v[1] ? ["c-ok", "covered"] : ["c-quiet", "repeater quiet 30+ days"]; };
     $("cov").innerHTML = ROADS.map(function (r) {
       return '<div class="road"><span>' + r[0] + '</span><div class="cty">' + r[1].map(function (c) {
         var k = cls(c), v = C[c] || [0, 0];
@@ -427,7 +427,7 @@
       rows: [["2 m simplex calling", "146.520 MHz"], ["70 cm simplex calling", "446.000 MHz"], ["Repeater coordination", "Indiana Repeater Council"], ["Emergency service", "ARES, ARRL Indiana Section"]],
       links: [["ARRL: getting licensed", "arrl.org", "https://www.arrl.org/getting-licensed"], ["Indiana Ham Radio", "Made in Indiana: clubs, repeaters, nets, exams, and hamfests in all 92 counties", "https://indianahamradio.com/"], ["Find an Indiana club", "ARRL club search", "https://www.arrl.org/find-a-club"], ["ARRL Indiana Section", "arrl.org", "https://www.arrl.org/sections/view/indiana"], ["Repeater directory", "RepeaterBook", "https://www.repeaterbook.com"], ["APRS live map", "aprs.fi: packet stations on 2 m, as they report", "https://aprs.fi/#!lat=39.8&lng=-86.2&z=8"]] },
     { id: "meshcore", name: "MeshCore", then: 'Then Indiana\'s short version: <a href="meshcore/">five steps to a first message</a>.',
-      tagline: "Texts that hop repeater to repeater with no carrier, no account, no bill. The repeaters are the network.", meta: "No license · Text · 915 MHz", status: "Radio: official MeshCore {PN} preset · reviewed 2026-10-25",
+      tagline: "Texts that hop repeater to repeater with no carrier, no account, no bill. The repeaters are the network.", meta: "No license · Text · 915 MHz", status: "Radio: MeshCore's own {PN} preset, unmodified",
       views: {
         companion: {
           label: "Companion",
@@ -435,7 +435,7 @@
           rows: [
             ["Firmware", "Companion (Bluetooth), from the web flasher"],
             ["Radio preset", "{PN}: {R}"],
-            ["Path hash size", "2 bytes, on the Optimise screen (Experimental settings on older app versions). Indiana's repeaters already run 2-byte or newer; needs radio firmware 1.14+"],
+            ["Path hash size", "2 bytes. This is the one Indiana convention on top of the preset; the MeshCore FAQ shows how to change it"],
             ["Region / scope", "Rarely used; ask your local group before setting one"],
             ["Channels", "Public is built in. Add:", null, ["#porchlight", "#emergency", "#meshcore", "#skywarn", "#weather", "#wx", "#test"]],
             ["Regional channels", "One per metro, named by its airport code; #nwi covers Northwest Indiana, which has no major airport of its own:", null, ["#ind", "#fwa", "#sbn", "#evv", "#laf", "#bmg", "#huf", "#mie", "#nwi", "#sdf", "#cvg"]],
