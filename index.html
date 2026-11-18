@@ -77,10 +77,10 @@ p { margin: 0; }
 .layer[disabled] { cursor: not-allowed; color: #6E7F78; border-style: dashed; }
 .layer small { font: 500 11px/1 var(--mono); margin-left: 6px; }
 .rowh { font: 800 20px/1.2 var(--display); margin: 20px 0 10px; }
-.layerfold > summary { display: none; list-style: none; cursor: pointer; font: 600 14px/1 var(--body); border: 2px solid #4F5A70; border-radius: 999px; padding: 10px 16px; min-height: 44px; align-items: center; width: max-content; color: var(--map-fg); }
-.layerfold > summary::-webkit-details-marker { display: none; }
-.layerfold[open] > .layers { margin-top: 10px; }
-@media (max-width: 860px) { .layerfold > summary { display: inline-flex; } }
+/* The layer switches are always in view, on every screen size: a label, then one chip per layer. */
+.layerbar { display: grid; gap: 8px; margin-top: 10px; }
+.layerbar .lb { font: 600 13px/1.3 var(--body); letter-spacing: .04em; text-transform: uppercase; color: var(--map-muted); }
+@media (max-width: 560px) { .layerbar .layers { gap: 6px; } .layerbar .layer { padding: 9px 12px; font-size: 13.5px; } }
 .dashfold { margin-top: 6px; }
 .dashfold > summary { cursor: pointer; font-weight: 700; padding: 12px 0; color: var(--map-fg); }
 .proto-reticulum .nm::after { content: "ADVANCED"; font: 600 10px/1 var(--mono); letter-spacing: .08em; margin-left: 10px; padding: 3px 6px; border: 1px solid var(--line); border-radius: 4px; color: var(--muted); vertical-align: middle; }
@@ -454,14 +454,14 @@ p { margin: 0; }
   <div class="wrap">
     <h2 class="rowh maph">Indiana on the map</h2>
     <div class="onair"><b class="pill" id="pillCount">Indiana MeshCore repeaters</b><span id="pillSub">heard in the last 30 days</span><a href="https://docs.meshcore.io/faq/#512-q-how-do-i-add-a-node-to-the-meshcore-map" target="_blank" rel="noopener">Add your repeater to the map</a><a href="https://waev.app/#/live-map/@39.85,-86.30,7.00z" target="_blank" rel="noopener">Live traffic on Waev</a></div>
-    <details class="layerfold" id="layerFold"><summary>Layers</summary>
-    <div class="layers" role="group" aria-label="Map layers">
+    <div class="layerbar" id="layerFold"><span class="lb" id="layerLb">Show on the map: tap to turn on or off</span>
+    <div class="layers" role="group" aria-labelledby="layerLb">
       <button type="button" class="layer" data-layer="meshcore" aria-pressed="true">✓ MeshCore repeaters</button>
       <button type="button" class="layer" data-layer="weather" aria-pressed="true">✓ Weather alerts</button>
       <button type="button" class="layer" data-layer="nets" aria-pressed="true">✓ Nets</button>
       <button type="button" class="layer" data-layer="tropo" aria-pressed="false">Ducting estimate</button>
     </div>
-    </details>
+    </div>
 
     <div class="mapgrid">
       <div class="mapbox">
