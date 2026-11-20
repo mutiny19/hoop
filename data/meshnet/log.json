@@ -7,6 +7,223 @@
  "about": "One check-in per radio heard by community observers between 6:57 and 7:13 PM US Eastern on net nights. No names, callsigns or message text are stored.",
  "nets": [
   {
+   "date": "2026-11-19",
+   "day": "Thu",
+   "start": "2026-11-19T18:57:00-05:00",
+   "end": "2026-11-19T19:12:59-05:00",
+   "logged": "2026-11-20T00:22:30Z",
+   "messages": 104,
+   "sources": [
+    "https://map.okimesh.org",
+    "https://corescope.chicagolandmesh.org"
+   ],
+   "checkins": [
+    {
+     "time": "19:00",
+     "code": "KUMP",
+     "place": "Indianapolis Metropolitan Airport",
+     "city": "Indianapolis",
+     "state": "IN",
+     "lat": 39.9352,
+     "lon": -86.045,
+     "device": "WIO L1 E-ink",
+     "months": 4.0,
+     "hops": 3,
+     "observers": 6,
+     "regions": [
+      "IND"
+     ]
+    },
+    {
+     "time": "19:00",
+     "code": "KUMP",
+     "place": "Indianapolis Metropolitan Airport",
+     "city": "Indianapolis",
+     "state": "IN",
+     "lat": 39.9352,
+     "lon": -86.045,
+     "device": "Seeed L1 Pro",
+     "months": 4.0,
+     "hops": 2,
+     "observers": 6,
+     "regions": [
+      "IND"
+     ]
+    },
+    {
+     "time": "19:00",
+     "code": "KUMP",
+     "place": "Indianapolis Metropolitan Airport",
+     "city": "Indianapolis",
+     "state": "IN",
+     "lat": 39.9352,
+     "lon": -86.045,
+     "device": "SEED Tracker L2Pro",
+     "months": 5.0,
+     "hops": 0,
+     "observers": 6,
+     "regions": [
+      "IND"
+     ]
+    },
+    {
+     "time": "19:01",
+     "code": "KIND",
+     "place": "Indianapolis International Airport",
+     "city": "Indianapolis",
+     "state": "IN",
+     "lat": 39.7173,
+     "lon": -86.2944,
+     "device": "T096",
+     "months": 4.0,
+     "hops": 0,
+     "observers": 6,
+     "regions": [
+      "IND"
+     ]
+    },
+    {
+     "time": "19:01",
+     "code": "KUMP",
+     "place": "Indianapolis Metropolitan Airport",
+     "city": "Indianapolis",
+     "state": "IN",
+     "lat": 39.9352,
+     "lon": -86.045,
+     "device": "tdeck",
+     "months": 12.0,
+     "hops": 0,
+     "observers": 1,
+     "regions": [
+      "IND"
+     ]
+    },
+    {
+     "time": "19:01",
+     "code": "KUMP",
+     "place": "Indianapolis Metropolitan Airport",
+     "city": "Indianapolis",
+     "state": "IN",
+     "lat": 39.9352,
+     "lon": -86.045,
+     "device": "seeed L1",
+     "months": 12.0,
+     "hops": 0,
+     "observers": 8,
+     "regions": [
+      "IND"
+     ]
+    },
+    {
+     "time": "19:01",
+     "code": "KUMP",
+     "place": "Indianapolis Metropolitan Airport",
+     "city": "Indianapolis",
+     "state": "IN",
+     "lat": 39.9352,
+     "lon": -86.045,
+     "device": "cardputewr",
+     "months": 12.0,
+     "hops": 0,
+     "observers": 1,
+     "regions": [
+      "IND"
+     ]
+    },
+    {
+     "time": "19:01",
+     "code": "KUMP",
+     "place": "Indianapolis Metropolitan Airport",
+     "city": "Indianapolis",
+     "state": "IN",
+     "lat": 39.9352,
+     "lon": -86.045,
+     "device": "tdeck plus",
+     "months": 4.0,
+     "hops": 3,
+     "observers": 4,
+     "regions": [
+      "IND"
+     ]
+    },
+    {
+     "time": "19:04",
+     "code": "KTQY",
+     "device": "SENSECAP",
+     "months": 1.0,
+     "hops": 2,
+     "observers": 6,
+     "regions": [
+      "IND"
+     ]
+    },
+    {
+     "time": "19:06",
+     "code": "KUMP",
+     "place": "Indianapolis Metropolitan Airport",
+     "city": "Indianapolis",
+     "state": "IN",
+     "lat": 39.9352,
+     "lon": -86.045,
+     "device": "openHop",
+     "months": 5.0,
+     "hops": 1,
+     "observers": 6,
+     "regions": [
+      "IND"
+     ]
+    },
+    {
+     "time": "19:06",
+     "code": "KUMP",
+     "place": "Indianapolis Metropolitan Airport",
+     "city": "Indianapolis",
+     "state": "IN",
+     "lat": 39.9352,
+     "lon": -86.045,
+     "device": "openHop",
+     "months": 5.0,
+     "hops": 1,
+     "observers": 7,
+     "regions": [
+      "IND"
+     ]
+    },
+    {
+     "time": "19:06",
+     "code": "KUMP",
+     "place": "Indianapolis Metropolitan Airport",
+     "city": "Indianapolis",
+     "state": "IN",
+     "lat": 39.9352,
+     "lon": -86.045,
+     "device": "openHop",
+     "months": 5.0,
+     "hops": 1,
+     "observers": 8,
+     "regions": [
+      "IND"
+     ]
+    },
+    {
+     "time": "19:10",
+     "code": "KUMP",
+     "place": "Indianapolis Metropolitan Airport",
+     "city": "Indianapolis",
+     "state": "IN",
+     "lat": 39.9352,
+     "lon": -86.045,
+     "device": "Station G3",
+     "months": 6.0,
+     "hops": 0,
+     "observers": 6,
+     "regions": [
+      "IND"
+     ]
+    }
+   ]
+  },
+  {
    "date": "2026-11-15",
    "day": "Sun",
    "start": "2026-11-15T18:57:00-05:00",
