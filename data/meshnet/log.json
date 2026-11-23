@@ -7,6 +7,213 @@
  "about": "One check-in per radio heard by community observers between 6:57 and 7:13 PM US Eastern on net nights. No names, callsigns or message text are stored.",
  "nets": [
   {
+   "date": "2026-11-22",
+   "day": "Sun",
+   "start": "2026-11-22T18:57:00-05:00",
+   "end": "2026-11-22T19:12:59-05:00",
+   "logged": "2026-11-23T01:10:21Z",
+   "messages": 109,
+   "sources": [
+    "https://map.okimesh.org",
+    "https://corescope.chicagolandmesh.org"
+   ],
+   "checkins": [
+    {
+     "time": "19:00",
+     "code": "KUMP",
+     "place": "Indianapolis Metropolitan Airport",
+     "city": "Indianapolis",
+     "state": "IN",
+     "lat": 39.9352,
+     "lon": -86.045,
+     "device": "Seeed tracker L2Pro.",
+     "months": 5.0,
+     "hops": 0,
+     "observers": 10,
+     "regions": [
+      "IND"
+     ]
+    },
+    {
+     "time": "19:00",
+     "code": "KUMP",
+     "place": "Indianapolis Metropolitan Airport",
+     "city": "Indianapolis",
+     "state": "IN",
+     "lat": 39.9352,
+     "lon": -86.045,
+     "device": "Wio L1 Pro",
+     "months": 4.0,
+     "hops": 2,
+     "observers": 8,
+     "regions": [
+      "IND"
+     ]
+    },
+    {
+     "time": "19:01",
+     "code": "KFKR",
+     "place": "Frankfort Clinton County Regional Airport",
+     "city": "Frankfort",
+     "state": "IN",
+     "lat": 40.2734,
+     "lon": -86.5622,
+     "device": "Heltec V4",
+     "months": 2.0,
+     "hops": 2,
+     "observers": 1,
+     "regions": [
+      "LAF"
+     ]
+    },
+    {
+     "time": "19:01",
+     "code": "KUMP",
+     "place": "Indianapolis Metropolitan Airport",
+     "city": "Indianapolis",
+     "state": "IN",
+     "lat": 39.9352,
+     "lon": -86.045,
+     "device": "LILYGO T-Echo",
+     "months": 4.0,
+     "hops": 3,
+     "observers": 9,
+     "regions": [
+      "IND"
+     ]
+    },
+    {
+     "time": "19:02",
+     "code": "KUMP",
+     "place": "Indianapolis Metropolitan Airport",
+     "city": "Indianapolis",
+     "state": "IN",
+     "lat": 39.9352,
+     "lon": -86.045,
+     "device": "T1 Node",
+     "months": 4.0,
+     "hops": 2,
+     "observers": 7,
+     "regions": [
+      "IND"
+     ]
+    },
+    {
+     "time": "19:02",
+     "code": "KUMP",
+     "place": "Indianapolis Metropolitan Airport",
+     "city": "Indianapolis",
+     "state": "IN",
+     "lat": 39.9352,
+     "lon": -86.045,
+     "device": "T096",
+     "months": 6.0,
+     "hops": 1,
+     "observers": 9,
+     "regions": [
+      "IND"
+     ]
+    },
+    {
+     "time": "19:03",
+     "code": "KFWA",
+     "place": "Fort Wayne International Airport",
+     "city": "Fort Wayne",
+     "state": "IN",
+     "lat": 40.9789,
+     "lon": -85.1945,
+     "device": "T1000",
+     "months": 6.0,
+     "hops": 0,
+     "observers": 4,
+     "regions": [
+      "FWA"
+     ]
+    },
+    {
+     "time": "19:04",
+     "code": "KTYQ",
+     "place": "Indianapolis Executive Airport",
+     "city": "Indianapolis",
+     "state": "IN",
+     "lat": 40.0307,
+     "lon": -86.2514,
+     "device": "Atlavox M1",
+     "months": 1.0,
+     "hops": 0,
+     "observers": 1,
+     "regions": [
+      "IND"
+     ]
+    },
+    {
+     "time": "19:04",
+     "code": "KFWA",
+     "place": "Fort Wayne International Airport",
+     "city": "Fort Wayne",
+     "state": "IN",
+     "lat": 40.9789,
+     "lon": -85.1945,
+     "device": "",
+     "months": 4.0,
+     "hops": 1,
+     "observers": 6,
+     "regions": [
+      "AOH",
+      "FWA"
+     ]
+    },
+    {
+     "time": "19:08",
+     "code": "KUMP",
+     "place": "Indianapolis Metropolitan Airport",
+     "city": "Indianapolis",
+     "state": "IN",
+     "lat": 39.9352,
+     "lon": -86.045,
+     "device": "Station G3",
+     "months": 6.0,
+     "hops": 0,
+     "observers": 10,
+     "regions": [
+      "IND"
+     ]
+    },
+    {
+     "time": "19:08",
+     "code": "KUMP",
+     "place": "Indianapolis Metropolitan Airport",
+     "city": "Indianapolis",
+     "state": "IN",
+     "lat": 39.9352,
+     "lon": -86.045,
+     "device": "Lora32 board",
+     "months": 2.0,
+     "hops": 1,
+     "observers": 10,
+     "regions": [
+      "IND"
+     ]
+    },
+    {
+     "time": "19:10",
+     "code": "KUMP",
+     "place": "Indianapolis Metropolitan Airport",
+     "city": "Indianapolis",
+     "state": "IN",
+     "lat": 39.9352,
+     "lon": -86.045,
+     "device": "W12 Testing",
+     "months": 4.0,
+     "hops": 3,
+     "observers": 7,
+     "regions": [
+      "IND"
+     ]
+    }
+   ]
+  },
+  {
    "date": "2026-11-19",
    "day": "Thu",
    "start": "2026-11-19T18:57:00-05:00",
