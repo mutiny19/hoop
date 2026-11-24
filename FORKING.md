@@ -104,7 +104,7 @@ If you also want a log for your area, copy these:
 | Airports check-ins are placed at | `tools/meshnet_airports.json` | your states' public-use airports from OurAirports' open data, same fields; leave out codes with digits so nobody is placed on a private strip |
 | When it runs | `.github/workflows/meshnet.yml` | nothing, unless you move the time; GitHub starts scheduled runs late, so the script looks back 30 hours |
 | The page and map | `meshnet/index.html` | the map outline and projection, the airport-finder link, and the wording about your area |
-| Invite images | `assets/meshnet-invite*.png` | made by hand; replace them with your own |
+| Invite image | `assets/meshnet-invite.png` | edit `tools/meshnet_invite.html`, then `node tools/meshnet_invite.js` redraws it |
 | The log | `data/meshnet/log.json` | start it empty: `{"nets": []}` |
 
 Do not change `TZ`, `START`, or `MINUTES` at the top of `meshnet_log.py` unless every group moves
