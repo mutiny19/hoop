@@ -3,19 +3,29 @@
  "source_url": "https://indianahamradio.com/nets/schedule/",
  "data_url": "https://indianahamradio.com/data/nets.json",
  "terms": "Published for reuse by its maintainers. Corrections to these nets go to them.",
- "source_generated": "2026-11-16",
- "fetched": "2026-11-18",
+ "source_generated": "2026-11-22",
+ "fetched": "2026-11-24",
  "note": "Times are US Eastern (Central-time nets are converted). Written by tools/update_ham_nets.py; do not edit by hand.",
  "unscheduled": 54,
  "weekly": [
   {
    "time": "18:30",
    "name": "Sunday Evening DMR Net",
-   "freq": "TG 314987",
+   "freq": "441.175 / 446.175",
    "access": "DMR",
    "type": "Digital",
    "county": "Randolph",
    "link": "https://rcarc.net",
+   "day": "Sun"
+  },
+  {
+   "time": "19:00",
+   "name": "Circle of Friends Prayer net",
+   "freq": "147.015",
+   "access": "",
+   "type": "Ham",
+   "county": "DeKalb",
+   "link": "http://www.w9ou.org/",
    "day": "Sun"
   },
   {
