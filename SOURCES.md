@@ -190,7 +190,7 @@ Links the pages draw from data, such as each net's own site and each project.
 - [CHIRP](https://github.com/kk7ds/chirp)
 - [CoreScope](https://github.com/Kpa-clawbot/CoreScope)
 - [FWA Mesh](https://github.com/Bgilsing/fwamesh)
-- [Meshage](https://github.com/slack-space/meshage-community)
+- [Meshage](https://github.com/meshage-me/meshage-community)
 - [MeshCore](https://github.com/meshcore-dev/MeshCore)
 - [meshcoretomqtt](https://github.com/Cisien/meshcoretomqtt)
 - [Meshtastic firmware](https://github.com/meshtastic/firmware)
