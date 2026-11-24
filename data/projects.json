@@ -16,7 +16,7 @@
    "name": "MeshCore",
    "description": "A new lightweight, hybrid routing mesh protocol for packet radios",
    "license": "MIT",
-   "updated": "2026-11-16",
+   "updated": "2026-11-23",
    "archived": false,
    "image": "assets/projects/meshcore.webp"
   },
@@ -28,7 +28,7 @@
    "name": "firmware",
    "description": "The official firmware for Meshtastic, an open-source, off-grid mesh communication system.",
    "license": "GPL-3.0",
-   "updated": "2026-11-17",
+   "updated": "2026-11-24",
    "archived": false
   },
   {
@@ -36,7 +36,7 @@
    "name": "meshcore-firmware",
    "description": "A MeshCore fork with deep diagnostics and field reliability: crash-survival logging, boot and low-voltage protection, and MQTT mesh-observation publishing. Companion, observer and repeater roles on Heltec, RAK, XIAO, SenseCAP and RadioCore…",
    "license": "MIT",
-   "updated": "2026-11-16",
+   "updated": "2026-11-24",
    "archived": false,
    "title": "Offband",
    "category": "Mesh firmware",
@@ -45,11 +45,11 @@
    "image": "assets/projects/offband.webp"
   },
   {
-   "url": "https://github.com/slack-space/meshage-community",
+   "url": "https://github.com/meshage-me/meshage-community",
    "name": "meshage-community",
-   "description": "Official issue tracker and discussion board for the Meshage app available at https://meshage.me.",
+   "description": "Official community site for Meshage. Reticulum + Meshcore in the same app, with unified contacts and chats.",
    "license": null,
-   "updated": "2026-11-09",
+   "updated": "2026-11-24",
    "archived": false,
    "title": "Meshage",
    "category": "Mesh apps and tools",
@@ -71,7 +71,7 @@
    "name": "meshcore-client",
    "description": "Offband MeshCore: an open-source client for MeshCore LoRa mesh radios. Direct and channel chat, contact and repeater management, a live node map, and on-device message translation, over Bluetooth LE, USB serial or TCP. Android, Windows…",
    "license": "MIT",
-   "updated": "2026-11-16",
+   "updated": "2026-11-24",
    "archived": false,
    "title": "Offband MeshCore",
    "category": "Mesh apps and tools",
@@ -84,13 +84,26 @@
    "name": "porchlight-openhop-plugin",
    "description": "Porchlight: an openHop plugin that leaves the porch light on in #porchlight for anyone new to MeshCore",
    "license": "GPL-3.0",
-   "updated": "2026-11-16",
+   "updated": "2026-11-17",
    "archived": false,
    "category": "Mesh apps and tools",
    "indiana": "made",
    "added": "2026-11-06",
    "title": "Porchlight",
    "image": "assets/projects/porchlight.webp"
+  },
+  {
+   "url": "https://makerworld.com/en/models/3635220-birdhouse-drz",
+   "kind": "site",
+   "name": "BIRDHOUSE.DRZ",
+   "title": "BIRDHOUSE.DRZ",
+   "description": "BIRDHOUSE.DRZ combines a solar-powered radio enclosure with a functional birdhouse. Designed for DIY mesh projects such as MeshCore and Meshtastic, this printable enclosure accommodates your own compatible radio, battery, charging system, and antenna.",
+   "license": null,
+   "archived": false,
+   "category": "Enclosures and 3D prints",
+   "indiana": "made",
+   "added": "2026-11-17",
+   "image": "assets/projects/birdhouse-drz.webp"
   },
   {
    "url": "https://github.com/kk7ds/chirp",
@@ -100,7 +113,7 @@
    "name": "chirp",
    "description": "Official git repo for the CHIRP project",
    "license": "GPL-3.0",
-   "updated": "2026-11-17",
+   "updated": "2026-11-24",
    "archived": false,
    "image": "assets/projects/chirp.webp"
   },
@@ -118,39 +131,14 @@
    "image": "assets/projects/indiana-ham-radio.webp"
   },
   {
-   "url": "https://github.com/OKI-Mesh/CoreScope",
-   "category": "Maps and monitoring",
-   "indiana": "used",
-   "name": "CoreScope",
-   "description": "MeshCore mesh network analyzer — live packet visualization, VCR replay, channel decryption, node health, analytics",
-   "license": "GPL-3.0",
-   "updated": "2026-11-16",
-   "archived": false,
-   "image": "assets/projects/corescope.webp",
-   "title": "OKI Mesh CoreScope"
-  },
-  {
-   "url": "https://makerworld.com/en/models/3635220-birdhouse-drz",
-   "kind": "site",
-   "name": "BIRDHOUSE.DRZ",
-   "title": "BIRDHOUSE.DRZ",
-   "description": "BIRDHOUSE.DRZ combines a solar-powered radio enclosure with a functional birdhouse. Designed for DIY mesh projects such as MeshCore and Meshtastic, this printable enclosure accommodates your own compatible radio, battery, charging system, and antenna.",
-   "license": null,
-   "archived": false,
-   "category": "Enclosures and 3D prints",
-   "indiana": "made",
-   "added": "2026-11-17",
-   "image": "assets/projects/birdhouse-drz.webp"
-  },
-  {
    "url": "https://github.com/Kpa-clawbot/CoreScope",
    "category": "Maps and monitoring",
    "indiana": "used",
    "title": "CoreScope",
    "name": "CoreScope",
-   "description": "Self-hosted, open-source MeshCore packet analyzer. Collects MeshCore packets via MQTT, decodes them in real time, and presents a full web UI with live packet feed, interactive maps, channel chat, packet tracing, and per-node analytics.",
+   "description": "MeshCore mesh network analyzer — live packet visualization, VCR replay, channel decryption, node health, analytics",
    "license": "GPL-3.0",
-   "updated": "2026-11-17",
+   "updated": "2026-11-24",
    "archived": false,
    "added": "2026-11-17",
    "image": "assets/projects/corescope.webp"
@@ -161,11 +149,23 @@
    "indiana": "made",
    "title": "FWA Mesh",
    "name": "fwamesh",
-   "description": "The deployment behind fwamesh.net: a live map, packet analyzer and MQTT observer feed for the Fort Wayne, Indiana MeshCore LoRa mesh.",
+   "description": "Deployment behind fwamesh.net: CoreScope live map + MQTT observer feed and landing page for the Fort Wayne, Indiana MeshCore mesh",
    "license": "MIT",
-   "updated": "2026-11-18",
+   "updated": "2026-11-21",
    "archived": false,
    "added": "2026-11-18"
+  },
+  {
+   "url": "https://github.com/OKI-Mesh/CoreScope",
+   "category": "Maps and monitoring",
+   "indiana": "used",
+   "name": "CoreScope",
+   "description": "MeshCore mesh network analyzer — live packet visualization, VCR replay, channel decryption, node health, analytics",
+   "license": "GPL-3.0",
+   "updated": "2026-11-16",
+   "archived": false,
+   "image": "assets/projects/corescope.webp",
+   "title": "OKI Mesh CoreScope"
   }
  ]
 }
