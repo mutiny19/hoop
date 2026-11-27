@@ -40,7 +40,7 @@ jobs:
     timeout-minutes: 10
     environment:
       name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
+      url: ${{ steps.first.outputs.page_url || steps.deploy.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -48,5 +48,14 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .
+      # The upload can report success a moment before GitHub lists the file, and the publish step then finds nothing
+      # and fails. So: wait, try, and if that fails wait longer and try once more.
+      - run: sleep 20
+      - id: first
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+      - if: steps.first.outcome == 'failure'
+        run: sleep 60
       - id: deploy
+        if: steps.first.outcome == 'failure'
         uses: actions/deploy-pages@v4
