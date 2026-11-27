@@ -1,15 +1,15 @@
 name: "#meshnet check-in log"
 
-# Runs only on net nights, shortly after the 7:00-7:10 PM Indiana window closes, and logs that window alone.
-# GitHub cron is UTC and often runs late, so there are a few tries; each one is a no-op if nothing changed.
-#   EDT (summer): window closes 23:11 UTC Sun/Thu.   EST (winter): window closes 00:11 UTC Mon/Fri.
-# The script itself works out US Eastern and only logs a net that ended in the last 30 hours (scheduled runs
-# on this repo often start 5-7 hours late).
+# Logs the 7:00-7:10 PM Indiana window on net nights (Sundays and Thursdays), and that window alone.
+#   EDT (summer): window closes 23:13 UTC Sun/Thu.   EST (winter): window closes 00:13 UTC Mon/Fri.
+# GitHub starts this repo's scheduled runs two to ten hours late and drops about half of them. So the schedule
+# starts hours before the net, hourly: a run that lands within five hours of the window closing waits inside the
+# job until the window is final and logs it then; one that lands earlier, or after the net is logged, does nothing.
+# Later runs are the fallback, and the script logs any net that ended in the last 30 hours.
 on:
   schedule:
-    - cron: "25,55 23 * * 0,4"
-    - cron: "25,55 0 * * 1,5"
-    - cron: "25 1,2 * * 1,5"
+    - cron: "13 14-23 * * 0,4"
+    - cron: "13 0-3 * * 1,5"
   workflow_dispatch:
     inputs:
       date:
@@ -25,12 +25,13 @@ permissions:
   contents: write
 
 concurrency:
-  group: meshnet-log
+  group: meshnet-log-${{ github.event_name }}   # a run started by hand never queues behind a scheduled run that is waiting
   cancel-in-progress: false
 
 jobs:
   log:
     runs-on: ubuntu-latest
+    timeout-minutes: 345
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -44,6 +45,7 @@ jobs:
         run: |
           if [ "$SO_FAR" = "true" ]; then python3 tools/meshnet_log.py --so-far
           elif [ -n "$DATE" ]; then python3 tools/meshnet_log.py --date "$DATE"
+          elif [ "$GITHUB_EVENT_NAME" = "schedule" ]; then python3 tools/meshnet_log.py --wait
           else python3 tools/meshnet_log.py; fi
       - name: Commit if changed
         run: |

@@ -17,6 +17,7 @@ which is what every MeshCore app does when you join #meshnet.
   python3 tools/meshnet_log.py --date 2026-10-25   # log one net by date, while the source still holds it
 """
 import argparse, hashlib, hmac, json, os, re, struct, sys, urllib.request
+import time
 from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 
@@ -38,6 +39,7 @@ NET_DAYS = {6: "Sun", 3: "Thu"}          # Python weekday numbers
 START, MINUTES = (18, 57), 16            # 6:57:00 up to, not including, 7:13:00: the 7:00-7:10 net plus 3 minutes each side
 MAX_PAGES = 6                             # a net window is ~50-500 packets; never more than 3,000 per source
 SETTLE = timedelta(minutes=8)            # observers upload within seconds; a read this long after the window is final
+WAIT_MAX = timedelta(hours=5)             # --wait: the longest a run that started early sits until tonight's window is final
 LOOKBACK_HOURS = 30                      # scheduled runs log a net that ended in the last 30 hours (GitHub often starts them 5-7 h late)
 UA = "HOOP-meshnet-log/1.0 (+https://github.com/mutiny19/hoop)"
 
@@ -246,6 +248,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--date", help="net date in Indiana, YYYY-MM-DD (a Sunday or Thursday)")
     ap.add_argument("--so-far", action="store_true", help="during tonight's net: save the check-ins heard so far, marked in progress")
+    ap.add_argument("--wait", action="store_true", help="on a net night, if the window closes within %d hours, wait for it and then log" % (WAIT_MAX.seconds // 3600))
     ap.add_argument("--force", action="store_true", help="replace a logged net even if the new read has fewer check-ins")
     ap.add_argument("--source", action="append", help="CoreScope base URL; repeat for several (default: %s)" % ", ".join(SOURCES))
     a = ap.parse_args()
@@ -269,6 +272,16 @@ def main():
         if end > datetime.now(TZ):
             sys.exit("that net has not finished yet")
     else:
+        if a.wait:
+            # GitHub starts this repo's scheduled runs hours late and drops some, so the schedule begins well before
+            # the net. A run that lands in the hours before the window closes waits here, so the log is written
+            # minutes after the net and not whenever a late run happens to start.
+            now = datetime.now(TZ)
+            if now.weekday() in NET_DAYS:
+                due = window_for(now.date())[1] + SETTLE + timedelta(minutes=1)
+                if timedelta(0) < due - now <= WAIT_MAX:
+                    print(f"Waiting {int((due - now).total_seconds() // 60)} minutes for tonight's window to close.", flush=True)
+                    time.sleep((due - now).total_seconds())
         w = latest_window(datetime.now(TZ))
         if not w:
             print("No #meshnet window ended in the last few hours; nothing to log.")
